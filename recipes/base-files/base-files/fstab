@@ -1,0 +1,10 @@
+# stock fstab - you probably want to override this with a machine specific one
+
+rootfs               /                    auto       defaults              1  1
+proc                 /proc                proc       defaults              0  0
+sysfs                /sys                 sysfs      defaults              0  0
+devpts               /dev/pts             devpts     defaults              0  0
+tmpfs                /var/lock            tmpfs      defaults              0  0
+tmpfs                /var/run             tmpfs      defaults              0  0
+tmpfs                /dev/shm             tmpfs      mode=0777             0  0
+

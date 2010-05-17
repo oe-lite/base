@@ -1,0 +1,58 @@
+#!/bin/sh
+
+. /etc/default/rcS
+
+# Start script or program.
+startup() {
+  # Handle verbosity
+  [ "$VERBOSE" = very ] && echo "INIT: Running $@..."
+
+  case "$1" in
+	*.sh)
+		# Source shell script for speed.
+		(
+			trap - INT QUIT TSTP
+			scriptname=$1
+			shift
+			. $scriptname
+		)
+		;;
+	*)
+		"$@"
+		;;
+  esac
+}
+
+runlevel=$1
+runleveldir=/etc/rc$runlevel.d
+if [ ! -d $runleveldir ]
+then
+	echo $runleveldir does not exist
+	exit 1
+fi
+
+# Ignore CTRL-C only in this shell, so we can interrupt subprocesses.
+trap ":" INT QUIT TSTP
+
+# Set onlcr to avoid staircase effect.
+stty onlcr 0>&1
+
+# First, run the KILL scripts.
+for i in $runleveldir/K[0-9][0-9]*
+do
+	# Check if the script is there.
+	[ ! -f $i ] && continue
+
+	# Stop the service.
+	startup $i stop
+done
+
+# Now run the START scripts for this runlevel.
+for i in $runleveldir/S[0-9][0-9]*
+do
+	# Check if the script is there.
+	[ ! -f $i ] && continue
+
+	# Start the service.
+	startup $i start
+done

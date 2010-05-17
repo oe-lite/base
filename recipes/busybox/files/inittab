@@ -1,0 +1,10 @@
+#
+# Busybox's init uses a different syntax then the normal init.
+# The "-" in -/bin/sh allows job control on /dev/console.
+#
+
+::sysinit:/etc/init.d/rcS
+::askfirst:-/bin/sh
+::ctrlaltdel:/sbin/reboot
+::shutdown:/etc/init.d/rc 0
+::restart:/sbin/init

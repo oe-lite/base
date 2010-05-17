@@ -1,0 +1,22 @@
+From 4b061461d3f5cb62a6f384d80fd5a3f6be51bd25 Mon Sep 17 00:00:00 2001
+From: Denys Vlasenko <vda.linux@googlemail.com>
+Date: Tue, 02 Feb 2010 00:01:40 +0000
+Subject: tftpd: fix file creation with bogus mode. Closes bug 1021.
+
+Signed-off-by: Denys Vlasenko <vda.linux@googlemail.com>
+---
+diff --git a/networking/tftp.c b/networking/tftp.c
+index 8d60388..b2c3c03 100644
+--- a/networking/tftp.c
++++ b/networking/tftp.c
+@@ -308,7 +308,7 @@ static int tftp_protocol(
+ 
+ 	if (!ENABLE_TFTP || our_lsa) { /* tftpd */
+ 		/* Open file (must be after changing user) */
+-		local_fd = open(local_file, open_mode);
++		local_fd = open(local_file, open_mode, 0666);
+ 		if (local_fd < 0) {
+ 			error_pkt_reason = ERR_NOFILE;
+ 			strcpy((char*)error_pkt_str, "can't open file");
+--
+cgit v0.8.2.1
