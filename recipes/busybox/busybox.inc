@@ -64,12 +64,10 @@ do_configure_prepend () {
 }
 
 do_compile() {
-	unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
 	base_do_compile
 }
 
 do_install () {
-	unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
 	install -d ${D}${sysconfdir}/init.d
 	install -d ${D}${sysconfdir}/rcS.d/
 	install -d ${D}${sysconfdir}/rc0.d/
