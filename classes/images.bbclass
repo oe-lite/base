@@ -13,8 +13,8 @@ makedevs_files() {
 fakeroot do_image_build() {
     set -x
     makedevs_files ${FILES_DIR}
-    tar czf ${IMAGE_DEPLOY_DIR}/${IMAGE_FILE}.tar.gz ${FILES_DIR}
     [ -d etc ] && echo ${DATETIME} >etc/timestamp
+    tar czf ${IMAGE_DEPLOY_DIR}/${IMAGE_FILE}.tar.gz .
     create_image ${FILES_DIR} ${D}/${IMAGE_FILE}
     [ -s ${D}/${IMAGE_FILE} ] || return 1
 }
