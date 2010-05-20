@@ -1,4 +1,4 @@
-DEPENDS += "mtd-utils-native"
+DEPENDS += "mtd-utils-native-mkfs"
 
 inherit files
 inherit images
