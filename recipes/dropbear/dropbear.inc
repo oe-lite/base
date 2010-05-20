@@ -3,6 +3,7 @@ HOMEPAGE = "http://matt.ucc.asn.au/dropbear/dropbear.html"
 SECTION = "console/network"
 LICENSE = "MIT"
 DEPENDS = "zlib-dev"
+RDEPENDS_${PN} = "zlib"
 
 RPROVIDES_${PN} = "ssh sshd"
 
