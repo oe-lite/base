@@ -1,0 +1,19 @@
+--- git/common.mk.orig	2010-05-21 12:26:12.060582269 +0200
++++ git/common.mk	2010-05-21 12:27:07.471880294 +0200
+@@ -15,11 +15,11 @@
+ CPPFLAGS += -D_FILE_OFFSET_BITS=64
+ 
+ DESTDIR ?= /usr/local
+-PREFIX=/usr
+-EXEC_PREFIX=$(PREFIX)
+-SBINDIR=$(EXEC_PREFIX)/sbin
+-MANDIR=$(PREFIX)/share/man
+-INCLUDEDIR=$(PREFIX)/include
++PREFIX ?= /usr
++EXEC_PREFIX ?= $(PREFIX)
++SBINDIR ?= $(EXEC_PREFIX)/sbin
++MANDIR ?= $(PREFIX)/share/man
++INCLUDEDIR ?= $(PREFIX)/include
+ 
+ ifndef BUILDDIR
+ ifeq ($(origin CROSS),undefined)

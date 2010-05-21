@@ -1,22 +1,23 @@
 DESCRIPTION = "Tools for managing memory technology devices."
+HOMEPAGE = "http://www.linux-mtd.infradead.org/"
+LICENSE = "GPLv2"
 SECTION = "base"
 
-#FIXME: Only mkfs.* and uuidd (UUID-generation daemon) depends on
-#       util-linux-ng zlib and lzo (and libm.so). Not needed on
-#       target.
+BBCLASSEXTEND = "native"
+
 DEPENDS = "zlib${RE}-dev lzo${RE}-dev util-linux-ng${RE}-dev"
 PACKAGES =+ "${PN}-mkfs"
 FILES_${PN}-mkfs = "${sbindir}/mkfs.*"
 
-HOMEPAGE = "http://www.linux-mtd.infradead.org/"
-LICENSE = "GPLv2"
-PR = "r3"
+PR = "r4"
 
-SRC_URI = "git://git.infradead.org/mtd-utils.git;protocol=git;tag=v1.3.1"
+SRC_URI = "git://git.infradead.org/mtd-utils.git;protocol=git;tag=v1.3.1 \
+	   file://makefile-dir-layout-override.patch;patch=1"
 
 S = "${WORKDIR}/git/"
 
 EXTRA_OEMAKE = "'LDFLAGS=${LDFLAGS}' 'CFLAGS=${CFLAGS} -I${S}/include -DWITHOUT_XATTR'"
+EXTRA_OEMAKE_append_recipe-native += "'PREFIX=${prefix}' 'SBINDIR=${bindir}'"
 
 do_install () {
 	oe_runmake install DESTDIR=${D}
@@ -27,6 +28,3 @@ do_install () {
 }
 
 PARALLEL_MAKE = ""
-
-BBCLASSEXTEND = "native"
-#NATIVE_INSTALL_WORKS = "1"
