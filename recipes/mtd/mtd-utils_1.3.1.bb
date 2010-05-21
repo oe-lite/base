@@ -6,8 +6,17 @@ SECTION = "base"
 BBCLASSEXTEND = "native"
 
 DEPENDS = "zlib${RE}-dev lzo${RE}-dev util-linux-ng${RE}-dev"
-PACKAGES =+ "${PN}-mkfs"
-FILES_${PN}-mkfs = "${sbindir}/mkfs.*"
+PACKAGES =+ "${PN}-mkfs ${PN}-ubi ${PN}-core"
+
+FILES_${PN}-mkfs = "${sbindir}/mkfs.* ${sbindir}/ubinize ${sbindir}/unubi ${sbindir}/jffs2dump"
+FILES_${PN}-core = "${sbindir}/mtdinfo ${sbindir}/flashcp"
+FILES_${PN}-ubi = "${sbindir}/ubiattach ${sbindir}/ubidetach \
+    ${sbindir}/ubiformat ${sbindir}/ubimirror ${sbindir}/ubimkvol \
+    ${sbindir}/ubinfo ${sbindir}/ubirename ${sbindir}/ubirmvol \
+    ${sbindir}/ubirsvol ${sbindir}/ubiupdatevol"
+
+RDEPENDS_${PN}-mkfs = "lzo zlib"
+RDEPENDS_${PN} = "${PN}-mkfs ${PN}-ubi ${PN}-core"
 
 PR = "r4"
 

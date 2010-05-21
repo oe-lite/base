@@ -4,6 +4,6 @@ inherit images
 IMAGE_EXT = '.tar'
 
 create_image() {
-	tar -C $1 -f $2 . \
+	tar -C $1 -cf $2 . \
 	|| return 1
 }
