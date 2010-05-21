@@ -1,6 +1,6 @@
 inherit linux-kernel-base
 
-DEPENDS += "${TARGET_ARCH}-toolchain"
+DEPENDS += "${TARGET_ARCH}/toolchain"
 
 #virtual/${TARGET_PREFIX}depmod-${@get_kernelmajorversion('${PV}')} virtual/${TARGET_PREFIX}gcc${KERNEL_CCSUFFIX} 
 # we include gcc above, we dont need virtual/libc
