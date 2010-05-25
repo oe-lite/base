@@ -3,7 +3,7 @@ LICENSE = "GPL"
 
 SECTION = "base"
 PRIORITY = "required"
-RDEPENDS_${PN} = "${TARGET_ARCH}-machine-libnss-files ${TARGET_ARCH}-machine-libnss-dns"
+RDEPENDS_${PN} = "${TARGET_ARCH}/sysroot-libnss-files ${TARGET_ARCH}/sysroot-libnss-dns"
 
 INC_PR = ".0"
 

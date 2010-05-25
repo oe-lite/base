@@ -38,7 +38,7 @@ SRC_URI_append = "\
 
 PACKAGES =+ "${PN}-inetd ${PN}-syslogd ${PN}-crond ${PN}-httpd ${PN}-udhcpd ${PN}-hwclock ${PN}-mdev ${PN}-ntpd ${PN}-shutdown"
 
-RDEPENDS_${PN} = "netbase base-passwd base-files ${TARGET_ARCH}-machine-libc"
+RDEPENDS_${PN} = "netbase base-passwd base-files ${TARGET_ARCH}/sysroot-libc"
 
 FILES_${PN}-inetd = "${sysconfdir}/init.d/inetd.sh ${sysconfdir}/inetd.conf ${sysconfdir}/rcS.d/S26inetd.sh"
 FILES_${PN}-crond = "${sysconfdir}/init.d/busybox-crond"
