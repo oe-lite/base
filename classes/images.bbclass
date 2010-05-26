@@ -14,13 +14,13 @@ fakeroot do_image_build() {
     set -x
     makedevs_files ${FILES_DIR}
     [ -d etc ] && echo ${DATETIME} >etc/timestamp
-    tar czf ${IMAGE_DEPLOY_DIR}/${IMAGE_FILE}.tar.gz .
+    tar czf ${IMAGE_DEPLOY_DIR}/dump/${IMAGE_FILE}.tar.gz .
     create_image ${FILES_DIR} ${D}/${IMAGE_FILE}
     [ -s ${D}/${IMAGE_FILE} ] || return 1
 }
 EXPORT_FUNCTIONS do_image_build
 addtask image_build before do_package_install after do_files_fixup
-do_image_build[dirs] = "${IMAGE_DEPLOY_DIR} ${FILES_DIR}"
+do_image_build[dirs] = "${IMAGE_DEPLOY_DIR} ${IMAGE_DEPLOY_DIR}/dump ${FILES_DIR}"
 
 
 do_image_deploy() {
