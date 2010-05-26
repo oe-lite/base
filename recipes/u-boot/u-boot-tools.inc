@@ -27,4 +27,4 @@ do_install () {
 	done
 }
 
-BBCLASSEXTEND = "sdk"
+BBCLASSEXTEND = "sdk native"
