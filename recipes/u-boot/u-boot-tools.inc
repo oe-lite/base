@@ -23,7 +23,7 @@ U_BOOT_TOOLS ?= "mkimage"
 do_install () {
 	install -d ${D}${bindir}
 	for tool in "${U_BOOT_TOOLS}" ; do
-		install -m 0755 tools/$tool ${D}${bindir}/$tool
+		install -m 0755 tools/$tool${HOST_EXEEXT} ${D}${bindir}/$tool${HOST_EXEEXT}
 	done
 }
 
