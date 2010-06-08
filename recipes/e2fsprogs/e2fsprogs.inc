@@ -7,6 +7,9 @@ PR = "r1"
 
 BBCLASSEXTEND = "native sdk"
 
+DEPENDS = "gettext-native \
+	libblkid${RE} libuuid${RE} ${TARGET_ARCH}/sysroot-libpthread"
+
 PACKAGES =+ "${PN}-e2fsck ${PN}-mke2fs ${PN}-tune2fs ${PN}-badblocks \
 	${PN}-resize2fs ${PN}-e2freefrag ${PN}-uuidd \
 	${PN}-libext2fs ${PN}-libe2p ${PN}-libcomerr ${PN}-libss"
@@ -17,9 +20,10 @@ RPROVIDES_${PN}-e2fsck = "fsck${RE} \
 	fsck-ext2${RE} fsck-ext3${RE} fsck-ext4${RE}"
 RPROVIDES_${PN}-tune2fs = "tune2fs${RE}"
 
-DEPENDS = "gettext-native \
-	util-linux-ng${RE}-dev libblkid${RE}-dev libuuid${RE}-dev \
-	${HOST_ARCH}/sysroot-libpthread"
+RDEPENDS_${PN}-libext2fs	= "${PN}-libcomerr"
+RDEPENDS_${PN}-libe2p		= ""
+RDEPENDS_${PN}-libcomerr	= "${HOST_ARCH}/sysroot-libpthread"
+RDEPENDS_${PN}-libss		= ""
 
 RDEPENDS_${PN} = "libblkid${RE} libuuid${RE} e2fsprogs${RE}-badblocks"
 RDEPENDS_${PN}-e2fsck = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p \
@@ -29,8 +33,6 @@ RDEPENDS_${PN}-mke2fs = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p \
 RDEPENDS_${PN}-tune2fs = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p \
 	libblkid${RE} libuuid${RE}"
 RDEPENDS_${PN}-resize2fs = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p"
-RDEPENDS_${PN}-libext2fs = "${PN}-libcomerr"
-RDEPENDS_${PN}-libcomerr = "${HOST_ARCH}/sysroot-libpthread"
 
 SRC_URI = "${SOURCEFORGE_MIRROR}/e2fsprogs/e2fsprogs-${PV}.tar.gz"
 S = "${WORKDIR}/e2fsprogs-${PV}"
