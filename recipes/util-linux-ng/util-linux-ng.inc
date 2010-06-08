@@ -5,8 +5,6 @@ DEPENDS = "pkgconfig"
 
 BBCLASSEXTEND = "native"
 
-inherit autotools_stage
-AUTOTOOLS_STAGE_PKGCONFIG = "1"
 
 DEFAULT_PREFERENCE = "-1"
 
@@ -44,6 +42,7 @@ ${PN}-whereis ${PN}-whereis-doc \
 RPROVIDES_${PN}-libblkid = "libblkid${RE}"
 PROVIDES_${PN}-libblkid-dev = "libblkid${RE}-dev"
 DEPENDS_${PN}-libblkid-dev =  "${PN}-libblkid"
+inherit autotools
 
 RPROVIDES_${PN}-libuuid = "libuuid${RE}"
 PROVIDES_${PN}-libuuid-dev = "libuuid${RE}-dev"

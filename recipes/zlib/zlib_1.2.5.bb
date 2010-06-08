@@ -8,7 +8,7 @@ PR = "r1"
 SRC_URI = "http://www.zlib.net/zlib-${PV}.tar.bz2 \
 "
 
-inherit autotools_stage
+inherit autotools
 
 BBCLASSEXTEND = "native"
 
