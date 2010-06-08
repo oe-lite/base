@@ -5,7 +5,7 @@ SECTION = "base"
 
 BBCLASSEXTEND = "native"
 
-DEPENDS = "zlib${RE}-dev lzo${RE}-dev util-linux-ng${RE}-dev"
+DEPENDS = "zlib${RE}-dev lzo${RE}-dev libuuid${RE}"
 PACKAGES =+ "${PN}-mkfs ${PN}-ubi ${PN}-core"
 
 FILES_${PN}-mkfs = "${sbindir}/mkfs.* ${sbindir}/ubinize ${sbindir}/unubi ${sbindir}/jffs2dump"
