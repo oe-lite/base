@@ -1,19 +1,12 @@
 DESCRIPTION = "Util-linux-ng is a suite of essential utilities for any Linux system."
 SECTION = "base"
 LICENSE = "GPL"
-DEPENDS = "pkgconfig"
 
-BBCLASSEXTEND = "native"
+PR = "r3"
 
+BBCLASSEXTEND = "native sdk"
 
 DEFAULT_PREFERENCE = "-1"
-
-INC_PR = "r2"
-
-MA = "${@bb.data.getVar('PV', d, 1).split('.')[0]}"
-MI = "${@bb.data.getVar('PV', d, 1).split('.')[1]}"
-
-SRC_URI = "${KERNELORG_MIRROR}/pub/linux/utils/util-linux-ng/v${MA}.${MI}/util-linux-ng-${PV}.tar.bz2"
 
 PACKAGES =+ "\
 ${PN}-mount ${PN}-mount-doc \
@@ -39,14 +32,71 @@ ${PN}-taskset ${PN}-taskset-doc \
 ${PN}-whereis ${PN}-whereis-doc \
 "
 
-RPROVIDES_${PN}-libblkid = "libblkid${RE}"
-PROVIDES_${PN}-libblkid-dev = "libblkid${RE}-dev"
-DEPENDS_${PN}-libblkid-dev =  "${PN}-libblkid"
+RPROVIDES_${PN}-mount		= "mount${RE}"
+RPROVIDES_${PN}-fsck		= "fsck${RE}"
+RPROVIDES_${PN}-mkfs		= "mkfs${RE}"
+RPROVIDES_${PN}-minix		= "mkfs-minix${RE} fsck-minix${RE}"
+RPROVIDES_${PN}-cramfs		= "mkfs-cramfs${RE} fsck-cramfs${RE}"
+RPROVIDES_${PN}-bfs		= "mkfs-bfs${RE} fsck-bfs${RE}"
+RPROVIDES_${PN}-fdisk		= "fdisk${RE}"
+RPROVIDES_${PN}-sfdisk		= "sfdisk${RE}"
+RPROVIDES_${PN}-pivot-root	= "pivot-root${RE}"
+RPROVIDES_${PN}-switch-root	= "switch-root${RE}"
+RPROVIDES_${PN}-blkid		= "blkid${RE}"
+RPROVIDES_${PN}-agetty		= "agetty${RE}"
+RPROVIDES_${PN}-uuidd		= "uuidd${RE}"
+RPROVIDES_${PN}-uuidgen		= "uuidgen${RE}"
+RPROVIDES_${PN}-wall		= "wall${RE}"
+RPROVIDES_${PN}-fallocate	= "fallocate${RE}"
+RPROVIDES_${PN}-getopt		= "getopt${RE}"
+RPROVIDES_${PN}-taskset		= "taskset${RE}"
+RPROVIDES_${PN}-whereis		= "whereis${RE}"
+
+RPROVIDES_${PN}-libblkid	= "libblkid${RE}"
+PROVIDES_${PN}-libblkid-dev	= "libblkid${RE}"
+DEPENDS_${PN}-libblkid-dev	= "${PN}-libblkid"
+
+RPROVIDES_${PN}-libuuid		= "libuuid${RE}"
+PROVIDES_${PN}-libuuid-dev	= "libuuid${RE}"
+DEPENDS_${PN}-libuuid-dev	= "${PN}-libuuid"
+
+MA = "${@bb.data.getVar('PV', d, 1).split('.')[0]}"
+MI = "${@bb.data.getVar('PV', d, 1).split('.')[1]}"
+SRC_URI = "${KERNELORG_MIRROR}/pub/linux/utils/util-linux-ng/v${MA}.${MI}/util-linux-ng-${PV}.tar.bz2"
+
 inherit autotools
 
-RPROVIDES_${PN}-libuuid = "libuuid${RE}"
-PROVIDES_${PN}-libuuid-dev = "libuuid${RE}-dev"
-DEPENDS_${PN}-libuuid-dev =  "${PN}-libuuid"
+# FIXME: add DISTRO_FEATURE flags for enable/disable of ncurses, pam and nls.
+
+EXTRA_OECONF = "\
+--disable-rpath \
+--disable-largefile \
+--disable-makeinstall-chown --disable-use-tty-group \
+--without-pam \
+--disable-nls \
+--without-ncurses \
+"
+
+do_configure_prepend () {
+	cd ${S}
+	./autogen.sh
+}
+
+# Grrrr... at least some versions of util-linux-ng insists on having
+# an sbin dir even though it is told to put everything in bin.  At
+# least it seems to respect requests on dropping usr prefix
+do_install_append_recipe-native () {
+	(
+	cd ${D}
+	if [ -d sbin ] ; then
+		if [ -d bin ] ; then
+			mv sbin/* bin/
+		else
+			mv sbin bin
+		fi
+	fi
+	)
+}
 
 FILES_${PN}-mount = "${bindir}/mount ${bindir}/umount"
 FILES_${PN}-mount-doc = "${mandir}/man8/mount.8 ${mandir}/man8/umount.8"
@@ -90,35 +140,3 @@ FILES_${PN}-taskset = "${bindir}/taskset"
 FILES_${PN}-taskset-doc = "${mandir}/man1/taskset.1"
 FILES_${PN}-whereis = "${bindir}/whereis"
 FILES_${PN}-whereis-doc = "${mandir}/man1/whereis.1"
-
-# FIXME: add DISTRO_FEATURE flags for enable/disable of ncurses, pam and nls.
-
-EXTRA_OECONF = "\
---disable-rpath \
---disable-largefile \
---disable-makeinstall-chown --disable-use-tty-group \
---without-ncurses \
---without-pam \
---disable-nls \
-"
-
-do_configure_prepend () {
-	cd ${S}
-	./autogen.sh
-}
-
-# Grrrr... at least some versions of util-linux-ng insists on having
-# an sbin dir even though it is told to put everything in bin.  At
-# least it seems to respect requests on dropping usr prefix
-do_install_append_recipe-native () {
-	(
-	cd ${D}
-	if [ -d sbin ] ; then
-		if [ -d bin ] ; then
-			mv sbin/* bin/
-		else
-			mv sbin bin
-		fi
-	fi
-	)
-}

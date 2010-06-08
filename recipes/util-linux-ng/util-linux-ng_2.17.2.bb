@@ -1,3 +1,3 @@
 require util-linux-ng.inc
 
-PR = "${INC_PR}.1"
+PR_append = ".0"
