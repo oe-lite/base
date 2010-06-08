@@ -7,19 +7,23 @@ PR = "r1"
 
 BBCLASSEXTEND = "native sdk"
 
-PACKAGES =+ "${PN}-libintl ${PN}-libgettextlib ${PN}-libgettextsrc"
-
 DEPENDS = "libiconv${RE}-dev ncurses${RE}-dev expat${RE}-dev"
 DEPENDS =+ "${EXTRA_DEPENDS}"
 EXTRA_DEPENDS = "\
-${TARGET_ARCH}/sysroot-libdl \
-${TARGET_ARCH}/sysroot-libpthread \
-${TARGET_ARCH}/sysroot-libm \
-gettext-native"
+	${TARGET_ARCH}/sysroot-libdl \
+	${TARGET_ARCH}/sysroot-libpthread \
+	${TARGET_ARCH}/sysroot-libm \
+	gettext-native"
 EXTRA_DEPENDS_recipe-native = ""
 
+PACKAGES =+ "${PN}-libintl ${PN}-libgettextlib ${PN}-libgettextsrc"
+
+RPROVIDES_${PN}-libintl = "libintl${RE}"
+RPROVIDES_${PN}-libgettextlib = "libgettextlib${RE}"
+RPROVIDES_${PN}-libgettextsrc = "libgettextsrc${RE}"
+PROVIDES_${PN}-dev = "libintl${RE} libgettextlib${RE} libgettextsrc${RE}"
 DEPENDS_${PN}-dev = "${PN}-libintl ${PN}-libgettextsrc ${PN}-libgettextlib"
-DEPENDS_${PN}-libgettext = "${PN}-libintl ${PN}-libgettextsrc ${PN}-libgettextlib"
+
 RDEPENDS_${PN} = "${PN}-libgettextlib ${PN}-libgettextsrc \
 	libiconv${RE} libncurses${RE} ${HOST_ARCH}/sysroot-libm"
 DEPENDS_${PN}-libgettextsrc = "${RDEPENDS_${PN}-libggettextsrc}
@@ -48,8 +52,6 @@ EXTRA_OECONF += "\
 --with-included-glib \
 --without-emacs --without-git --without-cvs \
 "
-
-PROVIDES_${PN}-libintl = "libintl${RE}"
 
 FILES_${PN} += "${libdir}/gettext ${datadir}/gettext"
 FILES_${PN}-libintl = "${libdir}/libintl*.so.*"
