@@ -2,34 +2,27 @@ DESCRIPTION = "Dropbear is a lightweight SSH and SCP Implementation"
 HOMEPAGE = "http://matt.ucc.asn.au/dropbear/dropbear.html"
 SECTION = "console/network"
 LICENSE = "MIT"
+
+PR = "r4"
+
 DEPENDS = "zlib-dev"
 RDEPENDS_${PN} = "zlib"
 
 RPROVIDES_${PN} = "ssh sshd"
 
 SRC_URI = "http://matt.ucc.asn.au/dropbear/releases/dropbear-${PV}.tar.gz \
-	   file://urandom-xauth-changes-to-options.h.patch;patch=1 \
-	   file://configure.patch;patch=1 \
 	   file://fix-2kb-keys.patch;patch=1 \
-	   file://allow-nopw.patch \
 	   file://init"
+# add file://allow-nopw.patch to allow password-less logins
 
 inherit autotools
 
-CFLAGS_prepend = " -I. "
-LD = "${CC}"
+CFLAGS_append += "-D_GNU_SOURCE -DXAUTH_COMMAND=\\"xauth\\ -q\\""
 
 SBINCOMMANDS = "dropbear dropbearkey dropbearconvert"
 BINCOMMANDS = "dbclient ssh scp"
 EXTRA_OEMAKE = 'MULTI=1 SCPPROGRESS=1 PROGRAMS="${SBINCOMMANDS} ${BINCOMMANDS}"'
 EXTRA_OECONF = "--disable-shadow "
-
-do_configure_prepend() {
-	if [ "x${DISTRO}" != "xfamiliar" -a "${DISTRO_TYPE}" = "debug" ]; then
-		oenote "WARNING: applying allow-nopw.patch which allows password-less logins!"
-		patch -p1 < ${WORKDIR}/allow-nopw.patch
-	fi
-}
 
 do_install() {
 	install -d ${D}${sysconfdir} \
@@ -58,19 +51,3 @@ do_install() {
 	chmod 755 ${D}${sysconfdir}/init.d/dropbear
 	ln -s ../init.d/dropbear ${D}${sysconfdir}/rcS.d/S25dropbear
 }
-
-# pkg_postinst () {
-# 	update-alternatives --install ${bindir}/scp scp ${sbindir}/dropbearmulti 20
-# 	update-alternatives --install ${bindir}/ssh ssh ${sbindir}/dropbearmulti 20
-# }
-
-# pkg_postrm_append () {
-#   if [ -f "${sysconfdir}/dropbear/dropbear_rsa_host_key" ]; then
-#         rm ${sysconfdir}/dropbear/dropbear_rsa_host_key
-#   fi
-#   if [ -f "${sysconfdir}/dropbear/dropbear_dss_host_key" ]; then
-#         rm ${sysconfdir}/dropbear/dropbear_dss_host_key
-#   fi
-#   update-alternatives --remove ssh ${bindir}/dropbearmulti
-#   update-alternatives --remove scp ${bindir}/dropbearmulti
-# }
