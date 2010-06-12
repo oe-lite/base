@@ -19,3 +19,5 @@ oe_runconf() {
 	--libdir=${libdir} \
 	--includedir=${includedir}
 }
+
+PARALLEL_MAKE = ""
