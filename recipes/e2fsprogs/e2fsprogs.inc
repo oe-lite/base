@@ -21,8 +21,10 @@ RPROVIDES_${PN}-e2fsck = "fsck${RE} \
 RPROVIDES_${PN}-tune2fs = "tune2fs${RE}"
 
 RDEPENDS_${PN}-libext2fs	= "${PN}-libcomerr"
+DEPENDS_${PN}-libext2fs		= "${PN}-libcomerr"
 RDEPENDS_${PN}-libe2p		= ""
 RDEPENDS_${PN}-libcomerr	= "${HOST_ARCH}/sysroot-libpthread"
+DEPENDS_${PN}-libcomerr		= "${HOST_ARCH}/sysroot-libpthread"
 RDEPENDS_${PN}-libss		= ""
 
 RDEPENDS_${PN} = "libblkid${RE} libuuid${RE} e2fsprogs${RE}-badblocks"
