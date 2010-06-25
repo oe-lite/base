@@ -11,7 +11,7 @@
 # Do not configure this file. Edit /etc/default/dropbear instead!
 #
 
-PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
 DAEMON=/usr/sbin/dropbear
 NAME=dropbear
 DESC="Dropbear SSH server"

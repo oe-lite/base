@@ -3,12 +3,12 @@ HOMEPAGE = "http://matt.ucc.asn.au/dropbear/dropbear.html"
 SECTION = "console/network"
 LICENSE = "MIT"
 
-PR = "r4"
+PR = "r5"
 
 DEPENDS = "zlib-dev"
 RDEPENDS_${PN} = "zlib"
 
-RPROVIDES_${PN} = "ssh sshd"
+RPROVIDES_${PN} = "ssh sshd scp"
 
 SRC_URI = "http://matt.ucc.asn.au/dropbear/releases/dropbear-${PV}.tar.gz \
 	   file://fix-2kb-keys.patch;patch=1 \
@@ -35,9 +35,10 @@ do_install() {
 		   ${D}${localstatedir}
 
 	install -m 0755 dropbearmulti ${D}${sbindir}/
-	ln -s ${sbindir}/dropbearmulti ${D}${bindir}/dbclient
-	ln -s ${sbindir}/dropbearmulti ${D}${sbindir}/scp
-	ln -s ${sbindir}/dropbearmulti ${D}${sbindir}/ssh
+	for i in ${BINCOMMANDS}
+	do
+		ln -s ${sbindir}/dropbearmulti ${D}${bindir}/$i
+	done
 	
 	for i in ${SBINCOMMANDS}
 	do
