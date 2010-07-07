@@ -3,7 +3,7 @@ HOMEPAGE = "http://matt.ucc.asn.au/dropbear/dropbear.html"
 SECTION = "console/network"
 LICENSE = "MIT"
 
-PR = "r5"
+PR = "r6"
 
 DEPENDS = "zlib-dev"
 RDEPENDS_${PN} = "zlib"
@@ -23,6 +23,12 @@ SBINCOMMANDS = "dropbear dropbearkey dropbearconvert"
 BINCOMMANDS = "dbclient ssh scp"
 EXTRA_OEMAKE = 'MULTI=1 SCPPROGRESS=1 PROGRAMS="${SBINCOMMANDS} ${BINCOMMANDS}"'
 EXTRA_OECONF = "--disable-shadow "
+
+RECIPE_OPTIONS = "dropbear_norevdns"
+
+do_configure_append_RECIPE_OPTION_dropbear_norevdns() {
+	sed -i -e 's|\(#define DO_HOST_LOOKUP\)$|/* \1 */|' options.h
+}
 
 do_install() {
 	install -d ${D}${sysconfdir} \
