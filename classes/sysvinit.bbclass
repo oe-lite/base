@@ -3,6 +3,7 @@
 #
 
 sysvinit_install_script () {
+	echo "sysvinit_install_script $1 $2"
 	install -m 0755 $1 ${D}${sysconfdir}/init.d/$2
 }
 
@@ -59,7 +60,7 @@ python do_install_sysvinit () {
         script = '.%s/init.d/%s'%(sysconfdir, script)
 
         if not os.path.exists(script):
-            bb.note('script not found: %s'%script)
+            bb.note('sysvinit script not found: %s'%script)
             continue
 
         if not os.path.exists(dst_dir):
