@@ -3,6 +3,8 @@
 
 case "$1" in
     start)
-	ntpd $NTPSERVERS
+	if [ -n "$NTPSERVERS" ] ; then
+		ntpd $NTPSERVERS
+	fi
         ;;
 esac

@@ -3,29 +3,6 @@
 # This is a minmal rcS file for target startup
 #
 
-VERBOSE=y
-
-# Start script or program.
-startup() {
-  # Handle verbosity
-  [ "$VERBOSE" = y ] && echo "INIT: Running $@..."
-
-  case "$1" in
-	*.sh)
-		# Source shell script for speed.
-		(
-			trap - INT QUIT TSTP
-			scriptname=$1
-			shift
-			. $scriptname
-		)
-		;;
-	*)
-		"$@"
-		;;
-  esac
-}
-
 # Mount filesystems in fstab
 mount -a
 

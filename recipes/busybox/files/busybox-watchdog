@@ -1,0 +1,17 @@
+#!/bin/sh
+
+PIDFILE=/var/run/watchdog.pid
+WATCHDOG=/dev/watchdog
+
+case "$1" in
+    start)
+	[ -f $PIDFILE ] \
+	    && kill `cat $PIDFILE`
+	watchdog -t 1 -F $WATCHDOG &
+	echo $! > $PIDFILE
+        ;;
+    stop)
+	kill `cat $PIDFILE`
+	rm $PIDFILE
+	;;
+esac

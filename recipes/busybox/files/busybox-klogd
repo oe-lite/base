@@ -1,7 +1,9 @@
 #! /bin/sh
+
+#CONSOLE_LEVEL="-c N"
+
 case "$1" in
     start)
-	syslogd
-	klogd
+	klogd $CONSOLE_LEVEL
         ;;
 esac
