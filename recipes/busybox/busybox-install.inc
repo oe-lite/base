@@ -61,8 +61,6 @@ do_install () {
 }
 
 do_install_append_RECIPE_OPTION_sysvinit () {
-	install -d ${D}${sysconfdir}/init.d
-
 	if grep "CONFIG_KLOGD=y" ${S}/.config; then
 		sysvinit_install_script ${WORKDIR}/busybox-klogd
 	fi

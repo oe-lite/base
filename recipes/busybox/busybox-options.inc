@@ -37,7 +37,10 @@ RECIPE_OPTIONS = "\
 	busybox_tftp \
 	busybox_tftpd \
 		busybox_tftpd_dir \
+	busybox_which \
+	busybox_tee \
 "
+
 #
 # RECIPE_OPTION_busybox_init:
 #
@@ -57,7 +60,7 @@ RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_runit += "feature/runit busybox-run
 #
 # RECIPE_OPTION_busybox_startstopdaemon
 #
-# Default: enable start-stop-daemon utility
+# Default: enable start-stop-daemon debian utility
 DEFAULT_CONFIG_busybox_startstopdaemon		= "1"
 # Run-time provides start-stop-daemon
 RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_startstopdaemon += "feature/start-stop-daemon busybox-start-stop-daemon"
@@ -225,6 +228,22 @@ DEFAULT_CONFIG_busybox_tftpd			= "0"
 DEFAULT_CONFIG_busybox_tftpd_root		= "/tftpboot"
 # Run-time provides tftpd feature
 RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_tftpd += "feature/tftpd busybox-tftpd"
+
+#
+# RECIPE_OPTION_busybox_which
+#
+# Default: enable which debian utility
+DEFAULT_CONFIG_busybox_which			= "0"
+# Run-time provides start-stop-daemon
+RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_which += "util/which"
+
+#
+# RECIPE_OPTION_busybox_tee
+#
+# Default: enable tee debian utility
+DEFAULT_CONFIG_busybox_tee			= "0"
+# Run-time provides start-stop-daemon
+RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_tee += "util/tee"
 
 #
 # SysVinit script priorties

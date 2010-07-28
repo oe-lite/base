@@ -2,7 +2,7 @@ DESCRIPTION = "BusyBox: The Swiss Army Knife of Embedded Linux"
 HOMEPAGE = "http://www.busybox.net"
 LICENSE = "GPLv2"
 
-PR = "r1${INC_PR}"
+PR = "r2${INC_PR}"
 
 inherit sysvinit runit
 

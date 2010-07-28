@@ -205,3 +205,14 @@ do_configure_append_RECIPE_OPTION_busybox_tftpd () {
 	sed -i -e 's/^# \(CONFIG_TFTPD\) is not set/\1=y/' \
 	.config
 }
+
+do_configure_append_RECIPE_OPTION_busybox_which () {
+	sed -i -e 's/^# \(CONFIG_WHICH\) is not set/\1=y/' \
+	.config
+}
+
+do_configure_append_RECIPE_OPTION_busybox_tee () {
+	sed -i -e 's/^# \(CONFIG_TEE\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_FEATURE_TEE_USE_BLOCK_IO\) is not set/\1=y/' \
+	.config
+}
