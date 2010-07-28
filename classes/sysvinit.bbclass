@@ -4,6 +4,7 @@
 
 sysvinit_install_script () {
 	echo "sysvinit_install_script $1 $2"
+	install -d ${D}${sysconfdir}/init.d
 	install -m 0755 $1 ${D}${sysconfdir}/init.d/$2
 }
 
