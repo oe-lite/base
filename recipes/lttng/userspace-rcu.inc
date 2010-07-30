@@ -21,3 +21,4 @@ DEPENDS_${PN}-dev = "${PN} ${TARGET_ARCH}/sysroot-libpthread"
 # Package run-time dependencies
 RPROVIDES_${PN} += "liburcu"
 RDEPENDS_${PN} = "${TARGET_ARCH}/sysroot-libpthread"
+RDEPENDS_${PN}-dev = "${PN}"
