@@ -2,9 +2,9 @@ DESCRIPTION = "BusyBox: The Swiss Army Knife of Embedded Linux"
 HOMEPAGE = "http://www.busybox.net"
 LICENSE = "GPLv2"
 
-PR = "r2${INC_PR}"
+PR = "r3${INC_PR}"
 
-inherit sysvinit runit
+inherit sysvinit runit crontab
 
 require busybox-options.inc
 
@@ -24,6 +24,7 @@ SRC_URI += "\
 	file://busybox-klogd \
 	file://busybox-syslogd \
 	file://busybox-hwclock \
+	file://busybox_hwclock.crontab \
 	file://busybox-crond \
 	file://busybox-watchdog \
 	file://busybox-watchdog.runit \

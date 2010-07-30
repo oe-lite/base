@@ -1,4 +1,4 @@
-INC_PR_append = ".1"
+INC_PR_append = ".2"
 
 # busybox-watchdog sysvinit script is disabled by distro, but we need
 # it in initramfs for download mode
@@ -11,6 +11,7 @@ RECIPE_CONFIG_busybox_syslogd_rotate		= "0"
 
 # Get rid of additional cruft
 RECIPE_CONFIG_busybox_cron			= "0"
+RECIPE_CONFIG_busybox_hwclock_crontab		= "0"
 RECIPE_CONFIG_busybox_ntpd			= "0"
 
 # Don't add all the RPROVIDES, as they should be picked up from main

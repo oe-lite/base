@@ -17,6 +17,7 @@ RECIPE_OPTIONS = "\
 	busybox_logger \
 	busybox_hwclock \
 		busybox_hwclock_sysvinit_start busybox_hwclock_sysvinit_stop \
+		busybox_hwclock_crontab \
 	busybox_cron \
 		busybox_crond_sysvinit_start busybox_crond_sysvinit_stop \
 	busybox_watchdog \
@@ -120,6 +121,8 @@ RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_logger += "feature/logger busybox-l
 #
 # Default: disable hwclock utility
 DEFAULT_CONFIG_busybox_hwclock			= "1"
+# Default: synchronize to rtc every hour using crond
+DEFAULT_CONFIG_busybox_hwclock_crontab		= "7 * * * *"
 # Run-time provides hwclock feature
 RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_hwclock += "hwclock"
 
@@ -129,7 +132,7 @@ RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_hwclock += "hwclock"
 # Default: disable cron support
 DEFAULT_CONFIG_busybox_cron			= "0"
 # Run-time provides crond feature and crontab
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_cron += "feature/crond busybox-cron crontab"
+RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_cron += "crond busybox-cron crontab"
 
 #
 # RECIPE_OPTION_busybox_watchdog
