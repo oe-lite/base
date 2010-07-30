@@ -2,8 +2,10 @@
 # OE-lite class for handling sysvinit style init scripts and symlinks
 #
 
+addtask install_sysvinit after do_install before do_install_fixup
+do_install_sysvinit[dirs] = "${D}"
+
 sysvinit_install_script () {
-	echo "sysvinit_install_script $1 $2"
 	install -d ${D}${sysconfdir}/init.d
 	install -m 0755 $1 ${D}${sysconfdir}/init.d/$2
 }
@@ -11,10 +13,6 @@ sysvinit_install_script () {
 SYSVINIT_DEFAULT_RDEPENDS = ""
 SYSVINIT_DEFAULT_RDEPENDS_RECIPE_OPTION_sysvinit = "sysvinit"
 RDEPENDS_${PN}_append += "${SYSVINIT_DEFAULT_RDEPENDS}"
-
-addtask install_sysvinit after do_install before do_install_fixup
-do_install_sysvinit[dirs] = "${D}"
-EXPORT_FUNCTIONS do_install_sysvinit
 
 RECIPE_OPTIONS_append += "sysvinit"
 
@@ -26,7 +24,6 @@ python do_install_sysvinit () {
 
     options = (bb.data.getVar('RECIPE_OPTIONS', d, True) or "").split()
     sysconfdir = bb.data.getVar('sysconfdir', d, True)
-
 
     for option in options:
 
