@@ -11,7 +11,7 @@ RDEPENDS_${PN}_append += "${SYSVINIT_DEFAULT_RDEPENDS}"
 
 RECIPE_OPTIONS_append += "crontab"
 
-crontabdir ?= "${localstatedir}/spool/cron/crontab"
+crontabdir ?= "${localstatedir}/spool/cron/crontabs"
 
 python do_install_crontab () {
     import os
