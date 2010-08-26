@@ -1,7 +1,11 @@
 DESCRIPTION = "Base system password/group files."
 SECTION = "base"
-PR = "r1"
 LICENSE = "GPL"
+
+PR = "r2"
+
+RECIPE_OPTIONS = "passwd_root"
+DEFAULT_CONFIG_passwd_root = "$1$L9mzJfTZ$2ED5as2K2yZ98CN/BQuy1."
 
 SRC_URI = "${DEBIAN_MIRROR}/main/b/base-passwd/base-passwd_${PV}.tar.gz"
 
@@ -15,5 +19,5 @@ do_install () {
 }
 
 do_install_append () {
-	sed -i 's#^root:.*#root:$1$roLh0nu9$eOcbErcvq7K9sJxLIuMwS1:0:0:root:/:/bin/sh#g' ${D}${sysconfdir}/passwd
+	sed -i 's#^root:.*#root:${RECIPE_OPTION_passwd_root}:0:0:root:/:/bin/sh#g' ${D}${sysconfdir}/passwd
 }
