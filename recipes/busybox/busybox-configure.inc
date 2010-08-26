@@ -219,3 +219,8 @@ do_preconfigure_append_RECIPE_OPTION_busybox_tee () {
 	       -e 's/^# \(CONFIG_FEATURE_TEE_USE_BLOCK_IO\) is not set/\1=y/' \
 	.config
 }
+
+do_preconfigure_append_RECIPE_OPTION_busybox_su () {
+	sed -i -e 's/^# \(CONFIG_SU\) is not set/\1=y/' \
+	.config
+}

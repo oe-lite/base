@@ -1,3 +1,9 @@
+#
+# busybox_suid_root will be set to non-empty string if busybox needs to
+# to be installed setuid root
+#
+busybox_suid_root = ""
+
 do_install () {
 	if grep "CONFIG_INIT=y" ${S}/.config; then
 		install -d ${D}${sysconfdir}/init.d
@@ -12,6 +18,8 @@ do_install () {
 
 	unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
 	oe_runmake "CONFIG_PREFIX=${D}" install
+
+	test -n "${busybox_suid_root}" && chmod +s ${D}${base_bindir}/busybox
 
 	if grep "CONFIG_SYSLOGD=y" ${S}/.config; then
 		install -d ${D}${localstatedir}/log

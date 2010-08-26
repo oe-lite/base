@@ -40,6 +40,7 @@ RECIPE_OPTIONS = "\
 		busybox_tftpd_dir \
 	busybox_which \
 	busybox_tee \
+	busybox_su \
 "
 
 #
@@ -219,8 +220,8 @@ RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_httpd += "feature/httpd busybox-htt
 #
 # Default: disable tftp client
 DEFAULT_CONFIG_busybox_tftp			= "0"
-# Run-time provides tftp feature
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_tftp += "feature/tftp busybox-tftp"
+# Run-time provides tftp command
+RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_tftp += "cmd/tftp busybox-tftp"
 
 #
 # RECIPE_OPTION_busybox_tftpd
@@ -237,16 +238,26 @@ RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_tftpd += "feature/tftpd busybox-tft
 #
 # Default: enable which debian utility
 DEFAULT_CONFIG_busybox_which			= "0"
-# Run-time provides start-stop-daemon
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_which += "util/which"
+# Run-time provides which command
+RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_which += "cmd/which busybox-which"
 
 #
 # RECIPE_OPTION_busybox_tee
 #
 # Default: enable tee debian utility
 DEFAULT_CONFIG_busybox_tee			= "0"
-# Run-time provides start-stop-daemon
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_tee += "util/tee"
+# Run-time provides tee command
+RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_tee += "cmd/tee busybox-tee"
+
+#
+# RECIPE_OPTION_busybox_su
+#
+# Default: enable su command
+DEFAULT_CONFIG_busybox_su			= "0"
+# Run-time provides su command
+RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_su += "cmd/su busybox-su"
+# Install busybox setuid root
+busybox_suid_root_append_RECIPE_OPTION_busybox_su	= "1"
 
 #
 # SysVinit script priorties
