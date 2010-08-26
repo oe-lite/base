@@ -5,9 +5,9 @@
 addtask install_crontab after do_install before do_install_fixup
 do_install_crontab[dirs] = "${D}"
 
-SYSVINIT_DEFAULT_RDEPENDS = ""
-SYSVINIT_DEFAULT_RDEPENDS_RECIPE_OPTION_crontab = "crond"
-RDEPENDS_${PN}_append += "${SYSVINIT_DEFAULT_RDEPENDS}"
+CRONTAB_DEFAULT_RDEPENDS = ""
+CRONTAB_DEFAULT_RDEPENDS_RECIPE_OPTION_crontab = "crond"
+RDEPENDS_${PN}_append += "${CRONTAB_DEFAULT_RDEPENDS}"
 
 RECIPE_OPTIONS_append += "crontab"
 
@@ -61,7 +61,7 @@ FILES_FIXUP_CRONTAB = ""
 FILES_FIXUP_CRONTAB_append_RECIPE_OPTION_crontab = "files_fixup_crontab"
 FILES_FIXUP_FUNCS += "${FILES_FIXUP_CRONTAB}"
 files_fixup_crontab () {
-    cd ./${crontabdir}
+    cd .${crontabdir}
     for f in root.* ; do
         cat $f >> root
 	rm $f
