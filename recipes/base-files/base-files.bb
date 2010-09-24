@@ -1,8 +1,8 @@
 DESCRIPTION = "Miscellaneous files for the base system."
 LICENSE = "GPL"
-
 SECTION = "base"
 PRIORITY = "required"
+
 RDEPENDS_${PN} = "${TARGET_ARCH}/sysroot-libnss-files ${TARGET_ARCH}/sysroot-libnss-dns"
 
 INC_PR = ".0"
@@ -103,8 +103,7 @@ do_install () {
         install -m 0644 ${WORKDIR}/nsswitch.conf ${D}${sysconfdir}/
 
         ln -sf /proc/mounts ${D}${sysconfdir}/mtab
-
-	# Install device node configuration
-	install -m 0755 -d ${D}${devtable}
-	install -m 0644 ${WORKDIR}/device_table-minimal.txt ${D}${devtable}/${PN}.txt
 }
+
+inherit makedevs
+MAKEDEVS_FILES = "${WORKDIR}/device_table-minimal.txt"
