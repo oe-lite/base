@@ -6,6 +6,9 @@
 # Mount filesystems in fstab
 mount -a
 
+# Set hostname
+hostname `cat /etc/hostname`
+
 # Fire startup scripts
 . /etc/init.d/rc S
 
