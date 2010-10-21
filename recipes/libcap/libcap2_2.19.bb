@@ -1,7 +1,7 @@
 DESCRIPTION = "Libcap is a library for getting and setting POSIX.1e (formerly POSIX 6) draft 15 capabilities."
 LICENSE = "GPL,BSD"
 
-PR = "r1"
+PR = "r2"
 
 DEPENDS = "bison-native flex-native libattr"
 
@@ -16,6 +16,8 @@ BUILD_CFLAGS += "-I${S}/libcap/include"
 do_install() {
         oe_runmake 'DESTDIR=${D}' lib=${libdir} install
 }
+
+RDEPENDS_${PN} = "libattr${RE}"
 
 PACKAGES =+ "${PN}-capsh"
 FILES_${PN}-capsh = "${base_sbindir}/capsh"
