@@ -41,6 +41,7 @@ RECIPE_OPTIONS = "\
 	busybox_which \
 	busybox_tee \
 	busybox_su \
+	busybox_cmp \
 "
 
 #
@@ -258,6 +259,14 @@ DEFAULT_CONFIG_busybox_su			= "0"
 RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_su += "cmd/su busybox-su"
 # Install busybox setuid root
 busybox_suid_root_append_RECIPE_OPTION_busybox_su	= "1"
+
+#
+# RECIPE_OPTION_busybox_cmp
+#
+# Default: enable su command
+DEFAULT_CONFIG_busybox_cmp			= "0"
+# Run-time provides su command
+RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_cmp += "cmd/cmp busybox-cmp"
 
 #
 # SysVinit script priorties
