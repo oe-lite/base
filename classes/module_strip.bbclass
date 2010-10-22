@@ -16,7 +16,9 @@ do_strip_modules () {
 	done
 }
 
-python do_package_append () {
-	if (bb.data.getVar('INHIBIT_PACKAGE_STRIP', d, 1) != '1'):
-		bb.build.exec_func('do_strip_modules', d)
-}
+# FIXME: add this back, puting it to FIXUP_FUNCS or something and test that
+# it does not break anything
+#python do_package_append () {
+#	if (bb.data.getVar('INHIBIT_PACKAGE_STRIP', d, 1) != '1'):
+#		bb.build.exec_func('do_strip_modules', d)
+#}
