@@ -6,7 +6,7 @@ DEPENDS = "${HOST_ARCH}/sysroot-libdl"
 SRC_URI = "http://www.openssl.org/source/openssl-${PV}.tar.gz"
 S = "${WORKDIR}/openssl-${PV}"
 
-INC_PR = "r0"
+INC_PR = "r1"
 
 BBCLASSEXTEND = "sdk"
 
@@ -27,8 +27,7 @@ export EX_LIBS = "-lgcc -ldl"
 export AS = "${CC} -c"
 
 PACKAGES =+ "${PN}-libcrypto ${PN}-libssl ${PN}-misc ${PN}-engines"
-PROVIDES_${PN}-libcrypto = "libcrypto${RE}"
-PROVIDES_${PN}-libssl = "libssl${RE}"
+
 FILES_${PN}-libcrypto = "${libdir}/libcrypto${SOLIBS}"
 FILES_${PN}-libssl = "${libdir}/libssl${SOLIBS}"
 FILES_${PN}-misc = "${libdir}/ssl/misc ${libdir}/ssl/openssl.cnf"
@@ -36,6 +35,12 @@ FILES_${PN}-engines = "${libdir}/ssl/engines/${SOLIBS}"
 FILES_${PN}-dev =+ "${libdir}/engines/lib*${SOLIBSDEV}"
 FILES_${PN}-dbg =+ "${libdir}/engines/.debug"
 FILES_${PN}-doc =+ "${libdir}/ssl/man"
+
+PROVIDES_${PN}-libcrypto = "libcrypto${RE}"
+PROVIDES_${PN}-libssl = "libssl${RE}"
+
+RPROVIDES_${PN}-libcrypto = "libcrypto${RE}"
+RPROVIDES_${PN}-libssl = "libssl${RE}"
 
 do_configure_prepend_darwin () {
 	sed -i -e '/version-script=openssl\.ld/d' Configure
