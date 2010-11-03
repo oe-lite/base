@@ -1,0 +1,37 @@
+--- vsftpd-2.3.2/Makefile	2009-05-22 21:44:52.000000000 +0200
++++ vsftpd-2.3.2_patch/Makefile	2010-11-03 10:42:32.804496001 +0100
+@@ -8,6 +8,9 @@
+ LIBS	=	`./vsf_findlibs.sh`
+ LINK	=	-Wl,-s
+ 
++SBINDIR	=	/usr/local/sbin
++MANDIR	=	/usr/local/man
++
+ OBJS	=	main.o utility.o prelogin.o ftpcmdio.o postlogin.o privsock.o \
+ 		tunables.o ftpdataio.o secbuf.o ls.o \
+ 		postprivparent.o logging.o str.o netstr.o sysstr.o strlist.o \
+@@ -24,21 +27,9 @@
+ 	$(CC) -o vsftpd $(OBJS) $(LINK) $(LIBS) $(LDFLAGS)
+ 
+ install:
+-	if [ -x /usr/local/sbin ]; then \
+-		$(INSTALL) -m 755 vsftpd /usr/local/sbin/vsftpd; \
+-	else \
+-		$(INSTALL) -m 755 vsftpd /usr/sbin/vsftpd; fi
+-	if [ -x /usr/local/man ]; then \
+-		$(INSTALL) -m 644 vsftpd.8 /usr/local/man/man8/vsftpd.8; \
+-		$(INSTALL) -m 644 vsftpd.conf.5 /usr/local/man/man5/vsftpd.conf.5; \
+-	elif [ -x /usr/share/man ]; then \
+-		$(INSTALL) -m 644 vsftpd.8 /usr/share/man/man8/vsftpd.8; \
+-		$(INSTALL) -m 644 vsftpd.conf.5 /usr/share/man/man5/vsftpd.conf.5; \
+-	else \
+-		$(INSTALL) -m 644 vsftpd.8 /usr/man/man8/vsftpd.8; \
+-		$(INSTALL) -m 644 vsftpd.conf.5 /usr/man/man5/vsftpd.conf.5; fi
+-	if [ -x /etc/xinetd.d ]; then \
+-		$(INSTALL) -m 644 xinetd.d/vsftpd /etc/xinetd.d/vsftpd; fi
++	$(INSTALL) -D -m 755 vsftpd ${SBINDIR}/vsftpd
++	$(INSTALL) -D -m 644 vsftpd.8 ${MANDIR}/man8/vsftpd.8
++	$(INSTALL) -D -m 644 vsftpd.conf.5 ${MANDIR}/man5/vsftpd.conf.5
+ 
+ clean:
+ 	rm -f *.o *.swp vsftpd
