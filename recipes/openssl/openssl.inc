@@ -14,10 +14,6 @@ AR_append = " r"
 CFLAG = "${@base_conditional('TARGET_ENDIAN', 'le', '-DL_ENDIAN', '-DB_ENDIAN', d)} \
 	-DTERMIO ${TARGET_CFLAGS}"
 
-# -02 does not work on mipsel: ssh hangs when it tries to read /dev/urandom
-CFLAG_mtx-1 := "${@'${CFLAG}'.replace('-O2', '')}"
-CFLAG_mtx-2 := "${@'${CFLAG}'.replace('-O2', '')}"
-
 PARALLEL_MAKE = ""
 
 export OE_LDFLAGS="${LDFLAGS}"
@@ -54,10 +50,10 @@ do_configure () {
 
 	target="${TARGET_OS}-${TARGET_CPU}"
 	case $target in
-	linux-gnu-arm)
-		target=linux-elf-arm
+	linux-gnueabi-arm)
+		target=linux-armv4
 		;;
-	linux-gnu-armeb)
+	linux-gnueabi-armeb)
 		target=linux-elf-armeb
 		;;
 	linux-gnu-sh3)
