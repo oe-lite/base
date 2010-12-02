@@ -1,0 +1,60 @@
+#!/bin/sh
+
+early_setup() {
+	mount -t proc proc /proc
+	mount -t sysfs sysfs /sys
+	mount -t tmpfs tmpfs /tmp
+	mdev -s
+	echo /bin/mdev >/proc/sys/kernel/hotplug
+}
+
+undo_setup() {
+	umount /tmp
+	umount /sys
+	umount /proc
+}
+
+read_args() {
+	[ -z "$CMDLINE" ] && CMDLINE=`cat /proc/cmdline`
+	for arg in $CMDLINE; do
+		optarg=`expr "x$arg" : 'x[^=]*=\(.*\)'`
+		case $arg in
+		rootfstype=*)
+			ROOT_FSTYPE=$optarg ;;
+		break=*)
+			BREAK=$optarg ;;
+		esac
+    done
+}
+
+break_boot() {
+	[ -z "$BREAK" ] && return
+
+	undo_setup
+	exec /sbin/init
+}
+
+
+mount_root() {
+	fatal "No root"
+}
+
+fatal() {
+	echo $1
+	echo
+	undo_setup
+	exec /sbin/init
+}
+
+early_setup
+
+read_args
+
+break_boot
+
+ROOT_MOUNT=/rootfs
+mount_root
+
+undo_setup
+
+exec busybox switch_root $ROOT_MOUNT /sbin/init

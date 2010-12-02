@@ -6,7 +6,7 @@ LICENSE = "MIT"
 PR = "r6"
 
 DEPENDS = "zlib-dev"
-RDEPENDS_${PN} = "zlib"
+RDEPENDS_${PN} = "zlib ${HOST_ARCH}/sysroot-libgcc"
 
 RPROVIDES_${PN} = "ssh sshd scp"
 
