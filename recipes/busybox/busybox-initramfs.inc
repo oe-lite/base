@@ -1,5 +1,3 @@
-INC_PR_append = ".2"
-
 # busybox-watchdog sysvinit script is disabled by distro, but we need
 # it in initramfs for download mode
 RECIPE_CONFIG_busybox_watchdog_sysvinit_start	= "70"

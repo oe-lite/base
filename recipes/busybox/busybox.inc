@@ -2,8 +2,6 @@ DESCRIPTION = "BusyBox: The Swiss Army Knife of Embedded Linux"
 HOMEPAGE = "http://www.busybox.net"
 LICENSE = "GPLv2"
 
-PR = "r3${INC_PR}"
-
 inherit sysvinit runit crontab
 
 require busybox-options.inc
