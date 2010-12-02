@@ -149,9 +149,9 @@ RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_watchdog += "watchdog"
 # RECIPE_OPTION_busybox_udhcpc
 #
 # Default: disable udhcp client
-DEFAULT_CONFIG_busybox_udhcpc			= "0"
+DEFAULT_CONFIG_busybox_udhcpc			= "1"
 # Default: disable RFC3397 support
-DEFAULT_CONFIG_busybox_udhcpc_rfc3397		= "0"
+DEFAULT_CONFIG_busybox_udhcpc_rfc3397		= "1"
 # Run-time provides dhcpc feature
 RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_udhcpc += "feature/dhcpc busybox-udhcpc"
 

@@ -1,0 +1,1 @@
+require initramfs-init.inc
