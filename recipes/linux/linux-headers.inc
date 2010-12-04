@@ -9,6 +9,7 @@ DEFAULT_DEPENDS = ""
 PACKAGES = "${PN}"
 PROVIDES_${PN} = "linux-headers"
 
+require conf/fetch/kernelorg.conf
 SRC_URI = "${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/linux-${PV}.tar.bz2"
 S = "${WORKDIR}/linux-${PV}"
 

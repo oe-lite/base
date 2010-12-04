@@ -13,6 +13,7 @@ SYSVINIT_SCRIPT_netbase			= "networking"
 
 inherit sysvinit
 
+require conf/fetch/debian.conf
 SRC_URI = "${DEBIAN_MIRROR}/main/n/netbase/netbase_${PV}.tar.gz \
            file://init \
            file://hosts \

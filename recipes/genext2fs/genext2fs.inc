@@ -4,6 +4,7 @@ SECTION = "console/utils"
 
 inherit autotools
 
+require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/genext2fs/genext2fs-${PV}.tar.gz"
 
 BBCLASSEXTEND = "native sdk"

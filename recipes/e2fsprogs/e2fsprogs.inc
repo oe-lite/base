@@ -36,6 +36,7 @@ RDEPENDS_${PN}-tune2fs = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p \
 	libblkid${RE} libuuid${RE}"
 RDEPENDS_${PN}-resize2fs = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p"
 
+require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/e2fsprogs/e2fsprogs-${PV}.tar.gz"
 S = "${WORKDIR}/e2fsprogs-${PV}"
 

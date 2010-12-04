@@ -32,6 +32,7 @@ RDEPENDS_${PN}-libgettextsrc = "${PN}-libgettextlib \
 DEPENDS_${PN}-libgettextlib = "${RDEPENDS_${PN}-libggettextlib}
 RDEPENDS_${PN}-libgettextlib = "libiconv${RE} libncurses${RE}"
 
+require conf/fetch/gnu.conf
 SRC_URI = "${GNU_MIRROR}/gettext/gettext-${PV}.tar.gz"
 
 PARALLEL_MAKE = ""

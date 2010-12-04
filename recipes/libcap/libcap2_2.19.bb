@@ -5,6 +5,7 @@ PR = "r2"
 
 DEPENDS = "bison-native flex-native libattr"
 
+require conf/fetch/kernelorg.conf
 SRC_URI = "${KERNELORG_MIRROR}/pub/linux/libs/security/linux-privs/libcap2/libcap-${PV}.tar.bz2"
 
 SRC_URI += "file://make.patch;patch=1"

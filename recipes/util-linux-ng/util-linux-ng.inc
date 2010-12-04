@@ -60,6 +60,7 @@ RPROVIDES_${PN}-libuuid		= "libuuid${RE}"
 PROVIDES_${PN}-libuuid-dev	= "libuuid${RE}"
 DEPENDS_${PN}-libuuid-dev	= "${PN}-libuuid"
 
+require conf/fetch/kernelorg.conf
 MA = "${@bb.data.getVar('PV', d, 1).split('.')[0]}"
 MI = "${@bb.data.getVar('PV', d, 1).split('.')[1]}"
 SRC_URI = "${KERNELORG_MIRROR}/pub/linux/utils/util-linux-ng/v${MA}.${MI}/util-linux-ng-${PV}.tar.bz2"

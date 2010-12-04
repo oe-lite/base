@@ -10,6 +10,7 @@ DEPENDS		= "libusb1"
 DEPENDS_${PN}	= "libusb1"
 RDEPENDS_${PN}	= "libusb1"
 
+require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/libusb/${P}.tar.bz2"
 
 inherit autotools
