@@ -17,4 +17,4 @@ RECIPE_CONFIG_busybox_ntpd			= "0"
 # busybox-os-initramfs, and assume that it has the desired features.
 RPROVIDES_${PN}_append = ""
 
-FILESPATHPKG = "${PF}:${P}:${PN}:${BP}:${BPN}:busybox-${PV}-${PR}:busybox-${PV}:busybox:files"
+FILESPATHPKG = "${PF}:${P}:${PN}:${BP}:${BPN}:busybox-${PV}:busybox:files"
