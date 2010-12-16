@@ -3,8 +3,6 @@ HOMEPAGE = "http://www.tcpdump.org/"
 SECTION = "libs/network"
 LICENSE = "BSD"
 
-PR = "r1"
-
 DEPENDS = "flex-native bison-native"
 
 DEPENDS_${PN} = "${PN}-dev"
