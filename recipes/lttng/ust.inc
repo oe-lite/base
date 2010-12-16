@@ -3,8 +3,6 @@ SECTION = "devel"
 PRIORITY = "optional"
 LICENSE = "GPLv2 and LGPLv2.1"
 
-PR = "r3"
-
 inherit sysvinit
 
 RECIPE_OPTIONS = "ust_sysvinit_start ust_sysvinit_stop ust_basedir"
