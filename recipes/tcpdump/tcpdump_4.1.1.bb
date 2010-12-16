@@ -4,8 +4,6 @@ LICENSE = "BSD"
 SECTION = "console/network"
 PRIORITY = "optional"
 
-PR = "r1"
-
 DEPENDS = "libpcap"
 
 SRC_URI = " \
