@@ -1,6 +1,5 @@
 DESCRIPTION = "Very high-quality data compression program"
 SECTION = "console/utils"
-PR = "r1"
 
 LICENSE = "bzip2"
 FILESPATHPKG =. "bzip2-${PV}:"
