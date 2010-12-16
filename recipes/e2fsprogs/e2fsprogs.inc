@@ -3,8 +3,6 @@ HOMEPAGE = "http://e2fsprogs.sf.net"
 LICENSE = "GPL"
 SECTION = "base"
 
-PR = "r1"
-
 BBCLASSEXTEND = "native sdk"
 
 DEPENDS = "gettext-native \
