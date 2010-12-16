@@ -2,8 +2,6 @@ DESCRIPTION = "Sanitized Linux kernel headers"
 SECTION = "devel"
 LICENSE = "GPL"
 
-PR_append = ".0"
-
 DEFAULT_DEPENDS = ""
 
 PACKAGES = "${PN}"
