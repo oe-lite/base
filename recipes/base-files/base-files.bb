@@ -5,8 +5,6 @@ PRIORITY = "required"
 
 RDEPENDS_${PN} = "${TARGET_ARCH}/sysroot-libnss-files ${TARGET_ARCH}/sysroot-libnss-dns"
 
-INC_PR = ".0"
-
 SRC_URI = " \
            file://motd \
            file://host.conf \
