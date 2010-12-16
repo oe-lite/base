@@ -1,8 +1,6 @@
 DESCRIPTION = "Commands for Manipulating Filesystem Extended Attributes"
 LICENSE = "GPLv2+"
 
-PR = "r1"
-
 BBCLASSEXTEND = "native"
 
 SRC_URI = "http://mirror.its.uidaho.edu/pub/savannah/attr/attr-${PV}.src.tar.gz"
