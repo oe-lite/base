@@ -1,7 +1,5 @@
 require ${BPN}.inc
 
-PR_append = ".0"
-
 SRC_URI_append = "\
 	file://autofoo.patch;patch=1 \
 	file://sysrootfix.patch;patch=1 \

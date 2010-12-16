@@ -6,8 +6,6 @@ HOMEPAGE = "http://pkg-config.freedesktop.org/wiki/"
 SECTION = "console/utils"
 LICENSE = "GPL"
 
-PR = "r1"
-
 BBCLASSEXTEND = "native sdk"
 
 SRC_URI = "http://pkgconfig.freedesktop.org/releases/pkg-config-${PV}.tar.gz"
