@@ -3,7 +3,6 @@ LICENSE = "GPL"
 SECTION = "base"
 PRIORITY = "required"
 SRC_URI = "file://makedevs.c"
-PR = "r6"
 
 do_configure() {
 	install -m 0644 ${WORKDIR}/makedevs.c ${S}/
