@@ -3,8 +3,6 @@ SECTION = "console/network"
 HOMEPAGE = "http://www.netperf.org/"
 LICENSE = "netperf"
 
-PR = "r1"
-
 SRC_URI="${NETPERF_MIRROR}/netperf-${PV}.tar.bz2 \
          file://init"
 
