@@ -18,8 +18,6 @@ FILES_${PN}-ubi = "${sbindir}/ubiattach ${sbindir}/ubidetach \
 RDEPENDS_${PN}-mkfs = "lzo zlib"
 RDEPENDS_${PN} = "${PN}-mkfs ${PN}-ubi ${PN}-core"
 
-PR = "r4"
-
 SRC_URI = "git://git.infradead.org/mtd-utils.git;protocol=git;tag=v1.3.1 \
 	   file://makefile-dir-layout-override.patch;patch=1"
 
