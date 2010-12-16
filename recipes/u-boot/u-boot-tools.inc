@@ -4,8 +4,6 @@ SECTION = "bootloader"
 PROVIDES_${PN}_recipe-native += "u-boot-mkimage${RE}"
 RPROVIDES_${PN} += "u-boot-mkimage${RE}"
 
-PR = "r3"
-
 BBCLASSEXTEND = "sdk native"
 
 RECIPE_OPTIONS = "u_boot_tools_config"
