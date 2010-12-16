@@ -1,7 +1,5 @@
 require expat.inc
 
-PR_append = ".0"
-
 SRC_URI += "file://autotools.patch;patch=1"
 
 do_configure() {

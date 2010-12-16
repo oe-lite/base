@@ -3,8 +3,6 @@ HOMEPAGE = "http://expat.sf.net/"
 SECTION = "libs"
 LICENSE = "MIT"
 
-PR = "r1"
-
 BBCLASSEXTEND = "native sdk"
 
 require conf/fetch/sourceforge.conf
