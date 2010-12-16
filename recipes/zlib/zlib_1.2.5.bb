@@ -3,10 +3,8 @@ SECTION = "libs"
 PRIORITY = "required"
 HOMEPAGE = "http://www.gzip.org/zlib/"
 LICENSE = "zlib"
-PR = "r1"
 
-SRC_URI = "http://www.zlib.net/zlib-${PV}.tar.bz2 \
-"
+SRC_URI = "http://www.zlib.net/zlib-${PV}.tar.bz2"
 
 inherit autotools
 
