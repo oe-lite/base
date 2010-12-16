@@ -2,8 +2,6 @@ DESCRIPTION = "Util-linux-ng is a suite of essential utilities for any Linux sys
 SECTION = "base"
 LICENSE = "GPL"
 
-PR = "r3"
-
 BBCLASSEXTEND = "native sdk"
 
 DEFAULT_PREFERENCE = "-1"
