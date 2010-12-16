@@ -2,8 +2,6 @@ DESCRIPTION = "Base system password/group files."
 SECTION = "base"
 LICENSE = "GPL"
 
-PR = "r2"
-
 RECIPE_OPTIONS = "passwd_root"
 DEFAULT_CONFIG_passwd_root = "$1$L9mzJfTZ$2ED5as2K2yZ98CN/BQuy1."
 
