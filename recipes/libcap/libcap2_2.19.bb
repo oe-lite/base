@@ -1,8 +1,6 @@
 DESCRIPTION = "Libcap is a library for getting and setting POSIX.1e (formerly POSIX 6) draft 15 capabilities."
 LICENSE = "GPL,BSD"
 
-PR = "r2"
-
 DEPENDS = "bison-native flex-native libattr"
 
 require conf/fetch/kernelorg.conf
