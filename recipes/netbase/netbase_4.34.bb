@@ -3,8 +3,6 @@ infrastructure for basic TCP/IP based networking."
 SECTION = "base"
 LICENSE = "GPL"
 
-PR = "r0"
-
 RECIPE_OPTIONS = "netbase_sysvinit_start netbase sysvinit_stop"
 
 DEFAULT_CONFIG_netbase_sysvinit_start	= "20"
