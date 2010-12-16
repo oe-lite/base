@@ -3,8 +3,6 @@ HOMEPAGE = "http://www.gnu.org/software/libiconv"
 SECTION = "libs"
 PRIORITY = "optional"
 
-PR = "r3"
-
 BBCLASSEXTEND = "native sdk"
 
 PACKAGES =+ "${PN}-tools"
