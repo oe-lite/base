@@ -8,7 +8,6 @@ HOMEPAGE = "http://www.boost.org/"
 SECTION = "devel"
 PRIORITY = "optional"
 LICENSE = "Boost Software License"
-INC_PR = "r1"
 
 require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/boost/boost-jam-${PV}.tgz"
