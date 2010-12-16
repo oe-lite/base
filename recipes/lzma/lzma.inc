@@ -3,8 +3,6 @@ HOMEPAGE = "http://www.7-zip.org/"
 LICENSE = "LGPL"
 DEPENDS = "zlib"
 
-PR = "r1"
-
 SRC_URI = "http://downloads.sourceforge.net/sevenzip/lzma${@bb.data.getVar('PV',d,1).replace('.','')}.tar.bz2 \
            file://001-large_files.patch;patch=1 \
            file://002-lzmp.patch;patch=1 \
