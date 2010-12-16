@@ -6,8 +6,6 @@ DEPENDS = "${HOST_ARCH}/sysroot-libdl"
 SRC_URI = "http://www.openssl.org/source/openssl-${PV}.tar.gz"
 S = "${WORKDIR}/openssl-${PV}"
 
-INC_PR = "r1"
-
 BBCLASSEXTEND = "sdk"
 
 AR_append = " r"

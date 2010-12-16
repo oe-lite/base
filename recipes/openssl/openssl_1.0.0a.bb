@@ -2,8 +2,6 @@ inherit pkgconfig
 
 require openssl.inc
 
-PR = "${INC_PR}.0"
-
 SRC_URI += "file://configure-targets.patch \
             file://shared-libs.patch \
             file://debian.patch \
