@@ -3,8 +3,6 @@ HOMEPAGE = "http://matt.ucc.asn.au/dropbear/dropbear.html"
 SECTION = "console/network"
 LICENSE = "MIT"
 
-PR = "r6"
-
 DEPENDS = "zlib-dev"
 RDEPENDS_${PN} = "zlib ${HOST_ARCH}/sysroot-libgcc"
 

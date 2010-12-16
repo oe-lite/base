@@ -2,8 +2,6 @@ DESCRIPTION = "Pregenerated dropbear rsa host key"
 SECTION = "console/network"
 RDEPENDS_${PN} = "dropbear"
 
-PR="r1"
-
 SRC_URI = "file://dropbear_rsa_host_key"
 
 do_install() {
