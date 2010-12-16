@@ -1,7 +1,5 @@
 require gettext.inc
 
-PR_append = ".0"
-
 SRC_URI += "\
 file://autotools.patch;patch=1 \
 file://wchar-uclibc.patch;patch=1 \

@@ -3,8 +3,6 @@ HOMEPAGE = "http://www.gnu.org/software/gettext/gettext.html"
 SECTION = "libs"
 LICENSE = "GPLv3"
 
-PR = "r1"
-
 BBCLASSEXTEND = "native sdk"
 
 DEPENDS = "libiconv${RE}-dev ncurses${RE}-dev expat${RE}-dev"
