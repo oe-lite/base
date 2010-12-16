@@ -3,7 +3,6 @@ HOMEPAGE = "http://www.oberhumer.com/opensource/lzo/"
 LICENSE = "GPLv2"
 SECTION = "libs"
 PRIORITY = "optional"
-PR = "r1"
 
 SRC_URI = "http://www.oberhumer.com/opensource/lzo/download/lzo-${PV}.tar.gz \
            file://autofoo.patch;patch=1 \
