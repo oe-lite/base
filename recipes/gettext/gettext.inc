@@ -1,6 +1,5 @@
 DESCRIPTION = "The GNU internationalization library."
 HOMEPAGE = "http://www.gnu.org/software/gettext/gettext.html"
-SECTION = "libs"
 LICENSE = "GPLv3"
 
 BBCLASSEXTEND = "native sdk"
@@ -36,6 +35,10 @@ SRC_URI = "${GNU_MIRROR}/gettext/gettext-${PV}.tar.gz"
 PARALLEL_MAKE = ""
 
 inherit autotools
+AUTOTOOLS_AUTORECONF = "1"
+acpaths = "-I ${S}/gnulib-local/m4/ \
+           -I ${S}/gettext-runtime/m4 \
+           -I ${S}/gettext-tools/m4"
 
 EXTRA_OECONF += "\
 --disable-rpath --enable-relocatable \
