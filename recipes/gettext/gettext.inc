@@ -32,8 +32,6 @@ RDEPENDS_${PN}-libgettextlib = "libiconv${RE} libncurses${RE}"
 require conf/fetch/gnu.conf
 SRC_URI = "${GNU_MIRROR}/gettext/gettext-${PV}.tar.gz"
 
-PARALLEL_MAKE = ""
-
 inherit autotools
 AUTOTOOLS_AUTORECONF = "1"
 acpaths = "-I ${S}/gnulib-local/m4/ \
