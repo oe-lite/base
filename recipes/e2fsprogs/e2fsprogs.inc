@@ -6,7 +6,9 @@ SECTION = "base"
 BBCLASSEXTEND = "native sdk"
 
 DEPENDS = "gettext-native \
-	libblkid${RE} libuuid${RE} ${TARGET_ARCH}/sysroot-libpthread"
+	libblkid${RE} libuuid${RE} ${TOOLCHAIN_DEPENDS}"
+TOOLCHAIN_DEPENDS = "${TARGET_ARCH}/sysroot-libpthread"
+TOOLCHAIN_DEPENDS_recipe-native = ""
 
 PACKAGES =+ "${PN}-e2fsck ${PN}-mke2fs ${PN}-tune2fs ${PN}-badblocks \
 	${PN}-resize2fs ${PN}-e2freefrag ${PN}-uuidd \
