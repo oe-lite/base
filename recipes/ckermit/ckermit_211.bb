@@ -48,7 +48,8 @@ SRC_URI = "ftp://kermit.columbia.edu/kermit/archives/cku${PV}.tar.gz"
 # ... and probably other distro's as well.
 #
 
-S = "${WORKDIR}"
+S = "${WORKDIR}/src"
+do_unpack[dirs] = "${S}"
 
 export CC2 = "${CC}"
 export BINDIR = "${bindir}"
