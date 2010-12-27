@@ -11,6 +11,18 @@ PV_MAJOR = "${@bb.data.getVar('PV',d,1).split('.')[0]}.${@bb.data.getVar('PV',d,
 
 SRC_URI = "http://www.nano-editor.org/dist/v${PV_MAJOR}/nano-${PV}.tar.gz"
 
-inherit autotools gettext
+inherit autotools
+AUTOTOOLS_AUTORECONF = "1"
 
-EXTRA_OECONF = "--enable-all"
+EXTRA_OECONF = "\
+    --disable-largefile \
+    --disable-rpath \
+    --disable-extra \
+    --disable-help \
+    --disable-mouse \
+    --disable-speller \
+    --disable-glibtest \
+    --disable-utf8 \
+"
+
+inherit gettext
