@@ -27,9 +27,9 @@ do_configure_prepend() {
 
 do_install_append() {
     install -d ${D}/${sysconfdir}
-    install -m 644 ${WORKDIR}/ntp.conf ${D}/${sysconfdir}
+    install -m 644 ${SRCDIR}/ntp.conf ${D}/${sysconfdir}
     install -d ${D}/${sysconfdir}/network/if-up.d
-    install -m 755 ${WORKDIR}/ntpdate ${D}/${sysconfdir}/network/if-up.d
+    install -m 755 ${SRCDIR}/ntpdate ${D}/${sysconfdir}/network/if-up.d
 }
 
 inherit sysvinit
