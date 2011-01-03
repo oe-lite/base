@@ -48,7 +48,7 @@ do_install() {
 	do
 		ln -s ./dropbearmulti ${D}${sbindir}/$i
 	done
-	cat ${WORKDIR}/init | sed -e 's,/etc,${sysconfdir},g' \
+	cat ${SRCDIR}/init | sed -e 's,/etc,${sysconfdir},g' \
 				  -e 's,/usr/sbin,${sbindir},g' \
 				  -e 's,/var,${localstatedir},g' \
 				  -e 's,/usr/bin,${bindir},g' \
