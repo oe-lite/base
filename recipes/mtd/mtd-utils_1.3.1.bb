@@ -21,7 +21,7 @@ RDEPENDS_${PN} = "${PN}-mkfs ${PN}-ubi ${PN}-core"
 SRC_URI = "git://git.infradead.org/mtd-utils.git;protocol=git;tag=v1.3.1 \
 	   file://makefile-dir-layout-override.patch;patch=1"
 
-S = "${WORKDIR}/git/"
+S = "${SRCDIR}/git/"
 
 EXTRA_OEMAKE = "'LDFLAGS=${LDFLAGS}' 'CFLAGS=${CFLAGS} -I${S}/include -DWITHOUT_XATTR'"
 EXTRA_OEMAKE_append_recipe-native += "'PREFIX=${prefix}' 'SBINDIR=${bindir}'"
