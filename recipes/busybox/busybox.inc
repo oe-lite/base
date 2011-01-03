@@ -8,8 +8,6 @@ require busybox-options.inc
 
 SRC_URI = "http://www.busybox.net/downloads/busybox-${PV}.tar.bz2"
 
-S="${WORKDIR}/busybox-${PV}"
-
 SRC_URI += "\
 	file://defconfig \
 	file://groups \
