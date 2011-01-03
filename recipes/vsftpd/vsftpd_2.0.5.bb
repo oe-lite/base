@@ -26,9 +26,9 @@ do_install() {
         install -d ${D}${mandir}/man5
         oe_runmake 'DESTDIR=${D}' install
         install -d ${D}${sysconfdir}
-        install -m 0755 ${WORKDIR}/vsftpd.conf ${D}${sysconfdir}/vsftpd.conf
+        install -m 0755 ${SRCDIR}/vsftpd.conf ${D}${sysconfdir}/vsftpd.conf
         install -d ${D}${sysconfdir}/init.d/
-        install -m 755 ${WORKDIR}/init ${D}${sysconfdir}/init.d/vsftpd
+        install -m 755 ${SRCDIR}/init ${D}${sysconfdir}/init.d/vsftpd
 }
 
 pkg_postinst() {
