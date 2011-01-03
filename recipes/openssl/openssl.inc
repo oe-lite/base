@@ -4,7 +4,6 @@ LICENSE = "openssl"
 SECTION = "libs/network"
 DEPENDS = "${HOST_ARCH}/sysroot-libdl"
 SRC_URI = "http://www.openssl.org/source/openssl-${PV}.tar.gz"
-S = "${WORKDIR}/openssl-${PV}"
 
 BBCLASSEXTEND = "sdk"
 
