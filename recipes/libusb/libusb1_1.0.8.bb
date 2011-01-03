@@ -5,7 +5,7 @@ LICENSE = "LGPLv2.1"
 
 require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/libusb/libusb-${PV}.tar.bz2;name=tar"
-S = "${WORKDIR}/libusb-${PV}"
+S = "${SRCDIR}/libusb-${PV}"
 
 DEPENDS = "${TARGET_ARCH}/sysroot-libpthread"
 
