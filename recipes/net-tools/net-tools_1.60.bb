@@ -70,12 +70,12 @@ PARALLEL_MAKE = ""
 
 # Copy config and source over to the source directory
 do_configure() {
-    cp ${WORKDIR}/net-tools-${PV}-config.h    ${S}/config.h
-    cp ${WORKDIR}/net-tools-${PV}-config.make ${S}/config.make
-    cp ${WORKDIR}/ether-wake.c ${S}
-    cp ${WORKDIR}/ether-wake.8 ${S}/man/en_US
-    cp ${WORKDIR}/mii-diag.c   ${S}
-    cp ${WORKDIR}/mii-diag.8   ${S}/man/en_US
+    cp ${SRCDIR}/net-tools-${PV}-config.h    ${S}/config.h
+    cp ${SRCDIR}/net-tools-${PV}-config.make ${S}/config.make
+    cp ${SRCDIR}/ether-wake.c ${S}
+    cp ${SRCDIR}/ether-wake.8 ${S}/man/en_US
+    cp ${SRCDIR}/mii-diag.c   ${S}
+    cp ${SRCDIR}/mii-diag.8   ${S}/man/en_US
 }
 
 do_compile() {
