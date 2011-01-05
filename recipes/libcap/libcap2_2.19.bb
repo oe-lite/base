@@ -8,8 +8,6 @@ SRC_URI = "${KERNELORG_MIRROR}/pub/linux/libs/security/linux-privs/libcap2/libca
 
 SRC_URI += "file://make.patch;patch=1"
 
-S = "${WORKDIR}/libcap-${PV}"
-
 BUILD_CFLAGS += "-I${S}/libcap/include"
 
 do_install() {

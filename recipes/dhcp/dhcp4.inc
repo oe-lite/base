@@ -19,7 +19,7 @@ EXTRA_OECONF = "--with-srv-lease-file=${localstatedir}/lib/dhcp/dhcpd.leases \
                 --with-cli6-lease-file=${localstatedir}/lib/dhcp/dhclient6.leases"
 
 do_compile_prepend () {
-	cp -f ${WORKDIR}/site.h ${S}/includes
+	cp -f ${SRCDIR}/site.h ${S}/includes
 }
 
 do_install_append () {
@@ -27,15 +27,15 @@ do_install_append () {
 	install -d ${D}${sysconfdir}/default
 	install -d ${D}${sysconfdir}/dhcp
 	install -d ${D}${localstatedir}/lib/dhcp
-	install -m 0755 ${WORKDIR}/init-relay ${D}${sysconfdir}/init.d/dhcp-relay
-	install -m 0644 ${WORKDIR}/default-relay ${D}${sysconfdir}/default/dhcp-relay
-	install -m 0755 ${WORKDIR}/init-server ${D}${sysconfdir}/init.d/dhcp-server
-	install -m 0644 ${WORKDIR}/default-server ${D}${sysconfdir}/default/dhcp-server
+	install -m 0755 ${SRCDIR}/init-relay ${D}${sysconfdir}/init.d/dhcp-relay
+	install -m 0644 ${SRCDIR}/default-relay ${D}${sysconfdir}/default/dhcp-relay
+	install -m 0755 ${SRCDIR}/init-server ${D}${sysconfdir}/init.d/dhcp-server
+	install -m 0644 ${SRCDIR}/default-server ${D}${sysconfdir}/default/dhcp-server
 
 	rm -f ${D}${sysconfdir}/dhclient.conf
 	rm -f ${D}${sysconfdir}/dhcpd.conf
-	install -m 0644 ${WORKDIR}/dhclient.conf ${D}${sysconfdir}/dhcp/dhclient.conf
-	install -m 0644 ${WORKDIR}/dhcpd.conf ${D}${sysconfdir}/dhcp/dhcpd.conf
+	install -m 0644 ${SRCDIR}/dhclient.conf ${D}${sysconfdir}/dhcp/dhclient.conf
+	install -m 0644 ${SRCDIR}/dhcpd.conf ${D}${sysconfdir}/dhcp/dhcpd.conf
 
 	install -d ${D}${base_sbindir}/
 	mv ${D}${sbindir}/dhclient ${D}${base_sbindir}/

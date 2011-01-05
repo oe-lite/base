@@ -7,5 +7,5 @@ SRC_URI_append = "\
 "
 
 do_configure_prepend () {
-	install -m 0644 ${WORKDIR}/glibconfig-sysdefs.h glib-1.2.*/
+	install -m 0644 ${SRCDIR}/glibconfig-sysdefs.h glib-1.2.*/
 }

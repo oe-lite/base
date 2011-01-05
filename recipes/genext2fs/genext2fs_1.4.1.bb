@@ -1,3 +1,3 @@
 require genext2fs.inc
 
-SRC_URI_append += "file://volume.patch"
+SRC_URI += "file://volume.patch"

@@ -19,7 +19,7 @@ python do_install_runit () {
 
     options = (bb.data.getVar('RECIPE_OPTIONS', d, True) or "").split()
     runitservicedir = bb.data.getVar('runitservicedir', d, True)
-    workdir = bb.data.getVar('WORKDIR', d, True)
+    srcdir = bb.data.getVar('SRCDIR', d, True)
 
     for option in options:
 
@@ -37,7 +37,7 @@ python do_install_runit () {
 
         script = bb.data.getVar('RUNIT_SCRIPT_'+name, d, True)
         if not script:
-            script = workdir + '/' + svname + '.runit'
+            script = srcdir + '/' + svname + '.runit'
 
         dst_dir = '.%s/%s'%(runitservicedir, svname)
 	dst = dst_dir + '/run'

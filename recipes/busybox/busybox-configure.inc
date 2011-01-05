@@ -4,7 +4,7 @@ addtask preconfigure after do_patch before do_configure
 do_preconfigure[dirs] = "${S}"
 
 do_preconfigure () {
-	install -m 0644 ${WORKDIR}/defconfig ${S}/.config
+	install -m 0644 ${SRCDIR}/defconfig ${S}/.config
 }
 
 do_preconfigure_append_RECIPE_OPTION_busybox_init () {
@@ -60,14 +60,14 @@ do_preconfigure_append_RECIPE_OPTION_busybox_mdev () {
 do_preconfigure_append_RECIPE_OPTION_busybox_klogd () {
 	sed -i -e 's/^# \(CONFIG_KLOGD\) is not set/\1=y/' \
 	.config
-	sed -i -e 's/^#\(CONSOLE_LEVEL\)=.*/\1="-c ${RECIPE_OPTION_busybox_klogd_conlevel}"/' ${WORKDIR}/busybox-klogd
+	sed -i -e 's/^#\(CONSOLE_LEVEL\)=.*/\1="-c ${RECIPE_OPTION_busybox_klogd_conlevel}"/' ${SRCDIR}/busybox-klogd
 }
 
 do_preconfigure_append_RECIPE_OPTION_busybox_syslogd () {
 	sed -i -e 's/^# \(CONFIG_SYSLOGD\) is not set/\1=y/' \
 	       -e 's/^# \(CONFIG_FEATURE_SYSLOGD_DUP\) is not set/\1=y/' \
 	.config
-	sed -i -e 's|^\(FILE\)=.*|\1="${RECIPE_OPTION_busybox_syslogd_file}"|' ${WORKDIR}/busybox-syslogd
+	sed -i -e 's|^\(FILE\)=.*|\1="${RECIPE_OPTION_busybox_syslogd_file}"|' ${SRCDIR}/busybox-syslogd
 }
 
 do_preconfigure_append_RECIPE_OPTION_busybox_syslogd_ipc () {
@@ -81,7 +81,7 @@ do_preconfigure_append_RECIPE_OPTION_busybox_syslogd_ipc () {
 do_preconfigure_append_RECIPE_OPTION_busybox_syslogd_remote () {
 	sed -i -e 's/^# \(CONFIG_FEATURE_REMOTE_LOG\) is not set/\1=y/' \
 	.config
-	sed -i -e 's/^#\(REMOTE\)=.*/\1="-R ${RECIPE_OPTION_busybox_syslogd_remote_host}"/' ${WORKDIR}/busybox-syslogd
+	sed -i -e 's/^#\(REMOTE\)=.*/\1="-R ${RECIPE_OPTION_busybox_syslogd_remote_host}"/' ${SRCDIR}/busybox-syslogd
 }
 
 do_preconfigure_append_RECIPE_OPTION_busybox_syslogd_rotate () {
@@ -89,7 +89,7 @@ do_preconfigure_append_RECIPE_OPTION_busybox_syslogd_rotate () {
 	.config
 	sed -i -e 's/^#\(ROTATE_SIZE\)=.*/\1="-s ${RECIPE_OPTION_busybox_syslogd_rotate_size}"/' \
 	       -e 's/^#\(ROTATE_N\)=.*/\1="-b ${RECIPE_OPTION_busybox_syslogd_rotate_n}"/' \
-	${WORKDIR}/busybox-syslogd
+	${SRCDIR}/busybox-syslogd
 }
 
 do_preconfigure_append_RECIPE_OPTION_busybox_logger () {
@@ -117,9 +117,9 @@ do_preconfigure_append_RECIPE_OPTION_busybox_watchdog () {
 	sed -i -e 's/^# \(CONFIG_WATCHDOG\) is not set/\1=y/' \
 	.config
 	sed -i -e 's|^\(WATCHDOG\)=.*|\1="${RECIPE_OPTION_busybox_watchdog_dev}"|' \
-	${WORKDIR}/busybox-watchdog
+	${SRCDIR}/busybox-watchdog
 	sed -i -e 's|^\(WATCHDOG\)=.*|\1="${RECIPE_OPTION_busybox_watchdog_dev}"|' \
-	${WORKDIR}/busybox-watchdog.runit
+	${SRCDIR}/busybox-watchdog.runit
 }
 
 do_preconfigure_append_RECIPE_OPTION_busybox_udhcpc () {

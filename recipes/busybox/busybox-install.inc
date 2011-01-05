@@ -9,11 +9,11 @@ do_install () {
 		install -d ${D}${sysconfdir}/init.d
 		install -d ${D}${sysconfdir}/rcS.d
 		install -d ${D}${sysconfdir}/rc0.d
-		install -m 644 ${WORKDIR}/inittab ${D}${sysconfdir}/
-		install -m 755 ${WORKDIR}/rcS ${D}${sysconfdir}/init.d/rcS
-		install -m 755 ${WORKDIR}/rc ${D}${sysconfdir}/init.d/rc
+		install -m 644 ${SRCDIR}/inittab ${D}${sysconfdir}/
+		install -m 755 ${SRCDIR}/rcS ${D}${sysconfdir}/init.d/rcS
+		install -m 755 ${SRCDIR}/rc ${D}${sysconfdir}/init.d/rc
 		install -d ${D}${sysconfdir}/default
-		install -m 755 ${WORKDIR}/rcS-default ${D}${sysconfdir}/default/rcS
+		install -m 755 ${SRCDIR}/rcS-default ${D}${sysconfdir}/default/rcS
 	fi
 
 	unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
@@ -30,7 +30,7 @@ do_install () {
 	fi
 
 	if grep "CONFIG_MDEV=y" ${S}/.config; then
-		install -m 0644 ${WORKDIR}/mdev.conf ${D}${sysconfdir}/
+		install -m 0644 ${SRCDIR}/mdev.conf ${D}${sysconfdir}/
 	fi
 
 	if grep "CONFIG_UDHCPC=y" ${S}/.config; then
@@ -38,12 +38,12 @@ do_install () {
 		install -d ${D}${datadir}/udhcpc
 		install -m 0755 ${S}/examples/udhcp/simple.script \
 			${D}${sysconfdir}/udhcpc.d/50default
-		install -m 0755 ${WORKDIR}/default.script \
+		install -m 0755 ${SRCDIR}/default.script \
 			${D}${datadir}/udhcpc/default.script
 	fi
 
 	if grep "CONFIG_INETD=y" ${S}/.config; then
-		install -m 0644 ${WORKDIR}/inetd.conf ${D}${sysconfdir}/
+		install -m 0644 ${SRCDIR}/inetd.conf ${D}${sysconfdir}/
 	fi
 
 	if grep "CONFIG_TFTPD=y" ${S}/.config; then
@@ -65,43 +65,43 @@ do_install () {
 		install -d ${D}${sysconfdir}/modules
 	fi
 
-	install -m 0755 ${WORKDIR}/groups ${D}${bindir}/
+	install -m 0755 ${SRCDIR}/groups ${D}${bindir}/
 }
 
 do_install_append_RECIPE_OPTION_sysvinit () {
 	if grep "CONFIG_KLOGD=y" ${S}/.config; then
-		sysvinit_install_script ${WORKDIR}/busybox-klogd
+		sysvinit_install_script ${SRCDIR}/busybox-klogd
 	fi
 
 	if grep "CONFIG_SYSLOGD=y" ${S}/.config; then
-		sysvinit_install_script ${WORKDIR}/busybox-syslogd
+		sysvinit_install_script ${SRCDIR}/busybox-syslogd
 	fi
 
 	if grep "CONFIG_MDEV=y" ${S}/.config; then
-		sysvinit_install_script ${WORKDIR}/busybox-mdev
+		sysvinit_install_script ${SRCDIR}/busybox-mdev
 	fi
 
 	if grep "CONFIG_HWCLOCK=y" ${S}/.config; then
-		sysvinit_install_script ${WORKDIR}/busybox-hwclock
+		sysvinit_install_script ${SRCDIR}/busybox-hwclock
 	fi
 
 	if grep "CONFIG_CROND=y" ${S}/.config; then
-		sysvinit_install_script ${WORKDIR}/busybox-crond
+		sysvinit_install_script ${SRCDIR}/busybox-crond
 	fi
 
 	if grep "CONFIG_WATCHDOG=y" ${S}/.config; then
-		sysvinit_install_script ${WORKDIR}/busybox-watchdog
+		sysvinit_install_script ${SRCDIR}/busybox-watchdog
 	fi
 
 	if grep "CONFIG_INETD=y" ${S}/.config; then
-		sysvinit_install_script ${WORKDIR}/busybox-inetd
+		sysvinit_install_script ${SRCDIR}/busybox-inetd
 	fi
 
 	if grep "CONFIG_NTPD=y" ${S}/.config; then
-		sysvinit_install_script ${WORKDIR}/busybox-ntpd
+		sysvinit_install_script ${SRCDIR}/busybox-ntpd
 	fi
 
 	if grep "CONFIG_HTTPD=y" ${S}/.config; then
-		sysvinit_install_script ${WORKDIR}/busybox-httpd
+		sysvinit_install_script ${SRCDIR}/busybox-httpd
 	fi
 }

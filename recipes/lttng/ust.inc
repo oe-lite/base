@@ -16,8 +16,6 @@ DEFAULT_CONFIG_ust_basedir			= "/tmp/ust"
 SRC_URI = "http://lttng.org/files/ust/releases/ust-${PV}.tar.gz \
 	file://ustd.init"
 
-S = "${WORKDIR}/ust-${PV}"
-
 inherit autotools
 
 UST_LIB_DEPENDS = "\
@@ -46,11 +44,11 @@ do_compile_append () {
 	    -e 's/^\(DATESTRING\)=.*/\1="$(date +%Y%m%d%H%M%S)"/' \
 	    -i ${S}/usttrace
 	sed -e 's|^\(TRACEDIR\)=.*|\1="${RECIPE_OPTION_ust_basedir}"|' \
-	    -i ${WORKDIR}/ustd.init
+	    -i ${SRCDIR}/ustd.init
 }
 
 do_install_append () {
-	sysvinit_install_script ${WORKDIR}/ustd.init ustd
+	sysvinit_install_script ${SRCDIR}/ustd.init ustd
 }
 
 # Need the .so symlinks for preload to work

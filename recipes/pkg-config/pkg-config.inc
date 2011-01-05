@@ -10,8 +10,6 @@ BBCLASSEXTEND = "native sdk"
 
 SRC_URI = "http://pkgconfig.freedesktop.org/releases/pkg-config-${PV}.tar.gz"
 
-S = "${WORKDIR}/pkg-config-${PV}"
-
 #DEPENDS += "glib-2.0${RE}"
 #EXTRA_OECONF = "--with-installed-glib"
 

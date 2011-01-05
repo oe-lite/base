@@ -9,7 +9,7 @@ SRC_URI = "http://downloads.sourceforge.net/sevenzip/lzma${@bb.data.getVar('PV',
            file://003-compile_fixes.patch;patch=1 \
            file://100-static_library.patch;patch=1"
 
-S = "${WORKDIR}"
+S = "${SRCDIR}"
 
 EXTRA_OEMAKE = "-f makefile.gcc"
 

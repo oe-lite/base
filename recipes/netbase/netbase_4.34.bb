@@ -24,12 +24,12 @@ do_install () {
 		   ${D}${sysconfdir}/network/if-up.d \
 		   ${D}${sysconfdir}/network/if-down.d \
 		   ${D}${sysconfdir}/network/if-post-down.d
-	install -m 0755 ${WORKDIR}/init ${D}${sysconfdir}/init.d/networking
-	install -m 0644 ${WORKDIR}/hosts ${D}${sysconfdir}/hosts
+	install -m 0755 ${SRCDIR}/init ${D}${sysconfdir}/init.d/networking
+	install -m 0644 ${SRCDIR}/hosts ${D}${sysconfdir}/hosts
 	install -m 0644 etc-rpc ${D}${sysconfdir}/rpc
 	install -m 0644 etc-protocols ${D}${sysconfdir}/protocols
 	install -m 0644 etc-services ${D}${sysconfdir}/services
-	install -m 0644 ${WORKDIR}/interfaces ${D}${sysconfdir}/network/interfaces
+	install -m 0644 ${SRCDIR}/interfaces ${D}${sysconfdir}/network/interfaces
 }
 
 CONFFILES_${PN} = "${sysconfdir}/hosts ${sysconfdir}/network/interfaces"

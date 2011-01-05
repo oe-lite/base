@@ -9,8 +9,6 @@ PACKAGES =+ "${PN}-tools"
 
 SRC_URI = "ftp://ftp.gnu.org/pub/gnu/libiconv/libiconv-${PV}.tar.gz"
 
-S = "${WORKDIR}/libiconv-${PV}"
-
 inherit autotools
 
 EXTRA_OECONF += "--enable-shared --enable-static --enable-relocatable --disable-rpath"

@@ -12,7 +12,7 @@ LICENSE = "Boost Software License"
 
 BOOST_VER = "${@"_".join(bb.data.getVar("PV",d,1).split("."))}"
 BOOST_MAJ = "${@"_".join(bb.data.getVar("PV",d,1).split(".")[0:2])}"
-S = "${WORKDIR}/boost_${BOOST_VER}"
+S = "${SRCDIR}/boost_${BOOST_VER}"
 
 BOOST_LIBS = "\
 	tr1 \

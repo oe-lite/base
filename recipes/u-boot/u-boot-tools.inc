@@ -11,7 +11,7 @@ DEFAULT_CONFIG_u_boot_tools_config = "smdk2410_config"
 
 SRC_URI = "ftp://ftp.denx.de/pub/u-boot/u-boot-${PV}.tar.bz2"
 
-S = "${WORKDIR}/u-boot-${PV}"
+S = "${SRCDIR}/u-boot-${PV}"
 
 PARALLEL_MAKE = ""
 EXTRA_OEMAKE = 'HOSTCC="${CC} ${CFLAGS}" HOSTSTRIP="${STRIP}"'
