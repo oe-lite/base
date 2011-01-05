@@ -89,7 +89,9 @@ EXTRA_OECONF += "\
 --with-included-glib \
 --without-emacs --without-git --without-cvs \
 --with-included-glib \
+${NATIVE_EXTRA_OECONF} \
 "
+NATIVE_EXTRA_OECONF_recipe-native = "--disable-curses"
 
 FILES_${PN} += "${libdir}/gettext ${datadir}/gettext"
 
