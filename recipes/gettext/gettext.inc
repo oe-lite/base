@@ -5,13 +5,14 @@ LICENSE = "GPLv3"
 BBCLASSEXTEND = "native sdk"
 
 DEPENDS = "libiconv${RE}-dev ncurses${RE}-dev"
-DEPENDS =+ "${SYSROOT_DEPENDS}"
-SYSROOT_DEPENDS = "\
-	${HOST_ARCH}/sysroot-libdl \
-	${HOST_ARCH}/sysroot-libm \
-	${HOST_ARCH}/sysroot-libpthread \
+DEPENDS =+ "${NON_NATIVE_DEPENDS}"
+NON_NATIVE_DEPENDS = "\
+    ${HOST_ARCH}/sysroot-libdl \
+    ${HOST_ARCH}/sysroot-libm \
+    ${HOST_ARCH}/sysroot-libpthread \
+    gettext-native \
 "
-SYSROOT_DEPENDS_recipe-native = ""
+NON_NATIVE_DEPENDS_recipe-native = ""
 
 PACKAGES =+ "\
     ${PN}-libintl-dev ${PN}-libintl \
@@ -82,7 +83,6 @@ EXTRA_OECONF += "\
 --disable-acl \
 --disable-openmp \
 --disable-largefile \
---with-included-gettext \
 --with-included-libxml \
 --with-included-libunistring \
 --with-included-libcroco \
@@ -91,7 +91,7 @@ EXTRA_OECONF += "\
 --with-included-glib \
 ${NATIVE_EXTRA_OECONF} \
 "
-NATIVE_EXTRA_OECONF_recipe-native = "--disable-curses"
+NATIVE_EXTRA_OECONF_recipe-native = "--disable-curses --with-included-gettext"
 
 FILES_${PN} += "${libdir}/gettext ${datadir}/gettext"
 
