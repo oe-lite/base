@@ -41,6 +41,8 @@ DEFAULT_CONFIG_ntpd_sysvinit_stop	= "20"
 PACKAGES += "${PN}-ntpdate ${PN}-bin ${PN}-tickadj ${PN}-utils"
 # NOTE: you don't need ntpdate, use "ntpdc -q -g -x"
 
+RPROVIDES_${PN}-ntpdate = "${PN}-ntpdate ntpdate"
+
 FILES_${PN} = "${bindir}/ntpd ${sysconfdir}/ntp.conf \
     ${sysconfdir}/init.d/ntpd ${sysconfdir}/rc?.d/???ntpd"
 FILES_${PN}-bin = "${bindir}/ntp-wait ${bindir}/ntpdc ${bindir}/ntpq ${bindir}/ntptime ${bindir}/ntptrace"
