@@ -19,13 +19,17 @@ PACKAGES =+ "\
     ${PN}-libgettextlib-dev ${PN}-libgettextlib \
     ${PN}-libgettextsrc-dev ${PN}-libgettextsrc"
 
-DEPENDS_${PN} = "${PN}-dev ${RDEPENDS_${PN}}"
-DEPENDS_${PN}-dev = ""
-RDEPENDS_${PN}-dev = ""
-RDEPENDS_${PN} = "\
+DEPENDS_${PN} = "${PN}-dev ${LIB_DEPENDS_${PN}}"
+RDEPENDS_${PN} = "${LIB_DEPENDS_${PN}}"
+LIB_DEPENDS_${PN} = "\
     ${PN}-libintl ${PN}-libgettextpo ${PN}-libgettextlib ${PN}-libgettextsrc \
     libiconv${RE} libncurses${RE} \
-    ${HOST_ARCH}/sysroot-libdl ${HOST_ARCH}/sysroot-libm"
+    ${SYSROOT_DEPENDS_${PN}}"
+SYSROOT_DEPENDS_${PN} = "${HOST_ARCH}/sysroot-libdl ${HOST_ARCH}/sysroot-libm"
+SYSROOT_DEPENDS_${PN}_recipe-native = ""
+
+DEPENDS_${PN}-dev = ""
+RDEPENDS_${PN}-dev = ""
 
 RPROVIDES_${PN}-libintl = "${PN}-libintl libintl${RE}"
 RPROVIDES_${PN}-libgettextpo = "${PN}-libgettextpo libgettextpo${RE}"
@@ -37,20 +41,25 @@ PROVIDES_${PN}-libgettextpo = "${PN}-libgettextpo libgettextpo${RE}"
 PROVIDES_${PN}-libgettextlib = "${PN}-libgettextlib libgettextlib${RE}"
 PROVIDES_${PN}-libgettextsrc = "${PN}-libgettextsrc libgettextsrc${RE}"
 
-DEPENDS_${PN}-libintl = "${RDEPENDS_${PN}-libintl} ${PN}-dev"
-RDEPENDS_${PN}-libintl = ""
+DEPENDS_${PN}-libintl = "${LIB_DEPENDS_${PN}-libintl} ${PN}-dev"
+RDEPENDS_${PN}-libintl = "${LIB_DEPENDS_${PN}-libintl}"
+LIB_DEPENDS_${PN}-libintl = ""
 
-DEPENDS_${PN}-libgettextpo = "${RDEPENDS_${PN}-libgettextpo} ${PN}-dev"
-RDEPENDS_${PN}-libgettextpo = "libiconv${RE}"
+DEPENDS_${PN}-libgettextpo = "${LIB_DEPENDS_${PN}-libgettextpo} ${PN}-dev"
+RDEPENDS_${PN}-libgettextpo = "${LIB_DEPENDS_${PN}-libgettextpo}"
+LIB_DEPENDS_${PN}-libgettextpo = "libiconv${RE}"
 
-DEPENDS_${PN}-libgettextlib = "${RDEPENDS_${PN}-libgettextlib} ${PN}-dev"
-RDEPENDS_${PN}-libgettextlib = "libiconv${RE} libncurses${RE}"
+DEPENDS_${PN}-libgettextlib = "${LIB_DEPENDS_${PN}-libgettextlib} ${PN}-dev"
+RDEPENDS_${PN}-libgettextlib = "${LIB_DEPENDS_${PN}-libgettextlib}"
+LIB_DEPENDS_${PN}-libgettextlib = "libiconv${RE} libncurses${RE}"
 
-DEPENDS_${PN}-libgettextsrc = "${RDEPENDS_${PN}-libgettextsrc} ${PN}-dev"
-RDEPENDS_${PN}-libgettextsrc = "${PN}-libgettextlib \
+DEPENDS_${PN}-libgettextsrc = "${LIB_DEPENDS_${PN}-libgettextsrc} ${PN}-dev"
+RDEPENDS_${PN}-libgettextsrc = "${LIB_DEPENDS_${PN}-libgettextsrc}"
+LIB_DEPENDS_${PN}-libgettextsrc = "${PN}-libgettextlib \
     libiconv${RE} libncurses${RE} \
-    ${HOST_ARCH}/sysroot-libm ${HOST_ARCH}/sysroot-libdl"
-
+    ${SYSROOT_DEPENDS_${PN}}"
+SYSROOT_DEPENDS_${PN} = "${HOST_ARCH}/sysroot-libdl ${HOST_ARCH}/sysroot-libm"
+SYSROOT_DEPENDS_${PN}_recipe-native = ""
 
 require conf/fetch/gnu.conf
 SRC_URI = "${GNU_MIRROR}/gettext/gettext-${PV}.tar.gz"
