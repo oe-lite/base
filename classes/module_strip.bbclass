@@ -2,8 +2,8 @@
 
 do_strip_modules () {
 	for p in ${PACKAGES}; do
-		if test -e ${WORKDIR}/install/$p/lib/modules; then
-			modules="`find ${WORKDIR}/install/$p/lib/modules -name \*${KERNEL_OBJECT_SUFFIX}`"
+		if test -e ${D}/$p/lib/modules; then
+			modules="`find ${D}/$p/lib/modules -name \*${KERNEL_OBJECT_SUFFIX}`"
 			if [ -n "$modules" ]; then
 				for module in $modules ; do
 					if ! [ -d "$module"  ] ; then

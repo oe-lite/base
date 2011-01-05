@@ -48,9 +48,6 @@ SRC_URI = "ftp://kermit.columbia.edu/kermit/archives/cku${PV}.tar.gz"
 # ... and probably other distro's as well.
 #
 
-S = "${WORKDIR}/src"
-do_unpack[dirs] = "${S}"
-
 export CC2 = "${CC}"
 export BINDIR = "${bindir}"
 export MANDIR = "${mandir}/man1"
@@ -62,6 +59,8 @@ CKERMIT_ADDITIONAL = ""
 CKERMIT_ADDITIONAL_linux-uclibc = "-DNOARROWKEYS"
 
 TARGET_CC_ARCH += "${LDFLAGS}"
+
+S = "${SRCDIR}"
 
 do_compile () {
 	# The original makefile doesn't differentiate between CC and CC_FOR_BUILD,

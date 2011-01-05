@@ -81,8 +81,8 @@ do_install () {
 
         echo ${DISTRO}-host > ${D}${sysconfdir}/hostname
 
- 	install -m 0644 ${WORKDIR}/issue ${D}${sysconfdir}/issue
-        install -m 0644 ${WORKDIR}/issue.net ${D}${sysconfdir}/issue.net
+ 	install -m 0644 ${SRCDIR}/issue ${D}${sysconfdir}/issue
+        install -m 0644 ${SRCDIR}/issue.net ${D}${sysconfdir}/issue.net
 
         echo -n "${DISTRO} " >> ${D}${sysconfdir}/issue
         echo "\n \l" >> ${D}${sysconfdir}/issue
@@ -92,16 +92,16 @@ do_install () {
         echo "%h" >> ${D}${sysconfdir}/issue.net
         echo >> ${D}${sysconfdir}/issue.net
         
-        install -m 0644 ${WORKDIR}/fstab ${D}${sysconfdir}/fstab
-        install -m 0644 ${WORKDIR}/profile ${D}${sysconfdir}/profile
-        install -m 0755 ${WORKDIR}/dot.profile ${D}${sysconfdir}/skel/.profile
-        install -m 0755 ${WORKDIR}/dot.bashrc ${D}${sysconfdir}/skel/.bashrc
-        install -m 0644 ${WORKDIR}/motd ${D}${sysconfdir}/motd
-        install -m 0644 ${WORKDIR}/host.conf ${D}${sysconfdir}/host.conf
-        install -m 0644 ${WORKDIR}/nsswitch.conf ${D}${sysconfdir}/
+        install -m 0644 ${SRCDIR}/fstab ${D}${sysconfdir}/fstab
+        install -m 0644 ${SRCDIR}/profile ${D}${sysconfdir}/profile
+        install -m 0755 ${SRCDIR}/dot.profile ${D}${sysconfdir}/skel/.profile
+        install -m 0755 ${SRCDIR}/dot.bashrc ${D}${sysconfdir}/skel/.bashrc
+        install -m 0644 ${SRCDIR}/motd ${D}${sysconfdir}/motd
+        install -m 0644 ${SRCDIR}/host.conf ${D}${sysconfdir}/host.conf
+        install -m 0644 ${SRCDIR}/nsswitch.conf ${D}${sysconfdir}/
 
         ln -sf /proc/mounts ${D}${sysconfdir}/mtab
 }
 
 inherit makedevs
-MAKEDEVS_FILES = "${WORKDIR}/device_table-minimal.txt"
+MAKEDEVS_FILES = "${SRCDIR}/device_table-minimal.txt"

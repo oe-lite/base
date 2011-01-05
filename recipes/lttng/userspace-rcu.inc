@@ -5,8 +5,6 @@ LICENSE = "LGPLv2.1"
 
 SRC_URI = "http://lttng.org/files/urcu/userspace-rcu-${PV}.tar.bz2"
 
-S = "${WORKDIR}/userspace-rcu-${PV}"
-
 inherit autotools
 
 # Recipe build dependencies

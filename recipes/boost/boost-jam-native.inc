@@ -11,7 +11,6 @@ LICENSE = "Boost Software License"
 
 require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/boost/boost-jam-${PV}.tgz"
-S = "${WORKDIR}/boost-jam-${PV}"
 
 inherit native
 

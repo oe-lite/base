@@ -5,7 +5,7 @@ PRIORITY = "required"
 SRC_URI = "file://makedevs.c"
 
 do_configure() {
-	install -m 0644 ${WORKDIR}/makedevs.c ${S}/
+	install -m 0644 ${SRCDIR}/makedevs.c ${S}/
 }
 
 do_compile() {

@@ -9,7 +9,7 @@ PROVIDES_${PN} = "linux-headers"
 
 require conf/fetch/kernelorg.conf
 SRC_URI = "${KERNELORG_MIRROR}/pub/linux/kernel/v2.6/linux-${PV}.tar.bz2"
-S = "${WORKDIR}/linux-${PV}"
+S = "${SRCDIR}/linux-${PV}"
 
 set_arch() {
 	case ${TARGET_ARCH} in

@@ -27,9 +27,9 @@ do_configure_prepend() {
 
 do_install_append() {
     install -d ${D}/${sysconfdir}
-    install -m 644 ${WORKDIR}/ntp.conf ${D}/${sysconfdir}
+    install -m 644 ${SRCDIR}/ntp.conf ${D}/${sysconfdir}
     install -d ${D}/${sysconfdir}/network/if-up.d
-    install -m 755 ${WORKDIR}/ntpdate ${D}/${sysconfdir}/network/if-up.d
+    install -m 755 ${SRCDIR}/ntpdate ${D}/${sysconfdir}/network/if-up.d
 }
 
 inherit sysvinit
@@ -40,6 +40,8 @@ DEFAULT_CONFIG_ntpd_sysvinit_stop	= "20"
 
 PACKAGES += "${PN}-ntpdate ${PN}-bin ${PN}-tickadj ${PN}-utils"
 # NOTE: you don't need ntpdate, use "ntpdc -q -g -x"
+
+RPROVIDES_${PN}-ntpdate = "${PN}-ntpdate ntpdate"
 
 FILES_${PN} = "${bindir}/ntpd ${sysconfdir}/ntp.conf \
     ${sysconfdir}/init.d/ntpd ${sysconfdir}/rc?.d/???ntpd"

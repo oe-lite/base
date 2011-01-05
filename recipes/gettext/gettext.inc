@@ -65,9 +65,8 @@ SYSROOT_DEPENDS_${PN}_recipe-native = ""
 require conf/fetch/gnu.conf
 SRC_URI = "${GNU_MIRROR}/gettext/gettext-${PV}.tar.gz"
 
-inherit autotools
+inherit autotools-autoreconf
 
-AUTOTOOLS_AUTORECONF = "1"
 acpaths = "-I ${S}/gnulib-local/m4/ \
            -I ${S}/gettext-runtime/m4 \
            -I ${S}/gettext-tools/m4"
