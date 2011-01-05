@@ -94,7 +94,7 @@ EXTRA_OECONF += "\
 FILES_${PN} += "${libdir}/gettext ${datadir}/gettext"
 
 FILES_${PN}-libintl = "${libdir}/libintl*.so.*"
-FILES_${PN}-libintl-dev = "${libdir}/libintl.la"
+FILES_${PN}-libintl-dev = "${libdir}/libintl.la ${includedir}/gettext-po.h"
 
 FILES_${PN}-libgettextlib = "${libdir}/libgettextlib-*.so*"
 FILES_${PN}-libgettextlib-dev = "${libdir}/libgettextlib.la ${libdir}/libgettextlib.a ${libdir}/libgettextlib.so"
