@@ -5,20 +5,15 @@
 # thousands of programmers across a broad spectrum of applications.
 DESCRIPTION = "Free peer-reviewed portable C++ source libraries"
 HOMEPAGE = "http://www.boost.org/"
-SECTION = "libs"
-DEPENDS = "boost-jam-native zlib"
-PRIORITY = "optional"
 LICENSE = "Boost Software License"
 
 BOOST_VER = "${@"_".join(bb.data.getVar("PV",d,1).split("."))}"
 BOOST_MAJ = "${@"_".join(bb.data.getVar("PV",d,1).split(".")[0:2])}"
 S = "${SRCDIR}/boost_${BOOST_VER}"
 
+DEPENDS = "boost-jam-native zlib ${TARGET_ARCH}/sysroot-libpthread"
+
 BOOST_LIBS = "\
-	tr1 \
-	array \
-	bind \
-	function \
 	date_time \
 	filesystem \
 	graph \
@@ -166,14 +161,6 @@ do_compile() {
 		--exec-prefix=${exec_prefix} \
 		--libdir=${libdir} \
 		--includedir=${includedir}
-}
-
-do_stage() {
-	set -ex
-	bjam ${BJAM_OPTS} \
-		--libdir=${STAGING_LIBDIR} \
-		--includedir=${STAGING_INCDIR} \
-		install
 }
 
 do_install() {
