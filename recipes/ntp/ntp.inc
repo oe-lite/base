@@ -5,6 +5,8 @@ or satellite receiver or modem."
 HOMEPAGE = "http://www.ntp.org/"
 LICENSE = "ntp"
 
+DEPENDS = "${TARGET_ARCH}/sysroot-libm"
+
 SRC_URI = "http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/${P}.tar.gz \
     file://ntp.conf \
     file://ntpd \
