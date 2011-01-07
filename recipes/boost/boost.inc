@@ -11,7 +11,7 @@ BOOST_VER = "${@"_".join(bb.data.getVar("PV",d,1).split("."))}"
 BOOST_MAJ = "${@"_".join(bb.data.getVar("PV",d,1).split(".")[0:2])}"
 S = "${SRCDIR}/boost_${BOOST_VER}"
 
-DEPENDS = "boost-jam-native zlib ${TARGET_ARCH}/sysroot-libpthread"
+DEPENDS = "zlib ${TARGET_ARCH}/sysroot-libpthread"
 
 BOOST_LIBS = "\
 	date_time \
@@ -157,7 +157,8 @@ do_configure_prepend() {
 
 do_compile() {
 	set -ex
-	bjam ${BJAM_OPTS} --prefix=${prefix} \
+	./bootstrap.sh
+	./bjam ${BJAM_OPTS} --prefix=${prefix} \
 		--exec-prefix=${exec_prefix} \
 		--libdir=${libdir} \
 		--includedir=${includedir}
@@ -165,7 +166,7 @@ do_compile() {
 
 do_install() {
 	set -ex
-	bjam ${BJAM_OPTS} \
+	./bjam ${BJAM_OPTS} \
 		--libdir=${D}${libdir} \
 		--includedir=${D}${includedir} \
 		install
