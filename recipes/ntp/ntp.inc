@@ -12,6 +12,8 @@ SRC_URI = "http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/${P}.tar.gz \
 
 inherit autotools
 
+DEPENDS = "${TARGET_ARCH}/sysroot-libm"
+
 # The ac_cv_header_readline_history is to stop ntpdc depending on either
 # readline or curses
 EXTRA_OECONF += "\
@@ -42,6 +44,8 @@ PACKAGES += "${PN}-ntpdate ${PN}-bin ${PN}-tickadj ${PN}-utils"
 # NOTE: you don't need ntpdate, use "ntpdc -q -g -x"
 
 RPROVIDES_${PN}-ntpdate = "${PN}-ntpdate ntpdate"
+
+DEPENDS_${PN} = "${TARGET_ARCH}/sysroot-libm"
 
 FILES_${PN} = "${bindir}/ntpd ${sysconfdir}/ntp.conf \
     ${sysconfdir}/init.d/ntpd ${sysconfdir}/rc?.d/???ntpd"
