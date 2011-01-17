@@ -3,7 +3,7 @@ HOMEPAGE = "http://www.gnu.org/software/gettext/gettext.html"
 LICENSE = "GPLv3"
 
 BBCLASSEXTEND = "native sdk"
-inherit autotools-autoreconf
+inherit autotools-autoreconf make-vpath
 
 DEPENDS = "libiconv${RE}-dev ncurses${RE}-dev"
 DEPENDS =+ "${NON_NATIVE_DEPENDS}"
