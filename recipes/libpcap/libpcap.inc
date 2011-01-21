@@ -6,6 +6,7 @@ LICENSE = "BSD"
 DEPENDS = "flex-native bison-native"
 
 DEPENDS_${PN} = "${PN}-dev"
+DEPENDS_${PN}-dev = ""
 
 RECIPE_OPTIONS += "ipv6"
 EXTRA_OECONF_IPV6				= "--disable-ipv6"
