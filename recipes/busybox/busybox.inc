@@ -32,7 +32,13 @@ SRC_URI += "\
 	file://default.script \
 "
 
-RDEPENDS_${PN} = "netbase base-passwd base-files ${TARGET_ARCH}/sysroot-libc"
+SYSROOT_DEPENDS = "\
+    ${TARGET_ARCH}/sysroot-libc \
+    ${TARGET_ARCH}/sysroot-libm \
+    ${TARGET_ARCH}/sysroot-libcrypt \
+"
+DEPENDS = "${SYSROOT_DEPENDS}"
+RDEPENDS_${PN} = "netbase base-passwd base-files ${SYSROOT_DEPENDS}"
 
 export EXTRA_CFLAGS = "${CFLAGS}"
 
