@@ -7,6 +7,8 @@ SRC_URI = "http://mirror.its.uidaho.edu/pub/savannah/attr/attr-${PV}.src.tar.gz"
 
 inherit autotools
 
+AUTOTOOLS_DISTCLEAN = "0"
+
 do_install() {
 	export PKG_BIN_DIR=${D}${bindir}
 	export PKG_SBIN_DIR=${D}${sbindir}
