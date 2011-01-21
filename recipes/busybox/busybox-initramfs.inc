@@ -15,7 +15,7 @@ RECIPE_CONFIG_busybox_ntpd			= "0"
 # Don't add all the RPROVIDES, as they should be picked up from main
 # busybox recipe. When building os-initramfs, just RDEPEND on
 # busybox-os-initramfs, and assume that it has the desired features.
-RPROVIDES_${PN}_append = ""
+BUSYBOX_RPROVIDES = ""
 
 FILESPATHPKG = "${PF}:${P}:${PN}:${BP}:${BPN}:busybox-${PV}:busybox:files"
 

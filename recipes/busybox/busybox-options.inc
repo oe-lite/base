@@ -49,7 +49,7 @@ RECIPE_OPTIONS = "\
 # Default: enable sysvinit utility
 DEFAULT_CONFIG_busybox_init			= "1"
 # Run-time provide sysvinit feature
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_init += "feature/sysvinit busybox-init"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_init += "feature/sysvinit busybox-init"
 
 #
 # RECIPE_OPTION_busybox_runit
@@ -57,7 +57,7 @@ RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_init += "feature/sysvinit busybox-i
 # Default: disable runit utility
 DEFAULT_CONFIG_busybox_runit			= "0"
 # Run-time provides runit feature
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_runit += "feature/runit busybox-runit"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_runit += "feature/runit busybox-runit"
 
 #
 # RECIPE_OPTION_busybox_startstopdaemon
@@ -65,7 +65,7 @@ RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_runit += "feature/runit busybox-run
 # Default: enable start-stop-daemon debian utility
 DEFAULT_CONFIG_busybox_startstopdaemon		= "1"
 # Run-time provides start-stop-daemon
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_startstopdaemon += "feature/start-stop-daemon busybox-start-stop-daemon"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_startstopdaemon += "feature/start-stop-daemon busybox-start-stop-daemon"
 
 #
 # RECIPE_OPTION_busybox_mdev
@@ -73,7 +73,7 @@ RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_startstopdaemon += "feature/start-s
 # Default: enable mdev utility
 DEFAULT_CONFIG_busybox_mdev			= "1"
 # Run-time provides mdev feature
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_mdev += "mdev"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_mdev += "mdev"
 
 #
 # RECIPE_OPTION_busybox_klogd
@@ -83,7 +83,7 @@ DEFAULT_CONFIG_busybox_klogd			= "1"
 # Default: only LOG_WARNING and higher go to console
 DEFAULT_CONFIG_busybox_klogd_conlevel		= "5"
 # Run-time provides klogd feature
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_klogd += "feature/klogd busybox-klogd"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_klogd += "feature/klogd busybox-klogd"
 
 #
 # RECIPE_OPTION_busybox_syslogd
@@ -107,7 +107,7 @@ DEFAULT_CONFIG_busybox_syslogd_rotate		= "200"
 # Default: keep 1 rotated logfile
 DEFAULT_CONFIG_busybox_syslogd_rotate		= "1"
 # Run-time provides syslogd feature
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_syslogd += "feature/syslogd busybox-syslogd"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_syslogd += "feature/syslogd busybox-syslogd"
 
 #
 # RECIPE_OPTION_busybox_logger
@@ -115,7 +115,7 @@ RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_syslogd += "feature/syslogd busybox
 # Default: enable logger utility
 DEFAULT_CONFIG_busybox_logger			= "1"
 # Run-time provides logger feature
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_logger += "feature/logger busybox-logger"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_logger += "feature/logger busybox-logger"
 
 #
 # RECIPE_OPTION_busybox_hwclock
@@ -125,7 +125,7 @@ DEFAULT_CONFIG_busybox_hwclock			= "1"
 # Default: synchronize to rtc every hour using crond
 DEFAULT_CONFIG_busybox_hwclock_crontab		= "7 * * * *"
 # Run-time provides hwclock feature
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_hwclock += "hwclock"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_hwclock += "hwclock"
 
 #
 # RECIPE_OPTION_busybox_cron
@@ -133,7 +133,7 @@ RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_hwclock += "hwclock"
 # Default: disable cron support
 DEFAULT_CONFIG_busybox_cron			= "0"
 # Run-time provides crond feature and crontab
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_cron += "crond busybox-cron crontab"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_cron += "crond busybox-cron crontab"
 
 #
 # RECIPE_OPTION_busybox_watchdog
@@ -143,7 +143,7 @@ DEFAULT_CONFIG_busybox_watchdog			= "0"
 # Default: wathcdog device is /dev/watchdog
 DEFAULT_CONFIG_busybox_watchdog_dev		= "/dev/watchdog"
 # Run-time provides watchdog
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_watchdog += "watchdog"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_watchdog += "watchdog"
 
 #
 # RECIPE_OPTION_busybox_udhcpc
@@ -153,7 +153,7 @@ DEFAULT_CONFIG_busybox_udhcpc			= "1"
 # Default: disable RFC3397 support
 DEFAULT_CONFIG_busybox_udhcpc_rfc3397		= "1"
 # Run-time provides dhcpc feature
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_udhcpc += "feature/dhcpc busybox-udhcpc"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_udhcpc += "feature/dhcpc busybox-udhcpc"
 
 #
 # RECIPE_OPTION_busybox_udhcpd
@@ -161,7 +161,7 @@ RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_udhcpc += "feature/dhcpc busybox-ud
 # Default: disable udhcp server
 DEFAULT_CONFIG_busybox_udhcpd			= "0"
 # Run-time provides dhcpd features
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_udhcpd += "feature/dhcpcd busybox-udhcpd"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_udhcpd += "feature/dhcpcd busybox-udhcpd"
 
 #
 # RECIPE_OPTION_busybox_inetd
@@ -181,19 +181,19 @@ DEFAULT_CONFIG_busybox_inetd_chargen		= "0"
 # Default: disable inetd builtin rpc
 DEFAULT_CONFIG_busybox_inetd_rpc		= "0"
 # Run-time provides inetd feature
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_inetd += "feature/inetd busybox-inetd"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_inetd += "feature/inetd busybox-inetd"
 # Run-time provides echo-service feature
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_inetd_echo += "feature/echo-service"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_inetd_echo += "feature/echo-service"
 # Run-time provides discard-service feature
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_inetd_discard += "feature/discard-service"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_inetd_discard += "feature/discard-service"
 # Run-time provides time-service feature
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_inetd_time += "feature/time-service"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_inetd_time += "feature/time-service"
 # Run-time provides daytime-service feature
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_inetd_daytime += "feature/daytime-service"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_inetd_daytime += "feature/daytime-service"
 # Run-time provides chargen-service feature
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_inetd_chargen += "feature/chargen-service"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_inetd_chargen += "feature/chargen-service"
 # Run-time provides rpc-service feature
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_inetd_rpc += "feature/rpc-service"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_inetd_rpc += "feature/rpc-service"
 
 #
 # RECIPE_OPTION_busybox_ntpd
@@ -203,9 +203,9 @@ DEFAULT_CONFIG_busybox_ntpd			= "0"
 # Default: disable ntpd server support
 DEFAULT_CONFIG_busybox_ntpd_server		= "0"
 # Run-time provides ntpd-client feature
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_ntpd += "feature/ntpd-client busybox-ntpd"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_ntpd += "feature/ntpd-client busybox-ntpd"
 # Run-time provides ntpd-server feature
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_ntpd_server += "feature/ntpd-server busybox-ntpd-server"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_ntpd_server += "feature/ntpd-server busybox-ntpd-server"
 
 #
 # RECIPE_OPTION_busybox_httpd
@@ -213,7 +213,7 @@ RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_ntpd_server += "feature/ntpd-server
 # Default: disable httpd server
 DEFAULT_CONFIG_busybox_httpd			= "0"
 # Run-time provides httpd feature
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_httpd += "feature/httpd busybox-httpd"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_httpd += "feature/httpd busybox-httpd"
 
 #
 # RECIPE_OPTION_busybox_tftp
@@ -221,7 +221,7 @@ RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_httpd += "feature/httpd busybox-htt
 # Default: disable tftp client
 DEFAULT_CONFIG_busybox_tftp			= "0"
 # Run-time provides tftp command
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_tftp += "cmd/tftp busybox-tftp"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_tftp += "cmd/tftp busybox-tftp"
 
 #
 # RECIPE_OPTION_busybox_tftpd
@@ -231,7 +231,7 @@ DEFAULT_CONFIG_busybox_tftpd			= "0"
 #
 DEFAULT_CONFIG_busybox_tftpd_root		= "/tftpboot"
 # Run-time provides tftpd feature
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_tftpd += "feature/tftpd busybox-tftpd"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_tftpd += "feature/tftpd busybox-tftpd"
 
 #
 # RECIPE_OPTION_busybox_which
@@ -239,7 +239,7 @@ RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_tftpd += "feature/tftpd busybox-tft
 # Default: enable which debian utility
 DEFAULT_CONFIG_busybox_which			= "0"
 # Run-time provides which command
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_which += "cmd/which busybox-which"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_which += "cmd/which busybox-which"
 
 #
 # RECIPE_OPTION_busybox_tee
@@ -247,7 +247,7 @@ RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_which += "cmd/which busybox-which"
 # Default: enable tee debian utility
 DEFAULT_CONFIG_busybox_tee			= "0"
 # Run-time provides tee command
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_tee += "cmd/tee busybox-tee"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_tee += "cmd/tee busybox-tee"
 
 #
 # RECIPE_OPTION_busybox_su
@@ -255,7 +255,7 @@ RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_tee += "cmd/tee busybox-tee"
 # Default: enable su command
 DEFAULT_CONFIG_busybox_su			= "0"
 # Run-time provides su command
-RPROVIDES_${PN}_append_RECIPE_OPTION_busybox_su += "cmd/su busybox-su"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_su += "cmd/su busybox-su"
 # Install busybox setuid root
 busybox_suid_root_append_RECIPE_OPTION_busybox_su	= "1"
 

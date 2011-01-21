@@ -59,3 +59,5 @@ FILES_${PN}_append_RECIPE_OPTION_busybox_syslogd += "${localestatedir}/log"
 FILES_${PN}_append_RECIPE_OPTION_busybox_udhcpc += "${datadir}/udhcpc"
 FILES_${PN}_append_RECIPE_OPTION_busybox_httpd += "/srv/www"
 FILES_${PN}_append_RECIPE_OPTION_busybox_tftpd += "${RECIPE_OPTION_busybox_tftpd_dir}"
+
+RPROVIDES_${PN} = "${BUSYBOX_RPROVIDES}"
