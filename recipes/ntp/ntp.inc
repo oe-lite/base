@@ -5,12 +5,14 @@ or satellite receiver or modem."
 HOMEPAGE = "http://www.ntp.org/"
 LICENSE = "ntp"
 
+DEPENDS = "${TARGET_ARCH}/sysroot-libm"
+
 SRC_URI = "http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/${P}.tar.gz \
     file://ntp.conf \
     file://ntpd \
     file://ntpdate"
 
-inherit autotools
+inherit autotools-autoreconf make-vpath
 
 DEPENDS = "${TARGET_ARCH}/sysroot-libm"
 
@@ -23,7 +25,7 @@ EXTRA_OECONF += "\
 "
 CFLAGS_append = " -DPTYS_ARE_GETPT -DPTYS_ARE_SEARCHED"
 
-do_configure_prepend() {
+do_autoreconf_prepend() {
     sed -i -e 's:dist_man_MANS=	sntp.1::g' sntp/Makefile.am
 }
 
