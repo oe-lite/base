@@ -224,3 +224,18 @@ do_preconfigure_append_RECIPE_OPTION_busybox_su () {
 	sed -i -e 's/^# \(CONFIG_SU\) is not set/\1=y/' \
 	.config
 }
+
+do_preconfigure_append_RECIPE_OPTION_busybox_ash () {
+	sed -i -e 's/^# \(CONFIG_ASH\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_ASH_BASH_COMPAT\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_ASH_JOB_CONTROL\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_ASH_GETOPTS\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_ASH_BUILTIN_ECHO\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_ASH_BUILTIN_PRINTF\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_ASH_BUILTIN_TEST\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_ASH_CMDCMD\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_ASH_OPTIMIZE_FOR_SIZE\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_ASH_RANDOM_SUPPORT\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_ASH_EXPAND_PRMT\) is not set/\1=y/' \
+	.config
+}

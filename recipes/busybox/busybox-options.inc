@@ -286,3 +286,12 @@ DEFAULT_CONFIG_busybox_httpd_sysvinit_stop	= "0"
 #
 # enable/disable of runit services
 DEFAULT_CONFIG_busybox_watchdog_runit		= "0"
+
+#
+# Shell
+#
+RECIPE_OPTIONS += "busybox_ash"
+# Default: enable ash shell
+DEFAULT_CONFIG_busybox_ash			= "1"
+# Run-time provides ash shell
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_ash += "busybox-ash sh getopts echo printf test"
