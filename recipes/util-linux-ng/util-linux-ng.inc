@@ -58,12 +58,22 @@ RPROVIDES_${PN}-libuuid		= "libuuid${RE}"
 PROVIDES_${PN}-libuuid-dev	= "libuuid${RE}"
 DEPENDS_${PN}-libuuid-dev	= "${PN}-libuuid"
 
+SYSROOT_DEPENDS = "\
+    ${TARGET_ARCH}/sysroot-libc \
+    ${TARGET_ARCH}/sysroot-libutil \
+    ${TARGET_ARCH}/sysroot-libcrypt \
+"
+SYSROOT_DEPENDS_recipe-native = ""
+DEPENDS = "zlib${RE} libtermcap${RE} ${SYSROOT_DEPENDS}"
+
 require conf/fetch/kernelorg.conf
 MA = "${@bb.data.getVar('PV', d, 1).split('.')[0]}"
 MI = "${@bb.data.getVar('PV', d, 1).split('.')[1]}"
 SRC_URI = "${KERNELORG_MIRROR}/pub/linux/utils/util-linux-ng/v${MA}.${MI}/util-linux-ng-${PV}.tar.bz2"
 
-inherit autotools
+inherit autotools autotools-autoreconf
+
+EXTRA_OEMAKE += "V=1"
 
 # FIXME: add DISTRO_FEATURE flags for enable/disable of ncurses, pam and nls.
 
@@ -73,8 +83,15 @@ EXTRA_OECONF = "\
 --disable-makeinstall-chown --disable-use-tty-group \
 --without-pam \
 --disable-nls \
---without-ncurses \
 "
+
+RECIPE_OPTIONS += "ncurses"
+NCURSES_EXTRA_OECONF = "--without-ncurses"
+NCURSES_EXTRA_OECONF_RECIPE_OPTION_ncurses = ""
+EXTRA_OECONF += "${NCURSES_EXTRA_OECONF}"
+NCURSES_DEPENDS = ""
+NCURSES_DEPENDS_RECIPE_OPTION_ncurses = "libncurses${RE}"
+DEPENDS += "${NCURSES_DEPENDS}"
 
 do_configure_prepend () {
 	cd ${S}
