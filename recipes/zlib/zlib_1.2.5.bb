@@ -6,9 +6,11 @@ LICENSE = "zlib"
 
 SRC_URI = "http://www.zlib.net/zlib-${PV}.tar.bz2"
 
-inherit autotools
-
+inherit autotools library
 BBCLASSEXTEND = "native"
+
+PROVIDES_${PN}-dev	+= "libz${RE}"
+RPROVIDES_${PN}		+= "libz${RE}"
 
 oe_runconf() {
 	./configure \
