@@ -12,7 +12,7 @@ RDEPENDS_${PN}_append += "${MDEV_DEFAULT_RDEPENDS}"
 
 MDEV_CONF_FILES ?= "${SRCDIR}/mdev.conf"
 
-addtask install_mdev after do_install before do_install_fixup
+addtask install_mdev after do_install before do_fixup
 do_install_mdev[dirs] = "${D}"
 
 do_install_mdev () {

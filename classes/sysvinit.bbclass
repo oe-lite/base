@@ -2,7 +2,7 @@
 # OE-lite class for handling sysvinit style init scripts and symlinks
 #
 
-addtask install_sysvinit after do_install before do_install_fixup
+addtask install_sysvinit after do_install before do_fixup
 do_install_sysvinit[dirs] = "${D}"
 
 sysvinit_install_script () {

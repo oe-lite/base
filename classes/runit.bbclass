@@ -8,7 +8,7 @@ RUNIT_DEFAULT_RDEPENDS = ""
 RUNIT_DEFAULT_RDEPENDS_RECIPE_OPTION_runit = "runit"
 RDEPENDS_${PN}_append += "${RUNIT_DEFAULT_RDEPENDS}"
 
-addtask install_runit after do_install before do_install_fixup
+addtask install_runit after do_install before do_fixup
 do_install_runit[dirs] = "${D}"
 
 python do_install_runit () {
