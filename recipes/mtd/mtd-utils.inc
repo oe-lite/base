@@ -67,7 +67,7 @@ FILES_${PN}-mkfs-jffs2-doc = "${mandir}/man1/mkfs.jffs2.*"
 
 RDEPENDS_${PN}-mkfs-jffs2 = "libz${RE} liblzo${RE}"
 RDEPENDS_${PN}-mkfs-ubifs = "libz${RE} liblzo${RE} libuuid${RE} \
-    ${SYSROOT_RDPENDS_${PN}-mkfs-ubifs}"
+    ${SYSROOT_RDEPENDS_${PN}-mkfs-ubifs}"
 SYSROOT_RDEPENDS_${PN}-mkfs-ubifs = "${HOST_ARCH}/sysroot-libm"
 SYSROOT_RDEPENDS_${PN}-mkfs-ubifs_recipe-native = ""
 RDEPENDS_${PN} = "${AUTO_PACKAGES}"
