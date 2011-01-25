@@ -1,19 +1,4 @@
-DESCRIPTION = "Lossless data compression library"
-HOMEPAGE = "http://www.oberhumer.com/opensource/lzo/"
-LICENSE = "GPLv2"
-SECTION = "libs"
-PRIORITY = "optional"
+require lzo.inc
 
-SRC_URI = "http://www.oberhumer.com/opensource/lzo/download/lzo-${PV}.tar.gz \
-           file://autofoo.patch;patch=1 \
-           file://acinclude.m4"
-
-inherit autotools
-
-EXTRA_OECONF = "--enable-shared"
-
-do_configure_prepend () {
-	cp ${SRCDIR}/acinclude.m4 ${S}/
-}
-
-BBCLASSEXTEND = "native"
+SRC_URI += "file://autofoo.patch"
+SRC_URI += "file://acinclude.m4"
