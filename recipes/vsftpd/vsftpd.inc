@@ -35,7 +35,7 @@ do_configure() {
     mv Makefile.new Makefile
     cat Makefile \
         | sed -e 's:^\(CFLAGS.*=\).*:\1 ${CFLAGS}:g' \
-        | sed -e 's:^\(LIBS.*=\).*:\1 -lnsl -lresolv:g' \
+        | sed -e 's:^\(LIBS.*=\).*:\1 -lnsl -lresolv -lcrypt:g' \
         > Makefile.new
     mv Makefile.new Makefile
 }
