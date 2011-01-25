@@ -39,13 +39,10 @@ AUTO_PACKAGE_UTILS = "\
 "
 
 EXTRA_FILES_mtd-utils-ubicrc32 = "${sbindir}/ubicrc32.pl"
-  
-PACKAGES =+ "${PN}-mkfs-jffs2-doc"
-FILES_${PN}-mkfs-jffs2-doc = "${mandir}/man1/mkfs.jffs2.*"
 
 RDEPENDS_${PN}-mkfs-jffs2 = "libz${RE} liblzo${RE}"
 RDEPENDS_${PN}-mkfs-ubifs = "libz${RE} liblzo${RE} libuuid${RE} \
     ${SYSROOT_RDEPENDS_${PN}-mkfs-ubifs}"
 SYSROOT_RDEPENDS_${PN}-mkfs-ubifs = "${HOST_ARCH}/sysroot-libm"
 SYSROOT_RDEPENDS_${PN}-mkfs-ubifs_recipe-native = ""
-RDEPENDS_${PN} = "${AUTO_PACKAGES}"
+RDEPENDS_${PN} = "${UTILS_AUTO_PACKAGES}"
