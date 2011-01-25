@@ -34,7 +34,7 @@ EXTRA_OECONF = "--disable-debug"
 #EXTRA_OECONF_append_glibc_arm += "--enable-included-printf=no"
 
 EXTRA_OECONF_ipv6 = ""
-EXTRA_OECONF_ipv6_RECIPE_OPTION_ipv6 = "-DDISABLE_IPV6"
+EXTRA_OECONF_ipv6_RECIPE_OPTION_ipv6 = "--disable-ipv6"
 EXTRA_OECONF += "${EXTRA_OECONF_ipv6}"
 
 EXTRA_OEMAKE_append = "'CFLAGS=${CFLAGS}'"
