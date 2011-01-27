@@ -5,16 +5,14 @@ or satellite receiver or modem."
 HOMEPAGE = "http://www.ntp.org/"
 LICENSE = "ntp"
 
+inherit autotools-autoreconf make-vpath sysvinit
+
 DEPENDS = "${TARGET_ARCH}/sysroot-libm"
 
 SRC_URI = "http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/${P}.tar.gz \
     file://ntp.conf \
     file://ntpd \
     file://ntpdate"
-
-inherit autotools-autoreconf make-vpath
-
-DEPENDS = "${TARGET_ARCH}/sysroot-libm"
 
 # The ac_cv_header_readline_history is to stop ntpdc depending on either
 # readline or curses
@@ -23,7 +21,7 @@ EXTRA_OECONF += "\
     --without-crypto \
     ac_cv_header_readline_history_h=no \
 "
-CFLAGS_append = " -DPTYS_ARE_GETPT -DPTYS_ARE_SEARCHED"
+CFLAGS += " -DPTYS_ARE_GETPT -DPTYS_ARE_SEARCHED"
 
 do_autoreconf_prepend() {
     sed -i -e 's:dist_man_MANS=	sntp.1::g' sntp/Makefile.am
@@ -36,16 +34,15 @@ do_install_append() {
     install -m 755 ${SRCDIR}/ntpdate ${D}/${sysconfdir}/network/if-up.d
 }
 
-inherit sysvinit
 RECIPE_OPTIONS += "ntpd_sysvinit_start ntpd_sysvinit_stop"
 SYSVINIT_SCRIPT_ntpd = "ntpd"
-DEFAULT_CONFIG_ntpd_sysvinit_start	= "25"
+DEFAULT_CONFIG_ntpd_sysvinit_start	= "20"
 DEFAULT_CONFIG_ntpd_sysvinit_stop	= "20"
 
 PACKAGES += "${PN}-ntpdate ${PN}-bin ${PN}-tickadj ${PN}-utils"
 # NOTE: you don't need ntpdate, use "ntpdc -q -g -x"
 
-RPROVIDES_${PN}-ntpdate = "${PN}-ntpdate ntpdate"
+RPROVIDES_${PN}-ntpdate = "ntpdate"
 
 DEPENDS_${PN} = "${TARGET_ARCH}/sysroot-libm"
 
