@@ -1,23 +1,21 @@
 DESCRIPTION = "An Embeddable SQL Database Engine"
 HOMEPAGE = "http://www.sqlite.org"
-SECTION = "libs"
-PRIORITY = "optional"
-DEPENDS = "readline${RE}-dev \
-           ncurses${RE}-dev \
-           ${TARGET_ARCH}/sysroot-libpthread"
-DEPENDS_recipe-native = "tcl-native"
-
 LICENSE = "PD"
 
 BBCLASSEXTEND = "native"
 
 inherit autotools pkgconfig
 
-SRC_URI = "http://www.sqlite.org/sqlite-${PV}.tar.gz \
-	   file://libtool.patch"
+DEPENDS = "readline${RE}-dev \
+           ncurses${RE}-dev \
+           ${TARGET_ARCH}/sysroot-libpthread"
+
+# FIXME: huh??  why tcl for native (only)? and why not readline and ncurses?
+DEPENDS_recipe-native = "tcl-native"
+
+SRC_URI = "http://www.sqlite.org/sqlite-${PV}.tar.gz"
 
 S = "${SRCDIR}/sqlite-${PV}"
-
 
 EXTRA_OECONF = "--disable-tcl --enable-shared \
 		--enable-threadsafe"
@@ -35,4 +33,3 @@ FILES_${PN} = "${libdir}/*.so.*"
 FILES_${PN}-dev = "${libdir}/*.a ${libdir}/*.la ${libdir}/*.so \
 		       ${libdir}/pkgconfig ${includedir}"
 FILES_${PN}-doc = "${docdir} ${mandir} ${infodir}"
-
