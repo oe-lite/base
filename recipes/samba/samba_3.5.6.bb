@@ -4,6 +4,7 @@ LICENSE = "GPLv3"
 S = "${SRCDIR}/samba-${PV}/source3"
 
 SRC_URI += "file://config-h.patch"
+SRC_URI += "file://tdbheaderfix.patch;patchdir=${SRCDIR}/samba-${PV}"
 
 EXTRA_OECONF += "\
 	SMB_BUILD_CC_NEGATIVE_ENUM_VALUES=yes \
@@ -16,15 +17,6 @@ EXTRA_OECONF += "\
 	samba_cv_HAVE_WRFILE_KEYTAB=yes \
 	samba_cv_linux_getgrouplist_ok=yes \
 	"
-
-do_configure() {
-	# Patches we must apply by hand due to layout.
-	cd ..
-	patch -p1 -i ${SRCDIR}/tdbheaderfix.patch
-	cd source3
-
-	oe_runconf
-}
 
 do_compile () {
 	base_do_compile
