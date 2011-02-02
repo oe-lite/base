@@ -8,7 +8,7 @@ SECTION = "console/utils"
 inherit autotools-autoreconf gettext
 
 DEPENDS = "ncurses-dev"
-RDEPENDS_${PN} = "ncurses-terminfo"
+RDEPENDS_${PN} = "ncurses"
 
 PV_MAJOR = "${@bb.data.getVar('PV',d,1).split('.')[0]}.${@bb.data.getVar('PV',d,1).split('.')[1]}"
 

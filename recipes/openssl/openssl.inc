@@ -7,13 +7,10 @@ SRC_URI = "http://www.openssl.org/source/openssl-${PV}.tar.gz"
 
 BBCLASSEXTEND = "sdk"
 
+inherit pkgconfig
+
 AR_append = " r"
-CFLAG = "${@base_conditional('TARGET_ENDIAN', 'le', '-DL_ENDIAN', '-DB_ENDIAN', d)} \
-	-DTERMIO ${TARGET_CFLAGS}"
-
-PARALLEL_MAKE = ""
-
-export OE_LDFLAGS="${LDFLAGS}"
+CFLAG = "${@['-DL_ENDIAN', '-DB_ENDIAN']['${TARGET_ENDIAN}'=='b']} -DTERMIO ${TARGET_CFLAGS}"
 
 export DIRS = "crypto ssl apps engines"
 export EX_LIBS = "-lgcc -ldl"
@@ -45,6 +42,8 @@ do_configure () {
 	cd ..
 	ln -sf apps/openssl.pod crypto/crypto.pod ssl/ssl.pod doc/
 
+	# FIXME: drop this silly case construction and use BB variable
+	# overrides instead, which should improve build hashing effectiveness
 	target="${TARGET_OS}-${TARGET_CPU}"
 	case $target in
 	linux-gnueabi-arm)
@@ -93,7 +92,7 @@ do_configure () {
 	# inject machine-specific flags
 	sed -i -e "s|^\(\"$target\",\s*\"[^:]\+\):\([^:]\+\)|\1:${CFLAG}|g" Configure
         useprefix=${prefix}
-        if [ "x$useprefix" == "x" ]; then
+        if [ -z "$useprefix" ]; then
                 useprefix=/
         fi        
 	perl ./Configure shared --prefix=$useprefix --openssldir=${libdir}/ssl $target
