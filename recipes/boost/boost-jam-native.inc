@@ -1,8 +1,3 @@
-# The Boost web site provides free peer-reviewed portable
-# C++ source libraries. The emphasis is on libraries which
-# work well with the C++ Standard Library. The libraries are
-# intended to be widely useful, and are in regular use by
-# thousands of programmers across a broad spectrum of applications.
 DESCRIPTION = "Make system for boost (native)"
 HOMEPAGE = "http://www.boost.org/"
 SECTION = "devel"
