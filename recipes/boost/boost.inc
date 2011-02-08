@@ -1,75 +1,18 @@
-# The Boost web site provides free peer-reviewed portable
-# C++ source libraries. The emphasis is on libraries which
-# work well with the C++ Standard Library. The libraries are
-# intended to be widely useful, and are in regular use by
-# thousands of programmers across a broad spectrum of applications.
 DESCRIPTION = "Free peer-reviewed portable C++ source libraries"
 HOMEPAGE = "http://www.boost.org/"
 LICENSE = "Boost Software License"
 
-BOOST_VER = "${@"_".join(bb.data.getVar("PV",d,1).split("."))}"
-BOOST_MAJ = "${@"_".join(bb.data.getVar("PV",d,1).split(".")[0:2])}"
+inherit c++ auto-package-libs
+
+require conf/fetch/sourceforge.conf
+BOOST_VER = "${@'_'.join(bb.data.getVar('PV',d,1).split('.'))}"
+SRC_URI = "${SOURCEFORGE_MIRROR}/boost/boost_${BOOST_VER}.tar.bz2"
 S = "${SRCDIR}/boost_${BOOST_VER}"
 
-DEPENDS = "zlib ${TARGET_ARCH}/sysroot-libpthread"
-
-BOOST_LIBS = "\
-	date_time \
-	filesystem \
-	graph \
-	iostreams \
-	program_options \
-	regex \
-	signals \
-	system \
-	test \
-	thread \
-	"
-
-# FIXME: for some reason this fails on powerpc
-#BOOST_LIBS += "serialization"
-
-# To enable python, uncomment the following:
-#BOOST_LIBS += "python"
-#DEPENDS += "python"
-#PYTHON_ROOT = "${STAGING_DIR_HOST}/${layout_prefix}"
-#PYTHON_VERSION = "2.5"
-
-# Make a package for each library, plus -dev
-PACKAGES = "${PN}-dbg ${BOOST_PACKAGES}"
-python __anonymous () {
-    import bb
-
-    packages = []
-    extras = []
-    for lib in bb.data.getVar('BOOST_LIBS', d, 1).split( ):
-            pkg = "boost-%s" % lib.replace("_", "-")
-            extras.append("--with-%s" % lib)
-            packages.append(pkg)
-            if not bb.data.getVar("FILES_%s" % pkg, d, 1):
-                    bb.data.setVar("FILES_%s" % pkg, "${libdir}/libboost_%s*.so*" % lib, d)
-    bb.data.setVar("BOOST_PACKAGES", " ".join(packages), d)
-    bb.data.setVar("BJAM_EXTRA", " ".join(extras), d)
-}
-
-# Override the contents of specific packages
-FILES_boost-serialization = "${libdir}/libboost_serialization*.so* \
-	${libdir}/libboost_wserialization*.so*"
-FILES_boost-test = "${libdir}/libboost_prg_exec_monitor*.so \
-	${libdir}/libboost_unit_test_framework*.so*"
-
-# -dev last to pick up the remaining stuff
-PACKAGES += "${PN}-dev"
-FILES_${PN}-dev = "${includedir} ${libdir}/libboost_*.so ${libdir}/libboost_*.a"
-
-# "boost" is a metapackage which pulls in all boost librabries
-PACKAGES += "${PN}"
-ALLOW_EMPTY = "1"
-
-inherit c++
-
-# to avoid GNU_HASH QA errors added LDFLAGS to ARCH; a little bit dirty but at least it works
-#TARGET_CC_ARCH += " ${LDFLAGS}" 
+DEPENDS = "libz libbz2 \
+    ${TARGET_ARCH}/sysroot-libpthread \
+    ${TARGET_ARCH}/sysroot-librt \
+"
 
 # Oh yippee, a new build system, it's sooo cooool I could eat my own
 # foot.  inlining=on lets the compiler choose, I think.  At least this
@@ -104,30 +47,19 @@ BJAM_CONF = "${SQD}'-DBOOST_PLATFORM_CONFIG=${EQD}boost/config/platform/${TARGET
 # bzip2 and zip are disabled because... they're broken - the compilation simply
 # isn't working with bjam.  I guess they will fix it, but who needs it?  This
 # only affects the (new in 33) iostream library.
-BJAM_TOOLS   = "-sTOOLS=gcc \
-		'-sGCC=${CC} ${CFLAGS} '${BJAM_CONF} \
-		'-sGXX=${CXX} ${CXXFLAGS} '${BJAM_CONF} \
-		'-sGCC_INCLUDE_DIRECTORY=${STAGING_INCDIR}' \
-		'-sGCC_STDLIB_DIRECTORY=${STAGING_LIBDIR}' \
-		'-sNO_BZIP2=1' \
-		'-sNO_ZLIB=1' \
-		'-sBUILD=release <optimization>space <inlining>on <debug-symbols>off' \
-		'-sPYTHON_VERSION=${PYTHON_VERSION}' \
-		'--layout=system' \
-		"
+#		'-sNO_BZIP2=1'
+#		'-sNO_ZLIB=1'
 
-BJAM_OPTS    = '${BJAM_TOOLS} \
-                --builddir=${S}/${TARGET_SYS} \
-                ${BJAM_EXTRA}'
-
-#BJAM_OPTS    = '${BJAM_TOOLS} \
-#		--builddir=${S}/${TARGET_SYS} \
-#		--with-python-root=${PYTHON_ROOT} \
-#		${BJAM_EXTRA}'
-
+BJAM_OPTIONS = "-sTOOLS=gcc"
+BJAM_OPTIONS += "'-sGCC=${CC} ${CFLAGS} '${BJAM_CONF}"
+BJAM_OPTIONS += "'-sGXX=${CXX} ${CXXFLAGS} '${BJAM_CONF}"
+BJAM_OPTIONS += "'-sGCC_INCLUDE_DIRECTORY=${TARGET_SYSROOT}${target_includedir}'"
+BJAM_OPTIONS += "'-sGCC_STDLIB_DIRECTORY=${TARGET_SYSROOT}${target_libdir}'"
+BJAM_OPTIONS += "'-sBUILD=release <optimization>space <inlining>on <debug-symbols>off'"
+BJAM_OPTIONS += "'--layout=system'"
 
 # Generate boost jam compiler options
-python __anonymous () {
+python () {
     import bb
 
     cflags = (bb.data.getVar('CFLAGS', d, True) or '').split( )
@@ -150,24 +82,90 @@ python __anonymous () {
 }
 
 do_configure_prepend() {
-	cp -f boost/config/platform/linux.hpp boost/config/platform/linux-gnueabi.hpp
+    cp -f boost/config/platform/linux.hpp \
+          boost/config/platform/linux-gnueabi.hpp
 
-	echo "using gcc : $(${CXX} -dumpversion) : ${CXX} : <compileflags>-DBOOST_SP_USE_PTHREADS ${BJAM_CFLAGS} ${BJAM_CXXFLAGS} ${BJAM_LINKFLAGS} ;" >> ${S}/tools/build/v2/user-config.jam
+    echo "using gcc : $(${CXX} -dumpversion) : ${CXX} : <compileflags>-DBOOST_SP_USE_PTHREADS ${BJAM_CFLAGS} ${BJAM_CXXFLAGS} ${BJAM_LINKFLAGS} ;" >> ${S}/tools/build/v2/user-config.jam
 }
 
 do_compile() {
-	set -ex
-	./bootstrap.sh
-	./bjam ${BJAM_OPTS} --prefix=${prefix} \
-		--exec-prefix=${exec_prefix} \
-		--libdir=${libdir} \
-		--includedir=${includedir}
+    set -ex
+    ./bootstrap.sh ${BOOTSTRAP_OPTIONS} \
+        --prefix=${prefix} --exec-prefix=${exec_prefix} \
+        --libdir=${libdir} --includedir=${includedir}
+    ./bjam ${BJAM_OPTIONS}
 }
 
 do_install() {
-	set -ex
-	./bjam ${BJAM_OPTS} \
-		--libdir=${D}${libdir} \
-		--includedir=${D}${includedir} \
-		install
+    set -ex
+    ./bjam ${BJAM_OPTIONS} \
+        --libdir=${D}${libdir} --includedir=${D}${includedir} \
+        install
 }
+
+AUTO_PACKAGE_LIBS = "${BOOST_LIBS}"
+AUTO_PACKAGE_LIBS_LIBDIR = "${libdir}:libboost_"
+AUTO_PACKAGE_LIBS_PKGPREFIX = ""
+
+BOOST_LIBS += "date_time"
+
+BOOST_LIBS += "filesystem"
+
+BOOST_LIBS += "graph"
+
+BOOST_LIBS += "iostreams"
+
+BOOST_LIBS += "math"
+EXTRA_FILES_${PN}-math = "\
+    ${libdir}/libboost_math_*${SOLIBS}"
+EXTRA_FILES_${PN}-math-dev = "\
+    ${libdir}/libboost_math_*${SOLIBSDEV} \
+    ${libdir}/libboost_math_*.a"
+
+BOOST_LIBS += "program_options"
+
+BOOST_LIBS += "random"
+
+BOOST_LIBS += "regex"
+BOOTSTRAP_OPTIONS += "--with-icu"
+DEPENDS += "libicuuc libicui18n libicudata"
+RDEPENDS_${PN}-regex = "libicuuc libicui18n libicudata"
+DEPENDS_${PN}-regex-dev = "libicuuc libicui18n libicudata"
+
+BOOST_LIBS += "serialization"
+EXTRA_FILES_${PN}-serialization = "\
+    ${libdir}/libboost_wserialization${SOLIBSDEV}"
+EXTRA_FILES_${PN}-serialization-dev = "\
+    ${libdir}/libboost_wserialization${SOLIBS} \
+    ${libdir}/libboost_wserialization.a"
+
+BOOST_LIBS += "signals"
+
+BOOST_LIBS += "system"
+
+BOOST_LIBS += "thread"
+
+BOOST_LIBS += "wave"
+
+BOOST_LIBS += "test"
+EXTRA_FILES_${PN}-test = "\
+    ${libdir}/libboost_prg_exec_monitor${SOLIBS} \
+    ${libdir}/libboost_test_exec_monitor${SOLIBS} \
+    ${libdir}/libboost_unit_test_framework${SOLIBS}"
+EXTRA_FILES_${PN}-test-dev = "\
+    ${libdir}/libboost_prg_exec_monitor${SOLIBSDEV} \
+    ${libdir}/libboost_prg_exec_monitor.a \
+    ${libdir}/libboost_test_exec_monitor${SOLIBSDEV} \
+    ${libdir}/libboost_test_exec_monitor.a \
+    ${libdir}/libboost_unit_test_framework${SOLIBSDEV} \
+    ${libdir}/libboost_unit_test_framework.a"
+
+# To enable python, do something like the above, and more....
+#BOOST_LIBS += "python"
+#DEPENDS += "python"
+#PYTHON_ROOT = "${STAGING_DIR_HOST}/${layout_prefix}"
+#PYTHON_VERSION = "2.5"
+#BOOTSTRAP_OPTIONS += "--with-python-root=${PYTHON_ROOT}"
+#BJAM_OPTIONS += "'-sPYTHON_VERSION=${PYTHON_VERSION}'"
+
+BOOTSTRAP_OPTIONS += "--with-libraries=${@','.join('${BOOST_LIBS}'.split())}"
