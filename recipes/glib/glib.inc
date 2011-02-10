@@ -48,7 +48,7 @@ PACKAGES =+ "${PN}-utils"
 FILES_${PN}-utils = "${bindir}/*"
 
 AUTO_PACKAGE_LIBS = "glib gobject gmodule gthread gio"
-AUTO_PACKAGE_LIBS_LIBSUFFIX = "-2.0"
+AUTO_PACKAGE_LIBS_LIBDIR = "${libdir}:lib:-2.0"
 
 EXTRA_FILES_${PN}-libgio-dev = "${libdir}/pkgconfig/gio-*-2.0.pc"
 EXTRA_FILES_${PN}-libgmodule-dev = "${libdir}/pkgconfig/gmodule-*-2.0.pc"
