@@ -4,7 +4,7 @@ LICENSE = "ICU"
 
 BBCLASSEXTEND = "native sdk"
 
-inherit c++ autotools pkgconfig binconfig auto-package-libs
+inherit c++ autotools pkgconfig binconfig
 
 CROSS_DEPENDS = "icu-native-src"
 CROSS_DEPENDS_recipe-native = ""
@@ -31,18 +31,23 @@ do_install_append_recipe-native () {
     cp -r ${S}/. ${D}${prefix}/src/icu
 }
 
-FILES_${PN}-dev += "${libdir}/icu ${datadir}/icu/"
-FILES_${PN}-doc += "${datadir}/icu/${PV}/license.html"
+PACKAGES = "${PN}-dbg ${PN}-doc ${PN}-dev ${PN} ${PN}-locale"
 
 NATIVE_PACKAGES = ""
 NATIVE_PACKAGES_recipe-native = "${PN}-src"
 PACKAGES += "${NATIVE_PACKAGES}"
 PROVIDES_${PN}-src = "${PN}-src"
 
+FILES_${PN}-doc += "${datadir}/icu/${PV}/license.html"
+FILES_${PN}-dev += "${bindir}/icu-config ${libdir}/icu ${datadir}/icu/ \
+    ${datadir}/icu/${PV} ${libdir}/icu"
+
 FILES_${PN}-src = "${prefix}/src/icu"
 
+inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "icudata icuuc icui18n icule iculx icutu icuio icutest"
 AUTO_PACKAGE_LIBS_DEV_DEPENDS = "icu-dev"
 
 # FIXME: it should be possible to make icu-dev build independent of icu
 # and then remove the DEPENDS_icu-dev on icu...
+DEPENDS_${PN}-dev = ""

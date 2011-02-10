@@ -126,11 +126,16 @@ BOOST_LIBS += "program_options"
 
 BOOST_LIBS += "random"
 
+RECIPE_OPTIONS += "boost_icu"
 BOOST_LIBS += "regex"
-BOOTSTRAP_OPTIONS += "--with-icu"
-DEPENDS += "libicuuc libicui18n libicudata"
-RDEPENDS_${PN}-regex = "libicuuc libicui18n libicudata"
-DEPENDS_${PN}-regex-dev = "libicuuc libicui18n libicudata"
+ICU_BOOTSTRAP_OPTION = ""
+ICU_BOOTSTRAP_OPTION_RECIPE_OPTION_boost_icu = "--with-icu"
+BOOTSTRAP_OPTIONS += "${ICU_BOOTSTRAP_OPTION}"
+ICU_DEPENDS = ""
+ICU_DEPENDS_RECIPE_OPTION_boost_icu += "libicuuc libicui18n libicudata"
+DEPENDS += "${ICU_DEPENDS}"
+RDEPENDS_${PN}-regex = "${ICU_DEPENDS}"
+DEPENDS_${PN}-regex-dev = "${ICU_DEPENDS}"
 
 BOOST_LIBS += "serialization"
 EXTRA_FILES_${PN}-serialization = "\

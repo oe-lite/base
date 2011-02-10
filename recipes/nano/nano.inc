@@ -7,11 +7,10 @@ SECTION = "console/utils"
 
 inherit autotools-autoreconf gettext
 
-DEPENDS = "ncurses-dev"
-RDEPENDS_${PN} = "ncurses"
+DEPENDS = "libncurses"
+RDEPENDS_${PN} = "libncurses"
 
 PV_MAJOR = "${@bb.data.getVar('PV',d,1).split('.')[0]}.${@bb.data.getVar('PV',d,1).split('.')[1]}"
-
 SRC_URI = "http://www.nano-editor.org/dist/v${PV_MAJOR}/nano-${PV}.tar.gz"
 
 EXTRA_OECONF = "\
@@ -24,3 +23,8 @@ EXTRA_OECONF = "\
     --disable-glibtest \
     --disable-utf8 \
 "
+
+PACKAGES='nano-dbg nano-doc nano-nanorc nano nano-dev nano-locale'
+
+FILES_${PN}-doc += "${datadir}/nano/man-html"
+FILES_${PN}-nanorc = "${datadir}/nano/*.nanorc"
