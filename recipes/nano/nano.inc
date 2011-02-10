@@ -23,3 +23,8 @@ EXTRA_OECONF = "\
     --disable-glibtest \
     --disable-utf8 \
 "
+
+PACKAGES='nano-dbg nano-doc nano-nanorc nano nano-dev nano-locale'
+
+FILES_${PN}-doc += "${datadir}/nano/man-html"
+FILES_${PN}-nanorc = "${datadir}/nano/*.nanorc"
