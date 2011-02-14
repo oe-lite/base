@@ -4,8 +4,6 @@ LICENSE = "GPLv2"
 
 inherit sysvinit runit crontab
 
-require busybox-options.inc
-
 SRC_URI = "http://www.busybox.net/downloads/busybox-${PV}.tar.bz2"
 
 SRC_URI += "\
