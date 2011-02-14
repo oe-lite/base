@@ -1,4 +1,8 @@
-inherit cml1
+do_configure () {
+	set -e
+	unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
+	oe_runmake oldconfig
+}
 
 addtask preconfigure after do_patch before do_configure
 do_preconfigure[dirs] = "${S}"
