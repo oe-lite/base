@@ -912,3 +912,30 @@ do_preconfigure_append_RECIPE_OPTION_busybox_flash_eraseall () {
 	sed -i -e 's/^# \(CONFIG_FLASH_ERASEALL\) is not set/\1=y/' \
 	.config
 }
+
+RECIPE_OPTIONS += "busybox_ftpget"
+#
+# RECIPE_OPTION_busybox_ftpget
+#
+# Default: enable ftpget utility
+DEFAULT_CONFIG_busybox_ftpget			= "0"
+# Run-time provides ftpget command
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_ftpget += "cmd/FLASHCP busybox-FLASHCP"
+do_preconfigure_append_RECIPE_OPTION_busybox_ftpget () {
+	sed -i -e 's/^# \(CONFIG_FTPGET\) is not set/\1=y/' \
+	.config
+}
+
+RECIPE_OPTIONS += "busybox_ftpput"
+#
+# RECIPE_OPTION_busybox_ftpput
+#
+# Default: enable ftpput utility
+DEFAULT_CONFIG_busybox_ftpput			= "0"
+# Run-time provides ftpput command
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_ftpput += "cmd/FLASHCP busybox-FLASHCP"
+do_preconfigure_append_RECIPE_OPTION_busybox_ftpput () {
+	sed -i -e 's/^# \(CONFIG_FTPPUT\) is not set/\1=y/' \
+	.config
+}
+
