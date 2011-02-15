@@ -8,7 +8,7 @@ SECTION = "console/utils"
 inherit autotools-autoreconf gettext
 
 DEPENDS = "libncurses"
-RDEPENDS_${PN} = "libncurses"
+RDEPENDS_${PN} = "libncurses ncurses"
 
 PV_MAJOR = "${@bb.data.getVar('PV',d,1).split('.')[0]}.${@bb.data.getVar('PV',d,1).split('.')[1]}"
 SRC_URI = "http://www.nano-editor.org/dist/v${PV_MAJOR}/nano-${PV}.tar.gz"
