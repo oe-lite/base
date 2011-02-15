@@ -30,6 +30,12 @@ SRC_URI += "\
 	file://default.script \
 "
 
+RECIPE_OPTIONS += "busybox_init_shutdown_umount"
+DEFAULT_CONFIG_busybox_init_shutdown_umount = "1"
+EXTRA_SRC_URI = ""
+EXTRA_SRC_URI_append_RECIPE_OPTION_busybox_init_shutdown_umount = "file://init-shutdown-umount.patch"
+SRC_URI += "${EXTRA_SRC_URI}"
+
 SYSROOT_DEPENDS = "\
     ${TARGET_ARCH}/sysroot-libc \
     ${TARGET_ARCH}/sysroot-libm \
