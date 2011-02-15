@@ -1,3 +1,8 @@
 require ${BPN}.inc
 
 SRC_URI += "file://nobash.patch"
+
+# Avoid typedef conflicts between sys/types.h and linux/types.h
+# .../sys/types.h:62:17: error: conflicting types for 'dev_t'
+# .../linux/types.h:13:25: note: previous declaration of 'dev_t' was here
+CPPFLAGS += "-D__KERNEL_STRICT_NAMES"
