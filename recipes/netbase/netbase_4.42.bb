@@ -5,6 +5,8 @@ LICENSE = "GPL"
 
 PR = "r5"
 
+DEFAULT_PREFERENCE = "-1"
+
 RECIPE_OPTIONS = "netbase_sysvinit_start netbase sysvinit_stop"
 
 DEFAULT_CONFIG_netbase_sysvinit_start	= "20"
