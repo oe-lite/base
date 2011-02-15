@@ -142,9 +142,9 @@ DEFAULT_CONFIG_busybox_syslogd_remote_host	= "0"
 # Default: disable log rotate support
 DEFAULT_CONFIG_busybox_syslogd_rotate		= "0"
 # Default: rotate at 200 kByte
-DEFAULT_CONFIG_busybox_syslogd_rotate		= "200"
+DEFAULT_CONFIG_busybox_syslogd_rotate_size	= "200"
 # Default: keep 1 rotated logfile
-DEFAULT_CONFIG_busybox_syslogd_rotate		= "1"
+DEFAULT_CONFIG_busybox_syslogd_rotate_n		= "1"
 # Run-time provides syslogd feature
 BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_syslogd += "feature/syslogd busybox-syslogd"
 do_preconfigure_append_RECIPE_OPTION_busybox_syslogd () {
