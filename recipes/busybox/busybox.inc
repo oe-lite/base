@@ -2,7 +2,7 @@ DESCRIPTION = "BusyBox: The Swiss Army Knife of Embedded Linux"
 HOMEPAGE = "http://www.busybox.net"
 LICENSE = "GPLv2"
 
-PR = "r5${INC_PR}"
+PR = "r6${INC_PR}"
 
 inherit sysvinit runit crontab
 
@@ -35,6 +35,12 @@ SRC_URI += "\
 	file://busybox-httpd \
 	file://default.script \
 "
+
+RECIPE_OPTIONS += "busybox_init_shutdown_umount"
+DEFAULT_CONFIG_busybox_init_shutdown_umount = "1"
+EXTRA_SRC_URI = ""
+EXTRA_SRC_URI_append_RECIPE_OPTION_busybox_init_shutdown_umount = "file://init-shutdown-umount.patch;patch=1"
+SRC_URI += "${EXTRA_SRC_URI}"
 
 RDEPENDS_${PN} = "netbase base-passwd base-files ${TARGET_ARCH}/sysroot-libc"
 
