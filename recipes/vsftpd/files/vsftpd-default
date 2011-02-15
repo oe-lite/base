@@ -1,0 +1,2 @@
+VSFTPD_ENABLE="yes"
+VSFTPD_CONFIG="/etc/vsftpd.conf"

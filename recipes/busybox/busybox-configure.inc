@@ -224,3 +224,8 @@ do_preconfigure_append_RECIPE_OPTION_busybox_su () {
 	sed -i -e 's/^# \(CONFIG_SU\) is not set/\1=y/' \
 	.config
 }
+
+do_preconfigure_append_RECIPE_OPTION_busybox_cmp () {
+	sed -i -e 's/^# \(CONFIG_CMP\) is not set/\1=y/' \
+	.config
+}
