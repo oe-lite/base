@@ -3,8 +3,8 @@ HOMEPAGE = "http://matt.ucc.asn.au/dropbear/dropbear.html"
 SECTION = "console/network"
 LICENSE = "MIT"
 
-DEPENDS = "zlib-dev"
-RDEPENDS_${PN} = "zlib ${HOST_ARCH}/sysroot-libgcc"
+DEPENDS = "libz ${HOST_ARCH}/sysroot-libcrypt"
+RDEPENDS_${PN} = "libz ${HOST_ARCH}/sysroot-libcrypt"
 
 RPROVIDES_${PN} = "ssh sshd scp"
 
