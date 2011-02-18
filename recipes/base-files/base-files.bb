@@ -2,8 +2,10 @@ DESCRIPTION = "Miscellaneous files for the base system."
 LICENSE = "GPL"
 SECTION = "base"
 PRIORITY = "required"
-
 RDEPENDS_${PN} = "${TARGET_ARCH}/sysroot-libnss-files ${TARGET_ARCH}/sysroot-libnss-dns"
+
+RECIPE_OPTIONS += "base-files_hostname"
+DEFAULT_CONFIG_base-files_hostname = "${DISTRO}-host"
 
 SRC_URI = " \
            file://motd \
@@ -79,7 +81,7 @@ do_install () {
 
 	# Install files
 
-        echo ${DISTRO}-host > ${D}${sysconfdir}/hostname
+        echo ${RECIPE_OPTION_base-files_hostname} > ${D}${sysconfdir}/hostname
 
  	install -m 0644 ${SRCDIR}/issue ${D}${sysconfdir}/issue
         install -m 0644 ${SRCDIR}/issue.net ${D}${sysconfdir}/issue.net
