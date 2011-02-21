@@ -81,7 +81,7 @@ do_install () {
 
 	# Install files
 
-        echo ${RECIPE_OPTION_base-files_hostname} > ${D}${sysconfdir}/hostname
+        echo ${RECIPE_OPTION_hostname} > ${D}${sysconfdir}/hostname
 
  	install -m 0644 ${SRCDIR}/issue ${D}${sysconfdir}/issue
         install -m 0644 ${SRCDIR}/issue.net ${D}${sysconfdir}/issue.net
