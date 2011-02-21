@@ -4,8 +4,8 @@ SECTION = "base"
 PRIORITY = "required"
 RDEPENDS_${PN} = "${TARGET_ARCH}/sysroot-libnss-files ${TARGET_ARCH}/sysroot-libnss-dns"
 
-RECIPE_OPTIONS += "base-files_hostname"
-DEFAULT_CONFIG_base-files_hostname = "${DISTRO}-host"
+RECIPE_OPTIONS += "hostname"
+DEFAULT_CONFIG_hostname = "oe-lite"
 
 SRC_URI = " \
            file://motd \
