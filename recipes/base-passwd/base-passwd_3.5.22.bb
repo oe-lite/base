@@ -18,5 +18,5 @@ do_install () {
 }
 
 do_install_append () {
-	sed -i 's#^root:.*#root:${RECIPE_OPTION_passwd_root}:0:0:root:/:/bin/sh#g' ${D}${sysconfdir}/passwd
+	sed -i 's#^root:.*#root:${RECIPE_OPTION_passwd_root}:0:0:root:/root:/bin/sh#g' ${D}${sysconfdir}/passwd
 }
