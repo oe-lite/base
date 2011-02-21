@@ -868,7 +868,7 @@ RECIPE_OPTIONS += "busybox_flashcp"
 # Default: enable flashcp utility
 DEFAULT_CONFIG_busybox_flashcp			= "0"
 # Run-time provides flashcp command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_flashcp += "cmd/FLASHCP busybox-FLASHCP"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_flashcp += "cmd/flashcp busybox-flashcp"
 do_preconfigure_append_RECIPE_OPTION_busybox_flashcp () {
 	sed -i -e 's/^# \(CONFIG_FLASHCP\) is not set/\1=y/' \
 	.config
@@ -881,7 +881,7 @@ RECIPE_OPTIONS += "busybox_flash_lock"
 # Default: enable flash_lock utility
 DEFAULT_CONFIG_busybox_flash_lock			= "0"
 # Run-time provides flash_lock command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_flash_lock += "cmd/FLASHCP busybox-FLASHCP"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_flash_lock += "cmd/flash_lock busybox-flash_lock"
 do_preconfigure_append_RECIPE_OPTION_busybox_flash_lock () {
 	sed -i -e 's/^# \(CONFIG_FLASH_LOCK\) is not set/\1=y/' \
 	.config
@@ -894,7 +894,7 @@ RECIPE_OPTIONS += "busybox_flash_unlock"
 # Default: enable flash_unlock utility
 DEFAULT_CONFIG_busybox_flash_unlock			= "0"
 # Run-time provides flash_unlock command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_flash_unlock += "cmd/FLASHCP busybox-FLASHCP"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_flash_unlock += "cmd/flash_unlock busybox-flash_unlock"
 do_preconfigure_append_RECIPE_OPTION_busybox_flash_unlock () {
 	sed -i -e 's/^# \(CONFIG_FLASH_UNLOCK\) is not set/\1=y/' \
 	.config
@@ -907,7 +907,7 @@ RECIPE_OPTIONS += "busybox_flash_eraseall"
 # Default: enable flash_eraseall utility
 DEFAULT_CONFIG_busybox_flash_eraseall			= "0"
 # Run-time provides flash_eraseall command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_flash_eraseall += "cmd/FLASHCP busybox-FLASHCP"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_flash_eraseall += "cmd/flash_eraseall busybox-flash_eraseall"
 do_preconfigure_append_RECIPE_OPTION_busybox_flash_eraseall () {
 	sed -i -e 's/^# \(CONFIG_FLASH_ERASEALL\) is not set/\1=y/' \
 	.config
@@ -920,7 +920,7 @@ RECIPE_OPTIONS += "busybox_ftpget"
 # Default: enable ftpget utility
 DEFAULT_CONFIG_busybox_ftpget			= "0"
 # Run-time provides ftpget command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_ftpget += "cmd/FLASHCP busybox-FLASHCP"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_ftpget += "cmd/ftpget busybox-ftpget"
 do_preconfigure_append_RECIPE_OPTION_busybox_ftpget () {
 	sed -i -e 's/^# \(CONFIG_FTPGET\) is not set/\1=y/' \
 	.config
@@ -933,9 +933,20 @@ RECIPE_OPTIONS += "busybox_ftpput"
 # Default: enable ftpput utility
 DEFAULT_CONFIG_busybox_ftpput			= "0"
 # Run-time provides ftpput command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_ftpput += "cmd/FLASHCP busybox-FLASHCP"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_ftpput += "cmd/ftpput busybox-ftpput"
 do_preconfigure_append_RECIPE_OPTION_busybox_ftpput () {
 	sed -i -e 's/^# \(CONFIG_FTPPUT\) is not set/\1=y/' \
 	.config
 }
 
+RECIPE_OPTIONS += "busybox_inittab_login"
+#
+# RECIPE_OPTION_busybox_inittab_login
+#
+# Default: enable inittab_login utility
+DEFAULT_CONFIG_busybox_inittab_login			= "::askfirst:-/bin/sh"
+# Run-time provides inittab_login command
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_inittab_login += "cmd/inittab_login busybox-inittab_login"
+do_preconfigure_append_RECIPE_OPTION_busybox_inittab_login () {
+	sed -i -e 's#::askfirst:-/bin/sh#${RECIPE_OPTION_busybox_inittab_login}#' ${SRCDIR}/inittab
+}
