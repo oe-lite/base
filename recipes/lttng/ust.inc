@@ -33,7 +33,7 @@ DEPENDS_${PN}-dev = "${PN} ${UST_LIB_DEPENDS}"
 
 # Package run-time dependencies
 RPROVIDES_${PN} += "libust"
-RDEPENDS_${PN} = "${UST_LIB_DEPENDS} cmd/which cmd/tee"
+RDEPENDS_${PN} = "${UST_LIB_DEPENDS} util/which util/tee"
 RDEPENDS_${PN}-dev = "${PN} userspace-rcu-dev"
 
 do_compile_append () {
