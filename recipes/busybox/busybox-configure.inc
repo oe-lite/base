@@ -413,7 +413,7 @@ RECIPE_OPTIONS += "busybox_tftp"
 # Default: disable tftp client
 DEFAULT_CONFIG_busybox_tftp			= "0"
 # Run-time provides tftp command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_tftp += "cmd/tftp busybox-tftp"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_tftp += "util/tftp busybox-tftp"
 do_preconfigure_append_RECIPE_OPTION_busybox_tftp () {
 	sed -i -e 's/^# \(CONFIG_TFTP\) is not set/\1=y/' \
 	.config
@@ -442,7 +442,7 @@ RECIPE_OPTIONS += "busybox_which"
 # Default: enable which debian utility
 DEFAULT_CONFIG_busybox_which			= "0"
 # Run-time provides which command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_which += "cmd/which busybox-which"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_which += "util/which busybox-which"
 do_preconfigure_append_RECIPE_OPTION_busybox_which () {
 	sed -i -e 's/^# \(CONFIG_WHICH\) is not set/\1=y/' \
 	.config
@@ -455,7 +455,7 @@ RECIPE_OPTIONS += "busybox_tee"
 # Default: enable tee debian utility
 DEFAULT_CONFIG_busybox_tee			= "0"
 # Run-time provides tee command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_tee += "cmd/tee busybox-tee"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_tee += "util/tee busybox-tee"
 do_preconfigure_append_RECIPE_OPTION_busybox_tee () {
 	sed -i -e 's/^# \(CONFIG_TEE\) is not set/\1=y/' \
 	       -e 's/^# \(CONFIG_FEATURE_TEE_USE_BLOCK_IO\) is not set/\1=y/' \
@@ -469,7 +469,7 @@ RECIPE_OPTIONS += "busybox_su"
 # Default: enable su command
 DEFAULT_CONFIG_busybox_su			= "0"
 # Run-time provides su command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_su += "cmd/su busybox-su"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_su += "util/su busybox-su"
 # Install busybox setuid root
 busybox_suid_root_append_RECIPE_OPTION_busybox_su	= "1"
 do_preconfigure_append_RECIPE_OPTION_busybox_su () {
@@ -504,7 +504,7 @@ RECIPE_OPTIONS += "busybox_unzip"
 # Default: enable unzip utility
 DEFAULT_CONFIG_busybox_unzip			= "0"
 # Run-time provides unzip command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_unzip += "cmd/unzip busybox-unzip"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_unzip += "util/unzip busybox-unzip"
 do_preconfigure_append_RECIPE_OPTION_busybox_unzip () {
 	sed -i -e 's/^# \(CONFIG_UNZIP\) is not set/\1=y/' \
 	.config
@@ -517,7 +517,7 @@ RECIPE_OPTIONS += "busybox_tr"
 # Default: enable tr utility
 DEFAULT_CONFIG_busybox_tr			= "0"
 # Run-time provides tr command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_tr += "cmd/tr busybox-tr"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_tr += "util/tr busybox-tr"
 do_preconfigure_append_RECIPE_OPTION_busybox_tr () {
 	sed -i -e 's/^# \(CONFIG_TR\) is not set/\1=y/' \
 	.config
@@ -530,7 +530,7 @@ RECIPE_OPTIONS += "busybox_dos2unix"
 # Default: enable dos2unix utility
 DEFAULT_CONFIG_busybox_dos2unix			= "0"
 # Run-time provides dos2unix command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_dos2unix += "cmd/dos2unix busybox-dos2unix"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_dos2unix += "util/dos2unix busybox-dos2unix"
 do_preconfigure_append_RECIPE_OPTION_busybox_dos2unix () {
 	sed -i -e 's/^# \(CONFIG_DOS2UNIX\) is not set/\1=y/' \
 	.config
@@ -543,7 +543,7 @@ RECIPE_OPTIONS += "busybox_unix2dos"
 # Default: enable unix2dos utility
 DEFAULT_CONFIG_busybox_unix2dos			= "0"
 # Run-time provides unix2dos command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_unix2dos += "cmd/unix2dos busybox-unix2dos"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_unix2dos += "util/unix2dos busybox-unix2dos"
 do_preconfigure_append_RECIPE_OPTION_busybox_unix2dos () {
 	sed -i -e 's/^# \(CONFIG_UNIX2DOS\) is not set/\1=y/' \
 	.config
@@ -556,7 +556,7 @@ RECIPE_OPTIONS += "busybox_nice"
 # Default: enable nice utility
 DEFAULT_CONFIG_busybox_nice			= "0"
 # Run-time provides nice command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_nice += "cmd/nice busybox-nice"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_nice += "util/nice busybox-nice"
 do_preconfigure_append_RECIPE_OPTION_busybox_nice () {
 	sed -i -e 's/^# \(CONFIG_NICE\) is not set/\1=y/' \
 	.config
@@ -569,7 +569,7 @@ RECIPE_OPTIONS += "busybox_sort"
 # Default: enable sort utility
 DEFAULT_CONFIG_busybox_sort			= "0"
 # Run-time provides sort command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_sort += "cmd/sort busybox-sort"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_sort += "util/sort busybox-sort"
 do_preconfigure_append_RECIPE_OPTION_busybox_sort () {
 	sed -i -e 's/^# \(CONFIG_SORT\) is not set/\1=y/' \
 	.config
@@ -582,7 +582,7 @@ RECIPE_OPTIONS += "busybox_uniq"
 # Default: enable uniq utility
 DEFAULT_CONFIG_busybox_uniq			= "0"
 # Run-time provides uniq command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_uniq += "cmd/uniq busybox-uniq"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_uniq += "util/uniq busybox-uniq"
 do_preconfigure_append_RECIPE_OPTION_busybox_uniq () {
 	sed -i -e 's/^# \(CONFIG_UNIQ\) is not set/\1=y/' \
 	.config
@@ -595,7 +595,7 @@ RECIPE_OPTIONS += "busybox_usleep"
 # Default: enable usleep utility
 DEFAULT_CONFIG_busybox_usleep			= "0"
 # Run-time provides usleep command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_usleep += "cmd/usleep busybox-usleep"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_usleep += "util/usleep busybox-usleep"
 do_preconfigure_append_RECIPE_OPTION_busybox_usleep () {
 	sed -i -e 's/^# \(CONFIG_USLEEP\) is not set/\1=y/' \
 	.config
@@ -608,7 +608,7 @@ RECIPE_OPTIONS += "busybox_who"
 # Default: enable who utility
 DEFAULT_CONFIG_busybox_who			= "0"
 # Run-time provides who command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_who += "cmd/who busybox-who"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_who += "util/who busybox-who"
 do_preconfigure_append_RECIPE_OPTION_busybox_who () {
 	sed -i -e 's/^# \(CONFIG_WHO\) is not set/\1=y/' \
 	.config
@@ -621,7 +621,7 @@ RECIPE_OPTIONS += "busybox_whoami"
 # Default: enable whoami utility
 DEFAULT_CONFIG_busybox_whoami			= "0"
 # Run-time provides whoami command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_whoami += "cmd/whoami busybox-whoami"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_whoami += "util/whoami busybox-whoami"
 do_preconfigure_append_RECIPE_OPTION_busybox_whoami () {
 	sed -i -e 's/^# \(CONFIG_WHOAMI\) is not set/\1=y/' \
 	.config
@@ -634,7 +634,7 @@ RECIPE_OPTIONS += "busybox_clear"
 # Default: enable clear utility
 DEFAULT_CONFIG_busybox_clear			= "0"
 # Run-time provides clear command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_clear += "cmd/clear busybox-clear"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_clear += "util/clear busybox-clear"
 do_preconfigure_append_RECIPE_OPTION_busybox_clear () {
 	sed -i -e 's/^# \(CONFIG_CLEAR\) is not set/\1=y/' \
 	.config
@@ -647,7 +647,7 @@ RECIPE_OPTIONS += "busybox_resize"
 # Default: enable resize utility
 DEFAULT_CONFIG_busybox_resize			= "0"
 # Run-time provides resize command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_resize += "cmd/resize busybox-resize"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_resize += "util/resize busybox-resize"
 do_preconfigure_append_RECIPE_OPTION_busybox_resize () {
 	sed -i -e 's/^# \(CONFIG_RESIZE\) is not set/\1=y/' \
 	.config
@@ -660,7 +660,7 @@ RECIPE_OPTIONS += "busybox_runlevel"
 # Default: enable runlevel utility
 DEFAULT_CONFIG_busybox_runlevel			= "0"
 # Run-time provides runlevel command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_runlevel += "cmd/runlevel busybox-runlevel"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_runlevel += "util/runlevel busybox-runlevel"
 do_preconfigure_append_RECIPE_OPTION_busybox_runlevel () {
 	sed -i -e 's/^# \(CONFIG_RUNLEVEL\) is not set/\1=y/' \
 	.config
@@ -673,7 +673,7 @@ RECIPE_OPTIONS += "busybox_arp"
 # Default: enable arp utility
 DEFAULT_CONFIG_busybox_arp			= "0"
 # Run-time provides arp command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_arp += "cmd/arp busybox-arp"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_arp += "util/arp busybox-arp"
 do_preconfigure_append_RECIPE_OPTION_busybox_arp () {
 	sed -i -e 's/^# \(CONFIG_ARP\) is not set/\1=y/' \
 	.config
@@ -686,7 +686,7 @@ RECIPE_OPTIONS += "busybox_telnet"
 # Default: enable telnet utility
 DEFAULT_CONFIG_busybox_telnet			= "0"
 # Run-time provides telnet command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_telnet += "cmd/telnet busybox-telnet"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_telnet += "util/telnet busybox-telnet"
 do_preconfigure_append_RECIPE_OPTION_busybox_telnet () {
 	sed -i -e 's/^# \(CONFIG_TELNET\) is not set/\1=y/' \
 	.config
@@ -699,7 +699,7 @@ RECIPE_OPTIONS += "busybox_traceroute"
 # Default: enable traceroute utility
 DEFAULT_CONFIG_busybox_traceroute			= "0"
 # Run-time provides traceroute command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_traceroute += "cmd/traceroute busybox-traceroute"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_traceroute += "util/traceroute busybox-traceroute"
 do_preconfigure_append_RECIPE_OPTION_busybox_traceroute () {
 	sed -i -e 's/^# \(CONFIG_TRACEROUTE\) is not set/\1=y/' \
 	.config
@@ -712,7 +712,7 @@ RECIPE_OPTIONS += "busybox_cttyhack"
 # Default: enable cttyhack utility
 DEFAULT_CONFIG_busybox_cttyhack			= "0"
 # Run-time provides cttyhack command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_cttyhack += "cmd/cttyhack busybox-cttyhack"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_cttyhack += "util/cttyhack busybox-cttyhack"
 do_preconfigure_append_RECIPE_OPTION_busybox_cttyhack () {
 	sed -i -e 's/^# \(CONFIG_CTTYHACK\) is not set/\1=y/' \
 	.config
@@ -725,7 +725,7 @@ RECIPE_OPTIONS += "busybox_gunzip"
 # Default: enable gunzip utility
 DEFAULT_CONFIG_busybox_gunzip			= "0"
 # Run-time provides gunzip command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_gunzip += "cmd/gunzip busybox-gunzip"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_gunzip += "util/gunzip busybox-gunzip"
 do_preconfigure_append_RECIPE_OPTION_busybox_gunzip () {
 	sed -i -e 's/^# \(CONFIG_GUNZIP\) is not set/\1=y/' \
 	.config
@@ -738,7 +738,7 @@ RECIPE_OPTIONS += "busybox_xargs"
 # Default: enable xargs utility
 DEFAULT_CONFIG_busybox_xargs			= "0"
 # Run-time provides xargs command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_xargs += "cmd/xargs busybox-xargs"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_xargs += "util/xargs busybox-xargs"
 do_preconfigure_append_RECIPE_OPTION_busybox_xargs () {
 	sed -i -e 's/^# \(CONFIG_XARGS\) is not set/\1=y/' \
 	.config
@@ -751,7 +751,7 @@ RECIPE_OPTIONS += "busybox_pidof"
 # Default: enable pidof utility
 DEFAULT_CONFIG_busybox_pidof			= "0"
 # Run-time provides pidof command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_pidof += "cmd/pidof busybox-pidof"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_pidof += "util/pidof busybox-pidof"
 do_preconfigure_append_RECIPE_OPTION_busybox_pidof () {
 	sed -i -e 's/^# \(CONFIG_PIDOF\) is not set/\1=y/' \
 	.config
@@ -764,7 +764,7 @@ RECIPE_OPTIONS += "busybox_printenv"
 # Default: enable printenv utility
 DEFAULT_CONFIG_busybox_printenv			= "0"
 # Run-time provides printenv command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_printenv += "cmd/printenv busybox-printenv"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_printenv += "util/printenv busybox-printenv"
 do_preconfigure_append_RECIPE_OPTION_busybox_printenv () {
 	sed -i -e 's/^# \(CONFIG_PRINTENV\) is not set/\1=y/' \
 	.config
@@ -777,7 +777,7 @@ RECIPE_OPTIONS += "busybox_printf"
 # Default: enable printf utility
 DEFAULT_CONFIG_busybox_printf			= "0"
 # Run-time provides printf command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_printf += "cmd/printf busybox-printf"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_printf += "util/printf busybox-printf"
 do_preconfigure_append_RECIPE_OPTION_busybox_printf () {
 	sed -i -e 's/^# \(CONFIG_PRINTF\) is not set/\1=y/' \
 	.config
@@ -790,7 +790,7 @@ RECIPE_OPTIONS += "busybox_readlink"
 # Default: enable readlink utility
 DEFAULT_CONFIG_busybox_readlink			= "0"
 # Run-time provides readlink command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_readlink += "cmd/readlink busybox-readlink"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_readlink += "util/readlink busybox-readlink"
 do_preconfigure_append_RECIPE_OPTION_busybox_readlink () {
 	sed -i -e 's/^# \(CONFIG_READLINK\) is not set/\1=y/' \
 	.config
@@ -803,7 +803,7 @@ RECIPE_OPTIONS += "busybox_readpath"
 # Default: enable readpath utility
 DEFAULT_CONFIG_busybox_readpath			= "0"
 # Run-time provides readpath command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_readpath += "cmd/readpath busybox-readpath"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_readpath += "util/readpath busybox-readpath"
 do_preconfigure_append_RECIPE_OPTION_busybox_readpath () {
 	sed -i -e 's/^# \(CONFIG_REALPATH\) is not set/\1=y/' \
 	.config
@@ -816,7 +816,7 @@ RECIPE_OPTIONS += "busybox_wget"
 # Default: enable wget utility
 DEFAULT_CONFIG_busybox_wget			= "0"
 # Run-time provides wget command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_wget += "cmd/wget busybox-wget"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_wget += "util/wget busybox-wget"
 do_preconfigure_append_RECIPE_OPTION_busybox_wget () {
 	sed -i -e 's/^# \(CONFIG_WGET\) is not set/\1=y/' \
 	.config
@@ -829,7 +829,7 @@ RECIPE_OPTIONS += "busybox_mesg"
 # Default: enable mesg utility
 DEFAULT_CONFIG_busybox_mesg			= "0"
 # Run-time provides mesg command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_mesg += "cmd/mesg busybox-mesg"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_mesg += "util/mesg busybox-mesg"
 do_preconfigure_append_RECIPE_OPTION_busybox_mesg () {
 	sed -i -e 's/^# \(CONFIG_MESG\) is not set/\1=y/' \
 	.config
@@ -842,7 +842,7 @@ RECIPE_OPTIONS += "busybox_tty"
 # Default: enable tty utility
 DEFAULT_CONFIG_busybox_tty			= "0"
 # Run-time provides tty command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_tty += "cmd/tty busybox-tty"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_tty += "util/tty busybox-tty"
 do_preconfigure_append_RECIPE_OPTION_busybox_tty () {
 	sed -i -e 's/^# \(CONFIG_TTY\) is not set/\1=y/' \
 	.config
@@ -855,7 +855,7 @@ RECIPE_OPTIONS += "busybox_wall"
 # Default: enable wall utility
 DEFAULT_CONFIG_busybox_wall			= "0"
 # Run-time provides wall command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_wall += "cmd/wall busybox-wall"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_wall += "util/wall busybox-wall"
 do_preconfigure_append_RECIPE_OPTION_busybox_wall () {
 	sed -i -e 's/^# \(CONFIG_WALL\) is not set/\1=y/' \
 	.config
@@ -868,7 +868,7 @@ RECIPE_OPTIONS += "busybox_flashcp"
 # Default: enable flashcp utility
 DEFAULT_CONFIG_busybox_flashcp			= "0"
 # Run-time provides flashcp command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_flashcp += "cmd/flashcp busybox-flashcp"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_flashcp += "util/flashcp busybox-flashcp"
 do_preconfigure_append_RECIPE_OPTION_busybox_flashcp () {
 	sed -i -e 's/^# \(CONFIG_FLASHCP\) is not set/\1=y/' \
 	.config
@@ -881,7 +881,7 @@ RECIPE_OPTIONS += "busybox_flash_lock"
 # Default: enable flash_lock utility
 DEFAULT_CONFIG_busybox_flash_lock			= "0"
 # Run-time provides flash_lock command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_flash_lock += "cmd/flash_lock busybox-flash_lock"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_flash_lock += "util/flash_lock busybox-flash_lock"
 do_preconfigure_append_RECIPE_OPTION_busybox_flash_lock () {
 	sed -i -e 's/^# \(CONFIG_FLASH_LOCK\) is not set/\1=y/' \
 	.config
@@ -894,7 +894,7 @@ RECIPE_OPTIONS += "busybox_flash_unlock"
 # Default: enable flash_unlock utility
 DEFAULT_CONFIG_busybox_flash_unlock			= "0"
 # Run-time provides flash_unlock command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_flash_unlock += "cmd/flash_unlock busybox-flash_unlock"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_flash_unlock += "util/flash_unlock busybox-flash_unlock"
 do_preconfigure_append_RECIPE_OPTION_busybox_flash_unlock () {
 	sed -i -e 's/^# \(CONFIG_FLASH_UNLOCK\) is not set/\1=y/' \
 	.config
@@ -907,7 +907,7 @@ RECIPE_OPTIONS += "busybox_flash_eraseall"
 # Default: enable flash_eraseall utility
 DEFAULT_CONFIG_busybox_flash_eraseall			= "0"
 # Run-time provides flash_eraseall command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_flash_eraseall += "cmd/flash_eraseall busybox-flash_eraseall"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_flash_eraseall += "util/flash_eraseall busybox-flash_eraseall"
 do_preconfigure_append_RECIPE_OPTION_busybox_flash_eraseall () {
 	sed -i -e 's/^# \(CONFIG_FLASH_ERASEALL\) is not set/\1=y/' \
 	.config
@@ -920,7 +920,7 @@ RECIPE_OPTIONS += "busybox_ftpget"
 # Default: enable ftpget utility
 DEFAULT_CONFIG_busybox_ftpget			= "0"
 # Run-time provides ftpget command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_ftpget += "cmd/ftpget busybox-ftpget"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_ftpget += "util/ftpget busybox-ftpget"
 do_preconfigure_append_RECIPE_OPTION_busybox_ftpget () {
 	sed -i -e 's/^# \(CONFIG_FTPGET\) is not set/\1=y/' \
 	.config
@@ -933,7 +933,7 @@ RECIPE_OPTIONS += "busybox_ftpput"
 # Default: enable ftpput utility
 DEFAULT_CONFIG_busybox_ftpput			= "0"
 # Run-time provides ftpput command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_ftpput += "cmd/ftpput busybox-ftpput"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_ftpput += "util/ftpput busybox-ftpput"
 do_preconfigure_append_RECIPE_OPTION_busybox_ftpput () {
 	sed -i -e 's/^# \(CONFIG_FTPPUT\) is not set/\1=y/' \
 	.config
@@ -946,7 +946,7 @@ RECIPE_OPTIONS += "busybox_inittab_login"
 # Default: enable inittab_login utility
 DEFAULT_CONFIG_busybox_inittab_login			= "::askfirst:-/bin/sh"
 # Run-time provides inittab_login command
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_inittab_login += "cmd/inittab_login busybox-inittab_login"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_inittab_login += "util/inittab_login busybox-inittab_login"
 do_preconfigure_append_RECIPE_OPTION_busybox_inittab_login () {
 	sed -i -e 's#::askfirst:-/bin/sh#${RECIPE_OPTION_busybox_inittab_login}#' ${SRCDIR}/inittab
 }
