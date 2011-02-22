@@ -416,6 +416,9 @@ DEFAULT_CONFIG_busybox_tftp			= "0"
 BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_tftp += "util/tftp busybox-tftp"
 do_preconfigure_append_RECIPE_OPTION_busybox_tftp () {
 	sed -i -e 's/^# \(CONFIG_TFTP\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_FEATURE_TFTP_GET\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_FEATURE_TFTP_PUT\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_FEATURE_TFTP_BLOCKSIZE\) is not set/\1=y/' \
 	.config
 }
 
@@ -432,6 +435,9 @@ DEFAULT_CONFIG_busybox_tftpd_root		= "/tftpboot"
 BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_tftpd += "feature/tftpd busybox-tftpd"
 do_preconfigure_append_RECIPE_OPTION_busybox_tftpd () {
 	sed -i -e 's/^# \(CONFIG_TFTPD\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_FEATURE_TFTP_GET\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_FEATURE_TFTP_PUT\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_FEATURE_TFTP_BLOCKSIZE\) is not set/\1=y/' \
 	.config
 }
 
@@ -494,6 +500,11 @@ do_preconfigure_append_RECIPE_OPTION_busybox_ash () {
 	       -e 's/^# \(CONFIG_ASH_OPTIMIZE_FOR_SIZE\) is not set/\1=y/' \
 	       -e 's/^# \(CONFIG_ASH_RANDOM_SUPPORT\) is not set/\1=y/' \
 	       -e 's/^# \(CONFIG_ASH_EXPAND_PRMT\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_SH_MATH_SUPPORT\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_FEATURE_SH_IS_ASH\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_FEATURE_BASH_IS_ASH\) is not set/\1=y/' \
+	       -e 's/^\(CONFIG_FEATURE_SH_IS_NONE\)=y/# \1 is not set/' \
+	       -e 's/^\(CONFIG_FEATURE_BASH_IS_NONE\)=y/# \1 is not set/' \
 	.config
 }
 
