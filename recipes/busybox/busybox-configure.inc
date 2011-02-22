@@ -500,6 +500,7 @@ do_preconfigure_append_RECIPE_OPTION_busybox_ash () {
 	       -e 's/^# \(CONFIG_ASH_OPTIMIZE_FOR_SIZE\) is not set/\1=y/' \
 	       -e 's/^# \(CONFIG_ASH_RANDOM_SUPPORT\) is not set/\1=y/' \
 	       -e 's/^# \(CONFIG_ASH_EXPAND_PRMT\) is not set/\1=y/' \
+	       -e 's/^# \(CONFIG_SH_MATH_SUPPORT\) is not set/\1=y/' \
 	       -e 's/^# \(CONFIG_FEATURE_SH_IS_ASH\) is not set/\1=y/' \
 	       -e 's/^# \(CONFIG_FEATURE_BASH_IS_ASH\) is not set/\1=y/' \
 	       -e 's/^\(CONFIG_FEATURE_SH_IS_NONE\)=y/# \1 is not set/' \
