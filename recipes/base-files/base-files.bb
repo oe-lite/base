@@ -12,12 +12,19 @@ SRC_URI = " \
            file://host.conf \
            file://profile \
            file://fstab \
-           file://issue.net \
-           file://issue \
            file://dot.bashrc \
            file://device_table-minimal.txt \
            file://nsswitch.conf \
            file://dot.profile "
+
+RECIPE_OPTIONS += "basefile_issue"
+DEFAULT_CONFIG_basefiles_issue = "OE Lite Linux"
+
+do_compile[dirs] = "${SRCDIR}"
+do_compile () {
+    echo "${RECIPE_OPTION_basefiles_issue} \n \l"	>issue
+    echo "${RECIPE_OPTION_basefiles_issue} %h"		>issue.net
+}
 
 # Basic filesystem directories (adheres to FHS)
 dirs1777 = "/tmp \
