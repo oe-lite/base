@@ -17,13 +17,16 @@ SRC_URI = " \
            file://nsswitch.conf \
            file://dot.profile "
 
-RECIPE_OPTIONS += "basefile_issue"
+RECIPE_OPTIONS += "basefiles_issue"
 DEFAULT_CONFIG_basefiles_issue = "OE Lite Linux"
 
 do_compile[dirs] = "${SRCDIR}"
 do_compile () {
-    echo "${RECIPE_OPTION_basefiles_issue} \n \l"	>issue
-    echo "${RECIPE_OPTION_basefiles_issue} %h"		>issue.net
+    echo ${RECIPE_OPTION_hostname}			> hostname
+    echo "${RECIPE_OPTION_basefiles_issue} \n \l"	> issue
+    echo						>>issue
+    echo "${RECIPE_OPTION_basefiles_issue} %h"		> issue.net
+    echo						>>issue.net
 }
 
 # Basic filesystem directories (adheres to FHS)
@@ -73,9 +76,7 @@ dirs755 = "${bindir} \
 FILES_${PN} = "/"
 
 do_install () {
-
 	# Install directories
-
 	for d in ${dirs755}; do
 		install -m 0755 -d ${D}$d
 	done
@@ -87,20 +88,9 @@ do_install () {
 	done
 
 	# Install files
-
-        echo ${RECIPE_OPTION_hostname} > ${D}${sysconfdir}/hostname
-
+        install -m 0644 ${SRCDIR}/hostname ${D}${sysconfdir}/hostname
  	install -m 0644 ${SRCDIR}/issue ${D}${sysconfdir}/issue
         install -m 0644 ${SRCDIR}/issue.net ${D}${sysconfdir}/issue.net
-
-        echo -n "${DISTRO} " >> ${D}${sysconfdir}/issue
-        echo "\n \l" >> ${D}${sysconfdir}/issue
-        echo >> ${D}${sysconfdir}/issue
-        
-        echo -n "${DISTRO} " >> ${D}${sysconfdir}/issue.net
-        echo "%h" >> ${D}${sysconfdir}/issue.net
-        echo >> ${D}${sysconfdir}/issue.net
-        
         install -m 0644 ${SRCDIR}/fstab ${D}${sysconfdir}/fstab
         install -m 0644 ${SRCDIR}/profile ${D}${sysconfdir}/profile
         install -m 0755 ${SRCDIR}/dot.profile ${D}${sysconfdir}/skel/.profile
