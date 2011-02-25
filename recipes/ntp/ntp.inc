@@ -5,7 +5,7 @@ or satellite receiver or modem."
 HOMEPAGE = "http://www.ntp.org/"
 LICENSE = "ntp"
 
-inherit autotools-autoreconf make-vpath sysvinit
+inherit autotools-autoreconf make-vpath
 
 DEPENDS = "${TARGET_ARCH}/sysroot-libm"
 
@@ -34,25 +34,26 @@ do_install_append() {
     install -m 755 ${SRCDIR}/ntpdate ${D}/${sysconfdir}/network/if-up.d
 }
 
+inherit sysvinit
 RECIPE_OPTIONS += "ntpd_sysvinit_start ntpd_sysvinit_stop"
 SYSVINIT_SCRIPT_ntpd = "ntpd"
-DEFAULT_CONFIG_ntpd_sysvinit_start	= "20"
-DEFAULT_CONFIG_ntpd_sysvinit_stop	= "20"
+DEFAULT_CONFIG_ntpd_sysvinit_start	= "25"
+DEFAULT_CONFIG_ntpd_sysvinit_stop	= "25"
 
-PACKAGES += "${PN}-ntpdate ${PN}-bin ${PN}-tickadj ${PN}-utils"
-# NOTE: you don't need ntpdate, use "ntpdc -q -g -x"
+inherit auto-package-utils
+AUTO_PACKAGE_UTILS = "ntpd ntpdate ntp-wait ntp-keygen sntp ntpq ntpdc \
+    ntptime ntptrace tickadj"
 
-RPROVIDES_${PN}-ntpdate = "ntpdate"
+# NOTE: you don't need ntpdate if you have ntpd ("ntpdc -q -g -x")
 
-DEPENDS_${PN} = "${TARGET_ARCH}/sysroot-libm"
+RDEPENDS_${PN}-ntpd = "${TARGET_ARCH}/sysroot-libm"
+RDEPENDS_${PN}-sntp = "${TARGET_ARCH}/sysroot-libm"
 
-FILES_${PN} = "${bindir}/ntpd ${sysconfdir}/ntp.conf \
+EXTRA_FILES_${PN}-ntpd = "${sysconfdir}/ntp.conf \
     ${sysconfdir}/init.d/ntpd ${sysconfdir}/rc?.d/???ntpd"
-FILES_${PN}-bin = "${bindir}/ntp-wait ${bindir}/ntpdc ${bindir}/ntpq ${bindir}/ntptime ${bindir}/ntptrace"
-FILES_${PN}-tickadj = "${bindir}/tickadj"
-FILES_${PN}-utils = "${bindir}/*"
-FILES_${PN}-ntpdate = "${bindir}/ntpdate ${sysconfdir}/network/if-up.d/ntpdate"
+
+EXTRA_FILES_${PN}-ntpdate = "${sysconfdir}/network/if-up.d/ntpdate"
 
 # ntp originally includes tickadj. It's split off for inclusion in
 # small firmware images on platforms with wonky clocks (e.g. OpenSlug)
-RDEPENDS_${PN} = "${PN}-tickadj"
+RDEPENDS_${PN}-ntpd = "${PN}-tickadj"
