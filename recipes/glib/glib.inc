@@ -50,5 +50,11 @@ FILES_${PN}-utils = "${bindir}/*"
 AUTO_PACKAGE_LIBS = "glib gobject gmodule gthread gio"
 AUTO_PACKAGE_LIBS_LIBDIR = "${libdir}:lib:-2.0"
 
+AUTO_PACKAGE_LIBS_DEV_DEPENDS += "glib${RE}-dev"
+RDEPENDS_${PN}-libgthread += "${PN}-libglib ${TARGET_ARCH}/sysroot-libpthread"
+RDEPENDS_${PN}-libgobject += "${PN}-libgthread"
+RDEPENDS_${PN}-libgmodule += "${PN}-libglib"
+RDEPENDS_${PN}-libgio     += "${PN}-libgobject libz ${TARGET_ARCH}/sysroot-libresolv ${TARGET_ARCH}/sysroot-libdl"
+
 EXTRA_FILES_${PN}-libgio-dev = "${libdir}/pkgconfig/gio-*-2.0.pc"
 EXTRA_FILES_${PN}-libgmodule-dev = "${libdir}/pkgconfig/gmodule-*-2.0.pc"
