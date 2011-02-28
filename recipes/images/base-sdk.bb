@@ -23,6 +23,8 @@ RDEPENDS = " \
     ${TARGET_ARCH}/sysroot-libnss-files \
     ${TARGET_ARCH}/sysroot-libc \
     ${TARGET_ARCH}/sysroot-libpthread \
+    ${U_BOOT_MKIMAGE} \
 "
 
-RDEPENDS += "u-boot-mkimage-sdk"
+U_BOOT_MKIMAGE="u-boot-tools-sdk-mkimage"
+U_BOOT_MKIMAGE_host-mingw32 = ""
