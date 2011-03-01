@@ -1,3 +1,5 @@
+inherit inetd
+
 #
 # busybox_suid_root will be set to non-empty string if busybox needs to
 # to be installed setuid root
@@ -49,10 +51,10 @@ do_install () {
 	if grep "CONFIG_TFTPD=y" ${S}/.config; then
 		if grep "CONFIG_INETD=y" ${S}/.config; then
 			inetd_conf="${D}${sysconfdir}/inetd.conf"
-		#else
-			# FIXME: implement an inetd.bbclass to manage inetd.conf
-			#mkdir -p ${D}${INETD_CONF_DIR}
-			#inetd_conf="${D}${INETD_CONF_DIR}/${INETD_CONF_NAME}"
+		else
+			# put it where inetd class finds it, so it can be merged
+			# with inetd.conf when generating image
+			inetd_conf="${SRCDIR}/inetd.conf"
 		fi
 		echo "tftp dgram udp nowait root tftpd tftpd -c ${RECIPE_OPTION_busybox_tftpd_dir}" >> $inetd_conf
 	fi
