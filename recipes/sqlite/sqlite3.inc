@@ -28,8 +28,9 @@ export config_TARGET_LINK = "${CCLD}"
 export config_TARGET_CFLAGS = "${CFLAGS}"
 export config_TARGET_LFLAGS = "${LDFLAGS}"
 
-FILES_${PN} = "${bindir}/*"
-FILES_${PN} = "${libdir}/*.so.*"
-FILES_${PN}-dev = "${libdir}/*.a ${libdir}/*.la ${libdir}/*.so \
-		       ${libdir}/pkgconfig ${includedir}"
-FILES_${PN}-doc = "${docdir} ${mandir} ${infodir}"
+inherit auto-package-utils auto-package-libs
+
+AUTO_PACKAGE_UTILS = "sqlite3"
+AUTO_PACKAGE_LIBS = "sqlite3"
+
+EXTRA_FILES_${PN}-libsqlite3-dev = "${includedir}"
