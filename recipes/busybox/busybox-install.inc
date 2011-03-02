@@ -1,4 +1,5 @@
 inherit inetd
+INETD_CONF_FILES = "${SRCDIR}/inetd.conf.d"
 
 #
 # busybox_suid_root will be set to non-empty string if busybox needs to
@@ -54,7 +55,7 @@ do_install () {
 		else
 			# put it where inetd class finds it, so it can be merged
 			# with inetd.conf when generating image
-			inetd_conf="${SRCDIR}/inetd.conf"
+			inetd_conf="${SRCDIR}/inetd.conf.d"
 		fi
 		echo "tftp dgram udp nowait root tftpd tftpd -c ${RECIPE_OPTION_busybox_tftpd_dir}" >> $inetd_conf
 	fi
