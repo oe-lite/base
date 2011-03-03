@@ -6,23 +6,23 @@ HOMEPAGE = "http://www.isc.org/"
 LICENSE = "ISC"
 
 SRC_URI = "ftp://ftp.isc.org/isc/dhcp/dhcp-${PV}.tar.gz \
-	       file://init-relay file://default-relay \
-	       file://init-server file://default-server \
-	       file://dhclient.conf file://dhcpd.conf"
+    file://init-relay file://default-relay \
+    file://init-server file://default-server \
+    file://dhclient.conf file://dhcpd.conf"
 
 S = "${SRCDIR}/dhcp-${PV}"
 
 do_configure() {
-  ./configure
+    ./configure
 }
 
 EXTRA_OEMAKE="RANLIB=${RANLIB} \
-        PREDEFINES='-D_PATH_DHCPD_DB=\"/var/lib/dhcp/dhcpd.leases\" \ 
-        			-D_PATH_DHCLIENT_DB=\"/var/lib/dhcp/dhclient.leases\" \ 
-        			-D_PATH_DHCLIENT_SCRIPT=\"/sbin/dhclient-script\" \ 
-        			-D_PATH_DHCPD_CONF=\"/etc/dhcp/dhcpd.conf\" \ 
-        			-D_PATH_DHCLIENT_CONF=\"/etc/dhcp/dhclient.conf\"' \
-			 "
+    PREDEFINES='-D_PATH_DHCPD_DB=\"/var/lib/dhcp/dhcpd.leases\" \ 
+                -D_PATH_DHCLIENT_DB=\"/var/lib/dhcp/dhclient.leases\" \ 
+                -D_PATH_DHCLIENT_SCRIPT=\"/sbin/dhclient-script\" \ 
+                -D_PATH_DHCPD_CONF=\"/etc/dhcp/dhcpd.conf\" \ 
+                -D_PATH_DHCLIENT_CONF=\"/etc/dhcp/dhclient.conf\"' \
+"
 
 do_install() {
     make -e DESTDIR=${D} USRMANDIR=${mandir}/man1 ADMMANDIR=${mandir}/man8 FFMANDIR=${mandir}/man5 LIBMANDIR=${mandir}/man3 LIBDIR=${libdir} INCDIR=${includedir} install
