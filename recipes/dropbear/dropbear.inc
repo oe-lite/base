@@ -4,7 +4,7 @@ SECTION = "console/network"
 LICENSE = "MIT"
 
 DEPENDS = "libz ${HOST_ARCH}/sysroot-libcrypt ${HOST_ARCH}/sysroot-libutil"
-RDEPENDS_${PN} = "libz ${HOST_ARCH}/sysroot-libcrypt"
+RDEPENDS_${PN} = "libz ${HOST_ARCH}/sysroot-libcrypt ${HOST_ARCH}/sysroot-libutil"
 
 RPROVIDES_${PN} = "ssh sshd scp"
 
