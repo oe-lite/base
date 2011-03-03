@@ -6,7 +6,6 @@ HOMEPAGE = "http://www.isc.org/"
 LICENSE = "ISC"
 
 SRC_URI = "ftp://ftp.isc.org/isc/dhcp/dhcp-${PV}.tar.gz \
-           file://site.h \
 	       file://init-relay file://default-relay \
 	       file://init-server file://default-server \
 	       file://dhclient.conf file://dhcpd.conf"
