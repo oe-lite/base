@@ -36,13 +36,10 @@ EXTRA_SRC_URI = ""
 EXTRA_SRC_URI_append_RECIPE_OPTION_busybox_init_shutdown_umount = "file://init-shutdown-umount.patch"
 SRC_URI += "${EXTRA_SRC_URI}"
 
-SYSROOT_DEPENDS = "\
-    ${TARGET_ARCH}/sysroot-libc \
-    ${TARGET_ARCH}/sysroot-libm \
-    ${TARGET_ARCH}/sysroot-libcrypt \
-"
-DEPENDS = "${SYSROOT_DEPENDS}"
-RDEPENDS_${PN} = "netbase base-passwd base-files ${SYSROOT_DEPENDS}"
+DEPENDS = "${HOST_ARCH}/sysroot-libc"
+DEPENDS += "${HOST_ARCH}/sysroot-libm"
+DEPENDS += "${HOST_ARCH}/sysroot-libcrypt"
+RDEPENDS_${PN} = "netbase base-passwd base-files ${HOST_ARCH}/sysroot-libc"
 
 export EXTRA_CFLAGS = "${CFLAGS}"
 
