@@ -25,7 +25,7 @@ EXTRA_OEMAKE="RANLIB=${RANLIB} \
 "
 
 do_install() {
-    make -e DESTDIR=${D} USRMANDIR=${mandir}/man1 ADMMANDIR=${mandir}/man8 FFMANDIR=${mandir}/man5 LIBMANDIR=${mandir}/man3 LIBDIR=${libdir} INCDIR=${includedir} install
+    ${MAKE} -e DESTDIR=${D} USRMANDIR=${mandir}/man1 ADMMANDIR=${mandir}/man8 FFMANDIR=${mandir}/man5 LIBMANDIR=${mandir}/man3 LIBDIR=${libdir} INCDIR=${includedir} install
     install -d ${D}${sysconfdir}/init.d
     install -d ${D}${sysconfdir}/default
     install -d ${D}${sysconfdir}/dhcp
