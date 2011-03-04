@@ -59,6 +59,9 @@ RECIPE_OPTIONS += "vsftpd_sysvinit_start vsftpd_sysvinit_stop"
 DEFAULT_CONFIG_vsftpd_sysvinit_start	= "20"
 DEFAULT_CONFIG_vsftpd_sysvinit_stop	= "20"
 
+RDEPENDS_${PN} = "${HOST_ARCH}/sysroot-libcrypt \
+    ${HOST_ARCH}/sysroot-libnsl ${HOST_ARCH}/sysroot-libresolv"
+
 # FIXME: do something else!
 #pkg_postinst() {
 #    if [ "x$D" != "x" ]; then
