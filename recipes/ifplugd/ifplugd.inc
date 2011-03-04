@@ -15,3 +15,5 @@ RECIPE_OPTIONS += "ifplugd_sysvinit_start ifplugd_sysvinit_stop"
 SYSVINIT_SCRIPT_ifplugd = "ifplugd"
 DEFAULT_CONFIG_ifplugd_sysinit_start = "25"
 DEFAULT_CONFIG_ifplugd_sysinit_stop  = "20"
+
+RDEPENDS_${PN} = "libdaemon"
