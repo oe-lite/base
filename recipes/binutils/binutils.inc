@@ -10,12 +10,38 @@ HOMEPAGE = "http://www.gnu.org/software/binutils/"
 BUGTRACKER = "http://sourceware.org/bugzilla/"
 LICENSE = "GPLv3"
 
-inherit autotools gettext auto-package-utils
+inherit autotools gettext
 
 DEPENDS = "flex-native bison-native"
 
-AUTO_PACKAGE_UTILS = " \
-	addr2line as c++filt gprof ld nm objcopy \
-	objdump ranlib readelf size strip"
-
 EXTRA_OECONF = "--enable-install-libbfd --enable-shared"
+
+inherit auto-package-libs
+AUTO_PACKAGE_LIBS = "bfd opcodes"
+AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}"
+AUTO_PACKAGE_LIBS_LIBDIR = "${libdir}:lib::-${PV}.so:.so"
+
+PROVIDES_${PN}-dev = "libiberty"
+
+inherit auto-package-utils
+AUTO_PACKAGE_UTILS = "\
+    addr2line as c++filt gprof ld nm objcopy objdump ranlib readelf elfedit \
+    size strip ar strings embedspu"
+
+EXTRA_FILES_${PN}-ld = "${bindir}/ld.bfd"
+
+RDEPENDS_${PN}-addr2line = "libbfd"
+RDEPENDS_${PN}-as = "libbfd libopcodes"
+RDEPENDS_${PN}-c++filt = "libbfd"
+RDEPENDS_${PN}-gprof = "libbfd"
+RDEPENDS_${PN}-ld = "libbfd"
+RDEPENDS_${PN}-nm = "libbfd"
+RDEPENDS_${PN}-objcopy = "libbfd"
+RDEPENDS_${PN}-objdump = "libbfd libopcodes"
+RDEPENDS_${PN}-ranlib = "libbfd"
+RDEPENDS_${PN}-readelf = "libbfd"
+RDEPENDS_${PN}-elfedit = "libbfd"
+RDEPENDS_${PN}-size = "libbfd"
+RDEPENDS_${PN}-strip = "libbfd"
+RDEPENDS_${PN}-ar = "libbfd"
+RDEPENDS_${PN}-strings = "libbfd"
