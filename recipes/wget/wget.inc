@@ -13,3 +13,5 @@ SRC_URI = "${GNU_MIRROR}/wget/wget-${PV}.tar.gz"
 EXTRA_OECONF = "--enable-ipv6 --without-ssl"
 
 RPROVIDES_${PN} = "util/wget"
+
+RDEPENDS_${PN} = "${HOST_ARCH}/sysroot-librt ${HOST_ARCH}/sysroot-libgcc"
