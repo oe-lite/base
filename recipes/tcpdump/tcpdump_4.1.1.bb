@@ -5,6 +5,7 @@ SECTION = "console/network"
 PRIORITY = "optional"
 
 DEPENDS = "libpcap"
+RDEPENDS_${PN} = "libpcap"
 
 SRC_URI = " \
 	http://www.tcpdump.org/release/tcpdump-${PV}.tar.gz \
