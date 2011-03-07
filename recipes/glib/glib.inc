@@ -7,7 +7,7 @@ LICENSE = "LGPLv2+"
 
 BBCLASSEXTEND = "native"
 
-inherit autotools gettext auto-package-libs
+inherit autotools-autoreconf gettext auto-package-libs
 
 DEPENDS = "glib-native-dev libglib-native libgmodule-native \
     glib-native-utils \

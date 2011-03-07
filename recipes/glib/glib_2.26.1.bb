@@ -1,7 +1,6 @@
 require ${BPN}.inc
 
 SRC_URI += "file://glibconfig-sysdefs.h"
-SRC_URI += "file://configure-libtool.patch"
 SRC_URI += "file://g_once_init_enter.patch"
 SRC_URI += "file://gatomic-proper-pointer-get-cast.patch"
 SRC_URI += "file://60_wait-longer-for-threads-to-die.patch"
