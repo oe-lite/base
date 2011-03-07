@@ -2,16 +2,11 @@ DESCRIPTION = "An Embeddable SQL Database Engine"
 HOMEPAGE = "http://www.sqlite.org"
 LICENSE = "PD"
 
-BBCLASSEXTEND = "native"
-
 inherit autotools pkgconfig
 
 DEPENDS = "readline${RE}-dev \
            ncurses${RE}-dev \
            ${TARGET_ARCH}/sysroot-libpthread"
-
-# FIXME: huh??  why tcl for native (only)? and why not readline and ncurses?
-DEPENDS_recipe-native = "tcl-native"
 
 SRC_URI = "http://www.sqlite.org/sqlite-${PV}.tar.gz"
 
