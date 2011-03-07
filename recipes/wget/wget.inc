@@ -6,7 +6,6 @@ DEPENDS = "${HOST_ARCH}/sysroot-librt"
 inherit autotools gettext
 
 require conf/fetch/gnu.conf
-
 SRC_URI = "${GNU_MIRROR}/wget/wget-${PV}.tar.gz"
 
 # Disable checking for SSL since that searches the system paths
