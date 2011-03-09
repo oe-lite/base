@@ -22,3 +22,6 @@ do_install_append() {
 
 AUTO_PACKAGE_UTILS = "ddcmon decode-dimms decode-edid decode-vaio \
     eeprog eeprom eepromer i2cdetect i2cdump i2cget i2cset i2c-stub-from-dump"
+
+#force i2c-tools to run depend on all
+RDEPENDS_${PN} = ${AUTO_PACKAGE_ALL_UTILS}
