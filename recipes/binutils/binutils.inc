@@ -28,6 +28,7 @@ AUTO_PACKAGE_UTILS = "\
     addr2line as c++filt gprof ld nm objcopy objdump ranlib readelf elfedit \
     size strip ar strings embedspu"
 
+
 EXTRA_FILES_${PN}-ld = "${bindir}/ld.bfd"
 
 RDEPENDS_${PN}-addr2line = "libbfd"
@@ -45,3 +46,6 @@ RDEPENDS_${PN}-size = "libbfd"
 RDEPENDS_${PN}-strip = "libbfd"
 RDEPENDS_${PN}-ar = "libbfd"
 RDEPENDS_${PN}-strings = "libbfd"
+
+#force binutils to run depend on all
+RDEPENDS_${PN} = ${AUTO_PACKAGE_ALL_UTILS}
