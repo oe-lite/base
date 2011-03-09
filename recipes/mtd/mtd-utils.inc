@@ -46,3 +46,6 @@ RDEPENDS_${PN}-mkfs-ubifs = "libz${RE} liblzo${RE} libuuid${RE} \
 SYSROOT_RDEPENDS_${PN}-mkfs-ubifs = "${HOST_ARCH}/sysroot-libm"
 SYSROOT_RDEPENDS_${PN}-mkfs-ubifs_recipe-native = ""
 RDEPENDS_${PN} = "${UTILS_AUTO_PACKAGES}"
+
+#force mtd-utils to run depend on all
+RDEPENDS_${PN} = ${AUTO_PACKAGE_ALL_UTILS}
