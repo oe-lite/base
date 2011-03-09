@@ -47,5 +47,5 @@ RDEPENDS_${PN}-strip = "libbfd"
 RDEPENDS_${PN}-ar = "libbfd"
 RDEPENDS_${PN}-strings = "libbfd"
 
-#force binutils to run depend on all
-RDEPENDS_${PN} = ${AUTO_PACKAGE_ALL_UTILS}
+# The binutils package is used to pull in all provided util features
+RDEPENDS_${PN} = ${AUTO_PACKAGE_UTILS_RPROVIDES}
