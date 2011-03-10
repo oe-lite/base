@@ -10,9 +10,9 @@ SRC_URI = "${SOURCEFORGE_MIRROR}/boost/boost_${BOOST_VER}.tar.bz2"
 S = "${SRCDIR}/boost_${BOOST_VER}"
 
 DEPENDS = "libz libbz2 \
-    ${TARGET_ARCH}/sysroot-libpthread \
-    ${TARGET_ARCH}/sysroot-librt \
-"
+    ${HOST_ARCH}/sysroot-librt ${HOST_ARCH}/sysroot-libstdc++ \
+    ${HOST_ARCH}/sysroot-libm ${HOST_ARCH}/sysroot-libpthread \
+    ${HOST_ARCH}/sysroot-libc ${HOST_ARCH}/sysroot-libgcc"
 
 # Oh yippee, a new build system, it's sooo cooool I could eat my own
 # foot.  inlining=on lets the compiler choose, I think.  At least this
@@ -134,8 +134,32 @@ BOOTSTRAP_OPTIONS += "${ICU_BOOTSTRAP_OPTION}"
 ICU_DEPENDS = ""
 ICU_DEPENDS_RECIPE_OPTION_boost_icu += "libicuuc libicui18n libicudata"
 DEPENDS += "${ICU_DEPENDS}"
-RDEPENDS_${PN}-regex = "${ICU_DEPENDS}"
 DEPENDS_${PN}-regex-dev = "${ICU_DEPENDS}"
+
+LIBBOST_COMMON_RDEPENDS = "${HOST_ARCH}/sysroot-librt ${HOST_ARCH}/sysroot-libstdc++ \
+                            ${HOST_ARCH}/sysroot-libm ${HOST_ARCH}/sysroot-libpthread \
+                            ${HOST_ARCH}/sysroot-libc ${HOST_ARCH}/sysroot-libgcc"
+RDEPENDS_${PN}-regex = "${LIBBOST_COMMON_RDEPENDS} ${ICU_DEPENDS}"
+RDEPENDS_${PN}-iostreams = "${LIBBOST_COMMON_RDEPENDS} libz libbz2"
+RDEPENDS_${PN}-date_time = "${LIBBOST_COMMON_RDEPENDS}"
+RDEPENDS_${PN}-filesystems = "${LIBBOST_COMMON_RDEPENDS} boost-system"
+RDEPENDS_${PN}-graph = "${LIBBOST_COMMON_RDEPENDS} boost-regex"
+RDEPENDS_${PN}-math_c99f = "${LIBBOST_COMMON_RDEPENDS}"
+RDEPENDS_${PN}-math_c99 = "${LIBBOST_COMMON_RDEPENDS}"
+RDEPENDS_${PN}-math_c99l = "${LIBBOST_COMMON_RDEPENDS}"
+RDEPENDS_${PN}-math_tr1f = "${LIBBOST_COMMON_RDEPENDS}"
+RDEPENDS_${PN}-math_tr1l = "${LIBBOST_COMMON_RDEPENDS}"
+RDEPENDS_${PN}-math_tr1 = "${LIBBOST_COMMON_RDEPENDS}"
+RDEPENDS_${PN}-prg_exec_monitor = "${LIBBOST_COMMON_RDEPENDS}"
+RDEPENDS_${PN}-program-options = "${LIBBOST_COMMON_RDEPENDS}"
+RDEPENDS_${PN}-random = "${LIBBOST_COMMON_RDEPENDS}"
+RDEPENDS_${PN}-serialization = "${LIBBOST_COMMON_RDEPENDS}"
+RDEPENDS_${PN}-signals = "${LIBBOST_COMMON_RDEPENDS}"
+RDEPENDS_${PN}-system = "${LIBBOST_COMMON_RDEPENDS}"
+RDEPENDS_${PN}-thread = "${LIBBOST_COMMON_RDEPENDS}"
+RDEPENDS_${PN}-unit_test_framework = "${LIBBOST_COMMON_RDEPENDS}"
+RDEPENDS_${PN}-wave = "${LIBBOST_COMMON_RDEPENDS} boost-date_time boost-thread boost-filesystem boost-system"
+RDEPENDS_${PN}-wserialization = "${LIBBOST_COMMON_RDEPENDS} boost-serialization"
 
 BOOST_LIBS += "serialization"
 EXTRA_FILES_${PN}-serialization = "\
