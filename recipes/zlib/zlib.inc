@@ -18,3 +18,4 @@ oe_runconf() {
 
 PROVIDES_${PN}-dev	+= "libz${RE}"
 RPROVIDES_${PN}		+= "libz${RE}"
+RPROVIDES_${PN}-dev	+= "libz${RE}-dev"
