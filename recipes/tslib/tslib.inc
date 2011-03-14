@@ -8,8 +8,6 @@ inherit autotools-autoreconf pkgconfig
 PACKAGES =+ "${PN}-conf ${PN}-tests ${PN}-calibrate"
 DEPENDS += "${HOST_ARCH}/sysroot-libdl ${HOST_ARCH}/sysroot-libstdc++"
 
-RDEPENDS_${PN} = "${PN}"
-
 SRC_URI = "http://download.berlios.de/${BPN}/${BP}.tar.bz2"
 SRC_URI += "file://ts.conf"
 SRC_URI += "file://tslib.sh"
@@ -22,6 +20,9 @@ do_install_append () {
 	install -m 0644 ${SRCDIR}/ts.conf ${D}${sysconfdir}/ts.conf
 }
 
+RDEPENDS_${PN} = "${HOST_ARCH}/sysroot-libdl ${PN}-conf"
+RDEPENDS_${PN}-tests = "${PN}"
+RDEPENDS_${PN}-calibrate = "${PN}"
 
 FILES_${PN}-dbg += "${libdir}/ts/.debug*"
 FILES_${PN}-conf = "${sysconfdir}/ts.conf ${sysconfdir}/profile.d/tslib.sh ${datadir}/tslib"
