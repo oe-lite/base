@@ -6,7 +6,7 @@ Linux framebuffer device."
 LICENSE = "LGPL"
 HOMEPAGE = "http://directfb.org"
 
-inherit autotools binconfig pkgconfig
+inherit autotools-autoreconf binconfig pkgconfig
 
 DEPENDS = "jpeg-dev \
            libpng-dev \
@@ -20,13 +20,9 @@ DEPENDS = "jpeg-dev \
            ${HOST_ARCH}/sysroot-libstdc++  \ 
            tslib-dev"
 
-SRC_URI = "http://www.directfb.org/downloads/Old/DirectFB-${PV}.tar.gz"
-
-SRC_URI += "file://fix-pkgconfig-cflags.patch"
-SRC_URI += "file://fix-font-missing-char.patch"
-SRC_URI += "file://getpagesize.patch"
-SRC_URI += "file://dont-use-linux-config.patch"
-SRC_URI += "file://ts_lib_autotools.patch"
+SRC_URI = " \
+    http://directfb.org/downloads/Core/DirectFB-1.4/DirectFB-${PV}.tar.gz \
+   "
 
 S = "${SRCDIR}/DirectFB-${PV}"
 

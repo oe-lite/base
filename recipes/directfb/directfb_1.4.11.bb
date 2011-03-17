@@ -2,8 +2,7 @@ require directfb.inc
 
 DEPENDS += "sysfsutils"
 
-SRC_URI += "file://directfb-1.2.x-fix-pkgconfig-cflags.patch"
-SRC_URI += "file://mkdfiff.patch"
+RV = "1.4-5"
 
 EXTRA_OECONF = "\
   --enable-freetype=yes \
@@ -13,4 +12,3 @@ EXTRA_OECONF = "\
   --disable-vnc \
   --disable-x11 \
 "
-LEAD_SONAME = "libdirectfb-1.4.so.5"
