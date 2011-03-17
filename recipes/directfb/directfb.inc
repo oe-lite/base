@@ -40,7 +40,7 @@ EXTRA_OECONF = "\
 do_install() {
         oe_runmake 'DESTDIR=${D}' install
 }
-
+PACKAGES = "${PN}-dbg ${PN}-doc ${PN}-dev ${PN} ${PN}-locale"
 FILES_${PN}-dbg += "\
   ${libdir}/directfb-${RV}/*/*/.debug/*.so \
   ${libdir}/directfb-${RV}/*/.debug/*.so \
