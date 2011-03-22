@@ -3,11 +3,12 @@ infrastructure for basic TCP/IP based networking."
 SECTION = "base"
 LICENSE = "GPL"
 
-RECIPE_OPTIONS = "netbase_sysvinit_start netbase sysvinit_stop"
+RECIPE_OPTIONS = "netbase_sysvinit_start netbase sysvinit_stop netbase_auto_if"
 
 DEFAULT_CONFIG_netbase_sysvinit_start	= "20"
 DEFAULT_CONFIG_netbase_sysvinit_stop	= "0"
 SYSVINIT_SCRIPT_netbase			= "networking"
+DEFAULT_CONFIG_netbase_auto_if          = "lo"
 
 inherit sysvinit
 
@@ -30,6 +31,7 @@ do_install () {
 	install -m 0644 etc-protocols ${D}${sysconfdir}/protocols
 	install -m 0644 etc-services ${D}${sysconfdir}/services
 	install -m 0644 ${SRCDIR}/interfaces ${D}${sysconfdir}/network/interfaces
+        echo "auto ${RECIPE_OPTION_netbase_auto_if}" >> ${D}${sysconfdir}/network/interfaces
 }
 
 CONFFILES_${PN} = "${sysconfdir}/hosts ${sysconfdir}/network/interfaces"
