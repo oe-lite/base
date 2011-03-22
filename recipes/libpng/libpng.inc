@@ -6,22 +6,19 @@ inherit autotools pkgconfig binconfig
 
 BBCLASSEXTEND = "native"
 
-DEPENDS = "zlib-dev ${HOST_ARCH}/sysroot-libm"
-DEPENDS_recipe-native = "zlib-native-dev"
+DEPENDS = "libz${RE} ${HOST_ARCH}/sysroot-libm"
+DEPENDS_recipe-native = "libz${RE}"
 
 require conf/fetch/sourceforge.conf
-SRC_URI = "${SOURCEFORGE_MIRROR}/libpng/libpng-${PV}.tar.bz2"
+SRC_URI = "${SOURCEFORGE_MIRROR}/${BPN}/${BPN}-${PV}.tar.bz2"
 
-S = "${SRCDIR}/libpng-${PV}"
-
-PACKAGES =+ "${PN}-libpng3 ${PN}-libpng12"
+PACKAGES = "${PN}-dbg ${PN}-dev ${PN}-libpng3 ${PN}-libpng12 ${PN} ${PN}-doc"
 
 PROVIDES_${PN}-libpng3="libpng3${RE}"
 PROVIDES_${PN}-libpng12="libpng12${RE}"
+RDEPENDS_${PN}-libpng3="${HOST_ARCH}/sysroot-libm libz"
+RDEPENDS_${PN}-libpng12="${HOST_ARCH}/sysroot-libm libz"
 
-FILES_${PN}-libpng3 = "${libdir}/libpng.so.*"
-FILES_${PN}-libpng12 = "${libdir}/libpng12.so.*"
-FILES_${PN}-dev = "${includedir} ${libdir}/lib*.so ${libdir}/*.la \
-		${libdir}/*.a ${libdir}/pkgconfig \
-		${datadir}/aclocal ${bindir} ${sbindir}"
 
+FILES_${PN}-libpng3 = "${libdir}/libpng${SOLIBS}"
+FILES_${PN}-libpng12 = "${libdir}/libpng12${SOLIBS}"
