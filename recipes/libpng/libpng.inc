@@ -22,3 +22,6 @@ RDEPENDS_${PN}-libpng12="${HOST_ARCH}/sysroot-libm libz"
 
 FILES_${PN}-libpng3 = "${libdir}/libpng${SOLIBS}"
 FILES_${PN}-libpng12 = "${libdir}/libpng12${SOLIBS}"
+
+PROVIDES_${PN}-dev	= "${PN} ${P} ${PF}"
+DEPENDS_${PN}-dev	= "libpng3${RE} libpng12${RE}"
