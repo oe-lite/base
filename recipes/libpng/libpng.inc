@@ -3,6 +3,7 @@ HOMEPAGE = "http://www.libpng.org/"
 LICENSE = "libpng"
 
 inherit autotools pkgconfig binconfig
+BINCONFIG_GLOB = "${bindir}/libpng-config"
 
 BBCLASSEXTEND = "native"
 
