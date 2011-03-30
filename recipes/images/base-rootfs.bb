@@ -7,3 +7,5 @@ DEFAULT_CONFIG_base_rootfs_jffs2_options = "--faketime --squash"
 JFFS2_IMAGE_OPTIONS = "${RECIPE_OPTION_base_rootfs_jffs2_options}"
 
 inherit tar-image
+
+inherit image-qa
