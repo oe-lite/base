@@ -81,19 +81,20 @@ python () {
     bb.data.setVar('BJAM_LINKFLAGS', ' '.join(boost_ldflags), d)
 }
 
-do_configure_prepend() {
+do_configure () {
     cp -f boost/config/platform/linux.hpp \
           boost/config/platform/linux-gnueabi.hpp
 
-    echo "using gcc : $(${CXX} -dumpversion) : ${CXX} : <compileflags>-DBOOST_SP_USE_PTHREADS ${BJAM_CFLAGS} ${BJAM_CXXFLAGS} ${BJAM_LINKFLAGS} ;" >> ${S}/tools/build/v2/user-config.jam
+    echo "using gcc : $(${CXX} -dumpversion) : ${CXX} : <define>-DBOOST_SP_USE_PTHREADS ${BJAM_CFLAGS} ${BJAM_CXXFLAGS} ${BJAM_LINKFLAGS} ;" >> ${S}/tools/build/v2/user-config.jam
+    CC="${BUILD_CC}" CFLAGS="${BUILD_CFLAGS}" ./bootstrap.sh --with-toolset=gcc ${BOOTSTRAP_OPTIONS}
 }
 
 do_compile() {
     set -ex
-    ./bootstrap.sh ${BOOTSTRAP_OPTIONS} \
-        --prefix=${prefix} --exec-prefix=${exec_prefix} \
-        --libdir=${libdir} --includedir=${includedir}
-    ./bjam ${BJAM_OPTIONS}
+    ./bjam -d2 ${BJAM_OPTIONS} \
+    --prefix=${prefix} --exec-prefix=${exec_prefix} \
+    --libdir=${libdir} --includedir=${includedir} \
+    --debug-configuration
 }
 
 do_install() {
