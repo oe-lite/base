@@ -1,10 +1,3 @@
-DEPENDS = "libcrypto${RE} libssl${RE} libz${RE} ${HOST_ARCH}/sysroot-libdl ${HOST_ARCH}/sysroot-libutil ${HOST_ARCH}/sysroot-libresolv ${HOST_ARCH}/sysroot-libcrypt"
-
-RCONFLICTS_${PN} = "dropbear"
-RCONFLICTS_${PN}-sshd = "dropbear"
-RCONFLICTS_${PN}-keygen = "ssh-keygen"
-
-SECTION = "console/network"
 DESCRIPTION = "Secure rlogin/rsh/rcp/telnet replacement (OpenSSH) \
 Ssh (Secure Shell) is a program for logging into a remote machine \
 and for executing commands on a remote machine. \
@@ -16,7 +9,13 @@ used to provide applications with a secure communication channel."
 HOMEPAGE = "http://www.openssh.org/"
 LICENSE = "BSD"
 
-INC_PR = "r1"
+DEPENDS = "libcrypto${RE} libssl${RE} libz${RE} ${HOST_ARCH}/sysroot-libdl ${HOST_ARCH}/sysroot-libutil ${HOST_ARCH}/sysroot-libresolv ${HOST_ARCH}/sysroot-libcrypt"
+
+SRC_URI = "ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-${PV}.tar.gz"
+
+SRC_URI += "file://sshd_config"
+SRC_URI += "file://ssh_config"
+SRC_URI += "file://init"
 
 inherit autotools
 
@@ -74,5 +73,3 @@ RDEPENDS_${PN}-sftp-server = "${OPENSSH_RDEPENDS}"
 RDEPENDS_${PN}-misc = "${OPENSSH_RDEPENDS}"
 
 ALLOW_EMPTY_${PN} = "1"
-CONFFILES_${PN}-sshd = "${sysconfdir}/ssh/sshd_config"
-CONFFILES_${PN}-ssh = "${sysconfdir}/ssh/ssh_config"
