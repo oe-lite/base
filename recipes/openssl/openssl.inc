@@ -16,22 +16,6 @@ export DIRS = "crypto ssl apps engines"
 export EX_LIBS = "-lgcc -ldl"
 export AS = "${CC} -c"
 
-PACKAGES =+ "${PN}-libcrypto ${PN}-libssl ${PN}-misc ${PN}-engines"
-
-FILES_${PN}-libcrypto = "${libdir}/libcrypto${SOLIBS}"
-FILES_${PN}-libssl = "${libdir}/libssl${SOLIBS}"
-FILES_${PN}-misc = "${libdir}/ssl/misc ${libdir}/ssl/openssl.cnf"
-FILES_${PN}-engines = "${libdir}/ssl/engines/${SOLIBS}"
-FILES_${PN}-dev =+ "${libdir}/engines/lib*${SOLIBSDEV}"
-FILES_${PN}-dbg =+ "${libdir}/engines/.debug"
-FILES_${PN}-doc =+ "${libdir}/ssl/man"
-
-PROVIDES_${PN}-libcrypto = "libcrypto${RE}"
-PROVIDES_${PN}-libssl = "libssl${RE}"
-
-RPROVIDES_${PN}-libcrypto = "libcrypto${RE}"
-RPROVIDES_${PN}-libssl = "libssl${RE}"
-
 do_configure_prepend_darwin () {
 	sed -i -e '/version-script=openssl\.ld/d' Configure
 }
@@ -119,3 +103,14 @@ do_install () {
 	install -d ${D}${includedir}
 	cp --dereference -R include/openssl ${D}${includedir}
 }
+
+PACKAGES =+ "${PN}-misc ${PN}-engines"
+FILES_${PN}-misc = "${libdir}/ssl/misc ${libdir}/ssl/openssl.cnf"
+FILES_${PN}-engines = "${libdir}/ssl/engines/${SOLIBS}"
+FILES_${PN}-dbg =+ "${libdir}/engines/.debug"
+FILES_${PN}-doc =+ "${libdir}/ssl/man"
+
+inherit auto-package-libs
+AUTO_PACKAGE_LIBS = "crypto ssl"
+AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev"
+DEPENDS_${PN}-dev = ""

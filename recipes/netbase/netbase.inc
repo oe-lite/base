@@ -13,10 +13,11 @@ DEFAULT_CONFIG_netbase_auto_if          = "lo"
 inherit sysvinit
 
 require conf/fetch/debian.conf
-SRC_URI = "${DEBIAN_MIRROR}/main/n/netbase/netbase_${PV}.tar.gz \
-           file://init \
-           file://hosts \
-           file://interfaces"
+SRC_URI = "${DEBIAN_MIRROR}/main/n/netbase/netbase_${PV}.tar.gz"
+
+SRC_URI += "file://init"
+SRC_URI += "file://hosts"
+SRC_URI += "file://interfaces"
 
 do_install () {
 	install -d ${D}${sysconfdir}/init.d \

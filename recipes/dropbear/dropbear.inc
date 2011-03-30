@@ -23,10 +23,20 @@ EXTRA_OEMAKE = 'MULTI=1 SCPPROGRESS=1 PROGRAMS="${SBINCOMMANDS} ${BINCOMMANDS}"'
 EXTRA_OECONF = "--disable-shadow "
 
 RECIPE_OPTIONS = "dropbear_norevdns"
-
 do_configure_append_RECIPE_OPTION_dropbear_norevdns() {
 	sed -i -e 's|\(#define DO_HOST_LOOKUP\)$|/* \1 */|' options.h
 }
+
+# Set this if you want to use the DROPBEAR_SMALL_CODE option. This can
+# save several kB in binary size however will make the symmetrical
+# ciphers and hashes slower, perhaps by 50%.
+RECIPE_OPTIONS += "dropbear_smallcode"
+DEFAULT_CONFIG_dropbear_smallcode = "1"
+do_configure_append_RECIPE_OPTION_dropbear_smallcode() {
+	sed -i -e 's|/\*.*\(#define DROPBEAR_SMALL_CODE\).*$|\1|' options.h
+}
+
+#CFLAGS_append_RECIPE_OPTION_dropbear_smallcode += "-DDROPBEAR_SMALL_CODE"
 
 do_install() {
 	install -d ${D}${sysconfdir} \
