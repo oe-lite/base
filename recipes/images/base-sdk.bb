@@ -5,8 +5,8 @@ TAR_IMAGE_DIRNAME = "sdk"
 ZIP_IMAGE_DIRNAME = "sdk"
 
 RDEPENDS = " \
-    ${TOOLCHAIN}-canadian-cross-gdb \
-    ${TOOLCHAIN}-canadian-cross \
+    gcc-canadian-cross-gdb \
+    gcc-canadian-cross \
     ${TARGET_ARCH}/sysroot-libcrypt \
     ${TARGET_ARCH}/sysroot-libresolv \
     ${TARGET_ARCH}/sysroot-dev \
