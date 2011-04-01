@@ -1,4 +1,4 @@
-DESCRIPTION = "Util-linux-ng is a suite of essential utilities for any Linux system."
+DESCRIPTION = "Util-linux is a suite of essential utilities for any Linux system."
 SECTION = "base"
 LICENSE = "GPL"
 
@@ -93,12 +93,7 @@ NCURSES_DEPENDS = ""
 NCURSES_DEPENDS_RECIPE_OPTION_ncurses = "libncurses${RE}"
 DEPENDS += "${NCURSES_DEPENDS}"
 
-do_configure_prepend () {
-	cd ${S}
-	./autogen.sh
-}
-
-# Grrrr... at least some versions of util-linux-ng insists on having
+# Grrrr... at least some versions of util-linux insists on having
 # an sbin dir even though it is told to put everything in bin.  At
 # least it seems to respect requests on dropping usr prefix
 do_install_append_recipe-native () {
