@@ -6,7 +6,7 @@ Linux framebuffer device."
 LICENSE = "LGPL"
 HOMEPAGE = "http://directfb.org"
 
-inherit autotools-autoreconf binconfig pkgconfig
+inherit autotools-autoreconf binconfig pkgconfig library
 
 DEPENDS = "jpeg-dev \
            libpng-dev \
