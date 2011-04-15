@@ -3,8 +3,15 @@ HOMEPAGE = "http://matt.ucc.asn.au/dropbear/dropbear.html"
 SECTION = "console/network"
 LICENSE = "MIT"
 
-DEPENDS = "libz ${HOST_ARCH}/sysroot-libcrypt ${HOST_ARCH}/sysroot-libutil"
-RDEPENDS_${PN} = "libz ${HOST_ARCH}/sysroot-libcrypt ${HOST_ARCH}/sysroot-libutil"
+COMMON_DEPS = "libz \
+${HOST_ARCH}/sysroot-libcrypt \
+${HOST_ARCH}/sysroot-libutil \
+${HOST_ARCH}/sysroot-libcrypt \
+${HOST_ARCH}/sysroot-libgcc \
+"
+
+DEPENDS = "${COMMON_DEPS}"
+RDEPENDS_${PN} = "${COMMON_DEPS}"
 
 RPROVIDES_${PN} = "ssh sshd scp"
 
