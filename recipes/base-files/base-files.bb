@@ -88,10 +88,10 @@ do_install () {
 	done
 
 	# Install files
-    if [ -n "$BUILD_TAG" ]; then
-      echo $BUILD_TAG > build_tag
-      install -m 0644 build_tag ${D}${sysconfdir}/build_tag
-    fi
+	if [ -n "$BUILD_TAG" ]; then
+		echo $BUILD_TAG > build_tag
+		install -m 0644 build_tag ${D}${sysconfdir}/build_tag
+	fi
         install -m 0644 ${SRCDIR}/hostname ${D}${sysconfdir}/hostname
  	install -m 0644 ${SRCDIR}/issue ${D}${sysconfdir}/issue
         install -m 0644 ${SRCDIR}/issue.net ${D}${sysconfdir}/issue.net
