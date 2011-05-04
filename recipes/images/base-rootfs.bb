@@ -16,3 +16,12 @@ EXT2_IMAGE_OPTIONS = "${RECIPE_OPTION_base_rootfs_ext2_options} -b ${RECIPE_OPTI
 inherit tar-image
 
 inherit image-qa
+
+RSTAGE_FIXUP_FUNCS += "do_version_install"
+
+do_version_install () {
+    if [ -n "${BUILD_TAG}" ]; then
+        echo ${BUILD_TAG} > ${SRCDIR}/build_tag
+        install -m 0644 ${SRCDIR}/build_tag ${IMAGE_STAGE}${sysconfdir}/build_tag
+    fi
+}
