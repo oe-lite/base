@@ -10,9 +10,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;beginline=4;md5=bb6fd41f5895b67088ebea61ad365
 
 inherit autotools-autoreconf
 
-DEPENDS = "bind-dev \
-           openssl-dev \
-           ${TARGET_ARCH}/sysroot-libdl"
+DEPENDS = "bind-dev ${TARGET_ARCH}/sysroot-libdl"
 
 SRC_URI = "ftp://ftp.isc.org/isc/dhcp/dhcp-${PV}.tar.gz \
            file://site.h \
