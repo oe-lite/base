@@ -102,11 +102,12 @@ do_install () {
         install -m 0644 ${SRCDIR}/nsswitch.conf ${D}${sysconfdir}/
 
         ln -sf /proc/mounts ${D}${sysconfdir}/mtab
-        if [ -n ${RECIPE_OPTION_basefiles_version} ]; then
-            echo "${DISTRO_VERSION}" > \
-                  ${SRCDIR}/${RECIPE_OPTION_basefiles_version}
-            install -m 0644 ${SRCDIR}/${RECIPE_OPTION_basefiles_version} ${D}${sysconfdir}/${RECIPE_OPTION_basefiles_version}
-        fi
+}
+
+do_install_append_RECIPE_OPTION_basefiles_version () {
+	echo "${DISTRO_VERSION}" > \
+	      ${SRCDIR}/${RECIPE_OPTION_basefiles_version}
+	install -m 0644 ${SRCDIR}/${RECIPE_OPTION_basefiles_version} ${D}${sysconfdir}/${RECIPE_OPTION_basefiles_version}
 }
 
 inherit makedevs
