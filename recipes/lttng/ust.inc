@@ -22,6 +22,7 @@ UST_LIB_DEPENDS = "\
 	liburcu \
 	${TARGET_ARCH}/sysroot-libpthread \
 	${TARGET_ARCH}/sysroot-libdl \
+	${TARGET_ARCH}/sysroot-librt \
 "
 
 # Recipe build dependencies

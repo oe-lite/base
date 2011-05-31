@@ -39,14 +39,13 @@ do_preconfigure_append_RECIPE_OPTION_busybox_init () {
 }
 
 RECIPE_OPTIONS += "busybox_runit"
-DEFAULT_CONFIG_busybox_watchdog_runit		= "0"
 #
 # RECIPE_OPTION_busybox_runit
 #
 # Default: disable runit utility
 DEFAULT_CONFIG_busybox_runit			= "0"
 # Run-time provides runit feature
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_runit += "feature/runit busybox-runit"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_runit += "runit busybox-runit"
 do_preconfigure_append_RECIPE_OPTION_busybox_runit () {
 	sed -i -e 's/^# \(CONFIG_RUNSV\) is not set/\1=y/' \
 	       -e 's/^# \(CONFIG_RUNSVDIR\) is not set/\1=y/' \
@@ -69,7 +68,7 @@ RECIPE_OPTIONS += "busybox_startstopdaemon"
 # Default: enable start-stop-daemon debian utility
 DEFAULT_CONFIG_busybox_startstopdaemon		= "1"
 # Run-time provides start-stop-daemon
-BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_startstopdaemon += "feature/start-stop-daemon busybox-start-stop-daemon"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_startstopdaemon += "start-stop-daemon busybox-start-stop-daemon"
 do_preconfigure_append_RECIPE_OPTION_busybox_startstopdaemon () {
 	sed -i -e 's/^# \(CONFIG_START_STOP_DAEMON\) is not set/\1=y/' \
 	       -e 's/^# \(CONFIG_FEATURE_START_STOP_DAEMON_FANCY\) is not set/\1=y/' \
@@ -229,9 +228,9 @@ do_preconfigure_append_RECIPE_OPTION_busybox_cron () {
 
 
 RECIPE_OPTIONS += "busybox_watchdog \
-					busybox_watchdog_sysvinit_start busybox_watchdog_sysvinit_stop \
-					busybox_watchdog_runit \
-					busybox_watchdog_dev"
+	busybox_watchdog_sysvinit_start busybox_watchdog_sysvinit_stop \
+	busybox_watchdog_runit \
+	busybox_watchdog_dev"
 DEFAULT_CONFIG_busybox_watchdog_sysvinit_start	= "70"
 DEFAULT_CONFIG_busybox_watchdog_sysvinit_stop	= "01"
 #
@@ -882,6 +881,17 @@ DEFAULT_CONFIG_busybox_flashcp			= "0"
 BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_flashcp += "util/flashcp busybox-flashcp"
 do_preconfigure_append_RECIPE_OPTION_busybox_flashcp () {
 	sed -i -e 's/^# \(CONFIG_FLASHCP\) is not set/\1=y/' \
+	.config
+}
+
+RECIPE_OPTIONS += "busybox_cmp"
+#
+# RECIPE_OPTION_busybox_cmp
+#
+DEFAULT_CONFIG_busybox_cmp			= "0"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_cmp += "util/cmp busybox-cmp"
+do_preconfigure_append_RECIPE_OPTION_busybox_cmp () {
+	sed -i -e 's/^# \(CONFIG_CMP\) is not set/\1=y/' \
 	.config
 }
 

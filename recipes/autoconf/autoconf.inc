@@ -40,3 +40,8 @@ PARALLEL_MAKE = ""
 
 DEPENDS_${PN} = "m4-native perl-native gnu-config-native"
 RDEPENDS_${PN} = "m4${RE} perl${RE} gnu-config${RE}"
+
+FILES_${PN} += "${datadir}/autoconf"
+
+PACKAGES += "${PN}-emacs"
+FILES_${PN}-emacs += "${datadir}/emacs"
