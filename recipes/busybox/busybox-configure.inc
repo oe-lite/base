@@ -884,6 +884,17 @@ do_preconfigure_append_RECIPE_OPTION_busybox_flashcp () {
 	.config
 }
 
+RECIPE_OPTIONS += "busybox_cmp"
+#
+# RECIPE_OPTION_busybox_cmp
+#
+DEFAULT_CONFIG_busybox_cmp			= "0"
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_cmp += "util/cmp busybox-cmp"
+do_preconfigure_append_RECIPE_OPTION_busybox_cmp () {
+	sed -i -e 's/^# \(CONFIG_CMP\) is not set/\1=y/' \
+	.config
+}
+
 RECIPE_OPTIONS += "busybox_flash_lock"
 #
 # RECIPE_OPTION_busybox_flash_lock
