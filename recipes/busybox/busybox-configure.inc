@@ -971,3 +971,16 @@ BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_inittab_login += "util/inittab_lo
 do_preconfigure_append_RECIPE_OPTION_busybox_inittab_login () {
 	sed -i -e 's#::askfirst:-/bin/sh#${RECIPE_OPTION_busybox_inittab_login}#' ${SRCDIR}/inittab
 }
+
+RECIPE_OPTIONS += "busybox_inittab_extras"
+#
+# RECIPE_OPTION_busybox_inittab_extras
+#
+# Default: No extras
+DEFAULT_CONFIG_busybox_inittab_extras			= ""
+# Space seperated strings busybox_inittab_extras added to inittab
+do_preconfigure_append_RECIPE_OPTION_busybox_inittab_login () {
+	for i in ${RECIPE_OPTION_busybox_inittab_extras}; do
+		echo $i >> ${SRCDIR}/inittab
+	done
+}
