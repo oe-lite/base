@@ -1,5 +1,4 @@
 DESCRIPTION = "Base system password/group files."
-SECTION = "base"
 LICENSE = "GPL"
 
 RECIPE_OPTIONS = "passwd_root"

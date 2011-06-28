@@ -1,6 +1,5 @@
 DESCRIPTION = "Jim Clarkes XML parser library."
 HOMEPAGE = "http://expat.sf.net/"
-SECTION = "libs"
 LICENSE = "MIT"
 
 BBCLASSEXTEND = "native sdk"

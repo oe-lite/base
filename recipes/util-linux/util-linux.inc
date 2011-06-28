@@ -1,5 +1,4 @@
 DESCRIPTION = "Util-linux is a suite of essential utilities for any Linux system."
-SECTION = "base"
 LICENSE = "GPL"
 
 BBCLASSEXTEND = "native sdk"

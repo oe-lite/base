@@ -1,7 +1,5 @@
 DESCRIPTION = "GNU libiconv - libiconv is for you if your application needs to support multiple character encodings, but that support lacks from your system."
 HOMEPAGE = "http://www.gnu.org/software/libiconv"
-SECTION = "libs"
-PRIORITY = "optional"
 
 BBCLASSEXTEND = "native sdk"
 

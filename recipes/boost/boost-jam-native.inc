@@ -1,7 +1,5 @@
 DESCRIPTION = "Make system for boost (native)"
 HOMEPAGE = "http://www.boost.org/"
-SECTION = "devel"
-PRIORITY = "optional"
 LICENSE = "Boost Software License"
 
 require conf/fetch/sourceforge.conf

@@ -1,6 +1,5 @@
 DESCRIPTION = "This package provides the necessary \
 infrastructure for basic TCP/IP based networking."
-SECTION = "base"
 LICENSE = "GPL"
 
 RECIPE_OPTIONS = "netbase_sysvinit_start netbase sysvinit_stop netbase_auto_if"

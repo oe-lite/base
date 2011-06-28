@@ -1,7 +1,6 @@
 DESCRIPTION = "Tools for managing memory technology devices."
 HOMEPAGE = "http://www.linux-mtd.infradead.org/"
 LICENSE = "GPLv2"
-SECTION = "base"
 
 BBCLASSEXTEND = "native"
 

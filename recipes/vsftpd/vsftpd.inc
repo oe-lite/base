@@ -1,5 +1,4 @@
 DESCRIPTION = "Secure ftp daemon"
-SECTION = "console/network"
 LICENSE = "GPL"
 
 inherit sysvinit

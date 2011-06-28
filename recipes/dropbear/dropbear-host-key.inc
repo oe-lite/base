@@ -1,5 +1,4 @@
 DESCRIPTION = "Pregenerated dropbear rsa host key"
-SECTION = "console/network"
 RDEPENDS_${PN} = "dropbear"
 
 SRC_URI = "file://dropbear_rsa_host_key"

@@ -1,7 +1,5 @@
 DESCRIPTION = "Miscellaneous files for the base system."
 LICENSE = "GPL"
-SECTION = "base"
-PRIORITY = "required"
 RDEPENDS_${PN} = "${TARGET_ARCH}/sysroot-libnss-files ${TARGET_ARCH}/sysroot-libnss-dns"
 
 RECIPE_OPTIONS += "hostname"
