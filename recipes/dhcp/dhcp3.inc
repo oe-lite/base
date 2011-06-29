@@ -17,10 +17,10 @@ do_configure() {
 }
 
 EXTRA_OEMAKE="RANLIB=${RANLIB} \
-    PREDEFINES='-D_PATH_DHCPD_DB=\"/var/lib/dhcp/dhcpd.leases\" \ 
-                -D_PATH_DHCLIENT_DB=\"/var/lib/dhcp/dhclient.leases\" \ 
-                -D_PATH_DHCLIENT_SCRIPT=\"/sbin/dhclient-script\" \ 
-                -D_PATH_DHCPD_CONF=\"/etc/dhcp/dhcpd.conf\" \ 
+    PREDEFINES='-D_PATH_DHCPD_DB=\"/var/lib/dhcp/dhcpd.leases\" \
+                -D_PATH_DHCLIENT_DB=\"/var/lib/dhcp/dhclient.leases\" \
+                -D_PATH_DHCLIENT_SCRIPT=\"/sbin/dhclient-script\" \
+                -D_PATH_DHCPD_CONF=\"/etc/dhcp/dhcpd.conf\" \
                 -D_PATH_DHCLIENT_CONF=\"/etc/dhcp/dhclient.conf\"' \
 "
 

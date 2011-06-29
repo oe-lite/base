@@ -13,11 +13,11 @@ DEPENDS = "jpeg-dev \
            libpng-libpng12 \
            freetype-dev \
            libz \
-           ${HOST_ARCH}/sysroot-libdl  \ 
-           ${HOST_ARCH}/sysroot-libpthread  \ 
-           ${HOST_ARCH}/sysroot-libm  \ 
-           ${HOST_ARCH}/sysroot-libc  \ 
-           ${HOST_ARCH}/sysroot-libstdc++  \ 
+           ${HOST_ARCH}/sysroot-libdl \
+           ${HOST_ARCH}/sysroot-libpthread \
+           ${HOST_ARCH}/sysroot-libm  \
+           ${HOST_ARCH}/sysroot-libc  \
+           ${HOST_ARCH}/sysroot-libstdc++ \
            tslib-dev"
 
 SRC_URI = " \

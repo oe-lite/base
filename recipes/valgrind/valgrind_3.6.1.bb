@@ -14,7 +14,7 @@ SRC_URI += "file://vg-ppc-feature.patch"
 EXTRA_OECONF = "--enable-tls"
 
 AUTO_PACKAGE_UTILS = "callgrind_annotate callgrind_control cg_annotate \
-                      cg_diff cg_merge ms_print valgrind-listener \ 
+                      cg_diff cg_merge ms_print valgrind-listener \
                       no_op_client_for_valgrind"
 
 FILES_${PN}-dbg += "${libdir}/${PN}/*/.debug/*"
