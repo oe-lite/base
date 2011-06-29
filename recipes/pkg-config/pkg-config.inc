@@ -3,7 +3,6 @@ compile/link flags that works with automake and autoconf. \
 It replaces the ubiquitous *-config scripts you may have \
 seen with a single tool."
 HOMEPAGE = "http://pkg-config.freedesktop.org/wiki/"
-SECTION = "console/utils"
 LICENSE = "GPL"
 
 BBCLASSEXTEND = "native sdk"

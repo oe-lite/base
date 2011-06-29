@@ -1,11 +1,11 @@
 DESCRIPTION = "Miscellaneous files for the base system."
 LICENSE = "GPL"
-SECTION = "base"
-PRIORITY = "required"
 RDEPENDS_${PN} = "${TARGET_ARCH}/sysroot-libnss-files ${TARGET_ARCH}/sysroot-libnss-dns"
 
 RECIPE_OPTIONS += "hostname"
 DEFAULT_CONFIG_hostname = "oe-lite"
+
+RECIPE_OPTIONS += "basefiles_version"
 
 SRC_URI = " \
            file://motd \
@@ -100,6 +100,12 @@ do_install () {
         install -m 0644 ${SRCDIR}/nsswitch.conf ${D}${sysconfdir}/
 
         ln -sf /proc/mounts ${D}${sysconfdir}/mtab
+}
+
+do_install_append_RECIPE_OPTION_basefiles_version () {
+	echo "${DISTRO_VERSION}" > \
+	      ${SRCDIR}/${RECIPE_OPTION_basefiles_version}
+	install -m 0644 ${SRCDIR}/${RECIPE_OPTION_basefiles_version} ${D}${sysconfdir}/${RECIPE_OPTION_basefiles_version}
 }
 
 inherit makedevs

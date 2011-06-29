@@ -1,6 +1,5 @@
 DESCRIPTION = "Network Packet Capture Library"
 HOMEPAGE = "http://www.tcpdump.org/"
-SECTION = "libs/network"
 LICENSE = "BSD"
 
 DEPENDS = "flex-native bison-native"

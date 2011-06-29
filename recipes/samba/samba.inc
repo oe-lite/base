@@ -1,4 +1,3 @@
-SECTION = "console/network"
 LICENSE = "GPL"
 DEPENDS = "readline-dev \
            libiconv-dev \

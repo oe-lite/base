@@ -35,7 +35,7 @@ do_install() {
     install -m 0644 ${SRCDIR}/default-server ${D}${sysconfdir}/default/dhcp-server
     install -m 0644 ${SRCDIR}/dhclient.conf ${D}${sysconfdir}/dhcp/dhclient.conf
     install -m 0644 ${SRCDIR}/dhcpd.conf ${D}${sysconfdir}/dhcp/dhcpd.conf
-    install -d ${D}/var/lib/dhcp
+    install -d ${D}${localstatedir}/lib/dhcp
 }
 
 PACKAGES += "${PN}-server ${PN}-client ${PN}-relay ${PN}-omshell"
@@ -43,7 +43,9 @@ FILES_${PN} = ""
 FILES_${PN}-server = "${sbindir}/dhcpd ${sysconfdir}/init.d/dhcp-server ${sysconfdir}/default/dhcp-server ${sysconfdir}/dhcp/dhcpd.conf"
 FILES_${PN}-relay = "${sbindir}/dhcrelay ${sysconfdir}/init.d/dhcp-relay ${sysconfdir}/default/dhcp-relay"
 
-FILES_${PN}-client = "${base_sbindir}/dhclient ${base_sbindir}/dhclient-script ${sysconfdir}/dhcp/dhclient.conf"
+FILES_${PN}-client = "${base_sbindir}/dhclient ${base_sbindir}/dhclient-script ${sysconfdir}/dhcp/dhclient.conf \
+    ${localstatedir}/lib/dhcp"
+
 RDEPENDS_${PN}-client = "sh"
 
 FILES_${PN}-omshell = "${bindir}/omshell"

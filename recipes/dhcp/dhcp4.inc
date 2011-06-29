@@ -1,4 +1,3 @@
-SECTION = "console/network"
 SUMMARY = "Internet Software Consortium DHCP package"
 DESCRIPTION = "DHCP (Dynamic Host Configuration Protocol) is a protocol \
 which allows individual devices on an IP network to get their own \
@@ -10,16 +9,17 @@ LIC_FILES_CHKSUM = "file://LICENSE;beginline=4;md5=bb6fd41f5895b67088ebea61ad365
 
 inherit autotools-autoreconf
 
-DEPENDS = "bind-dev \
-           openssl-dev \
-           ${TARGET_ARCH}/sysroot-libdl"
+DEPENDS = "bind-dev ${TARGET_ARCH}/sysroot-libdl"
 
-SRC_URI = "ftp://ftp.isc.org/isc/dhcp/dhcp-${PV}.tar.gz \
-           file://site.h \
-	       file://init-relay file://default-relay \
-	       file://init-server file://default-server \
-	       file://dhclient.conf file://dhcpd.conf"
+SRC_URI = "ftp://ftp.isc.org/isc/dhcp/dhcp-${PV}.tar.gz"
 
+SRC_URI += "file://site.h"
+SRC_URI += "file://init-relay"
+SRC_URI += "file://default-relay"
+SRC_URI += "file://init-server"
+SRC_URI += "file://default-server"
+SRC_URI += "file://dhclient.conf"
+SRC_URI += "file://dhcpd.conf"
 
 TARGET_CFLAGS += "-D_GNU_SOURCE"
 EXTRA_OECONF = "--with-srv-lease-file=${localstatedir}/lib/dhcp/dhcpd.leases \

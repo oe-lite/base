@@ -1,5 +1,4 @@
 DESCRIPTION = "Network performance benchmark including tests for TCP, UDP, sockets, ATM and more."
-SECTION = "console/network"
 HOMEPAGE = "http://www.netperf.org/"
 LICENSE = "netperf"
 

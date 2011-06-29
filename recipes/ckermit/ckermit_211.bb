@@ -5,7 +5,6 @@ sessions, file transfer, character-set translation, and automation \
 of communication tasks."
 LICENSE = "Kermit"
 HOMEPAGE = "http://www.columbia.edu/kermit/"
-SECTION = "console/network"
 SRC_URI = "ftp://kermit.columbia.edu/kermit/archives/cku${PV}.tar.gz"
 
 #

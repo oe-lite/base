@@ -4,7 +4,7 @@ LICENSE = "ISC"
 
 inherit autotools sysvinit
 
-DEPENDS = "openssl-dev ${TARGET_ARCH}/sysroot-libdl"
+DEPENDS = "libssl${RE} libcrypto${RE} ${TARGET_ARCH}/sysroot-libdl"
 
 SRC_URI = "ftp://ftp.isc.org/isc/bind9/${PV}/${PN}-${PV}.tar.gz"
 
@@ -39,6 +39,7 @@ do_install_append() {
 }
 
 FILES_${PN}-dev += "${bindir}/isc-config.h"
+DEPENDS_${PN}-dev = "libssl${RE} libcrypto${RE} ${TARGET_ARCH}/sysroot-libdl"
 
 PACKAGES_prepend = "${PN}-utils "
 FILES_${PN}-utils = "${bindir}/host ${bindir}/dig ${bindir}/nslookup"

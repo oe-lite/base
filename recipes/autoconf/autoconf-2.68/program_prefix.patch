@@ -1,0 +1,14 @@
+--- autoconf-2.68/lib/autoconf/general.m4~program_prefix	2011-04-04 14:15:28.000000000 +0200
++++ autoconf-2.68/lib/autoconf/general.m4	2011-04-04 14:16:33.000000000 +0200
+@@ -1849,8 +1849,9 @@
+ # The aliases save the names the user supplied, while $host etc.
+ # will get canonicalized.
+ test -n "$target_alias" &&
+-  test "$program_prefix$program_suffix$program_transform_name" = \
+-    NONENONEs,x,x, &&
++  test "$target_alias" != "$host_alias" &&
++    test "$program_prefix$program_suffix$program_transform_name" = \
++      NONENONEs,x,x, &&
+   program_prefix=${target_alias}-[]dnl
+ ])# AC_CANONICAL_TARGET
+ 

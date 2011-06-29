@@ -23,6 +23,8 @@ do_install_append () {
 RDEPENDS_${PN} = "${HOST_ARCH}/sysroot-libdl ${PN}-conf"
 RDEPENDS_${PN}-tests = "${PN}"
 RDEPENDS_${PN}-calibrate = "${PN}"
+PROVIDES_${PN}-dev	+= "libts"
+RPROVIDES_${PN}		+= "libts"
 
 FILES_${PN}-dbg += "${libdir}/ts/.debug*"
 FILES_${PN}-conf = "${sysconfdir}/ts.conf ${sysconfdir}/profile.d/tslib.sh ${datadir}/tslib"
