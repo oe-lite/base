@@ -47,4 +47,4 @@ SYSROOT_RDEPENDS_${PN}-mkfs-ubifs = "${HOST_ARCH}/sysroot-libm"
 SYSROOT_RDEPENDS_${PN}-mkfs-ubifs_recipe-native = ""
 
 # The mtd-utils package is used to pull in all provided util features
-RDEPENDS_${PN} = ${AUTO_PACKAGE_UTILS_RPROVIDES}
+RDEPENDS_${PN} = "${AUTO_PACKAGE_UTILS_RPROVIDES}"

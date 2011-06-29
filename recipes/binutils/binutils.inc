@@ -48,4 +48,4 @@ RDEPENDS_${PN}-ar = "libbfd"
 RDEPENDS_${PN}-strings = "libbfd"
 
 # The binutils package is used to pull in all provided util features
-RDEPENDS_${PN} = ${AUTO_PACKAGE_UTILS_RPROVIDES}
+RDEPENDS_${PN} = "${AUTO_PACKAGE_UTILS_RPROVIDES}"
