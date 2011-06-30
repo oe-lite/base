@@ -1,4 +1,5 @@
-inherit canadian-cross sdk-image
+RECIPE_TYPES = "canadian-cross"
+inherit sdk-image
 
 IMAGE_BASENAME = "oe-lite-sdk-${HOST_ARCH}-${TARGET_ARCH}"
 TAR_IMAGE_DIRNAME = "sdk"
