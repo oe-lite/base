@@ -8,7 +8,7 @@ inherit autotools-autoreconf pkgconfig
 PACKAGES =+ "${PN}-conf ${PN}-tests ${PN}-calibrate"
 DEPENDS += "${HOST_ARCH}/sysroot-libdl ${HOST_ARCH}/sysroot-libstdc++"
 
-SRC_URI = "http://download.berlios.de/${BPN}/${BP}.tar.bz2"
+SRC_URI = "http://download.berlios.de/${PN}/${P}.tar.bz2"
 SRC_URI += "file://ts.conf"
 SRC_URI += "file://tslib.sh"
 
