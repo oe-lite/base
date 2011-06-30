@@ -1,4 +1,4 @@
-require ${BPN}.inc
+require ${PN}.inc
 
 SRC_URI += "file://glibconfig-sysdefs.h"
 SRC_URI += "file://g_once_init_enter.patch"

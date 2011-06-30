@@ -23,7 +23,7 @@ DEPENDS_recipe-native = "gettext-native-dev \
 
 require conf/fetch/gnome.conf
 SRC_URI_SUBDIR = "${@'.'.join(d.getVar('PV', True).split('.')[:2])}"
-SRC_URI = "${GNOME_MIRROR}/glib/${SRC_URI_SUBDIR}/${BP}.tar.bz2"
+SRC_URI = "${GNOME_MIRROR}/glib/${SRC_URI_SUBDIR}/${P}.tar.bz2"
 
 SRC_URI += "file://config.site"
 SRC_HOST_SITEFILES = "${SRCDIR}/config.site"
