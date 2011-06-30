@@ -2,14 +2,13 @@ DESCRIPTION = "EXT2 Filesystem Utilities"
 HOMEPAGE = "http://e2fsprogs.sf.net"
 LICENSE = "GPL"
 
+RECIPE_TYPES = "machine native sdk"
+
 inherit autotools pkgconfig
 
-BBCLASSEXTEND = "native sdk"
-
-DEPENDS = "gettext-native \
-	libblkid${RE} libuuid${RE} ${TOOLCHAIN_DEPENDS}"
-TOOLCHAIN_DEPENDS = "${TARGET_ARCH}/sysroot-libpthread"
-TOOLCHAIN_DEPENDS_recipe-native = ""
+DEPENDS = "native:gettext libblkid libuuid"
+DEPENDS:>machine = "libpthread"
+DEPENDS:>sdk = "libpthread"
 
 require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/e2fsprogs/e2fsprogs-${PV}.tar.gz"
