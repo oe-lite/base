@@ -68,7 +68,7 @@ DEPENDS = "zlib${RE} libtermcap${RE} ${SYSROOT_DEPENDS}"
 require conf/fetch/kernelorg.conf
 MA = "${@bb.data.getVar('PV', d, 1).split('.')[0]}"
 MI = "${@bb.data.getVar('PV', d, 1).split('-')[0].split('.')[1]}"
-SRC_URI = "${KERNELORG_MIRROR}/pub/linux/utils/${BPN}/v${MA}.${MI}/${BP}.tar.bz2"
+SRC_URI = "${KERNELORG_MIRROR}/pub/linux/utils/${PN}/v${MA}.${MI}/${P}.tar.bz2"
 
 inherit autotools autotools-autoreconf
 
