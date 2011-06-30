@@ -9,7 +9,7 @@ DEPENDS = "${TARGET_ARCH}/sysroot-libdl \
            ${TARGET_ARCH}/sysroot-libm"
 DEPENDS_recipe-native =""
 
-SRC_URI = "ftp://xmlsoft.org/${BPN}/${BPN}-${PV}.tar.gz"
+SRC_URI = "ftp://xmlsoft.org/${PN}/${PN}-${PV}.tar.gz"
 
 EXTRA_OECONF = "\
  --without-legacy \
