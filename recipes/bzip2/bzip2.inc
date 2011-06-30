@@ -1,13 +1,13 @@
 DESCRIPTION = "Very high-quality data compression program"
 LICENSE = "bzip2"
 
-BBCLASSEXTEND = "native"
+RECIPE_TYPES = "machine native"
 
 inherit autotools pkgconfig
 
 SRC_URI = "http://www.bzip.org/${PV}/bzip2-${PV}.tar.gz"
 
-inherit  auto-package-libs auto-package-utils
+inherit auto-package-libs auto-package-utils
 
 AUTO_PACKAGE_LIBS = "bz2"
 EXTRA_FILES_${PN}-libbz2-dev = "${includedir} ${libdir}/pkgconfig/bzip2.pc"
@@ -36,6 +36,7 @@ RDEPENDS_${PN}-bzgrep = "${PN}-libbz2"
 RDEPENDS_${PN}-bzip2recover = "${PN}-libbz2"
 RDEPENDS_${PN}-bzmore = "${PN}-libbz2"
 
-do_configure_prepend () {
+do_configure () {
     bash ./autogen.sh
+    do_configure_autotools
 }
