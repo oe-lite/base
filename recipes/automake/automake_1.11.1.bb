@@ -1,10 +1,10 @@
 require automake.inc
 LICENSE="GPLv2"
 
-BBCLASSEXTEND = "native"
+RECIPE_TYPES = "machine sdk native"
 
-DEPENDS = "autoconf-native"
-RDEPENDS_${PN} += "autoconf${RE}"
+DEPENDS = "native:autoconf"
+RDEPENDS_${PN} += "autoconf"
 
 do_install () {
 	oe_runmake 'DESTDIR=${D}' install
