@@ -1,7 +1,7 @@
 DESCRIPTION = "Commands for Manipulating Filesystem Extended Attributes"
 LICENSE = "GPLv2+"
 
-BBCLASSEXTEND = "native"
+RECIPE_TYPES = "machine native"
 
 SRC_URI = "http://mirror.its.uidaho.edu/pub/savannah/attr/attr-${PV}.src.tar.gz"
 
@@ -23,8 +23,6 @@ do_install() {
 
 	oe_runmake -e install install-dev install-lib
 
-#	sed -i -e s:installed=yes:installed=no: -e s:${STAGING_LIBDIR}:${libdir}:g ${D}${libdir}/libattr.la
-
 	# Move .a and .la into libdir and remove symlinks pointing to ${S}
 	for file in ${D}${libexecdir}/*.a ${D}${libexecdir}/*.la ; do
 		rm ${D}${libdir}/$(basename $file)
@@ -33,12 +31,11 @@ do_install() {
 	rm -rf ${D}${libexecdir}
 }
 
-PACKAGES =+ "${PN}-libattr"
-FILES_${PN}-libattr = "${libdir}/lib*${SOLIBS}"
-RPROVIDES_${PN}-libattr = "libattr${RE}"
+inherit auto-package-libs
+AUTO_PACKAGE_LIBS = "attr"
+AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev"
+AUTO_PACKAGE_LIBS_DEV_RDEPENDS = "${PN}-dev"
 
 RDEPENDS_${PN} += "${PN}-libattr"
 
 FILES_${PN}-dev += "${libexecdir}"
-PROVIDES_${PN}-dev = "libattr${RE}"
-DEPENDS_${PN}-dev = "${PN}-libattr"
