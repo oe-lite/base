@@ -2,10 +2,10 @@ DESCRIPTION = "Make system for boost (native)"
 HOMEPAGE = "http://www.boost.org/"
 LICENSE = "Boost Software License"
 
+RECIPE_TYPES = "native"
+
 require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/boost/boost-jam-${PV}.tgz"
-
-inherit native
 
 do_compile() {
 	set -ex
