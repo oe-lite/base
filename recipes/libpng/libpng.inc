@@ -11,7 +11,7 @@ DEPENDS = "libz${RE} ${HOST_ARCH}/sysroot-libm"
 DEPENDS_recipe-native = "libz${RE}"
 
 require conf/fetch/sourceforge.conf
-SRC_URI = "${SOURCEFORGE_MIRROR}/${BPN}/${BPN}-${PV}.tar.bz2"
+SRC_URI = "${SOURCEFORGE_MIRROR}/${PN}/${PN}-${PV}.tar.bz2"
 
 PACKAGES = "${PN}-dbg ${PN}-dev ${PN}-libpng3 ${PN}-libpng12 ${PN} ${PN}-doc"
 
@@ -24,5 +24,4 @@ RDEPENDS_${PN}-libpng12="${HOST_ARCH}/sysroot-libm libz"
 FILES_${PN}-libpng3 = "${libdir}/libpng${SOLIBS}"
 FILES_${PN}-libpng12 = "${libdir}/libpng12${SOLIBS}"
 
-PROVIDES_${PN}-dev	= "${PN} ${P} ${PF}"
-DEPENDS_${PN}-dev	= "libpng3${RE} libpng12${RE}"
+inherit library
