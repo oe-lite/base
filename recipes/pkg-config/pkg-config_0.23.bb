@@ -1,4 +1,4 @@
-require ${BPN}.inc
+require ${PN}.inc
 
 SRC_URI_append = "\
 	file://autofoo.patch;patch=1 \

@@ -5,7 +5,7 @@ seen with a single tool."
 HOMEPAGE = "http://pkg-config.freedesktop.org/wiki/"
 LICENSE = "GPL"
 
-BBCLASSEXTEND = "native sdk"
+RECIPE_TYPES = "machine native sdk"
 
 SRC_URI = "http://pkgconfig.freedesktop.org/releases/pkg-config-${PV}.tar.gz"
 
@@ -17,6 +17,7 @@ EXTRA_OECONF = "--with-pc-path=''"
 inherit autotools
 
 acpaths = "-I ."
-do_install_append() {
+do_install() {
+	do_install_make
 	install -d -m 0755 ${D}${libdir}/pkgconfig
 }

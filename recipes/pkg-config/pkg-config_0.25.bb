@@ -1,1 +1,1 @@
-require ${BPN}.inc
+require ${PN}.inc
