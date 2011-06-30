@@ -1,32 +1,36 @@
 DESCRIPTION = "Miscellaneous files for the base system."
 LICENSE = "GPL"
-RDEPENDS_${PN} = "${TARGET_ARCH}/sysroot-libnss-files ${TARGET_ARCH}/sysroot-libnss-dns"
 
-RECIPE_OPTIONS += "hostname"
-DEFAULT_CONFIG_hostname = "oe-lite"
+RECIPE_TYPES = "machine"
 
-RECIPE_OPTIONS += "basefiles_version"
+RDEPENDS_${PN} = "libnss-files libnss-dns"
 
-SRC_URI = " \
-           file://motd \
-           file://host.conf \
-           file://profile \
-           file://fstab \
-           file://dot.bashrc \
-           file://device_table-minimal.txt \
-           file://nsswitch.conf \
-           file://dot.profile "
+RECIPE_FLAGS += "hostname"
+DEFAULT_USE_hostname = "oe-lite"
 
-RECIPE_OPTIONS += "basefiles_issue"
-DEFAULT_CONFIG_basefiles_issue = "OE Lite Linux"
+RECIPE_FLAGS += "basefiles_version"
+
+SRC_URI = "\
+	file://motd \
+	file://host.conf \
+	file://profile \
+	file://fstab \
+	file://dot.bashrc \
+	file://device_table-minimal.txt \
+	file://nsswitch.conf \
+	file://dot.profile \
+"
+
+RECIPE_FLAGS += "basefiles_issue"
+DEFAULT_USE_basefiles_issue = "OE Lite Linux"
 
 do_compile[dirs] = "${SRCDIR}"
 do_compile () {
-    echo ${RECIPE_OPTION_hostname}			> hostname
-    echo "${RECIPE_OPTION_basefiles_issue} \n \l"	> issue
-    echo						>>issue
-    echo "${RECIPE_OPTION_basefiles_issue} %h"		> issue.net
-    echo						>>issue.net
+    echo ${USE_hostname}		> hostname
+    echo "${USE_basefiles_issue} \n \l"	> issue
+    echo				>>issue
+    echo "${USE_basefiles_issue} %h"	> issue.net
+    echo				>>issue.net
 }
 
 # Basic filesystem directories (adheres to FHS)
@@ -102,11 +106,15 @@ do_install () {
         ln -sf /proc/mounts ${D}${sysconfdir}/mtab
 }
 
-do_install_append_RECIPE_OPTION_basefiles_version () {
-	echo "${DISTRO_VERSION}" > \
-	      ${SRCDIR}/${RECIPE_OPTION_basefiles_version}
-	install -m 0644 ${SRCDIR}/${RECIPE_OPTION_basefiles_version} ${D}${sysconfdir}/${RECIPE_OPTION_basefiles_version}
+POSTFUNCS = ""
+POSTFUNCS:>USE_basefiles_version = "do_install_basefiles_version"
+do_install[postfuncs] += "${POSTFUNCS}"
+do_install_basefiles_version () {
+	echo "${DISTRO_VERSION}" > ${SRCDIR}/${USE_basefiles_version}
+	install -m 0644 ${SRCDIR}/${USE_basefiles_version} \
+		${D}${sysconfdir}/${USE_basefiles_version}
 }
+do_install_basefiles_version[expand] = 2
 
 inherit makedevs
 MAKEDEVS_FILES = "${SRCDIR}/device_table-minimal.txt"
