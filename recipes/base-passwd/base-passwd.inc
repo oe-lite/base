@@ -7,7 +7,7 @@ DEFAULT_CONFIG_passwd_root = "$1$L9mzJfTZ$2ED5as2K2yZ98CN/BQuy1."
 require conf/fetch/debian.conf
 SRC_URI = "${DEBIAN_MIRROR}/main/b/base-passwd/base-passwd_${PV}.tar.gz"
 
-S = "${SRCDIR}/${BPN}"
+S = "${SRCDIR}/${PN}"
 
 do_install () {
 	install -D -p -m 644 passwd.master \
