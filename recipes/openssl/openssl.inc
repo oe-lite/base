@@ -1,12 +1,14 @@
-DESCRIPTION = "Secure Socket Layer (SSL) binary and related cryptographic tools."
+DESCRIPTION = "Secure Socket Layer (SSL) binary and related \
+	cryptographic tools."
 HOMEPAGE = "http://www.openssl.org/"
 LICENSE = "openssl"
-DEPENDS = "${HOST_ARCH}/sysroot-libdl"
+
+RECIPE_TYPES = "machine native sdk"
+
 SRC_URI = "http://www.openssl.org/source/openssl-${PV}.tar.gz"
+DEPENDS = "libdl"
 
-BBCLASSEXTEND = "sdk"
-
-inherit pkgconfig
+inherit c make pkgconfig
 
 AR_append = " r"
 CFLAG = "${@['-DL_ENDIAN', '-DB_ENDIAN']['${TARGET_ENDIAN}'=='b']} -DTERMIO ${TARGET_CFLAGS}"
@@ -14,10 +16,6 @@ CFLAG = "${@['-DL_ENDIAN', '-DB_ENDIAN']['${TARGET_ENDIAN}'=='b']} -DTERMIO ${TA
 export DIRS = "crypto ssl apps engines"
 export EX_LIBS = "-lgcc -ldl"
 export AS = "${CC} -c"
-
-do_configure_prepend_darwin () {
-	sed -i -e '/version-script=openssl\.ld/d' Configure
-}
 
 do_configure () {
 	cd util
