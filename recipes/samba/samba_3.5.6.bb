@@ -4,7 +4,9 @@ LICENSE = "GPLv3"
 S = "${SRCDIR}/samba-${PV}/source3"
 
 SRC_URI += "file://config-h.patch"
-SRC_URI += "file://tdbheaderfix.patch;patchdir=${SRCDIR}/samba-${PV}"
+# FIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIXMMEEEEEEE
+# need to figure out if we should add support for patchdir
+#SRC_URI += "file://tdbheaderfix.patch;patchdir=${SRCDIR}/samba-${PV}"
 
 EXTRA_OECONF += "\
 	SMB_BUILD_CC_NEGATIVE_ENUM_VALUES=yes \
