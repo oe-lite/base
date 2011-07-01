@@ -94,9 +94,6 @@ do_install () {
 		mv ${D}${prefix}/lib/pkgconfig/*.pc ${D}${libdir}/pkgconfig
 	fi
 
-	oe_libinstall -so libcrypto ${D}${libdir}
-	oe_libinstall -so libssl ${D}${libdir}
-
 	install -d ${D}${includedir}
 	cp --dereference -R include/openssl ${D}${includedir}
 }
