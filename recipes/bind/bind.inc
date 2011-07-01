@@ -4,7 +4,7 @@ LICENSE = "ISC"
 
 inherit autotools sysvinit
 
-DEPENDS = "libssl${RE} libcrypto${RE} ${TARGET_ARCH}/sysroot-libdl"
+DEPENDS = "libssl libcrypto libdl"
 
 SRC_URI = "ftp://ftp.isc.org/isc/bind9/${PV}/${PN}-${PV}.tar.gz"
 
@@ -22,15 +22,16 @@ EXTRA_OECONF = "\
     --with-export-libdir=${libdir} \
 "
 
-RECIPE_OPTIONS += "bind_sysvinit_start bind_sysvinit_stop"
+RECIPE_FLAGS += "bind_sysvinit_start bind_sysvinit_stop"
 SYSVINI_SCRIPT_bind = "bind"
-DEFAULT_CONFIG_bind_sysvinit_start= "20"
-DEFAULT_CONFIG_bind_sysvinit_stop = "20"
+DEFAULT_USE_bind_sysvinit_start= "20"
+DEFAULT_USE_bind_sysvinit_stop = "20"
 
 # last verified with bind-9.7.2-P3
 PARALLEL_MAKE = ""
 
-do_install_append() {
+do_install[postfuncs] += "do_install_extra_files"
+do_install_extra_files() {
 	rm "${D}/usr/bin/nslookup"
 	install -d "${D}/etc/bind"
 	install -d "${D}/etc/init.d"
@@ -39,7 +40,7 @@ do_install_append() {
 }
 
 FILES_${PN}-dev += "${bindir}/isc-config.h"
-DEPENDS_${PN}-dev = "libssl${RE} libcrypto${RE} ${TARGET_ARCH}/sysroot-libdl"
+DEPENDS_${PN}-dev = "libssl libcrypto libdl"
 
 PACKAGES_prepend = "${PN}-utils "
 FILES_${PN}-utils = "${bindir}/host ${bindir}/dig ${bindir}/nslookup"
