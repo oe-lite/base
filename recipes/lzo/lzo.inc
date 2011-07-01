@@ -10,5 +10,4 @@ SRC_URI = "http://www.oberhumer.com/opensource/lzo/download/lzo-${PV}.tar.gz"
 
 EXTRA_OECONF = "--enable-shared"
 
-PROVIDES_${PN}-dev	+= "liblzo${RE}"
-RPROVIDES_${PN}		+= "liblzo${RE}"
+PROVIDES_${PN}	+= "liblzo"
