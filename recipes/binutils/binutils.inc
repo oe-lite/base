@@ -12,7 +12,7 @@ LICENSE = "GPLv3"
 
 inherit autotools gettext
 
-DEPENDS = "flex-native bison-native"
+DEPENDS = "native:flex native:bison"
 
 EXTRA_OECONF = "--enable-install-libbfd --enable-shared"
 
@@ -27,7 +27,6 @@ inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "\
     addr2line as c++filt gprof ld nm objcopy objdump ranlib readelf elfedit \
     size strip ar strings embedspu"
-
 
 EXTRA_FILES_${PN}-ld = "${bindir}/ld.bfd"
 
@@ -48,4 +47,4 @@ RDEPENDS_${PN}-ar = "libbfd"
 RDEPENDS_${PN}-strings = "libbfd"
 
 # The binutils package is used to pull in all provided util features
-RDEPENDS_${PN} = "${AUTO_PACKAGE_UTILS_RPROVIDES}"
+RDEPENDS_${PN} = "${AUTO_PACKAGE_UTILS_PROVIDES}"
