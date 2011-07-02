@@ -1,7 +1,7 @@
-DESCRIPTION = "The Network Time Protocol (NTP) is used to \
-synchronize the time of a computer client or server to \
-another server or reference time source, such as a radio \
-or satellite receiver or modem."
+# -*- mode:python; -*-
+DESCRIPTION = "The Network Time Protocol (NTP) is used to synchronize the time \
+	of a computer client or server to another server or reference time \
+	source, such as a radio or satellite receiver or modem."
 HOMEPAGE = "http://www.ntp.org/"
 LICENSE = "ntp"
 
@@ -11,18 +11,25 @@ inherit autotools-autoreconf make-vpath
 
 DEPENDS = "libm"
 
-SRC_URI = "http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/${P}.tar.gz \
-    file://ntp.conf \
-    file://ntpd \
-    file://ntpdate"
+SRC_URI = "http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/${P}.tar.gz"
+SRC_URI += "file://ntp.conf file://ntpd file://ntpdate"
 
 # The ac_cv_header_readline_history is to stop ntpdc depending on either
 # readline or curses
-EXTRA_OECONF += "\
-    --without-openssl \
-    --without-crypto \
-    ac_cv_header_readline_history_h=no \
-"
+EXTRA_OECONF += "ac_cv_header_readline_history_h=no"
+
+RECIPE_FLAGS += "ssl"
+EXTRA_OECONF += "${EXTRA_OECONF_SSL}"
+EXTRA_OECONF_SSL = "--without-openssl"
+EXTRA_OECONF_SSL:USE_ssl = "--with-openssl"
+DEPENDS:>USE_ssl = " libssl"
+
+RECIPE_FLAGS += "crypto"
+EXTRA_OECONF += "${EXTRA_OECONF_CRYPTO}"
+EXTRA_OECONF_CRYPTO = "--without-crypto"
+EXTRA_OECONF_CRYPTO:USE_crypto = "--with-crypto"
+DEPENDS:>USE_crypto = " libcrypto"
+
 CFLAGS += " -DPTYS_ARE_GETPT -DPTYS_ARE_SEARCHED"
 
 do_autoreconf_prepend() {
