@@ -1,14 +1,16 @@
-DESCRIPTION = "GNU libiconv - libiconv is for you if your application needs to support multiple character encodings, but that support lacks from your system."
+DESCRIPTION = "GNU libiconv - libiconv is for you if your application needs to \
+	support multiple character encodings, but that support lacks from your \
+	system."
 HOMEPAGE = "http://www.gnu.org/software/libiconv"
 
-
-PACKAGES =+ "${PN}-tools"
 RECIPE_TYPES = "machine native sdk"
 
 SRC_URI = "ftp://ftp.gnu.org/pub/gnu/libiconv/libiconv-${PV}.tar.gz"
 
 inherit autotools
 
-EXTRA_OECONF += "--enable-shared --enable-static --enable-relocatable --disable-rpath"
+EXTRA_OECONF += "--enable-shared --enable-static --enable-relocatable \
+	--disable-rpath"
 
+PACKAGES =+ "${PN}-tools"
 FILES_${PN}-tools = "${bindir}"
