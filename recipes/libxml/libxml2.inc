@@ -1,15 +1,13 @@
 DESCRIPTION = "GNOME XML Parser library"
 LICENSE = "MIT"
 
-inherit autotools pkgconfig binconfig
+RECIPE_TYPES = "machine native sdk"
 
-BBCLASSEXTEND = "native"
-
-DEPENDS = "${TARGET_ARCH}/sysroot-libdl \
-           ${TARGET_ARCH}/sysroot-libm"
-DEPENDS_recipe-native =""
+inherit autotools pkgconfig binconfig library
 
 SRC_URI = "ftp://xmlsoft.org/${PN}/${PN}-${PV}.tar.gz"
+
+DEPENDS = "libdl libm"
 
 EXTRA_OECONF = "\
  --without-legacy \
@@ -17,8 +15,9 @@ EXTRA_OECONF = "\
  --with-docbook \
  --with-c14n"
 
-EXTRA_OECONF += "--without-python"
-EXTRA_OECONF_native += " --with-python"
+EXTRA_OECONF += "${EXTRA_OECONF_PYTHON}"
+EXTRA_OECONF_PYTHON = "--without-python"
+EXTRA_OECONF_PYTHON:native = "--with-python"
 
 export LDFLAGS += "-ldl"
 
