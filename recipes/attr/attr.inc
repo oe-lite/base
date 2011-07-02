@@ -34,7 +34,6 @@ do_install() {
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "attr"
 AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev"
-AUTO_PACKAGE_LIBS_DEV_RDEPENDS = "${PN}-dev"
 
 RDEPENDS_${PN} += "${PN}-libattr"
 
