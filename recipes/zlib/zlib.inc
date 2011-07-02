@@ -4,11 +4,11 @@ LICENSE = "zlib"
 
 inherit autotools library
 
-BBCLASSEXTEND = "native"
+RECIPE_TYPES = "machine native sdk"
 
 SRC_URI = "http://www.zlib.net/zlib-${PV}.tar.bz2"
 
-oe_runconf() {
+autotools_configure() {
 	./configure \
 	--prefix=${prefix} \
 	--eprefix=${exec_prefix} \
@@ -16,6 +16,4 @@ oe_runconf() {
 	--includedir=${includedir}
 }
 
-PROVIDES_${PN}-dev	+= "libz${RE}"
-RPROVIDES_${PN}		+= "libz${RE}"
-RPROVIDES_${PN}-dev	+= "libz${RE}-dev"
+PROVIDES_${PN} += "libz"
