@@ -1,1 +1,1 @@
-require libpng.inc
+require libpng12.inc
