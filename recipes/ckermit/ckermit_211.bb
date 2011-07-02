@@ -5,7 +5,9 @@ sessions, file transfer, character-set translation, and automation \
 of communication tasks."
 LICENSE = "Kermit"
 HOMEPAGE = "http://www.columbia.edu/kermit/"
+
 SRC_URI = "ftp://kermit.columbia.edu/kermit/archives/cku${PV}.tar.gz"
+S = "${SRCDIR}"
 
 #
 # From http://www.columbia.edu/kermit/ck80.html#license
@@ -55,11 +57,9 @@ export INFODIR = "${infodir}"
 # Additional flags. For uclibc we add -DNOARROWKEYS which stops ckermit
 # trying to look inside the stdio headers.
 CKERMIT_ADDITIONAL = ""
-CKERMIT_ADDITIONAL_linux-uclibc = "-DNOARROWKEYS"
+CKERMIT_ADDITIONAL:linux-uclibc = "-DNOARROWKEYS"
 
 TARGET_CC_ARCH += "${LDFLAGS}"
-
-S = "${SRCDIR}"
 
 do_compile () {
 	# The original makefile doesn't differentiate between CC and CC_FOR_BUILD,
