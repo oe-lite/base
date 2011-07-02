@@ -37,7 +37,7 @@ AUTO_PACKAGE_UTILS = "\
     ubirename ubirmvol ubirsvol ubiupdatevol unubi \
 "
 
-EXTRA_FILES_mtd-utils-ubicrc32 = "${sbindir}/ubicrc32.pl"
+FILES_mtd-utils-ubicrc32 = "${sbindir}/ubicrc32.pl"
 
 RDEPENDS_${PN}-mkfs-jffs2 = "libz${RE} liblzo${RE}"
 RDEPENDS_${PN}-mkfs-ubifs = "libz${RE} liblzo${RE} libuuid${RE} \
