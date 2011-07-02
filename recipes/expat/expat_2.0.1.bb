@@ -5,7 +5,7 @@ SRC_URI += "file://autotools.patch;patch=1"
 do_configure() {
 	rm -f ${S}/conftools/libtool.m4
 	touch ${S}/conftools/libtool.m4
-	autotools_do_configure
+	do_configure_autotools
 }
 
 do_install() {
