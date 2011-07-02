@@ -5,9 +5,11 @@ or satellite receiver or modem."
 HOMEPAGE = "http://www.ntp.org/"
 LICENSE = "ntp"
 
+RECIPE_TYPES = "machine"
+
 inherit autotools-autoreconf make-vpath
 
-DEPENDS = "${TARGET_ARCH}/sysroot-libm"
+DEPENDS = "libm"
 
 SRC_URI = "http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/${P}.tar.gz \
     file://ntp.conf \
@@ -27,7 +29,8 @@ do_autoreconf_prepend() {
     sed -i -e 's:dist_man_MANS=	sntp.1::g' sntp/Makefile.am
 }
 
-do_install_append() {
+do_install[postfuncs] += "do_install_extra_files"
+do_install_extra_files() {
     install -d ${D}/${sysconfdir}
     install -m 644 ${SRCDIR}/ntp.conf ${D}/${sysconfdir}
     install -d ${D}/${sysconfdir}/network/if-up.d
@@ -48,8 +51,8 @@ AUTO_PACKAGE_UTILS = "ntpd ntpdate ntp-wait ntp-keygen sntp ntpq ntpdc \
 
 # NOTE: you don't need ntpdate if you have ntpd ("ntpdc -q -g -x")
 
-RDEPENDS_${PN}-ntpd = "${TARGET_ARCH}/sysroot-libm"
-RDEPENDS_${PN}-sntp = "${TARGET_ARCH}/sysroot-libm"
+RDEPENDS_${PN}-ntpd = "libm"
+RDEPENDS_${PN}-sntp = "libm"
 
 FILES_${PN}-ntpd = "${sysconfdir}/ntp.conf \
     ${sysconfdir}/init.d/ntpd ${sysconfdir}/rc?.d/???ntpd"
