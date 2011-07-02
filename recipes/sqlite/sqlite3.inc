@@ -28,4 +28,4 @@ inherit auto-package-utils auto-package-libs
 AUTO_PACKAGE_UTILS = "sqlite3"
 AUTO_PACKAGE_LIBS = "sqlite3"
 
-EXTRA_FILES_${PN}-libsqlite3-dev = "${includedir}"
+FILES_${PN}-libsqlite3-dev = "${includedir}"
