@@ -14,6 +14,8 @@ EXTRA_OECONF += "--enable-shared --enable-static --enable-relocatable \
 	--disable-rpath"
 
 FILES_${PN} += "${libdir}/charset.alias"
+PACKAGES += "${PN}-preloadable"
+FILES_${PN}-preloadable += "${libdir}/preloadable_libiconv.so"
 PROVIDES_${PN} += "libcharset"
 PROVIDES_${PN}-dev += "libcharset-dev"
 AUTO_PACKAGE_UTILS = "iconv"
