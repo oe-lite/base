@@ -1,7 +1,10 @@
+# -*- mode:python; -*-
 DESCRIPTION = "Das U-Boot bootloader native tools"
 LICENSE = "GPL"
 
-BBCLASSEXTEND = "sdk native"
+RECIPE_TYPES = "native sdk"
+
+inherit c make
 
 SRC_URI = "ftp://ftp.denx.de/pub/u-boot/u-boot-${PV}.tar.bz2"
 S = "${SRCDIR}/u-boot-${PV}"
@@ -10,11 +13,12 @@ PARALLEL_MAKE = ""
 EXTRA_OEMAKE = 'HOSTCC="${CC}" HOSTSTRIP="${STRIP}" \
     CROSS_COMPILE="${HOST_PREFIX}"'
 
-RECIPE_OPTIONS = "u_boot_tools_config"
-DEFAULT_CONFIG_u_boot_tools_config = "eNET_config"
+RECIPE_FLAGS = "u_boot_tools_config"
+DEFAULT_USE_u_boot_tools_config = "eNET_config"
 
+oe_runmake[exclusive] += "configure"
 do_configure () {
-    oe_runmake ${RECIPE_OPTION_u_boot_tools_config}
+    oe_runmake ${USE_u_boot_tools_config}
 }
 
 MAKE_TARGETS = "tools-all"
