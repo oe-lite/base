@@ -2,7 +2,7 @@ SRC_URI = "file://gtk-doc.m4"
 LICENSE = "LGPL"
 PR = "r3"
 
-RECIPE_TYPES = "native"
+RECIPE_TYPES = "native cross sdk-cross"
 
 do_install() {
 	install -d ${D}/${datadir}/aclocal

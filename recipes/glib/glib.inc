@@ -9,7 +9,7 @@ RECIPE_TYPES = "machine native sdk"
 
 inherit autotools-autoreconf gettext auto-package-libs
 
-DEPENDS = "native:libglib native:libgmodule native:glib-utils \
+DEPENDS = "native:gtk-doc native:libglib native:libgmodule native:glib-utils \
     native:gtk-doc libz libpthread libdl libresolv libstdc++"
 
 DEPENDS:native = "gtk-doc libz libpthread libdl libresolv libstdc++"
