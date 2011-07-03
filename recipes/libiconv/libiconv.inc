@@ -1,3 +1,4 @@
+# -*- mode:python; -*-
 DESCRIPTION = "GNU libiconv - libiconv is for you if your application needs to \
 	support multiple character encodings, but that support lacks from your \
 	system."
@@ -12,6 +13,7 @@ inherit autotools library auto-package-utils
 EXTRA_OECONF += "--enable-shared --enable-static --enable-relocatable \
 	--disable-rpath"
 
+FILES_${PN} += "${libdir}/charset.alias"
 PROVIDES_${PN} += "libcharset"
 PROVIDES_${PN}-dev += "libcharset-dev"
 AUTO_PACKAGE_UTILS = "iconv"
