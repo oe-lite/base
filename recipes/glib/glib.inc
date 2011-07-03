@@ -39,17 +39,20 @@ do_install_unmangle() {
         ${D}${bindir}/glib-mkenums || true
 }
 
-PACKAGES =+ "${PN}-utils"
+PACKAGES =+ "${PN}-utils ${PN}-gdb"
 FILES_${PN}-utils = "${bindir}/*"
+FILES_${PN}-gdb = "${datadir}/gdb ${datadir}/glib-2.0/gdb"
+FILES_${PN}-doc += "${datadir}/gtk-doc"
+FILES_${PN}-dev += "${datadir}/glib-2.0"
 
 AUTO_PACKAGE_LIBS = "glib gobject gmodule gthread gio"
 AUTO_PACKAGE_LIBS_LIBDIR = "${libdir}:lib:-2.0"
 
-AUTO_PACKAGE_LIBS_DEV_DEPENDS += ""
+AUTO_PACKAGE_LIBS_DEV_DEPENDS += "${PN}_${PV}"
 DEPENDS_${PN}-libgthread = "libglib libpthread"
 DEPENDS_${PN}-libgobject = "libglib libgthread"
 DEPENDS_${PN}-libgmodule = "libglib"
 DEPENDS_${PN}-libgio     = "libglib libgobject libz libresolv libdl"
 
-#FILES_${PN}-libgio-dev = "${libdir}/pkgconfig/gio-*-2.0.pc"
-#FILES_${PN}-libgmodule-dev = "${libdir}/pkgconfig/gmodule-*-2.0.pc"
+FILES_${PN}-libgio-dev = "${libdir}/pkgconfig/gio-*-2.0.pc"
+FILES_${PN}-libgmodule-dev = "${libdir}/pkgconfig/gmodule-*-2.0.pc"
