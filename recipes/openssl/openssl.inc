@@ -1,3 +1,4 @@
+# -*- mode:python; -*-
 DESCRIPTION = "Secure Socket Layer (SSL) binary and related \
 	cryptographic tools."
 HOMEPAGE = "http://www.openssl.org/"
@@ -5,10 +6,11 @@ LICENSE = "openssl"
 
 RECIPE_TYPES = "machine native sdk"
 
-SRC_URI = "http://www.openssl.org/source/openssl-${PV}.tar.gz"
-DEPENDS = "libdl"
-
 inherit c make pkgconfig
+
+SRC_URI = "http://www.openssl.org/source/openssl-${PV}.tar.gz"
+
+DEPENDS = "libdl"
 
 AR_append = " r"
 CFLAG = "${@['-DL_ENDIAN', '-DB_ENDIAN']['${TARGET_ENDIAN}'=='b']} -DTERMIO ${TARGET_CFLAGS}"
@@ -100,8 +102,8 @@ do_install () {
 
 PACKAGES =+ "${PN}-misc ${PN}-engines"
 FILES_${PN}-misc = "${libdir}/ssl/misc ${libdir}/ssl/openssl.cnf"
-FILES_${PN}-engines = "${libdir}/ssl/engines/${SOLIBS}"
-FILES_${PN}-dbg =+ "${libdir}/engines/.debug"
+FILES_${PN}-engines = "${libdir}/ssl/engines/*.so"
+FILES_${PN}-dbg =+ "${libdir}/ssl/engines/.debug"
 FILES_${PN}-doc =+ "${libdir}/ssl/man"
 
 inherit auto-package-libs
