@@ -1,22 +1,18 @@
+# -*- mode:python; -*-
 DESCRIPTION = "The GNU internationalization library."
 HOMEPAGE = "http://www.gnu.org/software/gettext/gettext.html"
 LICENSE = "GPLv3"
 
-BBCLASSEXTEND = "native sdk"
-inherit autotools-autoreconf make-vpath
+RECIPE_TYPES = "machine native sdk"
 
-DEPENDS = "libiconv${RE}-dev ncurses${RE}-dev"
-DEPENDS =+ "${NON_NATIVE_DEPENDS}"
-NON_NATIVE_DEPENDS = "\
-    ${HOST_ARCH}/sysroot-libdl \
-    ${HOST_ARCH}/sysroot-libm \
-    ${HOST_ARCH}/sysroot-libpthread \
-    gettext-native \
-"
-NON_NATIVE_DEPENDS_recipe-native = ""
+inherit autotools-autoreconf make-vpath
 
 require conf/fetch/gnu.conf
 SRC_URI = "${GNU_MIRROR}/gettext/gettext-${PV}.tar.gz"
+
+DEPENDS = "libiconv libncurses libdl libm libpthread ${DEPENDS_SELF_NATIVE}"
+DEPENDS_SELF_NATIVE = "native:gettext"
+DEPENDS_SELF_NATIVE:native = ""
 
 acpaths = "-I ${S}/gnulib-local/m4/ \
            -I ${S}/gettext-runtime/m4 \
