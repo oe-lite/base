@@ -1,6 +1,10 @@
 DESCRIPTION = "Perform 'natural order' comparisons of strings"
 HOMEPAGE = "http://sourcefrog.net/projects/natsort/"
 
+RECIPE_TYPES = "machine"
+
+inherit c
+
 SRC_URI = "http://sourcefrog.net/projects/natsort/natsort.c"
 SRC_URI += "http://sourcefrog.net/projects/natsort/strnatcmp.c"
 SRC_URI += "http://sourcefrog.net/projects/natsort/strnatcmp.h"
