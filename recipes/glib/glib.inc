@@ -9,10 +9,10 @@ RECIPE_TYPES = "machine native sdk"
 
 inherit autotools-autoreconf gettext auto-package-libs
 
-DEPENDS = "native:gtk-doc native:libglib native:libgmodule native:glib-utils \
-    native:gtk-doc libz libpthread libdl libresolv libstdc++"
-
-DEPENDS:native = "gtk-doc libz libpthread libdl libresolv libstdc++"
+DEPENDS = "host-cross:gtk-doc libz libpthread libdl libresolv libstdc++ \
+	${DEPENDS_NATIVE}"
+DEPENDS_NATIVE = "native:libglib native:libgmodule native:glib-utils"
+DEPENDS_NATIVE:native = ""
 
 require conf/fetch/gnome.conf
 SRC_URI_SUBDIR = "${@'.'.join(d.getVar('PV', True).split('.')[:2])}"
