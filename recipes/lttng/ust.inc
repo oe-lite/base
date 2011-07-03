@@ -1,54 +1,50 @@
+# -*- mode:python; -*-
 DESCRIPTION = "LTTng Userspace Tracer (UST)"
 LICENSE = "GPLv2 and LGPLv2.1"
 
-inherit sysvinit
+RECIPE_TYPES = "machine"
 
-RECIPE_OPTIONS = "ust_sysvinit_start ust_sysvinit_stop ust_basedir"
+inherit sysvinit autotools auto-package-libs
+
+SRC_URI = "http://lttng.org/files/ust/releases/ust-${PV}.tar.gz"
+SRC_URI += "file://ustd.init"
+
+RECIPE_FLAGS = "ust_sysvinit_start ust_sysvinit_stop ust_basedir"
 
 SYSVINIT_SCRIPT_ust = "ustd"
-DEFAULT_CONFIG_ust_sysvinit_start		= "99"
-DEFAULT_CONFIG_ust_sysvinit_stop		= "0"
+DEFAULT_USE_ust_sysvinit_start		= "99"
+DEFAULT_USE_ust_sysvinit_stop		= "0"
 
-DEFAULT_CONFIG_ust_basedir			= "/tmp/ust"
+DEFAULT_USE_ust_basedir			= "/tmp/ust"
 
-SRC_URI = "http://lttng.org/files/ust/releases/ust-${PV}.tar.gz \
-	file://ustd.init"
+UST_LIB_DEPENDS = "liburcu libpthread libdl librt"
 
-inherit autotools
-
-UST_LIB_DEPENDS = "\
-	liburcu \
-	${TARGET_ARCH}/sysroot-libpthread \
-	${TARGET_ARCH}/sysroot-libdl \
-	${TARGET_ARCH}/sysroot-librt \
-"
+AUTO_PACKAGE_LIBS = "ust"
 
 # Recipe build dependencies
 DEPENDS =+ "${UST_LIB_DEPENDS}"
 
-# Package build dependencies
-PROVIDES_${PN}-dev += "libust"
-DEPENDS_${PN}-dev = "${PN} ${UST_LIB_DEPENDS}"
+# Package dependencies
+DEPENDS_${PN}-libust += "${UST_LIB_DEPENDS}"
+RDEPENDS_${PN} += "libust util/which util/tee"
 
-# Package run-time dependencies
-RPROVIDES_${PN} += "libust"
-RDEPENDS_${PN} = "${UST_LIB_DEPENDS} util/which util/tee"
-RDEPENDS_${PN}-dev = "${PN} userspace-rcu-dev"
-
-do_compile_append () {
+do_compile[postfuncs] += "do_compile_sed"
+do_compile_sed () {
 	sed -e 's|^#!/bin/bash$|#!/bin/sh|' \
 	    -e 's/^function \(.*() *{\)$/\1/' \
-	    -e 's|^\(BASE_TRACE_DIR\)=.*|\1="${RECIPE_OPTION_ust_basedir}"|' \
+	    -e 's|^\(BASE_TRACE_DIR\)=.*|\1="${USE_ust_basedir}"|' \
 	    -e 's/\(.*\)="$(<\(.*\))"/\1=`cat \2`/' \
 	    -e 's/^\(DATESTRING\)=.*/\1="$(date +%Y%m%d%H%M%S)"/' \
 	    -i ${S}/usttrace
-	sed -e 's|^\(TRACEDIR\)=.*|\1="${RECIPE_OPTION_ust_basedir}"|' \
+	sed -e 's|^\(TRACEDIR\)=.*|\1="${USE_ust_basedir}"|' \
 	    -i ${SRCDIR}/ustd.init
 }
 
-do_install_append () {
+do_install[postfuncs] += "do_install_initscript"
+do_install_initscript () {
 	sysvinit_install_script ${SRCDIR}/ustd.init ustd
 }
 
+FILES_${PN}-libust-dev += "${FILES_${PN}-dev}"
 # Need the .so symlinks for preload to work
-FILES_${PN} += "${libdir}/libust*.so"
+FILES_${PN}-libust += "${libdir}/libust*.so* ${bindir} ${"
