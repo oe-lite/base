@@ -8,6 +8,7 @@ SRC_URI += "file://glib-mkenums-interpreter.patch"
 SRC_URI += "file://libglib2-fix-compilation-with-no-builtin-atomic.patch"
 SRC_URI += "file://configure-ipv6.patch"
 
-do_configure_prepend () {
+do_patch[postfuncs] += "do_patch_extra_files"
+do_patch_extra_files() {
     install -m 0644 ${SRCDIR}/glibconfig-sysdefs.h .
 }
