@@ -1,17 +1,15 @@
+# -*- mode:python; -*-
 DESCRIPTION = "Secure ftp daemon"
 LICENSE = "GPL"
 
-inherit sysvinit
+inherit c make sysvinit
 
-SRC_URI = "ftp://vsftpd.beasts.org/users/cevans/vsftpd-${PV}.tar.gz \
-    file://init \
-    file://vsftpd.conf"
+SRC_URI = "https://security.appspot.com/downloads/vsftpd-${PV}.tar.gz"
+SRC_URI += "file://init file://vsftpd.conf"
 
-DEPENDS = "${HOST_ARCH}/sysroot-libcrypt \
-    ${HOST_ARCH}/sysroot-libnsl ${HOST_ARCH}/sysroot-libresolv"
+DEPENDS = "libcrypt libnsl libresolv"
 
 do_configure() {
-
     # Fix hardcoded /usr, /etc, /var mess.
     cat tunables.c \
         | sed s:\"/usr:\"${prefix}:g \
@@ -33,6 +31,7 @@ do_configure() {
     # Configure CFLAGS and hardcode LIBS
     mv Makefile.new Makefile
     cat Makefile \
+        | sed -e 's:^\(CC.*=\).*:\1 ${CC}:g' \
         | sed -e 's:^\(CFLAGS.*=\).*:\1 ${CFLAGS}:g' \
         | sed -e 's:^\(LIBS.*=\).*:\1 -lnsl -lresolv -lcrypt:g' \
         > Makefile.new
@@ -54,12 +53,11 @@ do_install() {
     install -m 755 ${SRCDIR}/init ${D}${sysconfdir}/init.d/vsftpd
 }
 
-RECIPE_OPTIONS += "vsftpd_sysvinit_start vsftpd_sysvinit_stop"
-DEFAULT_CONFIG_vsftpd_sysvinit_start	= "20"
-DEFAULT_CONFIG_vsftpd_sysvinit_stop	= "20"
+RECIPE_FLAGS += "vsftpd_sysvinit_start vsftpd_sysvinit_stop"
+DEFAULT_USE_vsftpd_sysvinit_start	= "20"
+DEFAULT_USE_vsftpd_sysvinit_stop	= "20"
 
-RDEPENDS_${PN} = "${HOST_ARCH}/sysroot-libcrypt \
-    ${HOST_ARCH}/sysroot-libnsl ${HOST_ARCH}/sysroot-libresolv"
+RDEPENDS_${PN} = "libcrypt libnsl libresolv"
 
 # FIXME: do something else!
 #pkg_postinst() {
