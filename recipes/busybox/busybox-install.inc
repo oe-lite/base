@@ -57,7 +57,8 @@ do_install () {
 			# with inetd.conf when generating image
 			inetd_conf="${SRCDIR}/inetd.conf.d"
 		fi
-		echo "tftp dgram udp nowait root tftpd tftpd -c ${RECIPE_OPTION_busybox_tftpd_dir}" >> $inetd_conf
+		echo "tftp dgram udp nowait root tftpd tftpd -c ${USE_busybox_tftpd_dir}" \
+			>> $inetd_conf
 	fi
 
 	if grep "CONFIG_HTTPD=y" ${S}/.config; then
@@ -71,7 +72,10 @@ do_install () {
 	install -m 0755 ${SRCDIR}/groups ${D}${bindir}/
 }
 
-do_install_append_RECIPE_OPTION_sysvinit () {
+do_install[pustfuncs] += "${DO_INSTALL_POSTFUNCS}"
+
+DO_INSTALL_POSTFUNCS += "do_install_busybox_sysvinit"
+do_install_busybox_sysvinit () {
 	if grep "CONFIG_KLOGD=y" ${S}/.config; then
 		sysvinit_install_script ${SRCDIR}/busybox-klogd
 	fi
