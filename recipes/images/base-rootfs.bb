@@ -1,5 +1,9 @@
 require base-rootfs.inc
 
+DEFAULT_PREFERENCE = "-1"
+PROVIDES_${PN} = "rootfs"
+RPROVIDES_${PN} = "rootfs"
+
 RECIPE_OPTIONS = "base_rootfs_jffs2_options"
 
 inherit jffs2-image
