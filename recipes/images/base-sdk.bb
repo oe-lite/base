@@ -7,22 +7,22 @@ ZIP_IMAGE_DIRNAME = "sdk"
 RDEPENDS = " \
     gcc-canadian-cross-gdb \
     gcc-canadian-cross \
-    ${TARGET_ARCH}/sysroot-libcrypt \
-    ${TARGET_ARCH}/sysroot-libresolv \
     ${TARGET_ARCH}/sysroot-dev \
-    ${TARGET_ARCH}/sysroot-libdl \
-    ${TARGET_ARCH}/sysroot-librt \
     ${TARGET_ARCH}/sysroot-doc \
-    ${TARGET_ARCH}/sysroot-libgcc \
-    ${TARGET_ARCH}/sysroot-libstdc++ \
     ${TARGET_ARCH}/sysroot-garbage \
-    ${TARGET_ARCH}/sysroot-libm \
-    ${TARGET_ARCH}/sysroot-libutil \
-    ${TARGET_ARCH}/sysroot-libnss-dns \
     ${TARGET_ARCH}/sysroot-locale \
-    ${TARGET_ARCH}/sysroot-libnss-files \
-    ${TARGET_ARCH}/sysroot-libc \
-    ${TARGET_ARCH}/sysroot-libpthread \
+    ${TARGET_ARCH}/sysroot-libgcc ${TARGET_ARCH}/sysroot-libgcc-dev \
+    ${TARGET_ARCH}/sysroot-libc ${TARGET_ARCH}/sysroot-libc-dev \
+    ${TARGET_ARCH}/sysroot-libdl ${TARGET_ARCH}/sysroot-libdl-dev \
+    ${TARGET_ARCH}/sysroot-libm ${TARGET_ARCH}/sysroot-libm-dev \
+    ${TARGET_ARCH}/sysroot-libpthread ${TARGET_ARCH}/sysroot-libpthread-dev \
+    ${TARGET_ARCH}/sysroot-librt ${TARGET_ARCH}/sysroot-librt-dev \
+    ${TARGET_ARCH}/sysroot-libresolv ${TARGET_ARCH}/sysroot-libresolv-dev \
+    ${TARGET_ARCH}/sysroot-libutil ${TARGET_ARCH}/sysroot-libutil-dev \
+    ${TARGET_ARCH}/sysroot-libcrypt ${TARGET_ARCH}/sysroot-libcrypt-dev \
+    ${TARGET_ARCH}/sysroot-libnss-dns ${TARGET_ARCH}/sysroot-libnss-dns-dev \
+    ${TARGET_ARCH}/sysroot-libnss-files ${TARGET_ARCH}/sysroot-libnss-files-dev \
+    ${TARGET_ARCH}/sysroot-libstdc++ ${TARGET_ARCH}/sysroot-libstdc++-dev \
     ${U_BOOT_MKIMAGE} \
 "
 
