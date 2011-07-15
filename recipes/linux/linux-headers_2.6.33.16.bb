@@ -1,1 +1,2 @@
-require ${PN}-longterm.inc
+require ${PN}.inc
+require linux-longterm.inc
