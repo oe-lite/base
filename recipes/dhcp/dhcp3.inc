@@ -8,6 +8,7 @@ LICENSE = "ISC"
 SRC_URI = "ftp://ftp.isc.org/isc/dhcp/dhcp-${PV}.tar.gz \
     file://init-relay file://default-relay \
     file://init-server file://default-server \
+    file://linux30.patch \
     file://dhclient.conf file://dhcpd.conf"
 
 S = "${SRCDIR}/dhcp-${PV}"
