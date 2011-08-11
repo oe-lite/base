@@ -100,6 +100,9 @@ do_install () {
         install -m 0644 ${SRCDIR}/nsswitch.conf ${D}${sysconfdir}/
 
         ln -sf /proc/mounts ${D}${sysconfdir}/mtab
+
+	echo "${DATETIME}" > ${SRCDIR}/buildtime
+	install -m 0644 ${SRCDIR}/buildtime ${D}${sysconfdir}/buildtime
 }
 
 do_install_append_RECIPE_OPTION_basefiles_version () {
