@@ -9,10 +9,7 @@ BOOST_VER = "${@'_'.join(bb.data.getVar('PV',d,1).split('.'))}"
 SRC_URI = "${SOURCEFORGE_MIRROR}/boost/boost_${BOOST_VER}.tar.bz2"
 S = "${SRCDIR}/boost_${BOOST_VER}"
 
-DEPENDS = "libz libbz2 \
-    ${HOST_ARCH}/sysroot-librt ${HOST_ARCH}/sysroot-libstdc++ \
-    ${HOST_ARCH}/sysroot-libm ${HOST_ARCH}/sysroot-libpthread \
-    ${HOST_ARCH}/sysroot-libc ${HOST_ARCH}/sysroot-libgcc"
+DEPENDS = "libz libbz2 librt libstdc++ libm libpthread libc libgcc"
 
 # Oh yippee, a new build system, it's sooo cooool I could eat my own
 # foot.  inlining=on lets the compiler choose, I think.  At least this
@@ -117,9 +114,9 @@ BOOST_LIBS += "graph"
 BOOST_LIBS += "iostreams"
 
 BOOST_LIBS += "math"
-EXTRA_FILES_${PN}-math = "\
+FILES_${PN}-math = "\
     ${libdir}/libboost_math_*${SOLIBS}"
-EXTRA_FILES_${PN}-math-dev = "\
+FILES_${PN}-math-dev = "\
     ${libdir}/libboost_math_*${SOLIBSDEV} \
     ${libdir}/libboost_math_*.a"
 
@@ -127,19 +124,17 @@ BOOST_LIBS += "program_options"
 
 BOOST_LIBS += "random"
 
-RECIPE_OPTIONS += "boost_icu"
+RECIPE_FLAGS += "boost_icu"
 BOOST_LIBS += "regex"
 ICU_BOOTSTRAP_OPTION = ""
-ICU_BOOTSTRAP_OPTION_RECIPE_OPTION_boost_icu = "--with-icu"
+ICU_BOOTSTRAP_OPTION:USE_boost_icu = "--with-icu"
 BOOTSTRAP_OPTIONS += "${ICU_BOOTSTRAP_OPTION}"
 ICU_DEPENDS = ""
-ICU_DEPENDS_RECIPE_OPTION_boost_icu += "libicuuc libicui18n libicudata"
+ICU_DEPENDS:USE_boost_icu += "libicuuc libicui18n libicudata"
 DEPENDS += "${ICU_DEPENDS}"
 DEPENDS_${PN}-regex-dev = "${ICU_DEPENDS}"
 
-LIBBOST_COMMON_RDEPENDS = "${HOST_ARCH}/sysroot-librt ${HOST_ARCH}/sysroot-libstdc++ \
-                            ${HOST_ARCH}/sysroot-libm ${HOST_ARCH}/sysroot-libpthread \
-                            ${HOST_ARCH}/sysroot-libc ${HOST_ARCH}/sysroot-libgcc"
+LIBBOST_COMMON_RDEPENDS = "librt libstdc++ libm libpthread libc libgcc"
 RDEPENDS_${PN}-regex = "${LIBBOST_COMMON_RDEPENDS} ${ICU_DEPENDS}"
 RDEPENDS_${PN}-iostreams = "${LIBBOST_COMMON_RDEPENDS} libz libbz2"
 RDEPENDS_${PN}-date_time = "${LIBBOST_COMMON_RDEPENDS}"
@@ -163,9 +158,9 @@ RDEPENDS_${PN}-wave = "${LIBBOST_COMMON_RDEPENDS} boost-date_time boost-thread b
 RDEPENDS_${PN}-wserialization = "${LIBBOST_COMMON_RDEPENDS} boost-serialization"
 
 BOOST_LIBS += "serialization"
-EXTRA_FILES_${PN}-serialization = "\
+FILES_${PN}-serialization = "\
     ${libdir}/libboost_wserialization${SOLIBSDEV}"
-EXTRA_FILES_${PN}-serialization-dev = "\
+FILES_${PN}-serialization-dev = "\
     ${libdir}/libboost_wserialization${SOLIBS} \
     ${libdir}/libboost_wserialization.a"
 
@@ -178,11 +173,11 @@ BOOST_LIBS += "thread"
 BOOST_LIBS += "wave"
 
 BOOST_LIBS += "test"
-EXTRA_FILES_${PN}-test = "\
+FILES_${PN}-test = "\
     ${libdir}/libboost_prg_exec_monitor${SOLIBS} \
     ${libdir}/libboost_test_exec_monitor${SOLIBS} \
     ${libdir}/libboost_unit_test_framework${SOLIBS}"
-EXTRA_FILES_${PN}-test-dev = "\
+FILES_${PN}-test-dev = "\
     ${libdir}/libboost_prg_exec_monitor${SOLIBSDEV} \
     ${libdir}/libboost_prg_exec_monitor.a \
     ${libdir}/libboost_test_exec_monitor${SOLIBSDEV} \
