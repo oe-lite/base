@@ -1,48 +1,51 @@
+# -*- mode:python; -*-
 DESCRIPTION = "Dropbear is a lightweight SSH and SCP Implementation"
 HOMEPAGE = "http://matt.ucc.asn.au/dropbear/dropbear.html"
 LICENSE = "MIT"
 
-COMMON_DEPS = "libz \
-${HOST_ARCH}/sysroot-libcrypt \
-${HOST_ARCH}/sysroot-libutil \
-${HOST_ARCH}/sysroot-libcrypt \
-${HOST_ARCH}/sysroot-libgcc \
-"
+RECIPE_TYPES = "machine"
+
+inherit autotools
+
+SRC_URI = "http://matt.ucc.asn.au/dropbear/releases/dropbear-${PV}.tar.gz"
+SRC_URI += "file://fix-2kb-keys.patch file://init"
+
+RECIPE_FLAGS += "dropbear_allownopw"
+SRC_URI:>USE_dropbear_allownopw = " file://allow-nopw.patch"
+
+COMMON_DEPS = "libz libcrypt libutil libcrypt libgcc"
 
 DEPENDS = "${COMMON_DEPS}"
 RDEPENDS_${PN} = "${COMMON_DEPS}"
 
 RPROVIDES_${PN} = "ssh sshd scp"
 
-SRC_URI = "http://matt.ucc.asn.au/dropbear/releases/dropbear-${PV}.tar.gz \
-	   file://fix-2kb-keys.patch;patch=1 \
-	   file://init"
-# add file://allow-nopw.patch to allow password-less logins
-
-inherit autotools
-
-CFLAGS_append += "-D_GNU_SOURCE -DXAUTH_COMMAND=\\"xauth\\ -q\\""
+CFLAGS += '-D_GNU_SOURCE -DXAUTH_COMMAND=\"xauth\\ -q\"'
 
 SBINCOMMANDS = "dropbear dropbearkey dropbearconvert"
 BINCOMMANDS = "dbclient ssh scp"
 EXTRA_OEMAKE = 'MULTI=1 SCPPROGRESS=1 PROGRAMS="${SBINCOMMANDS} ${BINCOMMANDS}"'
 EXTRA_OECONF = "--disable-shadow "
 
-RECIPE_OPTIONS = "dropbear_norevdns"
-do_configure_append_RECIPE_OPTION_dropbear_norevdns() {
+DO_CONFIGURE_POSTFUNCS = ""
+do_configure[postfuncs] += "${DO_CONFIGURE_POSTFUNCS}"
+
+RECIPE_FLAGS += "dropbear_norevdns"
+
+DO_CONFIGURE_POSTFUNCS:>USE_dropbear_norevdns = "do_configure_norevdns"
+do_configure_norevdns() {
 	sed -i -e 's|\(#define DO_HOST_LOOKUP\)$|/* \1 */|' options.h
 }
 
 # Set this if you want to use the DROPBEAR_SMALL_CODE option. This can
 # save several kB in binary size however will make the symmetrical
 # ciphers and hashes slower, perhaps by 50%.
-RECIPE_OPTIONS += "dropbear_smallcode"
-DEFAULT_CONFIG_dropbear_smallcode = "1"
-do_configure_append_RECIPE_OPTION_dropbear_smallcode() {
+RECIPE_FLAGS += "dropbear_smallcode"
+DEFAULT_USE_dropbear_smallcode = "1"
+DO_CONFIGURE_POSTFUNCS:>USE_dropbear_smallcode = "do_configure_smallcode"
+do_configure_smallcode() {
 	sed -i -e 's|/\*.*\(#define DROPBEAR_SMALL_CODE\).*$|\1|' options.h
 }
-
-#CFLAGS_append_RECIPE_OPTION_dropbear_smallcode += "-DDROPBEAR_SMALL_CODE"
 
 do_install() {
 	install -d ${D}${sysconfdir} \
@@ -68,7 +71,8 @@ do_install() {
 				  -e 's,/usr/sbin,${sbindir},g' \
 				  -e 's,/var,${localstatedir},g' \
 				  -e 's,/usr/bin,${bindir},g' \
-				  -e 's,/usr,${prefix},g' > ${D}${sysconfdir}/init.d/dropbear
+				  -e 's,/usr,${prefix},g' \
+		> ${D}${sysconfdir}/init.d/dropbear
 	chmod 755 ${D}${sysconfdir}/init.d/dropbear
 	ln -s ../init.d/dropbear ${D}${sysconfdir}/rcS.d/S25dropbear
 }
