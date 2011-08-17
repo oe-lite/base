@@ -1,22 +1,28 @@
+# -*- mode:python; -*-
 DESCRIPTION = "Host side USB console utilities."
 LICENSE = "GPLv2"
 
-inherit autotools
+RECIPE_TYPES = "machine"
 
-DEPENDS += "libusb-compat-dev ${TARGET_ARCH}/sysroot-libpthread"
+inherit autotools
 
 require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/linux-usb/usbutils-${PV}.tar.gz"
 
+DEPENDS += "libusb-compat-dev libpthread"
 
-EXTRA_OECONF = "--program-prefix="
 sbindir = "${base_sbindir}"
 bindir = "${base_bindir}"
-do_configure_prepend() {
+
+EXTRA_OECONF = "--program-prefix="
+
+do_patch[postfuncs] += "do_patch_rm_libusb"
+do_patch_rm_libusb() {
 	rm -rf ${S}/libusb
 }
 
-do_install_append() {
+do_install[postfuncs] += "do_install_rm_usbids"
+do_install_rm_usbids() {
 	# The 0.86 Makefile.am installs both usb.ids and usb.ids.gz.
 	if [ -f ${D}${datadir}/usb.ids.gz ]
 	then
