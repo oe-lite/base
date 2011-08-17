@@ -41,6 +41,7 @@ LIB_DEPENDS = "libc libm libcrypt"
 DEPENDS = "${LIB_DEPENDS}"
 
 export EXTRA_CFLAGS = "${CFLAGS}"
+export EXTRA_LDFLAGS = "${LDFLAGS}"
 
 require busybox-configure.inc
 
