@@ -9,7 +9,7 @@ RECIPE_TYPES = "machine native sdk"
 
 SRC_URI = "http://pkgconfig.freedesktop.org/releases/pkg-config-${PV}.tar.gz"
 
-#DEPENDS += "glib-2.0${RE}"
+#DEPENDS += "libglib-2.0"
 #EXTRA_OECONF = "--with-installed-glib"
 
 EXTRA_OECONF = "--with-pc-path=''"
