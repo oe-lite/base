@@ -12,7 +12,7 @@ MIRRORS_prepend () {
 
 inherit autotools siteinfo
 
-DEPENDS += "${HOST_ARCH}/sysroot-libm ${HOST_ARCH}/sysroot-libdl"
+DEPENDS += "libm libdl"
 
 #CFLAGS_append = " -DDO_UNIX -DDO_IPV6 -D_GNU_SOURCE"
 CFLAGS_append = " -DDO_UNIX -D_GNU_SOURCE"
