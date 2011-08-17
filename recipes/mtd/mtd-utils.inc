@@ -1,19 +1,20 @@
+# -*- mode:python; -*-
 DESCRIPTION = "Tools for managing memory technology devices."
 HOMEPAGE = "http://www.linux-mtd.infradead.org/"
 LICENSE = "GPLv2"
 
 RECIPE_TYPES = "machine native sdk"
 
-inherit auto-package-utils
+inherit c make auto-package-utils
 
 SRC_URI = "git://git.infradead.org/mtd-utils.git;protocol=git;tag=v${PV}"
-S = "${SRCDIR}/git/"
+S = "${SRCDIR}/mtd-utils"
 
 DEPENDS = "libz liblzo libuuid libm"
 
 EXTRA_OEMAKE = "'LDFLAGS=${LDFLAGS}' \
 	'CFLAGS=${CFLAGS} -I${S}/include -DWITHOUT_XATTR'"
-EXTRA_OEMAKE:>native += "'PREFIX=${prefix}' 'SBINDIR=${bindir}'"
+EXTRA_OEMAKE:>native += " 'PREFIX=${prefix}' 'SBINDIR=${bindir}'"
 
 do_install () {
 	oe_runmake install DESTDIR=${D}
