@@ -1,10 +1,10 @@
 LICENSE = "GPL"
 DEPENDS = "readline-dev \
            libiconv-dev \
-           ${TARGET_ARCH}/sysroot-libdl \
-           ${TARGET_ARCH}/sysroot-libresolv \
-           ${TARGET_ARCH}/sysroot-libpthread \
-           ${TARGET_ARCH}/sysroot-libcrypt"
+           libdl \
+           libresolv \
+           libpthread \
+           libcrypt"
 
 SRC_URI = "http://samba.org/samba/ftp/stable/samba-${PV}.tar.gz \
            file://volatiles.03_samba \
@@ -45,10 +45,10 @@ EXTRA_OECONF='--disable-cups \
               samba_cv_struct_timespec=yes \
               libreplace_cv_HAVE_MMAP=${SAMBAMMAP}'
 
-RECIPE_OPTIONS += "samba_sysvinit_start samba_sysvinit_stop"
+RECIPE_FLAGS += "samba_sysvinit_start samba_sysvinit_stop"
 SYSVINIT_SCRIPT_samba = "samba"
-DEFAULT_CONFIG_samba_sysvinit_start = "20"
-DEFAULT_CONFIG_samba_sysvinit_stop = "20"
+DEFAULT_USE_samba_sysvinit_start = "20"
+DEFAULT_USE_samba_sysvinit_stop = "20"
 
 # No dependencies, goes in at level 20 (NOTE: take care with the
 # level, later levels put the shutdown later too - see the links
