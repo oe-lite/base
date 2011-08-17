@@ -8,22 +8,22 @@ ZIP_IMAGE_DIRNAME = "sdk"
 RDEPENDS = " \
     gcc-canadian-cross-gdb \
     gcc-canadian-cross \
-    ${TARGET_ARCH}/sysroot-libcrypt \
-    ${TARGET_ARCH}/sysroot-libresolv \
-    ${TARGET_ARCH}/sysroot-dev \
-    ${TARGET_ARCH}/sysroot-libdl \
-    ${TARGET_ARCH}/sysroot-librt \
-    ${TARGET_ARCH}/sysroot-doc \
-    ${TARGET_ARCH}/sysroot-libgcc \
-    ${TARGET_ARCH}/sysroot-libstdc++ \
-    ${TARGET_ARCH}/sysroot-garbage \
-    ${TARGET_ARCH}/sysroot-libm \
-    ${TARGET_ARCH}/sysroot-libutil \
-    ${TARGET_ARCH}/sysroot-libnss-dns \
-    ${TARGET_ARCH}/sysroot-locale \
-    ${TARGET_ARCH}/sysroot-libnss-files \
-    ${TARGET_ARCH}/sysroot-libc \
-    ${TARGET_ARCH}/sysroot-libpthread \
+    libcrypt \
+    libresolv \
+    dev \
+    libdl \
+    librt \
+    doc \
+    libgcc \
+    libstdc++ \
+    garbage \
+    libm \
+    libutil \
+    libnss-dns \
+    locale \
+    libnss-files \
+    libc \
+    libpthread \
     ${U_BOOT_MKIMAGE} \
 "
 
