@@ -47,10 +47,10 @@ do_install_extra_files() {
 }
 
 inherit sysvinit
-RECIPE_OPTIONS += "ntpd_sysvinit_start ntpd_sysvinit_stop"
+RECIPE_FLAGS += "ntpd_sysvinit_start ntpd_sysvinit_stop"
 SYSVINIT_SCRIPT_ntpd = "ntpd"
-DEFAULT_CONFIG_ntpd_sysvinit_start	= "25"
-DEFAULT_CONFIG_ntpd_sysvinit_stop	= "25"
+DEFAULT_USE_ntpd_sysvinit_start	= "25"
+DEFAULT_USE_ntpd_sysvinit_stop	= "25"
 
 inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "ntpd ntpdate ntp-wait ntp-keygen sntp ntpq ntpdc \
