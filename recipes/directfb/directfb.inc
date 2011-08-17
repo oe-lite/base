@@ -9,21 +9,17 @@ HOMEPAGE = "http://directfb.org"
 inherit autotools-autoreconf binconfig pkgconfig library
 
 DEPENDS = "jpeg-dev \
-           libpng-dev \
-           libpng-libpng12 \
+           libpng12 \
            freetype-dev \
            libz \
-           ${HOST_ARCH}/sysroot-libdl \
-           ${HOST_ARCH}/sysroot-libpthread \
-           ${HOST_ARCH}/sysroot-libm  \
-           ${HOST_ARCH}/sysroot-libc  \
-           ${HOST_ARCH}/sysroot-libstdc++ \
+           libdl \
+           libpthread \
+           libm  \
+           libc  \
+           libstdc++ \
            tslib-dev"
 
-SRC_URI = " \
-    http://directfb.org/downloads/Core/DirectFB-1.4/DirectFB-${PV}.tar.gz \
-   "
-
+SRC_URI = "http://directfb.org/downloads/Core/DirectFB-1.4/DirectFB-${PV}.tar.gz"
 S = "${SRCDIR}/DirectFB-${PV}"
 
 LDFLAGS_append =" -lts -lm"
@@ -40,14 +36,15 @@ EXTRA_OECONF = "\
 do_install() {
         oe_runmake 'DESTDIR=${D}' install
 }
+
 PACKAGES = "${PN}-dbg ${PN}-doc ${PN}-dev ${PN} ${PN}-locale"
+
 FILES_${PN}-dbg += "\
   ${libdir}/directfb-${RV}/*/*/.debug/*.so \
   ${libdir}/directfb-${RV}/*/.debug/*.so \
 "
 
 FILES_${PN}-dev += "\
-  ${bindir}/directfb-config \
   ${libdir}/directfb-${RV}/systems/*.la \
   ${libdir}/directfb-${RV}/inputdrivers/*.la \
   ${libdir}/directfb-${RV}/interfaces/*/*.la \
@@ -61,3 +58,5 @@ FILES_${PN} += "\
   ${libdir}/directfb-${RV}/wm/*.so \
   ${datadir}/directfb-${PV} \
 "
+
+# FIXME: shouldn't we be providing libdirectfb and libdirectfb-dev ???
