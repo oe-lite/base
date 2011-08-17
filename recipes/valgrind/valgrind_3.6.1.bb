@@ -5,8 +5,9 @@ LICENSE = "GPLv2+ & BSD & FDLv1.2"
 
 inherit autotools auto-package-utils
 
-DEPENDS += "${HOST_ARCH}/sysroot-librt"
-RDEPENDS_${PN} += "${HOST_ARCH}/sysroot-librt ${HOST_ARCH}/sysroot-dbg"
+DEPENDS += "librt"
+# FIXME: what does sysroot-dbg now provide??
+RDEPENDS_${PN} += "librt ${HOST_ARCH}/sysroot-dbg"
 
 SRC_URI = "http://www.valgrind.org/downloads/valgrind-${PV}.tar.bz2"
 SRC_URI += "file://vg-ppc-feature.patch"
