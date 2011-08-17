@@ -6,9 +6,7 @@ RECIPE_TYPES = "machine native sdk"
 
 inherit autotools pkgconfig
 
-DEPENDS = "native:gettext libblkid libuuid"
-DEPENDS:>machine = "libpthread"
-DEPENDS:>sdk = "libpthread"
+DEPENDS = "native:gettext libblkid libuuid libpthread"
 
 require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/e2fsprogs/e2fsprogs-${PV}.tar.gz"
@@ -46,12 +44,12 @@ do_install_append () {
 	ln -sf ./tune2fs e2label
 }
 
-RDEPENDS_${PN} = "libblkid${RE} libuuid${RE} e2fsprogs${RE}-badblocks"
+RDEPENDS_${PN} = "libblkid libuuid e2fsprogs-badblocks"
 
 PACKAGES =+ "${PN}-libcomerr"
 FILES_${PN}-libcomerr = "${libdir}/libcom_err${SOLIBS}"
-RDEPENDS_${PN}-libcomerr	= "${HOST_ARCH}/sysroot-libpthread"
-DEPENDS_${PN}-libcomerr		= "${HOST_ARCH}/sysroot-libpthread"
+RDEPENDS_${PN}-libcomerr	= "libpthread"
+DEPENDS_${PN}-libcomerr		= "libpthread"
 
 PACKAGES =+ "${PN}-libss"
 FILES_${PN}-libss = "${libdir}/libss${SOLIBS}"
@@ -68,24 +66,22 @@ RDEPENDS_${PN}-libe2p		= ""
 
 PACKAGES =+ "${PN}-e2fsck"
 FILES_${PN}-e2fsck = "${sbindir}/e2fsck ${sbindir}/fsck.ext*"
-RPROVIDES_${PN}-e2fsck = "fsck${RE} \
-    fsck-ext2${RE} fsck-ext3${RE} fsck-ext4${RE}"
+RPROVIDES_${PN}-e2fsck = "fsck fsck-ext2 fsck-ext3 fsck-ext4"
 RDEPENDS_${PN}-e2fsck = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p \
-	libblkid${RE} libuuid${RE}"
+	libblkid libuuid"
 
 PACKAGES =+ "${PN}-mke2fs"
 FILES_${PN}-mke2fs = "${sbindir}/mke2fs ${sbindir}/mkfs.ext* \
     ${sysconfdir}/mke2fs.conf"
-RPROVIDES_${PN}-mke2fs = "mke2fs${RE} \
-	mkfs-ext2${RE} mkfs-ext3${RE} mkfs-ext4${RE}"
+RPROVIDES_${PN}-mke2fs = "mke2fs mkfs-ext2 mkfs-ext3 mkfs-ext4"
 RDEPENDS_${PN}-mke2fs = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p \
-	libblkid${RE} libuuid${RE}"
+	libblkid libuuid"
 
 PACKAGES =+ "${PN}-tune2fs"
 FILES_${PN}-tune2fs = "${sbindir}/tune2fs ${sbindir}/e2label ${sbindir}/findfs"
-RPROVIDES_${PN}-tune2fs = "tune2fs${RE}"
+RPROVIDES_${PN}-tune2fs = "tune2fs"
 RDEPENDS_${PN}-tune2fs = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p \
-	libblkid${RE} libuuid${RE}"
+	libblkid libuuid"
 
 PACKAGES =+ "${PN}-badblocks"
 FILES_${PN}-badblocks = "${sbindir}/badblocks"
@@ -107,7 +103,7 @@ FILES_${PN}-uuidd = "${sbindir}/uuidd"
 PACKAGES =+ "${PN}-e2initrdhelper"
 FILES_${PN}-e2initrdhelper = "${libdir}/e2initrd_helper"
 RDEPENDS_${PN}-e2initrdhelper = "${PN}-libext2fs ${PN}-libcomerr \
-    libblkid${RE} libuuid${RE}"
+    libblkid libuuid"
 
 PACKAGES =+ "${PN}-attr-utils"
 FILES_${PN}-attr-utils = "${bindir}/chattr ${bindir}/lsattr"
