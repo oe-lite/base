@@ -17,7 +17,7 @@ DEPENDS = "native:bison native:flex libattr"
 BUILD_CFLAGS += "-I${S}/libcap/include"
 
 do_install() {
-        oe_runmake 'DESTDIR=${D}' 'lib=${libdir}' RAISE_SETFCAP=no install
+        oe_runmake DESTDIR="${D}" prefix="${prefix}" libdir="${libdir}" RAISE_SETFCAP=no install
 }
 
 DEPENDS_${PN} = "libattr"
