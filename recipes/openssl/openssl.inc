@@ -1,7 +1,6 @@
 DESCRIPTION = "Secure Socket Layer (SSL) binary and related cryptographic tools."
 HOMEPAGE = "http://www.openssl.org/"
 LICENSE = "openssl"
-SECTION = "libs/network"
 DEPENDS = "${HOST_ARCH}/sysroot-libdl"
 SRC_URI = "http://www.openssl.org/source/openssl-${PV}.tar.gz"
 

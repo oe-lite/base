@@ -13,12 +13,25 @@ DEPENDS = "jpeg-dev \
            libpng-libpng12 \
            freetype-dev \
            libz \
-           ${HOST_ARCH}/sysroot-libdl  \ 
-           ${HOST_ARCH}/sysroot-libpthread  \ 
-           ${HOST_ARCH}/sysroot-libm  \ 
-           ${HOST_ARCH}/sysroot-libc  \ 
-           ${HOST_ARCH}/sysroot-libstdc++  \ 
+           ${HOST_ARCH}/sysroot-libdl  \
+           ${HOST_ARCH}/sysroot-libpthread  \
+           ${HOST_ARCH}/sysroot-libm  \
+           ${HOST_ARCH}/sysroot-libc  \
+           ${HOST_ARCH}/sysroot-libstdc++  \
            tslib-dev"
+
+RDEPENDS_${PN} += "libz libpng-libpng12 \
+           freetype \
+           jpeg \
+           tslib \
+           libz \
+           ${HOST_ARCH}/sysroot-libdl  \
+           ${HOST_ARCH}/sysroot-libpthread  \
+           ${HOST_ARCH}/sysroot-libm  \
+           ${HOST_ARCH}/sysroot-libc  \
+           ${HOST_ARCH}/sysroot-libgcc  \
+           ${HOST_ARCH}/sysroot-libstdc++ \
+"
 
 SRC_URI = " \
     http://directfb.org/downloads/Core/DirectFB-1.4/DirectFB-${PV}.tar.gz \

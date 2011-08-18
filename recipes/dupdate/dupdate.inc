@@ -1,6 +1,5 @@
 DESCRIPTION = "Update daemon watching a dir for firmware updates"
 LICENSE = "GPLv2"
-SECTION = "console/utils"
 
 RECIPE_OPTIONS = "\
 	dupdate_backend \

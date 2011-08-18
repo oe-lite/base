@@ -1,7 +1,5 @@
 DESCRIPTION = "Host side USB console utilities."
-SECTION = "base"
 LICENSE = "GPLv2"
-PRIORITY = "optional"
 
 inherit autotools
 

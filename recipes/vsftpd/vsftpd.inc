@@ -1,10 +1,9 @@
 DESCRIPTION = "Secure ftp daemon"
-SECTION = "console/network"
 LICENSE = "GPL"
 
 inherit sysvinit
 
-SRC_URI = "ftp://vsftpd.beasts.org/users/cevans/vsftpd-${PV}.tar.gz \
+SRC_URI = "https://security.appspot.com/downloads/vsftpd-${PV}.tar.gz \
     file://init \
     file://vsftpd.conf"
 

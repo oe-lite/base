@@ -1,5 +1,4 @@
 DESCRIPTION = "Very high-quality data compression program"
-SECTION = "console/utils"
 LICENSE = "bzip2"
 
 BBCLASSEXTEND = "native"

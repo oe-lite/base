@@ -1,5 +1,4 @@
 DESCRIPTION = "libdaemon is a lightweight C library that eases the writing of UNIX daemons."
-SECTION = "libs"
 AUTHOR = "Lennart Poettering <lennart@poettering.net>"
 HOMEPAGE = "http://0pointer.de/lennart/projects/libdaemon/"
 LICENSE = "LGPL"

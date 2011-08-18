@@ -1,7 +1,5 @@
 DESCRIPTION = "A tool to make device nodes"
 LICENSE = "GPL"
-SECTION = "base"
-PRIORITY = "required"
 SRC_URI = "file://makedevs.c"
 
 do_configure() {

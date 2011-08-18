@@ -3,7 +3,6 @@ Not ANOther editor) is an enhanced clone of the \
 Pico text editor."
 HOMEPAGE = "http://www.nano-editor.org/"
 LICENSE = "GPLv2"
-SECTION = "console/utils"
 
 inherit autotools-autoreconf gettext
 

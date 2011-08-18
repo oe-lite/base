@@ -1,6 +1,4 @@
 DESCRIPTION = "GNOME XML Parser library"
-SECTION = "libs"
-PRIORITY = "optional"
 LICENSE = "MIT"
 
 inherit autotools pkgconfig binconfig

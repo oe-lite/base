@@ -1,6 +1,4 @@
 DESCRIPTION = "LTTng Userspace Tracer (UST)"
-SECTION = "devel"
-PRIORITY = "optional"
 LICENSE = "GPLv2 and LGPLv2.1"
 
 inherit sysvinit

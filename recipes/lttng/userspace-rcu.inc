@@ -1,6 +1,4 @@
 DESCRIPTION = "Userspace RCU - liburcu is a userspace RCU (read-copy-update) library."
-SECTION = "libs"
-PRIORITY = "optional"
 LICENSE = "LGPLv2.1"
 
 SRC_URI = "http://lttng.org/files/urcu/userspace-rcu-${PV}.tar.bz2"

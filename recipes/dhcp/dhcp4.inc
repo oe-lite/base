@@ -1,4 +1,3 @@
-SECTION = "console/network"
 SUMMARY = "Internet Software Consortium DHCP package"
 DESCRIPTION = "DHCP (Dynamic Host Configuration Protocol) is a protocol \
 which allows individual devices on an IP network to get their own \
