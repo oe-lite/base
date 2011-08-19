@@ -56,6 +56,8 @@ do_install_sbin_fixup () {
 	fi
 }
 
+FILES_${PN}-doc += "${datadir}/getopt/"
+
 inherit auto-package-utils auto-package-libs
 
 AUTO_PACKAGE_UTILS = "agetty blkid cal chkdupexe chrt col colcrt colrm \
