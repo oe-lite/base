@@ -1,2 +1,2 @@
-require busybox_${PV}.bb
+require busybox_${PV}.oe
 require busybox-initramfs.inc

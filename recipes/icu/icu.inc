@@ -20,7 +20,7 @@ CROSS_EXTRA_OECONF = "--with-cross-build=${STAGE_DIR}/native${stage_prefix}/src/
 CROSS_EXTRA_OECONF_recipe-native = ""
 EXTRA_OECONF += "${CROSS_EXTRA_OECONF}"
 
-# FIXME: improve binconfig.bbclass to rewrite *-config (icu-config) in
+# FIXME: improve binconfig.oeclass to rewrite *-config (icu-config) in
 # install/ dir (install fixup), stripping out stage sysroot prefix,
 # and perhaps even fixing up again after unpacking to stage dir (stage
 # fixup)

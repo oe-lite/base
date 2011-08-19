@@ -38,7 +38,7 @@ DEPENDS = "libz libbz2 librt libstdc++ libm libpthread libc libgcc"
 #do_compile: '-sGCC=... '"'-DBOOST_PLATFORM_CONFIG=\"config\"'"
 SQD = '"'
 EQD = '\"'
-#boost.bb:   "...  '-sGCC=... '${SQD}'-DBOOST_PLATFORM_CONFIG=${EQD}config${EQD}'${SQD} ..."
+#boost.oe:   "...  '-sGCC=... '${SQD}'-DBOOST_PLATFORM_CONFIG=${EQD}config${EQD}'${SQD} ..."
 BJAM_CONF = "${SQD}'-DBOOST_PLATFORM_CONFIG=${EQD}boost/config/platform/${TARGET_OS}.hpp${EQD}'${SQD}"
 
 # bzip2 and zip are disabled because... they're broken - the compilation simply
