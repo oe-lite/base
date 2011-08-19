@@ -1,8 +1,9 @@
+# -*- mode:python; -*-
 DESCRIPTION = "A mature, widely used set of C/C++ and Java libraries providing Unicode and Globalization support for software applications"
 HOMEPAGE = "http://icu-project.org/"
 LICENSE = "ICU"
 
-BBCLASSEXTEND = "native sdk"
+RECIPE_TYPES = "machine native sdk"
 
 inherit c++ autotools pkgconfig binconfig
 

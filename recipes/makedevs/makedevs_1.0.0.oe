@@ -1,3 +1,4 @@
+# -*- mode:python; -*-
 DESCRIPTION = "A tool to make device nodes"
 LICENSE = "GPL"
 SRC_URI = "file://makedevs.c"
@@ -15,4 +16,4 @@ do_install() {
 	install -m 0755 ${S}/makedevs ${D}${sbindir}/makedevs
 }
 
-BBCLASSEXTEND = "native"
+RECIPE_TYPES = "native"
