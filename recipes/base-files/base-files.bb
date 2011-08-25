@@ -101,14 +101,18 @@ do_install () {
 
         ln -sf /proc/mounts ${D}${sysconfdir}/mtab
 
-	echo "${DATETIME}" > ${SRCDIR}/buildtime
-	install -m 0644 ${SRCDIR}/buildtime ${D}${sysconfdir}/buildtime
 }
 
 do_install_append_RECIPE_OPTION_basefiles_version () {
 	echo "${DISTRO_VERSION}" > \
 	      ${SRCDIR}/${RECIPE_OPTION_basefiles_version}
 	install -m 0644 ${SRCDIR}/${RECIPE_OPTION_basefiles_version} ${D}${sysconfdir}/${RECIPE_OPTION_basefiles_version}
+}
+
+RECIPE_OPTIONS += "basefiles_buildtime"
+do_install_append_RECIPE_OPTION_basefiles_buildtime () {
+	echo "${DATETIME}" > ${SRCDIR}/${RECIPE_OPTION_basefiles_buildtime}
+	install -m 0644 ${SRCDIR}/${RECIPE_OPTION_basefiles_buildtime} ${D}${sysconfdir}/${RECIPE_OPTION_basefiles_buildtime}
 }
 
 inherit makedevs
