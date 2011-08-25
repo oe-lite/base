@@ -39,6 +39,8 @@ AUTO_PACKAGE_UTILS = "\
 
 EXTRA_FILES_mtd-utils-ubicrc32 = "${sbindir}/ubicrc32.pl"
 
+DEPENDS_${PN}-mkfs-jffs2 = "libz${RE} liblzo${RE}"
+DEPENDS_${PN}-mkfs-ubifs = "libz${RE} liblzo${RE} libuuid${RE}"
 RDEPENDS_${PN}-mkfs-jffs2 = "libz${RE} liblzo${RE}"
 RDEPENDS_${PN}-mkfs-ubifs = "libz${RE} liblzo${RE} libuuid${RE} \
     ${SYSROOT_RDEPENDS_${PN}-mkfs-ubifs}"
