@@ -13,7 +13,7 @@ DEFAULT_USE_base_rootfs_ext2_options = "-z -q -f"
 DEFAULT_USE_base_rootfs_ext2_size_in_blocks = "10240"
 EXT2_IMAGE_OPTIONS = "${USE_base_rootfs_ext2_options} -b ${USE_base_rootfs_ext2_size_in_blocks}"
 
-inherit tar-image
+inherit archive-image
 
 inherit image-qa
 
