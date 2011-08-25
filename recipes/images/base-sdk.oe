@@ -2,30 +2,29 @@ RECIPE_TYPES = "canadian-cross"
 inherit sdk-image
 
 IMAGE_BASENAME = "oe-lite-sdk-${HOST_ARCH}-${TARGET_ARCH}"
-TAR_IMAGE_DIRNAME = "sdk"
-ZIP_IMAGE_DIRNAME = "sdk"
+ARCHIVE_IMAGE_DIRNAME = "sdk"
 
 RDEPENDS = " \
-    gcc-canadian-cross-gdb \
-    gcc-canadian-cross \
-    libcrypt \
-    libresolv \
-    dev \
-    libdl \
-    librt \
-    doc \
-    libgcc \
-    libstdc++ \
-    garbage \
-    libm \
-    libutil \
-    libnss-dns \
-    locale \
-    libnss-files \
-    libc \
-    libpthread \
+    gcc \
+    gcc-g++ \
+    gcc-gdb \
+    target:libc \
+    target:libdl \
+    target:libpthread \
+    target:librt \
+    target:libgcc \
+    target:libcrypt \
+    target:libresolv \
+    target:libnss-files \
+    target:libstdc++ \
+    target:libm \
+    target:libutil \
+    target:libnss-dns \
+    target:gcc-sysroot-garbage \
+    target:gcc-sysroot-locale \
+    target:gcc-sysroot-doc \
     ${U_BOOT_MKIMAGE} \
 "
 
-U_BOOT_MKIMAGE="u-boot-tools-sdk-mkimage"
-U_BOOT_MKIMAGE_host-mingw32 = ""
+U_BOOT_MKIMAGE = "host:u-boot-tools-mkimage"
+U_BOOT_MKIMAGE:HOST_OS_mingw32 = ""
