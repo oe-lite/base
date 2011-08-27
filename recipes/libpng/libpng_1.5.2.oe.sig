@@ -1,0 +1,1 @@
+db9658b1c7fcf65769bb01e773a703ce56389be5  libpng-1.5.2.tar.bz2
