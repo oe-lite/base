@@ -16,7 +16,6 @@ EXTRA_OEMAKE = 'HOSTCC="${CC}" HOSTSTRIP="${STRIP}" \
 RECIPE_FLAGS = "u_boot_tools_config"
 DEFAULT_USE_u_boot_tools_config = "eNET_config"
 
-oe_runmake[emit] += "do_configure"
 do_configure () {
     oe_runmake ${USE_u_boot_tools_config}
 }
