@@ -73,6 +73,9 @@ AUTO_PACKAGE_UTILS:>USE_ncurses = " more cfdisk"
 RDEPENDS_${PN} = "${AUTO_PACKAGE_UTILS_PACKAGES}"
 
 AUTO_PACKAGE_LIBS = "blkid uuid mount"
+FILES_${PN}-libblkid-dev += "${includedir}/blkid"
+FILES_${PN}-libuuid-dev += "${includedir}/uuid"
+FILES_${PN}-libmount-dev += "${includedir}/libmount"
 
 FILES_${PN}-setarch = "${bindir}/linux32 ${bindir}/linux64 ${bindir}/ppc \
 	${bindir}/ppc32 ${bindir}/ppc64"
