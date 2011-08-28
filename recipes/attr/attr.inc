@@ -1,3 +1,4 @@
+# -*- mode:python; -*-
 DESCRIPTION = "Commands for Manipulating Filesystem Extended Attributes"
 LICENSE = "GPLv2+"
 
