@@ -13,7 +13,8 @@ DEPENDS += "libdl libstdc++"
 
 EXTRA_OECONF += "--enable-shared ac_cv_func_malloc_0_nonnull=yes"
 
-do_install_append () {
+do_install[postfuncs] += "do_install_extra"
+do_install_extra () {
 	install -d ${D}${sysconfdir}/profile.d/
 	install -m 0755 ${SRCDIR}/tslib.sh ${D}${sysconfdir}/profile.d/
 	install -m 0644 ${SRCDIR}/ts.conf ${D}${sysconfdir}/ts.conf
