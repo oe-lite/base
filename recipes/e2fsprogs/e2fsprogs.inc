@@ -14,12 +14,20 @@ SRC_URI = "${SOURCEFORGE_MIRROR}/e2fsprogs/e2fsprogs-${PV}.tar.gz"
 EXTRA_OECONF = "--enable-elf-shlibs --enable-dynamic-e2fsck \
 --disable-nls --disable-libuuid --disable-libblkid --disable-fsck"
 
-do_compile_prepend () {
+do_compile[prefuncs] += "do_compile_pre"
+do_compile_pre () {
 	find ./ -print|xargs chmod u=rwX
 	( cd util; ${BUILD_CC} subst.c -o subst )
 }
 
-do_install_append () {
+# disable while debugging...
+PARALLEL_MAKE = ""
+
+# change EXTRA_OEMAKE default to _not_ set -e, and then set it for specific recipes, as it is a rather blunt setting, causing all kinds of unforeseen breaks.
+EXTRA_OEMAKE = "V=1"
+
+do_install[postfuncs] += "do_install_extra"
+do_install_extra () {
     	oe_runmake install-libs DESTDIR=${D}
 
 	rm ${D}${sbindir}/fsck.ext2
@@ -46,68 +54,66 @@ do_install_append () {
 
 RDEPENDS_${PN} = "libblkid libuuid e2fsprogs-badblocks"
 
-PACKAGES =+ "${PN}-libcomerr"
-FILES_${PN}-libcomerr = "${libdir}/libcom_err${SOLIBS}"
-RDEPENDS_${PN}-libcomerr	= "libpthread"
-DEPENDS_${PN}-libcomerr		= "libpthread"
+inherit auto-package-libs
+AUTO_PACKAGE_LIBS = "comerr:com_err e2p ext2fs ss"
 
-PACKAGES =+ "${PN}-libss"
-FILES_${PN}-libss = "${libdir}/libss${SOLIBS}"
-RDEPENDS_${PN}-libss		= ""
+FILES_${PN}-libcomerr-dev = "${includedir}/et ${datadir}/et"
+PACKAGES =+ "${PN}-libcomerr-dev-utils ${PN}-libcomerr-dev-utils-doc \
+	${PN}-libcomerr-dev-doc"
+FILES_${PN}-libcomerr-dev-utils = "${bindir}/compile_et"
+FILES_${PN}-libcomerr-dev-utils-doc = "${mandir}/man?/compile_et.*"
+FILES_${PN}-libcomerr-dev-doc = "${mandir}/man?/com_err.*"
+DEPENDS_${PN}-libcomerr-dev = "native:${PN}-libcomerr-dev-utils"
+RDEPENDS_${PN}-libcomerr-dev = "host:${PN}-libcomerr-dev-utils"
 
-PACKAGES =+ "${PN}-libext2fs"
-FILES_${PN}-libext2fs = "${libdir}/libext2fs${SOLIBS}"
-RDEPENDS_${PN}-libext2fs	= "${PN}-libcomerr"
-DEPENDS_${PN}-libext2fs		= "${PN}-libcomerr"
+FILES_${PN}-libe2p-dev = "${includedir}/e2p"
 
-PACKAGES =+ "${PN}-libe2p"
-FILES_${PN}-libe2p = "${libdir}/libe2p${SOLIBS}"
-RDEPENDS_${PN}-libe2p		= ""
+FILES_${PN}-libext2fs-dev = "${includedir}/ext2fs"
+PACKAGES =+ "${PN}-libext2fs-dev-doc"
+FILES_${PN}-libext2fs-dev-doc = "${infodir}/libext2fs*"
 
-PACKAGES =+ "${PN}-e2fsck"
-FILES_${PN}-e2fsck = "${sbindir}/e2fsck ${sbindir}/fsck.ext*"
-RPROVIDES_${PN}-e2fsck = "fsck fsck-ext2 fsck-ext3 fsck-ext4"
+FILES_${PN}-libss-dev = "${includedir}/ss ${datadir}/ss"
+PACKAGES =+ "${PN}-libss-dev-utils ${PN}-libss-dev-utils-doc"
+FILES_${PN}-libss-dev-utils = "${bindir}/mk_cmds"
+FILES_${PN}-libss-dev-utils-doc = "${mandir}/man?/mk_cmds.*"
+DEPENDS_${PN}-libss-dev = "native:${PN}-libss-dev-utils"
+RDEPENDS_${PN}-libss-dev = "host:${PN}-libss-dev-utils"
+
+inherit auto-package-utils
+AUTO_PACKAGE_UTILS = "e2fsck mke2fs tune2fs badblocks resize2fs e2freefrag \
+	mklostfound:mklost+found uuidd e2initrdhelper logsave \
+	debugfs dumpe2fs e2image e2undo filefrag chattr lsattr"
+
+FILES_${PN}-e2fsck = "${sbindir}/fsck.ext*"
+FILES_${PN}-e2fsck-doc = "${mandir}/man?/fsck.ext*.*"
+PROVIDES_${PN}-e2fsck = "e2fsck fsck fsck-ext2 fsck-ext3 fsck-ext4 \
+	${mandir}/man?/fsck.ext*.*"
 RDEPENDS_${PN}-e2fsck = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p \
 	libblkid libuuid"
 
-PACKAGES =+ "${PN}-mke2fs"
-FILES_${PN}-mke2fs = "${sbindir}/mke2fs ${sbindir}/mkfs.ext* \
-    ${sysconfdir}/mke2fs.conf"
-RPROVIDES_${PN}-mke2fs = "mke2fs mkfs-ext2 mkfs-ext3 mkfs-ext4"
+FILES_${PN}-mke2fs = "${sbindir}/mkfs.ext* ${sysconfdir}/mke2fs.conf"
+FILES_${PN}-mke2fs-doc = "${mandir}/man?/mkfs.ext*.*"
+PROVIDES_${PN}-mke2fs = "mke2fs mkfs-ext2 mkfs-ext3 mkfs-ext4 \
+	${mandir}/man?/mkfs.ext*.*"
 RDEPENDS_${PN}-mke2fs = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p \
 	libblkid libuuid"
 
-PACKAGES =+ "${PN}-tune2fs"
-FILES_${PN}-tune2fs = "${sbindir}/tune2fs ${sbindir}/e2label ${sbindir}/findfs"
+FILES_${PN}-tune2fs = "${sbindir}/e2label ${sbindir}/findfs \
+	${mandir}/man?/e2label.* ${mandir}/man?/findfs.*"
 RPROVIDES_${PN}-tune2fs = "tune2fs"
 RDEPENDS_${PN}-tune2fs = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p \
 	libblkid libuuid"
 
-PACKAGES =+ "${PN}-badblocks"
-FILES_${PN}-badblocks = "${sbindir}/badblocks"
-
-PACKAGES =+ "${PN}-resize2fs"
-FILES_${PN}-resize2fs = "${sbindir}/resize2fs"
 RDEPENDS_${PN}-resize2fs = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p"
 
-PACKAGES =+ "${PN}-e2freefrag"
-FILES_${PN}-e2freefrag = "${sbindir}/e2freefrag"
 RDEPENDS_${PN}-e2freefrag = "${PN}-libext2fs ${PN}-libcomerr"
 
-PACKAGES =+ "${PN}-mklostfound"
-FILES_${PN}-mklostfound = "${sbindir}/mklost+found"
-
-PACKAGES =+ "${PN}-uuidd"
-FILES_${PN}-uuidd = "${sbindir}/uuidd"
-
-PACKAGES =+ "${PN}-e2initrdhelper"
 FILES_${PN}-e2initrdhelper = "${libdir}/e2initrd_helper"
 RDEPENDS_${PN}-e2initrdhelper = "${PN}-libext2fs ${PN}-libcomerr \
     libblkid libuuid"
 
-PACKAGES =+ "${PN}-attr-utils"
-FILES_${PN}-attr-utils = "${bindir}/chattr ${bindir}/lsattr"
 RDEPENDS_${PN}-e2initrdhelper = "${PN}-libcomerr ${PN}-libe2p"
 
-PACKAGES =+ "${PN}-logsave"
-FILES_${PN}-logsave = "${sbindir}/logsave"
+PACKAGES =+ "${PN}-attr-utils"
+RDEPENDS_${PN}-attr-utils = "${PN}-lsattr ${PN}-chattr"
+ALLOW_EMPTY_${PN}-attr-utils = "1"
