@@ -4,12 +4,12 @@ LICENSE = "GPLv2"
 
 RECIPE_TYPES = "machine"
 
-inherit autotools
+inherit autotools pkgconfig
 
-require conf/fetch/sourceforge.conf
-SRC_URI = "${SOURCEFORGE_MIRROR}/linux-usb/usbutils-${PV}.tar.gz"
+require conf/fetch/kernelorg.conf
+SRC_URI = "${KERNELORG_MIRROR}/pub/linux/utils/usb/usbutils/usbutils-${PV}.tar.gz"
 
-DEPENDS += "libusb-compat-dev libpthread"
+DEPENDS += "libusb-compat libpthread"
 
 sbindir = "${base_sbindir}"
 bindir = "${base_bindir}"
