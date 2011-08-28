@@ -1,6 +1,6 @@
 require expat.inc
 
-SRC_URI += "file://autotools.patch;patch=1"
+SRC_URI += "file://autotools.patch"
 
 do_configure() {
 	rm -f ${S}/conftools/libtool.m4
