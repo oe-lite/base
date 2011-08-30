@@ -1,5 +1,7 @@
+inherit initramfs-image
+
 RDEPENDS = "\
 busybox \
 initramfs-init \
-ssh scp \
+util/ssh util/scp \
 "

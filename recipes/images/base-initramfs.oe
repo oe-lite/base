@@ -1,4 +1,1 @@
 require base-initramfs.inc
-
-inherit cpio-image
-inherit archive-image
