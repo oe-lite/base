@@ -31,7 +31,7 @@ EXTRA_OECONF += "${EXTRA_OECONF_IPV6}"
 EXTRA_OECONF_IPV6 = "--disable-ipv6"
 EXTRA_OECONF_IPV6:USE_ipv6 = ""
 
-EXTRA_OEMAKE_append = "'CFLAGS=${CFLAGS}'"
+EXTRA_OEMAKE += "'CFLAGS=${CFLAGS}'"
 
 do_install[postfuncs] += "do_install_unmangle"
 do_install_unmangle() {
