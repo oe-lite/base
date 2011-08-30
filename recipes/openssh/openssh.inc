@@ -21,9 +21,9 @@ DEPENDS = "libcrypto libssl libz libdl libutil libresolv libcrypt"
 
 export ASKPASS_PROGRAM = "${bindir}/ssh-askpass"
 export LD = "${CC}"
-CFLAGS_prepend = "-I${S} "
-CFLAGS_append = " -D__FILE_OFFSET_BITS=64"
-LDFLAGS_prepend = "-L${S} -L${S}/openbsd-compat "
+CFLAGS =+ "-I${S} "
+CFLAGS += "-D__FILE_OFFSET_BITS=64"
+LDFLAGS =+ "-L${S} -L${S}/openbsd-compat "
 
 EXTRA_OECONF = "--disable-suid-ssh --with-ssl \
 	        --with-rand-helper=no \
