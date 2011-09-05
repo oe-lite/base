@@ -100,12 +100,19 @@ do_install () {
         install -m 0644 ${SRCDIR}/nsswitch.conf ${D}${sysconfdir}/
 
         ln -sf /proc/mounts ${D}${sysconfdir}/mtab
+
 }
 
 do_install_append_RECIPE_OPTION_basefiles_version () {
 	echo "${DISTRO_VERSION}" > \
 	      ${SRCDIR}/${RECIPE_OPTION_basefiles_version}
 	install -m 0644 ${SRCDIR}/${RECIPE_OPTION_basefiles_version} ${D}${sysconfdir}/${RECIPE_OPTION_basefiles_version}
+}
+
+RECIPE_OPTIONS += "basefiles_buildtime"
+do_install_append_RECIPE_OPTION_basefiles_buildtime () {
+	echo "${DATETIME}" > ${SRCDIR}/${RECIPE_OPTION_basefiles_buildtime}
+	install -m 0644 ${SRCDIR}/${RECIPE_OPTION_basefiles_buildtime} ${D}${sysconfdir}/${RECIPE_OPTION_basefiles_buildtime}
 }
 
 inherit makedevs
