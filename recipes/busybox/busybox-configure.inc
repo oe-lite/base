@@ -984,3 +984,22 @@ do_preconfigure_append_RECIPE_OPTION_busybox_inittab_login () {
 		echo $i >> ${SRCDIR}/inittab
 	done
 }
+
+RECIPE_OPTIONS += "busybox_less"
+#
+# RECIPE_OPTION_busybox_less
+#
+# Default: enable less utility
+DEFAULT_CONFIG_busybox_less			= "1"
+# Run-time provides wget command
+BUSYBOX_RPROVIDES_append_RECIPE_OPTION_busybox_less += "util/less busybox-less"
+do_preconfigure_append_RECIPE_OPTION_busybox_less () {
+	sed -i -e 's/^# \(CONFIG_LESS\) is not set/\1=y/' \
+	.config
+}
+RECIPE_OPTIONS += "busybox_less_regexp"
+DEFAULT_CONFIG_busybox_less_regexp		= "0"
+do_preconfigure_append_RECIPE_OPTION_busybox_less_regexp () {
+	sed -i -e 's/^# \(CONFIG_FEATURE_LESS_REGEXP\) is not set/\1=y/' \
+	.config
+}
