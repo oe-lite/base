@@ -7,7 +7,7 @@ LICENSE = "LGPLv2+"
 
 RECIPE_TYPES = "machine native sdk"
 
-inherit autotools-autoreconf gettext auto-package-libs
+inherit autotools-autoreconf gettext auto-package-libs pkgconfig
 
 DEPENDS = "host-cross:gtk-doc libz libpthread libdl libresolv libstdc++ \
 	${DEPENDS_NATIVE}"
