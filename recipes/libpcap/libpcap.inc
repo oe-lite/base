@@ -5,7 +5,7 @@ LICENSE = "BSD"
 
 RECIPE_TYPES = "machine"
 
-inherit autotools siteinfo binconfig library
+inherit autotools siteinfo library binconfig
 
 SRC_URI = "http://www.tcpdump.org/release/libpcap-${PV}.tar.gz"
 
