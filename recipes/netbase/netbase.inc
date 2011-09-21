@@ -5,6 +5,7 @@ LICENSE = "GPL"
 
 RECIPE_FLAGS = "netbase_sysvinit_start netbase_sysvinit_stop netbase_auto_if"
 
+RDEPENDS_SYSVINIT = ""
 inherit sysvinit
 
 DEFAULT_USE_netbase_sysvinit_start	= "20"
