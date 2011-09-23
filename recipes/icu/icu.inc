@@ -7,8 +7,8 @@ RECIPE_TYPES = "machine native sdk"
 
 inherit c++ autotools pkgconfig binconfig
 
-CROSS_DEPENDS = "icu-native-src"
-CROSS_DEPENDS_recipe-native = ""
+CROSS_DEPENDS = "native:icu-src"
+CROSS_DEPENDS:native = ""
 DEPENDS += "${CROSS_DEPENDS}"
 
 SRC_URI = "http://download.icu-project.org/files/icu4c/${PV}/icu4c-${@'${PV}'.replace('.','_')}-src.tgz"
@@ -18,7 +18,7 @@ S = "${SRCDIR}/icu/source"
 EXTRA_OECONF = "--enable-static"
 
 CROSS_EXTRA_OECONF = "--with-cross-build=${STAGE_DIR}/native${stage_prefix}/src/icu"
-CROSS_EXTRA_OECONF_recipe-native = ""
+CROSS_EXTRA_OECONF:native = ""
 EXTRA_OECONF += "${CROSS_EXTRA_OECONF}"
 
 # FIXME: improve binconfig.oeclass to rewrite *-config (icu-config) in
@@ -27,7 +27,10 @@ EXTRA_OECONF += "${CROSS_EXTRA_OECONF}"
 # fixup)
 
 # Package up the entire native build tree for use when cross-compiling, *sigh*
-do_install_append_recipe-native () {
+do_install[postfuncs] += "${DO_INSTALL_SRC}"
+DO_INSTALL_SRC = ""
+DO_INSTALL_SRC:native = "do_install_src"
+do_install_src () {
     mkdir -p ${D}${prefix}/src/icu
     cp -r ${S}/. ${D}${prefix}/src/icu
 }
@@ -35,9 +38,8 @@ do_install_append_recipe-native () {
 PACKAGES = "${PN}-dbg ${PN}-doc ${PN}-dev ${PN} ${PN}-locale"
 
 NATIVE_PACKAGES = ""
-NATIVE_PACKAGES_recipe-native = "${PN}-src"
+NATIVE_PACKAGES:native = "${PN}-src"
 PACKAGES += "${NATIVE_PACKAGES}"
-PROVIDES_${PN}-src = "${PN}-src"
 
 FILES_${PN}-doc += "${datadir}/icu/${PV}/license.html"
 FILES_${PN}-dev += "${bindir}/icu-config ${libdir}/icu ${datadir}/icu/ \
@@ -47,7 +49,7 @@ FILES_${PN}-src = "${prefix}/src/icu"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "icudata icuuc icui18n icule iculx icutu icuio icutest"
-AUTO_PACKAGE_LIBS_DEV_DEPENDS = "icu-dev"
+AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev"
 
 # FIXME: it should be possible to make icu-dev build independent of icu
 # and then remove the DEPENDS_icu-dev on icu...
