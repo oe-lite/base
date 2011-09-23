@@ -5,6 +5,10 @@ easier to administer devices."
 HOMEPAGE = "http://www.isc.org/"
 LICENSE = "ISC"
 
+RECIPE_TYPES = "machine"
+
+inherit c make
+
 SRC_URI = "ftp://ftp.isc.org/isc/dhcp/dhcp-${PV}.tar.gz \
     file://init-relay file://default-relay \
     file://init-server file://default-server \
