@@ -1,6 +1,6 @@
 LICENSE = "GPL"
-DEPENDS = "readline-dev \
-           libiconv-dev \
+DEPENDS = "libreadline \
+           libiconv \
            libdl \
            libresolv \
            libpthread \
@@ -29,8 +29,8 @@ SAMBAMMAP_libc-glibc = "yes"
 # in the samba config by --with-foodir=dirfoo - even if the --with is not
 # specified!  Fix that here.  Set the privatedir to /etc/samba/private.
 EXTRA_OECONF='--disable-cups \
-              --with-readline=${STAGING_LIBDIR}/.. \
-              --with-libiconv=${STAGING_LIBDIR}/.. \
+              --with-readline=${STAGE_DIR}${libdir}/.. \
+              --with-libiconv=${STAGE_DIR}${libdir}/.. \
               --without-automount \
               --with-configdir=${sysconfdir}/samba \
               --with-privatedir=${sysconfdir}/samba/private \
@@ -55,7 +55,8 @@ DEFAULT_USE_samba_sysvinit_stop = "20"
 # in rc6.d, the shutdown must precede network shutdown).
 CONFFILES_${PN} = "${sysconfdir}/samba/smb.conf"
 
-do_configure_prepend () {
+do_configure[prefuncs] += "do_configure_pre"
+do_configure_pre () {
 	./script/mkversion.sh
 	if [ ! -e acinclude.m4 ]; then
 		touch aclocal.m4	
@@ -68,7 +69,8 @@ do_compile () {
 	base_do_compile
 }
 
-do_install_append() {
+do_install[postfuncs] += "do_install_extra"
+do_install_extra() {
 	install -d ${D}${libdir}/pkgconfig/
 	cp ${SRCDIR}/tdb.pc ${D}${libdir}/pkgconfig/
 	mv ${D}${libdir}/libsmbclient.so ${D}${libdir}/libsmbclient.so.0 || true
@@ -92,4 +94,3 @@ do_install_append() {
 	install -d ${D}/var/log/samba
 	install -d ${D}/var/spool/samba
 }
-
