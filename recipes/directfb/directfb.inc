@@ -8,21 +8,21 @@ HOMEPAGE = "http://directfb.org"
 
 inherit autotools-autoreconf binconfig pkgconfig library
 
-DEPENDS = "jpeg-dev \
+DEPENDS = "libjpeg \
            libpng12 \
-           freetype-dev \
+           libfreetype \
            libz \
            libdl \
            libpthread \
            libm  \
            libc  \
            libstdc++ \
-           tslib-dev"
+           libtslib"
 
 SRC_URI = "http://directfb.org/downloads/Core/DirectFB-1.4/DirectFB-${PV}.tar.gz"
 S = "${SRCDIR}/DirectFB-${PV}"
 
-LDFLAGS_append =" -lts -lm"
+LDFLAGS +="-lts -lm"
 
 EXTRA_OECONF = "\
   --with-gfxdrivers=none \
