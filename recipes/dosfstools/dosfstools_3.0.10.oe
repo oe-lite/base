@@ -12,8 +12,7 @@ SRC_URI = "http://www.daniel-baumann.ch/software/dosfstools/dosfstools-${PV}.tar
 
 # output of getconf LFS_CFLAGS
 #
-CFLAGS_append = ' -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64'
-CFLAGS_append_libc-uclibc = ' ${@base_contains("DISTRO_FEATURES", "largefile", "-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64", "", d)}'
+CFLAGS += '-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64'
 
 do_install () {
 	oe_runmake "PREFIX=${D}" "SBINDIR=${D}${sbindir}" \
