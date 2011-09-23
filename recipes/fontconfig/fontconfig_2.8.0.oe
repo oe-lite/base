@@ -1,15 +1,17 @@
 DESCRIPTION = "A library for configuring and customizing font access."
 LICENSE = "BSD"
-DEPENDS = "expat-dev freetype-dev libz"
+DEPENDS = "libexpat libfreetype libz"
 
-inherit autotools pkgconfig
+inherit autotools pkgconfig c++
 
 SRC_URI = "http://fontconfig.org/release/fontconfig-${PV}.tar.gz"
 
 S = "${SRCDIR}/fontconfig-${PV}"
 
 EXTRA_OECONF = " --disable-docs --with-arch=${HOST_ARCH} --with-cache-dir=/var/lib/fontconfig"
-do_configure_append () {
+
+do_configure[postfuncs] += "do_configure_extra"
+do_configure_extra () {
         sed -i 's|LDFLAGS =.*|LDFLAGS =|' fc-case/Makefile
         sed -i 's|LDFLAGS =.*|LDFLAGS =|' fc-glyphname/Makefile
         sed -i 's|LDFLAGS =.*|LDFLAGS =|' fc-lang/Makefile
