@@ -1,6 +1,8 @@
 DESCRIPTION = "Utility to test for faulty memory subsystem"
 LICENSE = "GPLv2"
 
+inherit c make
+
 SRC_URI = "http://pyropus.ca/software/memtester/old-versions/memtester-${PV}.tar.gz"
 
 do_compile () {
