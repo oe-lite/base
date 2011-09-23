@@ -8,7 +8,7 @@ RECIPE_TYPES = "machine native"
 SRC_URI = "http://www.ijg.org/files/jpegsrc.v${PV}.tar.gz"
 
 EXTRA_OECONF = "--enable-static --enable-shared"
-CFLAGS_append = " -D_REENTRANT"
+CFLAGS += "-D_REENTRANT"
 
 PACKAGES =+ "${PN}-tools "
 FILES_${PN}-tools = "${bindir}/*"
