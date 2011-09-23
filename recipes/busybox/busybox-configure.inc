@@ -7,7 +7,6 @@ do_configure () {
 }
 
 do_configure[prefuncs] += "${DO_CONFIGURE_PREFUNCS}"
-
 DO_CONFIGURE_PREFUNCS = "do_configure_install_dot_config"
 do_configure_install_dot_config () {
         install -m 0644 ${SRCDIR}/defconfig ${S}/.config
@@ -43,7 +42,7 @@ def busybox_simple_use_flags(d):
             d.set("DEFAULT_USE_" + useflag, default)
         d.set_override("BUSYBOX_PROVIDES", ">USE_" + useflag,
                        " busybox-%s %s"%(flag, provide))
-        d.set_override("DO_CONFIGURE_PREFUNCS", ">USE_" + useflag,
+        d.set_override("DO_CONFIGURE_PREFUNCS", (">","USE_" + useflag),
                        " do_configure_" + useflag)
         function = []
         for config in configs:
@@ -102,12 +101,12 @@ do_configure_busybox_runit () {
         .config
 }
 
-BUSYBOX_UTIL_SIMPLE_UTIL_USE_FLAGS += "start-stop-daemon=1:\
+BUSYBOX_SIMPLE_USE_FLAGS += "start-stop-daemon=1:util/:\
 CONFIG_START_STOP_DAEMON,\
 CONFIG_FEATURE_START_STOP_DAEMON_FANCY,\
 CONFIG_FEATURE_START_STOP_DAEMON_LONG_OPTIONS"
 
-BUSYBOX_UTIL_SIMPLE_USE_FLAGS += "mdev=1:\
+BUSYBOX_SIMPLE_USE_FLAGS += "mdev=1::\
 CONFIG_MDEV,\
 CONFIG_FEATURE_MDEV_CONF,\
 CONFIG_FEATURE_MDEV_RENAME,\

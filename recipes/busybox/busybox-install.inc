@@ -70,12 +70,7 @@ do_install () {
 	fi
 
 	install -m 0755 ${SRCDIR}/groups ${D}${bindir}/
-}
-
-do_install[pustfuncs] += "${DO_INSTALL_POSTFUNCS}"
-
-DO_INSTALL_POSTFUNCS += "do_install_busybox_sysvinit"
-do_install_busybox_sysvinit () {
+	
 	if grep "CONFIG_KLOGD=y" ${S}/.config; then
 		sysvinit_install_script ${SRCDIR}/busybox-klogd
 	fi
