@@ -29,9 +29,8 @@ FILES_${PN}-dev += "${libdir}/ts/*.la ${libdir}/ts/*.a"
 FILES_${PN}-calibrate = "${bindir}/ts_calibrate"
 FILES_${PN}-tests = "${bindir}/ts_harvest ${bindir}/ts_print ${bindir}/ts_print_raw ${bindir}/ts_test"
 
-RDEPENDS_${PN} = "libdl ${PN}-conf"
-PROVIDES_${PN} = "libts"
-PROVIDES_${PN}-dev = "libts-dev"
+LIBRARY_NAME = "libts"
 
+RDEPENDS_${PN} = "libdl ${PN}-conf"
 RDEPENDS_${PN}-tests = "${PN}"
 RDEPENDS_${PN}-calibrate = "${PN}"
