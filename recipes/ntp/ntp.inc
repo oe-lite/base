@@ -32,7 +32,8 @@ DEPENDS:>USE_crypto = " libcrypto"
 
 CFLAGS += " -DPTYS_ARE_GETPT -DPTYS_ARE_SEARCHED"
 
-do_autoreconf_prepend() {
+do_autoreconf[prefuncs] =+ "do_autoreconf_pre"
+do_autoreconf_pre() {
     sed -i -e 's:dist_man_MANS=	sntp.1::g' sntp/Makefile.am
 }
 
