@@ -20,8 +20,8 @@ S = "${SRCDIR}/git"
 
 inherit autotools
 
-EXTRA_OECONF = "--with-backend=${RECIPE_OPTION_dupdate_backend}"
-EXTRA_OECONF += "--with-imagemode=${RECIPE_OPTION_dupdate_imagemode}"
+EXTRA_OECONF = "--with-backend=${USE_dupdate_backend}"
+EXTRA_OECONF += "--with-imagemode=${USE_dupdate_imagemode}"
 
 INSTALL_POSTFUNCS ?= ""
 do_install[postfuncs] = "${INSTALL_POSTFUNCS}"
