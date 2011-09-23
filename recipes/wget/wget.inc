@@ -1,6 +1,8 @@
 DESCRIPTION = "A console URL download utility featuring HTTP, FTP, and more."
 LICENSE = "GPLv3"
 
+RECIPE_TYPES = "machine native"
+
 DEPENDS = "librt"
 
 inherit autotools gettext
