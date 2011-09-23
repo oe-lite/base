@@ -6,18 +6,29 @@ Linux framebuffer device."
 LICENSE = "LGPL"
 HOMEPAGE = "http://directfb.org"
 
-inherit autotools-autoreconf binconfig pkgconfig library
+inherit autotools-autoreconf pkgconfig library binconfig
 
 DEPENDS = "libjpeg \
-           libpng12 \
-           libfreetype \
-           libz \
-           libdl \
-           libpthread \
-           libm  \
-           libc  \
-           libstdc++ \
-           libtslib"
+	libpng12 \
+	libfreetype \
+	libz \
+	libdl \
+	libpthread \
+	libm  \
+	libc  \
+	libstdc++ \
+	libts"
+
+RDEPENDS = "libjpeg \
+	libpng12 \
+	freetype \
+	libz \
+	libdl \
+	libpthread \
+	libm  \
+	libc  \
+	libstdc++ \
+	libts"
 
 SRC_URI = "http://directfb.org/downloads/Core/DirectFB-1.4/DirectFB-${PV}.tar.gz"
 S = "${SRCDIR}/DirectFB-${PV}"
@@ -57,6 +68,7 @@ FILES_${PN} += "\
   ${libdir}/directfb-${RV}/interfaces/*/*.so \
   ${libdir}/directfb-${RV}/wm/*.so \
   ${datadir}/directfb-${PV} \
+  ${bindir} \
 "
 
 # FIXME: shouldn't we be providing libdirectfb and libdirectfb-dev ???
