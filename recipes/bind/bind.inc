@@ -42,5 +42,5 @@ do_install_extra_files() {
 FILES_${PN}-dev += "${bindir}/isc-config.h"
 DEPENDS_${PN}-dev = "libssl libcrypto libdl"
 
-PACKAGES_prepend = "${PN}-utils "
+PACKAGES =+ "${PN}-utils "
 FILES_${PN}-utils = "${bindir}/host ${bindir}/dig ${bindir}/nslookup"
