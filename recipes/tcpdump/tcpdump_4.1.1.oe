@@ -22,7 +22,8 @@ EXTRA_OECONF = "--without-crypto"
 RECIPE_FLAGS += "ipv6"
 EXTRA_OECONF:>USE_ipv6 = " --enable-ipv6"
 
-do_install_append() {
+do_install[postfuncs] += "do_install_extra"
+do_install_extra () {
 	# tcpdump 4.0.0 installs a copy to /usr/sbin/tcpdump.4.0.0
 	rm -f ${D}${sbindir}/tcpdump.${PV}
 }
