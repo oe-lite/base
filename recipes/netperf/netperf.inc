@@ -2,20 +2,21 @@ DESCRIPTION = "Network performance benchmark including tests for TCP, UDP, socke
 HOMEPAGE = "http://www.netperf.org/"
 LICENSE = "netperf"
 
-SRC_URI="${NETPERF_MIRROR}/netperf-${PV}.tar.bz2 \
-         file://init"
-
 NETPERF_MIRROR = "ftp://ftp.netperf.org/netperf"
-MIRRORS_prepend () {
-	${NETPERF_MIRROR} ${NETPERF_MIRROR}/archive
-}
+SRC_URI = "${NETPERF_MIRROR}/netperf-${PV}.tar.bz2"
+
+SRC_URI += "file://init"
+
+#MIRRORS_prepend () {
+#	${NETPERF_MIRROR} ${NETPERF_MIRROR}/archive
+#}
 
 inherit autotools siteinfo
 
 DEPENDS += "libm libdl"
 
-#CFLAGS_append = " -DDO_UNIX -DDO_IPV6 -D_GNU_SOURCE"
-CFLAGS_append = " -DDO_UNIX -D_GNU_SOURCE"
+#CFLAGS += "-DDO_UNIX -DDO_IPV6 -D_GNU_SOURCE"
+CFLAGS += "-DDO_UNIX -D_GNU_SOURCE"
 
 do_install() {
         install -d ${D}${sbindir} ${D}${bindir} ${D}${sysconfdir}/init.d
