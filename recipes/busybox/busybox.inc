@@ -35,7 +35,7 @@ SRC_URI += "\
 
 RECIPE_FLAGS += "busybox_init_shutdown_umount"
 DEFAULT_USE_busybox_init_shutdown_umount = "1"
-SRC_URI:>USE_busybox_init_shutdown_umount = "file://init-shutdown-umount.patch"
+SRC_URI:>USE_busybox_init_shutdown_umount = " file://init-shutdown-umount.patch"
 
 LIB_DEPENDS = "libc libm libcrypt"
 DEPENDS = "${LIB_DEPENDS}"

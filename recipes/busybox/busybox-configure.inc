@@ -5,7 +5,6 @@ do_configure () {
         unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
         oe_runmake oldconfig
 }
-oe_runmake[emit] += "do_configure"
 
 do_configure[prefuncs] += "${DO_CONFIGURE_PREFUNCS}"
 
