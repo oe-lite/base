@@ -26,13 +26,13 @@ CFLAGS += "-D__FILE_OFFSET_BITS=64"
 LDFLAGS =+ "-L${S} -L${S}/openbsd-compat "
 
 EXTRA_OECONF = "--disable-suid-ssh --with-ssl \
-	        --with-rand-helper=no \
-		--without-pam \
-	        --without-zlib-version-check \
-		--with-privsep-path=/var/run/sshd \
-		--sysconfdir=${sysconfdir}/ssh \
-		--with-md5-passwords \
-		--with-xauth=/usr/bin/xauth"
+	--with-rand-helper=no \
+	--without-pam \
+	--without-zlib-version-check \
+	--with-privsep-path=/var/run/sshd \
+	--sysconfdir=${sysconfdir}/ssh \
+	--with-md5-passwords \
+	--with-xauth=${bindir}/xauth"
 
 EXTRA_OEMAKE = "'STRIP_OPT='"
 
