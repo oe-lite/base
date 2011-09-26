@@ -1,0 +1,11 @@
+--- lighttpd-1.4.29/configure.orig	2011-09-22 15:43:54.500338025 +0200
++++ lighttpd-1.4.29/configure	2011-09-22 15:44:22.781758146 +0200
+@@ -14174,7 +14174,7 @@
+ 
+ 
+   if test x"$PCRECONFIG" != x; then
+-    PCRE_LIB=`$PCRECONFIG --libs`
++    PCRE_LIB="-lpcre"
+     CPPFLAGS="$CPPFLAGS `$PCRECONFIG --cflags`"
+ 
+ $as_echo "#define HAVE_LIBPCRE 1" >>confdefs.h
