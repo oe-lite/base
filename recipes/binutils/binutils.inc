@@ -12,6 +12,9 @@ LICENSE = "GPLv3"
 
 inherit autotools gettext
 
+require conf/fetch/gnu.conf
+SRC_URI = "${GNU_MIRROR}/binutils/binutils-${PV}.tar.bz2 "
+
 DEPENDS = "native:flex native:bison"
 
 EXTRA_OECONF = "--enable-install-libbfd --enable-shared"
