@@ -1,0 +1,1 @@
+78a4db58cf3a7a8906c35592434e37680ca83b8f  libdaemon-0.14.tar.gz
