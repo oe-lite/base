@@ -20,3 +20,5 @@ PROVIDES_${PN} += "libcharset"
 PROVIDES_${PN}-dev += "libcharset-dev"
 AUTO_PACKAGE_UTILS = "iconv"
 PROVIDES_${PN}-iconv = "${PN}-tools"
+
+FILE_PRIORITY_${PN}-dev = "0 ${includedir}/iconv.h:1"
