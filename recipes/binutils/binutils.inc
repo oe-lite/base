@@ -31,7 +31,33 @@ AUTO_PACKAGE_UTILS = "\
     addr2line as c++filt gprof ld nm objcopy objdump ranlib readelf elfedit \
     size strip ar strings embedspu"
 
+do_install[postfuncs] += "do_install_hardlinkfixup"
+do_install_hardlinkfixup () {
+	# FIXME: this properly does not work for cross, sdk-cross and
+	# canadian-cross ...
+	cd ${D}${prefix}/${TARGET_ARCH}/bin
+	for bin in *; do
+		rm $bin
+		ln -s ../..${bindir}/$bin
+	done
+	cd ${D}${bindir}
+	rm ld
+	ln -s ld.bfd ld
+}
+
 FILES_${PN}-ld = "${bindir}/ld.bfd"
+
+FILES_${PN}-ar += "${prefix}/${TARGET_ARCH}/bin/ar"
+FILES_${PN}-as += "${prefix}/${TARGET_ARCH}/bin/as"
+FILES_${PN}-ld += "${bindir}/ld.bfd ${prefix}/${TARGET_ARCH}/bin/ld ${prefix}/${TARGET_ARCH}/bin/ld.bfd"
+FILES_${PN}-nm += "${prefix}/${TARGET_ARCH}/bin/nm"
+FILES_${PN}-objcopy += "${prefix}/${TARGET_ARCH}/bin/objcopy"
+FILES_${PN}-objdump += "${prefix}/${TARGET_ARCH}/bin/objdump"
+FILES_${PN}-ranlib += "${prefix}/${TARGET_ARCH}/bin/ranlib"
+FILES_${PN}-strip += "${prefix}/${TARGET_ARCH}/bin/strip"
+
+PACKAGES += "${PN}-ldscripts"
+FILES_${PN}-ldscripts = "${prefix}/${TARGET_ARCH}/lib/ldscripts"
 
 RDEPENDS_${PN}-addr2line = "libbfd"
 RDEPENDS_${PN}-as = "libbfd libopcodes"
