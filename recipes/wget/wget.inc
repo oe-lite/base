@@ -11,7 +11,7 @@ require conf/fetch/gnu.conf
 SRC_URI = "${GNU_MIRROR}/wget/wget-${PV}.tar.gz"
 
 RECIPE_FLAGS += "wget_ipv6"
-EXTRA_OECONF:>wget_ipv6 = "--enable-ipv6"
+EXTRA_OECONF:>wget_ipv6 = " --enable-ipv6"
 
 RECIPE_FLAGS += "wget_ssl"
 EXTRA_OECONF_SSL = "--without-ssl"
