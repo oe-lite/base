@@ -1,0 +1,30 @@
+DESCRIPTION = "GNOME configuration database system"
+LICENSE = "LGPL"
+
+inherit autotools-autoreconf pkgconfig gettext
+
+DEPENDS = "libxml2 \
+           glib-libgobject glib-libglib glib-libgthread \
+           glib-libgmodule glib-libgio glib-dev \
+           dbus-dev dbus-libdbus dbus-glib dbus-glib-dev libm \
+           native:gobject-introspection-dev"
+
+S = "${SRCDIR}/GConf-${PV}"
+
+SRC_URI = "http://ftp.gnome.org/pub/GNOME/sources/GConf/3.2/GConf-${PV}.tar.bz2"
+SRC_URI += "file://autotoolsfixup.patch"
+
+EXTRA_OECONF = "--disable-gtk-doc --disable-orbit --disable-introspection"
+
+addtask do_autoreconfaddgobjectintrospection before do_autoreconf after do_siteinfo
+do_autoreconfaddgobjectintrospection() {
+  mkdir m4
+  ln -sf ${STAGE_DIR}/native/share/aclocal/introspection.m4 ${S}/m4/introspection.m4
+}
+
+PACKAGES += " ${PN}-dtb ${PN}-gconfbackend ${PN}-dbusservices"
+FILES_${PN}-doc += "${datadir}/gtk-doc"
+FILES_${PN}-dbusservices = "${datadir}/dbus-1"
+FILES_${PN}-dtb = "${datadir}/sgml"
+FILES_${PN}-gconfbackend = "${libdir}/GConf"
+FILES_${PN}-gconfbackend += "${libdir}/gio"
