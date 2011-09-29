@@ -9,25 +9,20 @@ SRC_URI += "\
 
 do_patch[prefuncs] += "do_patch_crlf"
 do_patch_crlf() {
-        # Replace MS-DOS line-endings with Unix style line-endings
-        find ${S} -type f -print0 | xargs -0 sed 's/\r$//' -i
-}
-
-do_patch[postfuncs] += "do_patch_makefile_env"
-do_patch_makefile_env() {
-        # Hack to ensure we use our environment values
-	echo CXX=$CXX
-        find ${S} -type f -name makefile.gcc -print0 | xargs -0 \
-		sed 's/^CXX =/CXX ?=/;s/^CXX_C =/CXX_C ?=/;s/CXX_C/CC/' -i
+	# Replace MS-DOS line-endings with Unix style line-endings
+	find ${S} -type f -print0 | xargs -0 sed 's/\r$//' -i
 }
 
 do_compile() {
-        oe_runmake -C C/LzmaUtil
-        oe_runmake -C CPP/7zip/Compress/LZMA_Alone
+	oe_runmake -C C/LzmaUtil \
+		CC='${CC}' CFLAGS='${CFLAGS}' \
+		AR='${AR}' RANLIB='${RANLIB}'
+	oe_runmake -C CPP/7zip/Compress/LZMA_Alone \
+		CXX='${CXX} ${CXXFLAGS}' CXX_C='${CC} ${CFLAGS}'
 }
 
 do_install() {
-        install -d ${D}${bindir} ${D}${libdir}
-        install -m 0755 CPP/7zip/Compress/LZMA_Alone/lzma ${D}${bindir}
-        oe_libinstall -a -C C/LzmaUtil liblzma ${D}${libdir}
+	install -d ${D}${bindir} ${D}${libdir}
+	install -m 0755 CPP/7zip/Compress/LZMA_Alone/lzma ${D}${bindir}
+	install -m 0644 C/LzmaUtil/liblzma.a ${D}${libdir}
 }

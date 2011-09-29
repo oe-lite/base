@@ -5,12 +5,12 @@ LICENSE = "LGPL"
 
 RECIPE_TYPES = "machine native sdk"
 
-inherit c make
+inherit c c++ make
 
 SRC_URI = "http://downloads.sourceforge.net/sevenzip/lzma${@bb.data.getVar('PV',d,1).replace('.','')}.tar.bz2"
 S = "${SRCDIR}"
 
-DEPENDS = "zlib"
+DEPENDS = "libz libstdc++"
 
 EXTRA_OEMAKE = "-f makefile.gcc"
 

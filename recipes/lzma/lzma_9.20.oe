@@ -1,12 +1,17 @@
 require lzma.inc
 
+SRC_URI += "file://liblzma.patch;striplevel=0"
+
 do_compile() {
-        oe_runmake -C C/Util/Lzma
-        oe_runmake -C CPP/7zip/Bundles/LzmaCon/
+	oe_runmake -C C/Util/Lzma \
+		CC='${CC}' CXX='${CC}' CFLAGS='${CFLAGS} -D_7ZIP_ST' \
+		AR='${AR}' RANLIB='${RANLIB}'
+	oe_runmake -C CPP/7zip/Bundles/LzmaCon/ \
+		CXX='${CXX} ${CXXFLAGS}' CXX_C='${CC} ${CFLAGS}'
 }
 
 do_install() {
-        install -d ${D}${bindir} ${D}${libdir}
-        install -m 0755 CPP/7zip/Compress/LZMA_Alone/lzma ${D}${bindir}
-        oe_libinstall -a -C C/LzmaUtil liblzma ${D}${libdir}
+	install -d ${D}${bindir} ${D}${libdir}
+	install -m 0755 CPP/7zip/Bundles/LzmaCon/lzma ${D}${bindir}
+	install -m 0644 C/Util/Lzma/liblzma.a ${D}${libdir}
 }
