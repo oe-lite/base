@@ -15,8 +15,10 @@ inherit autotools siteinfo
 
 DEPENDS += "libm libdl"
 
-#CFLAGS += "-DDO_UNIX -DDO_IPV6 -D_GNU_SOURCE"
 CFLAGS += "-DDO_UNIX -D_GNU_SOURCE"
+
+RECIPE_FLAGS += "netperf_ipv6"
+CFLAGS:>USE_netperf_ipv6 = " -DDO_IPV6"
 
 do_install() {
         install -d ${D}${sbindir} ${D}${bindir} ${D}${sysconfdir}/init.d
