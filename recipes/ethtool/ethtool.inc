@@ -5,5 +5,6 @@ LICENSE = "GPL"
 
 inherit autotools
 
-SRC_URI = "http://www.kernel.org/pub/software/network/ethtool/${P}.tar.gz"
+require conf/fetch/kernelorg.conf
+SRC_URI = "${KERNELORG_MIRROR}/software/network/ethtool/${P}.tar.gz"
 
