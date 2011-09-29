@@ -24,7 +24,7 @@ diff -uri glib-2.26.1.orig/configure.ac glib-2.26.1/configure.ac
  AC_MSG_CHECKING(for the suffix of module shared libraries)
  export SED
 -shrext_cmds=`./libtool --config | grep '^shrext_cmds='`
-+shrext_cmds=`$host_alias-libtool --config | grep '^shrext_cmds='`
++shrext_cmds=`${host_prefix}libtool --config | grep '^shrext_cmds='`
  eval $shrext_cmds
  module=yes eval std_shrext=$shrext_cmds
  # chop the initial dot

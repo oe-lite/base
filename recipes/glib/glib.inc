@@ -11,8 +11,10 @@ inherit autotools-autoreconf gettext auto-package-libs pkgconfig
 
 DEPENDS = "host-cross:gtk-doc libz libpthread libdl libresolv libstdc++ \
 	${DEPENDS_NATIVE}"
-DEPENDS_NATIVE = "native:libglib native:libgmodule native:glib-utils"
-DEPENDS_NATIVE:native = ""
+DEPENDS_NATIVE = "native:libglib native:libgmodule native:glib-utils libffi-dev"
+DEPENDS_NATIVE:native = "native:libffi-dev"
+DEPENDS_${PN} += "libffi-dev"
+DEPENDS_${PN}:native += "native:libffi-dev"
 
 require conf/fetch/gnome.conf
 SRC_URI_SUBDIR = "${@'.'.join(d.getVar('PV', True).split('.')[:2])}"
@@ -56,3 +58,4 @@ DEPENDS_${PN}-libgio     = "libglib libgobject libz libresolv libdl"
 
 FILES_${PN}-libgio-dev = "${libdir}/pkgconfig/gio-*-2.0.pc"
 FILES_${PN}-libgmodule-dev = "${libdir}/pkgconfig/gmodule-*-2.0.pc"
+FILES_${PN} += "${libdir}/gdbus-2.0"
