@@ -1,0 +1,13 @@
+--- tslib-1.0/plugins/input-raw.c.orig	2011-09-23 13:59:58.873350097 +0200
++++ tslib-1.0/plugins/input-raw.c	2011-09-23 14:01:21.847316765 +0200
+@@ -51,9 +51,7 @@
+ 	u_int32_t bit;
+ 	u_int64_t absbit;
+ 
+-	if (! ((ioctl(ts->fd, EVIOCGVERSION, &version) >= 0) &&
+-		(version == EV_VERSION) &&
+-		(ioctl(ts->fd, EVIOCGBIT(0, sizeof(bit) * 8), &bit) >= 0) &&
++	if (! ((ioctl(ts->fd, EVIOCGBIT(0, sizeof(bit) * 8), &bit) >= 0) &&
+ 		(bit & (1 << EV_ABS)) &&
+ 		(ioctl(ts->fd, EVIOCGBIT(EV_ABS, sizeof(absbit) * 8), &absbit) >= 0) &&
+ 		(absbit & (1 << ABS_X)) &&
