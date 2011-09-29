@@ -1,0 +1,12 @@
+DESCRIPTION = "Library for parsing CORBA IDL files"
+LICENSE = "LGPL"
+RECIPE_TYPES = "machine native sdk"
+inherit autotools-autoreconf pkgconfig binconfig
+
+DEPENDS = "native:flex native:libidl \
+           glib-dev glib-libglib"
+DEPENDS:native = "native:bison native:glib-libglib native:glib-dev"
+
+SRC_URI = "http://ftp.gnome.org/pub/GNOME/sources/libIDL/0.8/libIDL-${PV}.tar.bz2"
+S = "${SRCDIR}/libIDL-${PV}"
+
