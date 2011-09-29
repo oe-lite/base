@@ -10,7 +10,7 @@ inherit autotools autotools-autoreconf
 require conf/fetch/kernelorg.conf
 MA = "${@bb.data.getVar('PV', d, 1).split('.')[0]}"
 MI = "${@bb.data.getVar('PV', d, 1).split('-')[0].split('.')[1]}"
-SRC_URI = "${KERNELORG_MIRROR}/pub/linux/utils/${PN}/v${MA}.${MI}/${P}.tar.bz2"
+SRC_URI = "${KERNELORG_MIRROR}/linux/utils/${PN}/v${MA}.${MI}/${P}.tar.bz2"
 
 DEPENDS = "libc libutil libcrypt libz libtermcap"
 

@@ -8,7 +8,7 @@ RECIPE_TYPES = "machine"
 inherit make c library auto-package-utils
 
 require conf/fetch/kernelorg.conf
-SRC_URI = "${KERNELORG_MIRROR}/pub/linux/libs/security/linux-privs/libcap2/libcap-${PV}.tar.bz2"
+SRC_URI = "${KERNELORG_MIRROR}/linux/libs/security/linux-privs/libcap2/libcap-${PV}.tar.bz2"
 
 S = "${SRCDIR}/libcap-${PV}"
 

@@ -7,7 +7,7 @@ RECIPE_TYPES = "machine"
 inherit autotools pkgconfig
 
 require conf/fetch/kernelorg.conf
-SRC_URI = "${KERNELORG_MIRROR}/pub/linux/utils/usb/usbutils/usbutils-${PV}.tar.gz"
+SRC_URI = "${KERNELORG_MIRROR}/linux/utils/usb/usbutils/usbutils-${PV}.tar.gz"
 
 DEPENDS += "libusb-compat libpthread"
 
