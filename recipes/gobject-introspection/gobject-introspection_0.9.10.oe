@@ -1,0 +1,34 @@
+LICENSE = "LGPL"
+RECIPE_TYPES = "native sdk"
+
+inherit autotools-autoreconf pkgconfig
+
+DEPENDS:native = "native:libexpat native:glib-dev native:glib native:glib-libgio \
+                  native:glib-libgobject native:glib-libglib native:glib-libgthread native:glib-libgmodule \
+                  native:bison native:glib-utils"
+
+require conf/fetch/gnome.conf
+SRC_URI = "${GNOME_MIRROR}/gobject-introspection/0.9/${PN}-${PV}.tar.bz2"
+SRC_URI += "file://use-usr-bin-env-for-python.patch"
+S = "${SRCDIR}/${PN}-${PV}"
+
+EXTRA_OECONF = "\
+  --disable-gtk-doc \
+  --disable-gtk-doc-html \
+  --disable-gtk-doc-pdf \
+  --disable-tests \
+"
+
+do_configure[prefuncs] += "do_configure_fix_gliblibdir"
+do_configure_fix_gliblibdir() {
+  sed -i -e 's#\(GLIB_LIBDIR =\).*#\1${STAGE_DIR}\/native\/lib#' \
+      -i -e 's#\(GIO_LIBDIR =\).*#\1${STAGE_DIR}\/native\/lib#' \
+      -i -e 's#\(GLIB_INCLUDEDIR =\).*#\1${STAGE_DIR}\/native\/include\/glib-2.0#' \
+      -i -e 's#\(GIO_INCLUDEDIR =\).*#\1${STAGE_DIR}\/native\/include\/glib-2.0#' \
+      -i -e 's#\(\@HAVE_GIO_UNIX_TRUE\@GIO_UNIX_HDRS =\).*#\1 ${STAGE_DIR}/native/include/gio-unix-2.0/gio/*.h#' \
+      gir/Makefile.in
+}
+PACKAGES += " ${PN}-tests ${PN}-gir-1.0 ${PN}-libgir-1.0"
+FILES_${PN}-tests = "${datadir}/gobject-introspection-1.0"
+FILES_${PN}-gir-1.0 = "${datadir}/gir-1.0"
+FILES_${PN}-libgir-1.0 = "${libdir}/girepository-1.0"
