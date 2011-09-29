@@ -7,9 +7,9 @@ SRC_URI = "${NETPERF_MIRROR}/netperf-${PV}.tar.bz2"
 
 SRC_URI += "file://init"
 
-#MIRRORS_prepend () {
-#	${NETPERF_MIRROR} ${NETPERF_MIRROR}/archive
-#}
+MIRRORS =. """
+${NETPERF_MIRROR} ${NETPERF_MIRROR}/archive
+"""
 
 inherit autotools siteinfo
 
