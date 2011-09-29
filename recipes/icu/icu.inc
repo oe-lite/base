@@ -7,6 +7,8 @@ RECIPE_TYPES = "machine native sdk"
 
 inherit c++ autotools pkgconfig binconfig
 
+DEPENDS = "libpthread libstdc++ libm libdl"
+
 CROSS_DEPENDS = "native:icu-src"
 CROSS_DEPENDS:native = ""
 DEPENDS += "${CROSS_DEPENDS}"
@@ -54,3 +56,27 @@ AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev"
 # FIXME: it should be possible to make icu-dev build independent of icu
 # and then remove the DEPENDS_icu-dev on icu...
 DEPENDS_${PN}-dev = ""
+
+RDEPENDS_${PN} = "libicudata libicui18n libicutu libicuuc \
+	libc libdl libgcc libm libpthread libstdc++"
+
+DEPENDS_${PN}-libicui18n = "libicuuc libicudata \
+	libc libdl libgcc libm libpthread libstdc++"
+
+DEPENDS_${PN}-libicuio = "libicuuc libicudata libicui18n \
+	libc libdl libgcc libm libpthread libstdc++"
+
+DEPENDS_${PN}-libicule = "libicuuc libicudata \
+	libc libdl libgcc libm libpthread libstdc++"
+
+DEPENDS_${PN}-libiculx = "libicuuc libicudata libicule \
+	libc libdl libgcc libm libpthread libstdc++"
+
+DEPENDS_${PN}-libicutest = "libicutu libicui18n libicuuc libicudata \
+	libc libdl libgcc libm libpthread libstdc++"
+
+DEPENDS_${PN}-libicutu = "libicui18n libicuuc libicudata \
+	libc libdl libgcc libm libpthread libstdc++"
+
+DEPENDS_${PN}-libicuuc = "libicudata \
+	libc libdl libgcc libm libpthread libstdc++"
