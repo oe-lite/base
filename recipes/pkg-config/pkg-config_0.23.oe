@@ -1,9 +1,0 @@
-require ${PN}.inc
-
-SRC_URI += "file://autofoo.patch file://sysrootfix.patch \
-	file://glibconfig-sysdefs.h"
-
-do_patch[postfuncs] += "do_patch_cp"
-do_patch_cp () {
-	install -m 0644 ${SRCDIR}/glibconfig-sysdefs.h glib-1.2.*/
-}

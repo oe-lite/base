@@ -7,14 +7,17 @@ LICENSE = "GPL"
 
 RECIPE_TYPES = "machine native sdk"
 
+inherit autotools
+
+DEPENDS = "libdl libpthread"
+
 SRC_URI = "http://pkgconfig.freedesktop.org/releases/pkg-config-${PV}.tar.gz"
 
-#DEPENDS += "libglib-2.0"
-#EXTRA_OECONF = "--with-installed-glib"
+SRC_URI += "file://common.site file://host_cpu.site"
+SRC_HOST_SITEFILES = "${SRCDIR}/common.site ${SRCDIR}/host_cpu.site"
 
 EXTRA_OECONF = "--with-pc-path=''"
 
-inherit autotools
 
 acpaths = "-I ."
 do_install() {
