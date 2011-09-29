@@ -1,0 +1,159 @@
+--- luacheia5-5.0.1a5/configure.ac.orig	2011-09-28 08:55:54.051366905 +0200
++++ luacheia5-5.0.1a5/configure.ac	2011-09-28 09:00:00.783749108 +0200
+@@ -128,23 +128,23 @@
+ case ${target}
+ in
+ 	powerpc-apple-darwin*) 
+-		AC_DEFINE(PLATFORM_DARWIN) 
+-		AC_DEFINE(PLATFORM_OSX)
++		AC_DEFINE([PLATFORM_DARWIN],[],[desc]) 
++		AC_DEFINE([PLATFORM_OSX],[],[desc])
+ 		PLATFORM=PLATFORM_OSX
+ 		LC_SPECIFIC_OS="osx"
+ 		;;
+ 	*darwin*)
+-		AC_DEFINE(PLATFORM_DARWIN)
++		AC_DEFINE([PLATFORM_DARWIN],[],[desc])
+ 		PLATFORM=PLATFORM_DARWIN
+ 		LC_SPECIFIC_OS="darwin"
+ 		;;
+ 	*mingw32* | *cygwin* | *win32*)
+-		AC_DEFINE(PLATFORM_WINDOWS)
++		AC_DEFINE([PLATFORM_WINDOWS],[],[desc])
+ 		PLATFORM=PLATFORM_WINDOWS
+ 		LC_SPECIFIC_OS="win32"
+ 		;;
+ 	*)
+-		AC_DEFINE(PLATFORM_POSIX)
++		AC_DEFINE([PLATFORM_POSIX],[],[desc])
+ 		PLATFORM=PLATFORM_POSIX
+ 		;;
+ esac
+@@ -177,17 +177,17 @@
+ if test "x${LC_SPECIFIC_OS}" = "xwin32"
+ then
+ 	# Mark symbols as exportable
+-	AC_DEFINE(LUAMODULE_API, [ __declspec(dllexport) ])
++	AC_DEFINE([LUAMODULE_API],[], [ __declspec(dllexport) ])
+ 	# tulrich: it seems it's OK to always use dllexport!?  Makes life simpler; hopefully it's really OK.
+-	AC_DEFINE(LUA_API, [ extern __declspec(dllexport) ])
+-	AC_DEFINE(LUALIB_API, [ extern __declspec(dllexport) ])
++	AC_DEFINE([LUA_API],[], [ extern __declspec(dllexport) ])
++	AC_DEFINE([LUALIB_API],[], [ extern __declspec(dllexport) ])
+ #	AC_DEFINE(LUA_API, [ extern __declspec(dllimport) ])
+ #	AC_DEFINE(LUALIB_API, [ extern __declspec(dllimport) ])
+ else
+ 	# Use blanks
+-	AC_DEFINE(LUAMODULE_API, [])
+-	AC_DEFINE(LUA_API, [])
+-	AC_DEFINE(LUALIB_API, [])
++	AC_DEFINE([LUAMODULE_API],[], [desc])
++	AC_DEFINE([LUA_API],[], [desc])
++	AC_DEFINE([LUALIB_API],[], [desc])
+ fi
+ 
+ 
+@@ -213,7 +213,7 @@
+ AC_SUBST(PLATFORM)           
+ 
+ # Check endian-ness
+-AC_C_BIGENDIAN( AC_DEFINE(HIGHFIRST), , )
++AC_C_BIGENDIAN( AC_DEFINE([HIGHFIRST],[],[desc]), , )
+ 
+ # Now, check for libraries
+ 
+@@ -227,7 +227,7 @@
+ # 		some bizarre "feature" of the bourne shell ;P
+ AC_CHECK_LIB(readline, readline, 
+ 		[ HAVE_READLINE=1 
+-			AC_DEFINE(HAVE_READLINE)],
++			AC_DEFINE([HAVE_READLINE],[],[desc])],
+ 		[ HAVE_READLINE=0], -ltermcap -lcurses)
+ AC_SUBST(HAVE_READLINE)
+ 
+@@ -244,32 +244,32 @@
+ # AC_SEARCH_LIBS doesn't seem to work effectively on Windows :(
+ if test $PLATFORM = PLATFORM_WINDOWS; then
+    HAVE_SOCKETLIB=1
+-   AC_DEFINE(HAVE_SOCKETLIB)
++   AC_DEFINE([HAVE_SOCKETLIB],[],[desc])
+ else
+    AC_SEARCH_LIBS(accept, c socket,
+ 		 [ HAVE_SOCKETLIB=1
+-		   AC_DEFINE(HAVE_SOCKETLIB)],
++		   AC_DEFINE([HAVE_SOCKETLIB],[],[desc])],
+ 		 [ HAVE_SOCKETLIB=0], -lnsl)
+ fi
+ AC_SUBST(HAVE_SOCKETLIB)
+ 
+ # check for readline 4.0
+-AC_CHECK_LIB(readline, rl_pre_input_hook, AC_DEFINE(HAVE_RL_PRE_INPUT_HOOK), , -ltermcap -lcurses)
++AC_CHECK_LIB(readline, rl_pre_input_hook, AC_DEFINE([HAVE_RL_PRE_INPUT_HOOK],[],[desc]), , -ltermcap -lcurses)
+ 
+ # check for readline 4.2
+-AC_CHECK_LIB(readline, rl_completion_matches, AC_DEFINE(HAVE_RL_COMPLETION_MATCHES), , -ltermcap -lcurses)
++AC_CHECK_LIB(readline, rl_completion_matches, AC_DEFINE([HAVE_RL_COMPLETION_MATCHES],[],[desc]), , -ltermcap -lcurses)
+ 
+ # check for gdbm
+ AC_CHECK_HEADER(gdbm.h,
+ 		[ AC_CHECK_LIB(gdbm, gdbm_open, 
+-			[ AC_DEFINE(HAVE_GDBM)  
++			[ AC_DEFINE([HAVE_GDBM],[],[desc])  
+ 				LC_DBM_LIB="-lgdbm"
+ 				lc_gdbm=1 ])
+ 		])
+ # check for ndbm
+ # ndbm is usually included within the standard "libc", if available
+ AC_CHECK_HEADER(ndbm.h, 
+-		[ AC_CHECK_FUNC(dbm_open, lc_ndbm=1 ; AC_DEFINE(HAVE_NDBM)) ],,
++		[ AC_CHECK_FUNC(dbm_open, lc_ndbm=1 ; AC_DEFINE([HAVE_NDBM],[],[desc])) ],,
+ 		[ #include <fcntl.h> ]
+ 		)
+ AC_SUBST(LC_DBM_LIB)
+@@ -368,8 +368,8 @@
+ AC_SUBST(PLUG_PREFIX)
+ AC_SUBST(PLUG_SUFFIX)
+ AC_SUBST(PLUG_LINK_CMD)
+-AC_DEFINE_UNQUOTED(LC_PLUG_SUFFIX, "${PLUG_SUFFIX}")
+-AC_DEFINE_UNQUOTED(LC_PLUG_PREFIX, "${PLUG_PREFIX}")
++AC_DEFINE_UNQUOTED([LC_PLUG_SUFFIX],[], ["${PLUG_SUFFIX}"])
++AC_DEFINE_UNQUOTED([LC_PLUG_PREFIX],[], ["${PLUG_PREFIX}"])
+ 
+ #--------
+ # For the 'shelve' module: check whether $lc_gdb is defined
+--- luacheia5-5.0.1a5/Makefile.am.orig	2011-09-27 16:00:14.765172039 +0200
++++ luacheia5-5.0.1a5/Makefile.am	2011-09-27 15:59:46.503805636 +0200
+@@ -1,4 +1,4 @@
+-
++ACLOCAL_AMFLAGS = -I m4
+ MAINTAINERCLEANFILES = config.h.in~
+ 
+ SUBDIRS = lua-utils lua-5.0-proxy src binary-packager tools
+diff -urN luacheia5-5.0.1a5.orig/src/modules/socket/Makefile.am luacheia5-5.0.1a5/src/modules/socket/Makefile.am
+--- luacheia5-5.0.1a5.orig/src/modules/socket/Makefile.am	2004-01-28 08:23:24.000000000 +0100
++++ luacheia5-5.0.1a5/src/modules/socket/Makefile.am	2011-09-26 16:08:50.387690590 +0200
+@@ -31,8 +31,8 @@
+ 
+ 
+ # Helper programs that we already built.
+-LUAC = ../../../lua-utils/luac
+-BIN2C = ../../../lua-utils/bin2c
++LUAC = ../../../lua-5.0.1/bin/luac
++BIN2C = ../../../lua-5.0.1/bin/bin2c
+ 
+ # Rules for making lch's out of lua files
+ .lua.lob:
+diff -urN luacheia5-5.0.1a5.orig/src/modules/socket/Makefile.in luacheia5-5.0.1a5/src/modules/socket/Makefile.in
+--- luacheia5-5.0.1a5.orig/src/modules/socket/Makefile.in	2004-03-04 17:34:02.000000000 +0100
++++ luacheia5-5.0.1a5/src/modules/socket/Makefile.in	2011-09-26 16:08:50.387690590 +0200
+@@ -219,8 +219,8 @@
+ $(am__append_1) $(am__append_2)
+ 
+ # Helper programs that we already built.
+-LUAC = ../../../lua-utils/luac
+-BIN2C = ../../../lua-utils/bin2c
++LUAC = ../../../lua-5.0.1/bin/luac
++BIN2C = ../../../lua-5.0.1/bin/bin2c
+ 
+ EXTRA_luasocket_la_SOURCES = auxiliar.lua concat.lua http.lua smtp.lua code.lua ftp.lua select.lua url.lua
+ LCHS = auxiliar.lch concat.lch http.lch smtp.lch code.lch ftp.lch select.lch url.lch
