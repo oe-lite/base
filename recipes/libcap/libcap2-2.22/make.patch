@@ -1,12 +1,11 @@
-diff -urN libcap-2.20-orig/Make.Rules libcap-2.20/Make.Rules
---- libcap-2.20-orig/Make.Rules	2011-01-19 06:06:44.000000000 +0100
-+++ libcap-2.20/Make.Rules	2011-03-30 13:39:54.407776798 +0200
+--- libcap-2.22/Make.Rules~orig	2011-09-29 19:40:17.001271936 +0200
++++ libcap-2.22/Make.Rules	2011-09-29 19:44:18.211271933 +0200
 @@ -47,19 +47,12 @@
  KERNEL_HEADERS := $(topdir)/libcap/include
  IPATH += -fPIC -I$(topdir)/libcap/include -I$(KERNEL_HEADERS)
  
 -CC := gcc
--CFLAGS := -O2
+-CFLAGS := -O2 -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
 -BUILD_CC := $(CC)
 -BUILD_CFLAGS := $(CFLAGS) $(IPATH)
 -AR := ar
