@@ -60,6 +60,7 @@ do_install_extra_files() {
 
 RDEPENDS_${PN}-x11 = "${PN}"
 PROVIDES_${PN} = "dbus-1"
+RDEPENDS_${PN} += "libexpat libdbus"
 
 PACKAGES =+ "${PN}-x11"
 inherit auto-package-libs
