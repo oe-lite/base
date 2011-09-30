@@ -20,7 +20,7 @@ RDEPENDS_${PN} = "${COMMON_DEPS}"
 
 RPROVIDES_${PN} = "ssh sshd scp"
 
-CFLAGS += "-D_GNU_SOURCE -DXAUTH_COMMAND=\\\"xauth\ -q\\\""
+CFLAGS += '-D_GNU_SOURCE -DXAUTH_COMMAND=\\\\"xauth\\ -q\\\\"'
 
 SBINCOMMANDS = "dropbear dropbearkey dropbearconvert"
 BINCOMMANDS = "dbclient ssh scp"
