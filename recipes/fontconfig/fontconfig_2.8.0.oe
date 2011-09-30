@@ -1,40 +1,39 @@
 DESCRIPTION = "A library for configuring and customizing font access."
 LICENSE = "BSD"
-DEPENDS = "libexpat libfreetype libz"
 
 inherit autotools pkgconfig c++
+
+DEPENDS = "libexpat libfreetype libz"
 
 SRC_URI = "http://fontconfig.org/release/fontconfig-${PV}.tar.gz"
 
 S = "${SRCDIR}/fontconfig-${PV}"
 
-EXTRA_OECONF = " --disable-docs --with-arch=${HOST_ARCH} --with-cache-dir=/var/lib/fontconfig"
+EXTRA_OECONF = "--disable-docs --with-arch=${HOST_ARCH} --with-cache-dir=${localstatedir}/lib/fontconfig"
 
 do_configure[postfuncs] += "do_configure_extra"
 do_configure_extra () {
-        sed -i 's|LDFLAGS =.*|LDFLAGS =|' fc-case/Makefile
-        sed -i 's|LDFLAGS =.*|LDFLAGS =|' fc-glyphname/Makefile
-        sed -i 's|LDFLAGS =.*|LDFLAGS =|' fc-lang/Makefile
-        sed -i 's|LDFLAGS =.*|LDFLAGS =|' fc-arch/Makefile
-        sed -i 's|CFLAGS =.*|CFLAGS =${BUILD_CFLAGS}|' fc-case/Makefile
-        sed -i 's|CFLAGS =.*|CFLAGS =${BUILD_CFLAGS}|' fc-glyphname/Makefile
-        sed -i 's|CFLAGS =.*|CFLAGS =${BUILD_CFLAGS}|' fc-lang/Makefile
-        sed -i 's|CFLAGS =.*|CFLAGS =${BUILD_CFLAGS}|' fc-arch/Makefile
-        sed -i 's|CPPFLAGS =.*|CPPFLAGS =${BUILD_CPPFLAGS}|' fc-case/Makefile
-        sed -i 's|CPPFLAGS =.*|CPPFLAGS =${BUILD_CPPFLAGS}|' fc-glyphname/Makefile
-        sed -i 's|CPPFLAGS =.*|CPPFLAGS =${BUILD_CPPFLAGS}|' fc-lang/Makefile
-        sed -i 's|CPPFLAGS =.*|CPPFLAGS =${BUILD_CPPFLAGS}|' fc-arch/Makefile
-        sed -i 's|CXXFLAGS =.*|CFLAGS =${BUILD_CXXFLAGS}|' fc-case/Makefile
-        sed -i 's|CXXFLAGS =.*|CFLAGS =${BUILD_CXXFLAGS}|' fc-glyphname/Makefile
-        sed -i 's|CXXFLAGS =.*|CFLAGS =${BUILD_CXXFLAGS}|' fc-lang/Makefile
-        sed -i 's|CXXFLAGS =.*|CFLAGS =${BUILD_CXXFLAGS}|' fc-arch/Makefile
+	for makefile in fc-case/Makefile \
+			fc-glyphname/Makefile \
+			fc-lang/Makefile \
+			fc-arch/Makefile
+	do
+		sed -i -e 's|LDFLAGS =.*|LDFLAGS =${BUILD_LDFLAGS}|' \
+		       -e 's|CFLAGS =.*|CFLAGS =${BUILD_CFLAGS}|' \
+		       -e 's|CPPFLAGS =.*|CPPFLAGS =${BUILD_CPPFLAGS}|' \
+		       -e 's|CXXFLAGS =.*|CFLAGS =${BUILD_CXXFLAGS}|' \
+		       $makefile
+	done
 }
 
 EXTRA_OEMAKE = "FC_LANG=fc-lang FC_GLYPHNAME=fc-glyphname"
 export HASDOCBOOK="no"
-BUILD_CFLAGS += " -I${STAGE_DIR}/sysroot/include/freetype2"
 
 PACKAGES =+ "fontconfig-utils-dbg fontconfig-utils "
 
 FILES_fontconfig-utils-dbg = "${bindir}/*.dbg"
 FILES_fontconfig-utils = "${bindir}/*"
+
+DEPENDS_${PN} = "libexpat libfreetype libz libc libgcc"
+RDEPENDS_${PN} = "libexpat libfreetype libz libc libgcc"
+RDEPENDS_${PN}-utils = "libfontconfig libexpat libfreetype libz libc libgcc"
