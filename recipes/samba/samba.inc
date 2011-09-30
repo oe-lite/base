@@ -66,7 +66,7 @@ do_configure_pre () {
 
 do_compile () {
 	oe_runmake proto_exists
-	base_do_compile
+	do_compile_make
 }
 
 do_install[postfuncs] += "do_install_extra"
