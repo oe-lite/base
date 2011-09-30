@@ -22,6 +22,8 @@ FILES_${PN}     += "${libdir}/vfs/*.so ${libdir}/charset/*.so ${libdir}/*.dat \
 FILES_${PN}-dbg += "${libdir}/vfs/.debug/*.so ${libdir}/charset/.debug/*.so \
                     ${libdir}/auth/.debug/*.so ${libdir}/security/.debug/*.so"
 
+RDEPENDS_${PN} += "libcrypt libresolv"
+
 SAMBAMMAP = "no"
 SAMBAMMAP_libc-glibc = "yes"
 
