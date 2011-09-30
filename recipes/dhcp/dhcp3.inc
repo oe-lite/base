@@ -20,16 +20,26 @@ do_configure() {
     ./configure
 }
 
-EXTRA_OEMAKE="RANLIB=${RANLIB} \
-    PREDEFINES='-D_PATH_DHCPD_DB=\"/var/lib/dhcp/dhcpd.leases\" \
-                -D_PATH_DHCLIENT_DB=\"/var/lib/dhcp/dhclient.leases\" \
-                -D_PATH_DHCLIENT_SCRIPT=\"/sbin/dhclient-script\" \
-                -D_PATH_DHCPD_CONF=\"/etc/dhcp/dhcpd.conf\" \
-                -D_PATH_DHCLIENT_CONF=\"/etc/dhcp/dhclient.conf\"' \
+EXTRA_OEMAKE += "VARDB=${localstatedir}/lib/dhcp VARRUN=${localstatedir}/run"
+
+EXTRA_OEMAKE_COMPILE += "RANLIB=${RANLIB} \
+    PREDEFINES='\
+        -D_PATH_DHCPD_PID=\\\"${localstatedir}/run/dhcpd.pid\\\" \
+        -D_PATH_DHCPD_DB=\\\"${localstatedir}/lib/dhcp/dhcpd.leases\\\" \
+        -D_PATH_DHCPD_CONF=\\\"${sysconfdir}/dhcp/dhcpd.conf\\\" \
+        -D_PATH_DHCLIENT_PID=\\\"${localstatedir}/run/dhclient.pid\\\" \
+        -D_PATH_DHCLIENT_DB=\\\"${localstatedir}/lib/dhcp/dhclient.leases\\\" \
+        -D_PATH_DHCLIENT_SCRIPT=\\\"${base_sbindir}/dhclient-script\\\" \
+        -D_PATH_DHCLIENT_CONF=\\\"${sysconfdir}/dhcp/dhclient.conf\\\" \
+    '\
 "
 
+EXTRA_OEMAKE_INSTALL += "INCDIR=${includedir} LIBDIR=${libdir} \
+    USRMANDIR=${mandir}/man1 ADMMANDIR=${mandir}/man8 \
+    FFMANDIR=${mandir}/man5 LIBMANDIR=${mandir}/man3"
+
 do_install() {
-    ${MAKE} -e DESTDIR=${D} USRMANDIR=${mandir}/man1 ADMMANDIR=${mandir}/man8 FFMANDIR=${mandir}/man5 LIBMANDIR=${mandir}/man3 LIBDIR=${libdir} INCDIR=${includedir} install
+    do_install_make
     install -d ${D}${sysconfdir}/init.d
     install -d ${D}${sysconfdir}/default
     install -d ${D}${sysconfdir}/dhcp
