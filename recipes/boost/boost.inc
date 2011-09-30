@@ -1,7 +1,7 @@
 DESCRIPTION = "Free peer-reviewed portable C++ source libraries"
 HOMEPAGE = "http://www.boost.org/"
 LICENSE = "Boost Software License"
-
+RECIPE_TYPES = "machine native sdk"
 inherit c++ auto-package-libs
 
 require conf/fetch/sourceforge.conf
@@ -154,7 +154,7 @@ RDEPENDS_${PN}-signals = "${LIBBOST_COMMON_RDEPENDS}"
 RDEPENDS_${PN}-system = "${LIBBOST_COMMON_RDEPENDS}"
 RDEPENDS_${PN}-thread = "${LIBBOST_COMMON_RDEPENDS}"
 RDEPENDS_${PN}-unit_test_framework = "${LIBBOST_COMMON_RDEPENDS}"
-RDEPENDS_${PN}-wave = "${LIBBOST_COMMON_RDEPENDS} boost-date_time boost-thread boost-filesystem boost-system"
+RDEPENDS_${PN}-wave = "${LIBBOST_COMMON_RDEPENDS} boost-date-time boost-thread boost-filesystem boost-system"
 RDEPENDS_${PN}-wserialization = "${LIBBOST_COMMON_RDEPENDS} boost-serialization"
 
 BOOST_LIBS += "serialization"
