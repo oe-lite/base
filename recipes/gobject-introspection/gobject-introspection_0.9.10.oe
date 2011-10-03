@@ -1,5 +1,7 @@
+# -*- mode:python; -*-
 LICENSE = "LGPL"
-RECIPE_TYPES = "native sdk"
+
+RECIPE_TYPES = "native"
 
 inherit autotools-autoreconf pkgconfig
 
@@ -8,8 +10,8 @@ DEPENDS = "libexpat libgio libgobject libglib libgthread libgmodule \
 
 require conf/fetch/gnome.conf
 SRC_URI = "${GNOME_MIRROR}/gobject-introspection/0.9/${PN}-${PV}.tar.bz2"
+
 SRC_URI += "file://use-usr-bin-env-for-python.patch"
-S = "${SRCDIR}/${PN}-${PV}"
 
 EXTRA_OECONF = "\
   --disable-gtk-doc \
@@ -27,11 +29,19 @@ do_configure_fix_gliblibdir() {
       -i -e 's#\(\@HAVE_GIO_UNIX_TRUE\@GIO_UNIX_HDRS =\).*#\1 ${STAGE_DIR}/native/include/gio-unix-2.0/gio/*.h#' \
       gir/Makefile.in
 }
-PACKAGES += " ${PN}-tests ${PN}-gir-1.0 ${PN}-libgir-1.0"
+
 DEPENDS_${PN} = "libgirepository libffi libz \
 	libc libdl libpthread libresolv librt \
 	libgio libglib libgmodule libgobject libgthread"
 
+PACKAGES += "${PN}-tests"
 FILES_${PN}-tests = "${datadir}/gobject-introspection-1.0"
-FILES_${PN}-gir-1.0 = "${datadir}/gir-1.0"
-FILES_${PN}-libgir-1.0 = "${libdir}/girepository-1.0"
+
+inherit auto-package-libs
+AUTO_PACKAGE_LIBS = "girepository"
+AUTO_PACKAGE_LIBS_LIBDIR = "${libdir}:lib:-1.0"
+FILES_${PN}-libgirepository = "${libdir}/girepository-1.0"
+FILES_${PN}-libgirepository-dev = "${includedir}/${PN}-1.0 ${datadir}/gir-1.0"
+DEPENDS_${PN}-libgirepository = "libffi libz \
+	libc libdl libpthread libresolv librt \
+	libgio libglib libgmodule libgobject libgthread"
