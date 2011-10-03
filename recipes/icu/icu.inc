@@ -51,7 +51,7 @@ FILES_${PN}-src = "${prefix}/src/icu"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "icudata icuuc icui18n icule iculx icutu icuio icutest"
-AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev"
+AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev_${PV}"
 
 # FIXME: it should be possible to make icu-dev build independent of icu
 # and then remove the DEPENDS_icu-dev on icu...
