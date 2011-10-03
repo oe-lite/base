@@ -12,6 +12,3 @@ CFLAGS += "-D_REENTRANT"
 
 PACKAGES =+ "${PN}-tools "
 FILES_${PN}-tools = "${bindir}/*"
-
-PROVIDES_${PN}     = "libjpeg"
-PROVIDES_${PN}-dev = "libjpeg-dev"
