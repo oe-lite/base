@@ -75,7 +75,7 @@ do_compile () {
 		-DPOSIX -DUSE_STRERROR -DNOSYSLOG -DHAVE_PTMX -DNO_DNS_SRV \
 		-DNOGFTIMER -DNOB_50 -DNOB_75 -DNOB_134 -DNOB_150 -DNOB_200 \
 		-DNOB_1800 -DNOB_3600 -DNOB_7200 -DNOB_76K -DNOB_230K \
-		-DNOB_460K -DNOB_921K -DNOAPC -DNOCSETS -DNONET -DNOUNICODE \
+		-DNOB_460K -DNOB_921K -DNOCSETS -DNONET -DNOUNICODE \
 		-DNOHELP -DNODEBUG -DNOFRILLS -DNOFTP -DNODIAL -DNOPUSH \
 		-DNOIKSD -DNOHTTP -DNOFLOAT -DNOSERVER -DNOSEXP -DNORLOGIN \
 		-DNOOLDMODEMS -DNOSSH -DNOLISTEN -DNORESEND -DNOAUTODL \
@@ -86,12 +86,11 @@ do_compile () {
 }
 
 EXTRA_OEMAKE += "DESTDIR=${D} prefix=${prefix} BINDIR=${BINDIR} \
-	INFODIR=${INFODIR} MANDIR=${D}${MANDIR}"
+	INFODIR=${INFODIR} MANDIR=${MANDIR}"
 
 do_install () {
-	install -d ${D}${BINDIR} ${D}${MANDIR} ${D}${INFODIR}
+    cd ${SRCDIR}
+	install -d ${D}${BINDIR} ${D}${INFODIR} ${D}${MANDIR} 
 	oe_runmake install
-	# Fix up dangling symlink
-	#rm ${D}${BINDIR}/kermit-sshsub /*!cbstodo: reconsider whether to remove this. The symlink is NOT there, so we cant remove. But should it be there? It is overwritten in the next line */
 	(cd ${D}${BINDIR} && ln -s ${BINDIR}/kermit kermit-sshusb)
 }
