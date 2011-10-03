@@ -51,8 +51,6 @@ def busybox_simple_use_flags(d):
                     " \\\n\t       ".join(function) +
                     " \\\n\t.config\n")
         funcname = "do_configure_" + useflag
-        if "tee" in flag:
-            print "setting %s for %s"%(funcname, useflag)
         d.set(funcname, function)
         d.set_flag(funcname, "bash", True)
 
