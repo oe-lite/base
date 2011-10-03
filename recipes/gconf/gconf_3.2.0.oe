@@ -1,12 +1,11 @@
+# -*- mode:python; -*-
 DESCRIPTION = "GNOME configuration database system"
 LICENSE = "LGPL"
 
 inherit autotools-autoreconf pkgconfig gettext
 
-DEPENDS = "libxml2 \
-           glib-libgobject glib-libglib glib-libgthread \
-           glib-libgmodule glib-libgio glib-dev \
-           dbus-dev dbus-libdbus dbus-glib dbus-glib-dev libm \
+DEPENDS = "libxml2 libm libdbus libdbus-glib \
+           libgobject libglib libgthread libgmodule libgio \
            native:gobject-introspection-dev"
 
 S = "${SRCDIR}/GConf-${PV}"
