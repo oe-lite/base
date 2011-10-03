@@ -67,8 +67,9 @@ RDEPENDS_${PN} += "libexpat libdbus"
 PACKAGES =+ "${PN}-x11"
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "dbus"
-AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}_${PV}"
 AUTO_PACKAGE_LIBS_LIBDIR = "${libdir}:lib:-1"
+AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev_${PV}"
+FILES_${PN}-libdbus-dev = "${includedir}/dbus-1.0 ${libdir}/dbus-1.0/include"
 
 FILES_${PN} = "\
 	${bindir}/dbus-daemon* \
