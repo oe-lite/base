@@ -107,5 +107,5 @@ FILES_${PN}-doc =+ "${libdir}/ssl/man"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "crypto ssl"
-AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev"
+AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev_${PV}"
 DEPENDS_${PN}-dev = ""
