@@ -24,6 +24,3 @@ do_compile_apinames() {
 
 FILES_${PN} = "${libdir}/lib*${SOLIBS}"
 FILES_${PN}-dev += "${bindir}"
-
-PROVIDES_${PN} = "libfreetype"
-PROVIDES_${PN}-dev = "libfreetype-dev"
