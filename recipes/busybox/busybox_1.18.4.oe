@@ -1,3 +1,0 @@
-require busybox.inc
-
-SRC_URI += "file://udhcp-simple-script-route-del-dev-null.patch"
