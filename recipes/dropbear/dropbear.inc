@@ -50,10 +50,10 @@ do_configure_smallcode() {
 do_install() {
 	install -d ${D}${sysconfdir} \
 		   ${D}${sysconfdir}/init.d \
-	           ${D}${sysconfdir}/rcS.d \
+		   ${D}${sysconfdir}/rcS.d \
 		   ${D}${sysconfdir}/default \
 		   ${D}${sysconfdir}/dropbear \
-                   ${D}${bindir} \
+		   ${D}${bindir} \
 		   ${D}${sbindir} \
 		   ${D}${localstatedir}
 
@@ -68,10 +68,10 @@ do_install() {
 		ln -s ./dropbearmulti ${D}${sbindir}/$i
 	done
 	cat ${SRCDIR}/init | sed -e 's,/etc,${sysconfdir},g' \
-				  -e 's,/usr/sbin,${sbindir},g' \
-				  -e 's,/var,${localstatedir},g' \
-				  -e 's,/usr/bin,${bindir},g' \
-				  -e 's,/usr,${prefix},g' \
+				 -e 's,/usr/sbin,${sbindir},g' \
+				 -e 's,/var,${localstatedir},g' \
+				 -e 's,/usr/bin,${bindir},g' \
+				 -e 's,/usr,${prefix},g' \
 		> ${D}${sysconfdir}/init.d/dropbear
 	chmod 755 ${D}${sysconfdir}/init.d/dropbear
 	ln -s ../init.d/dropbear ${D}${sysconfdir}/rcS.d/S25dropbear
