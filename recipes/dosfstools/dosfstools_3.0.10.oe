@@ -6,9 +6,11 @@
 DESCRIPTION = "DOS FAT Filesystem Utilities"
 LICENSE = "GPLv3"
 
-RECIPE_TYPES = "native sdk"
+RECIPE_TYPES = "machine native sdk"
 
 SRC_URI = "http://www.daniel-baumann.ch/software/dosfstools/dosfstools-${PV}.tar.bz2"
+
+inherit c make
 
 # output of getconf LFS_CFLAGS
 #
