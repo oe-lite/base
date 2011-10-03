@@ -8,16 +8,20 @@ RECIPE_TYPES = "machine native sdk"
 
 SRC_URI = "ftp://ftp.gnu.org/pub/gnu/libiconv/libiconv-${PV}.tar.gz"
 
-inherit autotools library auto-package-utils
+inherit library autotools
 
 EXTRA_OECONF += "--enable-shared --enable-static --enable-relocatable \
 	--disable-rpath"
 
-FILES_${PN} += "${libdir}/charset.alias"
-PACKAGES += "${PN}-preloadable"
-FILES_${PN}-preloadable += "${libdir}/preloadable_libiconv.so"
-PROVIDES_${PN} += "libcharset"
-PROVIDES_${PN}-dev += "libcharset-dev"
+inherit auto-package-libs
+AUTO_PACKAGE_LIBS = "charset"
+FILES_${PN}-libcharset += "${libdir}/charset.alias"
+AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev_${PV}"
+
+PACKAGES += "${PN}-preload"
+FILES_${PN}-preload = "${libdir}/preloadable_libiconv.so"
+
+inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "iconv"
 PROVIDES_${PN}-iconv = "${PN}-tools"
 
