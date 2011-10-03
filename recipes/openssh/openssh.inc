@@ -70,5 +70,5 @@ FILES_${PN}-sshd = "${sysconfdir}/init.d/sshd \
 FILES_${PN}-sshd-doc = "${mandir}/*/moduli.* ${mandir}/*/sshd_config.*"
 
 RDEPENDS_${PN} += "${AUTO_PACKAGE_UTILS_PACKAGES}"
-AUTO_PACKAGE_UTILS_RDEPENDS = "libdl libcrypto zlib"
+AUTO_PACKAGE_UTILS_RDEPENDS = "libdl libcrypto libz"
 RDEPENDS_${PN}-sshd = "${PN}-keygen"
