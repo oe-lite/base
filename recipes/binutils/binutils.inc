@@ -21,7 +21,6 @@ EXTRA_OECONF = "--enable-install-libbfd --enable-shared"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "bfd opcodes"
-AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}"
 AUTO_PACKAGE_LIBS_LIBDIR = "${libdir}:lib::-${PV}.so:.so"
 
 PROVIDES_${PN}-dev = "libiberty"
