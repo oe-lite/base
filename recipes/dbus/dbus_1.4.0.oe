@@ -1,5 +1,4 @@
+# -*- mode:python; -*-
 include dbus.inc
 
-SRC_URI = "http://dbus.freedesktop.org/releases/dbus/dbus-${PV}.tar.gz"
-SRC_URI += "file://tmpdir.patch file://dbus-1.init"
-
+SRC_URI += "file://tmpdir.patch"

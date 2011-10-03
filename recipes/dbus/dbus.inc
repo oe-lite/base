@@ -8,12 +8,7 @@ RECIPE_TYPES = "machine native"
 inherit autotools pkgconfig gettext sysvinit
 
 SRC_URI = "http://dbus.freedesktop.org/releases/dbus/dbus-${PV}.tar.gz"
-SRC_URI += "file://cross.patch"
-SRC_URI += "file://tmpdir.patch"
-SRC_URI += "file://fix-install-daemon.patch"
 SRC_URI += "file://dbus-1.init"
-
-S = "${SRCDIR}/dbus-${PV}"
 
 DEPENDS = "libexpat libglib libintl"
 
@@ -65,6 +60,7 @@ PROVIDES_${PN} = "dbus-1"
 RDEPENDS_${PN} += "libexpat libdbus"
 
 PACKAGES =+ "${PN}-x11"
+
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "dbus"
 AUTO_PACKAGE_LIBS_LIBDIR = "${libdir}:lib:-1"
