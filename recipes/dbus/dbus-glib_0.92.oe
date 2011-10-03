@@ -22,3 +22,8 @@ EXTRA_OECONF_DBUS_BINDING_TOOL = "--with-dbus-binding-tool=${STAGE_DIR}/native/b
 EXTRA_OECONF_DBUS_BINDING_TOOL:native = ""
 
 FILES_${PN}-doc += "${datadir}/gtk-doc/html/dbus-glib"  
+
+inherit auto-package-libs
+AUTO_PACKAGE_LIBS = "dbus-glib"
+AUTO_PACKAGE_LIBS_LIBDIR = "${libdir}:lib:-1"
+FILES_${PN}-libdbus-glib-dev = "${includedir}"
