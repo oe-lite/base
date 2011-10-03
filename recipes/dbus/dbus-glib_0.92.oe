@@ -1,3 +1,4 @@
+# -*- mode:python; -*-
 DESCRIPTION = "GLib bindings for the dbus message bus system"
 HOMEPAGE = "http://www.freedesktop.org/Software/dbus"
 LICENSE = "GPLv2+ AFLv2.1"
@@ -6,18 +7,18 @@ RECIPE_TYPES = "machine native sdk"
 
 inherit autotools-autoreconf pkgconfig gettext
 
-DEPENDS = "libexpat dbus-dev dbus-libdbus \
-           glib-libgobject glib-libglib glib-libgthread glib-libgmodule glib-dev \
-           libintl native:dbus-glib"
+SRC_URI = "http://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-${PV}.tar.gz"
+SRC_URI += "file://no-examples.patch"
 
-DEPENDS:native = "native:libexpat native:glib-dev native:dbus-dev native:dbus-libdbus native:libintl \
-                  native:glib-libgobject native:glib-libglib native:glib-libgthread native:glib-libgmodule"
+DEPENDS = "libexpat libintl libdbus \
+           libgobject libglib libgthread libgmodule"
 
-SRC_URI = "http://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-${PV}.tar.gz \
-           file://no-examples.patch"
-SRC_URI:native = "http://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-${PV}.tar.gz"
+DEPENDS += "${DEPENDS_NATIVE}"
+DEPENDS_NATIVE = "native:dbus-glib"
+DEPENDS_NATIVE:native = ""
 
-EXTRA_OECONF += "--with-dbus-binding-tool=${STAGE_DIR}/native/bin/dbus-binding-tool"
-EXTRA_OECONF:native = ""
+EXTRA_OECONF += "${EXTRA_OECONF_DBUS_BINDING_TOOL}"
+EXTRA_OECONF_DBUS_BINDING_TOOL = "--with-dbus-binding-tool=${STAGE_DIR}/native/bin/dbus-binding-tool"
+EXTRA_OECONF_DBUS_BINDING_TOOL:native = ""
 
 FILES_${PN}-doc += "${datadir}/gtk-doc/html/dbus-glib"  
