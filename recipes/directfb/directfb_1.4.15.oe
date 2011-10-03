@@ -2,7 +2,7 @@ require directfb.inc
 
 DEPENDS += "sysfsutils"
 
-RV = "1.4-5"
+RV = "1.4-6"
 
 EXTRA_OECONF = "\
   --enable-freetype=yes \
