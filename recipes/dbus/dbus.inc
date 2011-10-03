@@ -17,7 +17,9 @@ S = "${SRCDIR}/dbus-${PV}"
 
 DEPENDS = "libexpat libglib libintl"
 
-EXTRA_OECONF_X = "--without-x"
+RECIPE_FLAGS += "dbus_x11"
+EXTRA_OECONF_X11 = "--without-x"
+EXTRA_OECONF_X11:USE_dbus_x11 = "--with-x"
 
 EXTRA_OECONF = "\
   --disable-qt \
@@ -30,7 +32,7 @@ EXTRA_OECONF = "\
   --disable-libaudit \
   --with-xml=expat \
   --with-dbus-default-reply-timeout=200000 \
-  ${EXTRA_OECONF_X} \
+  ${EXTRA_OECONF_X11} \
 "
 
 # On mipsel, D-Bus fails to link with --gc-sections and segfaults before main()
