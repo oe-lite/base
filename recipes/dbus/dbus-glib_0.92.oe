@@ -3,7 +3,7 @@ DESCRIPTION = "GLib bindings for the dbus message bus system"
 HOMEPAGE = "http://www.freedesktop.org/Software/dbus"
 LICENSE = "GPLv2+ AFLv2.1"
 
-RECIPE_TYPES = "machine native sdk"
+RECIPE_TYPES = "machine native"
 
 inherit autotools-autoreconf pkgconfig gettext
 
