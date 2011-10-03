@@ -16,5 +16,4 @@ autotools_configure() {
 	--includedir=${includedir}
 }
 
-PROVIDES_${PN} += "libz"
-PROVIDES_${PN}-dev += "libz-dev"
+LIBRARY_NAME = "libz"
