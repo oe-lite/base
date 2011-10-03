@@ -1,3 +1,4 @@
+# -*- mode:python; -*-
 require ${PN}.inc
 
 SRC_URI += "file://glibconfig-sysdefs.h"

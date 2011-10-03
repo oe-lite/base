@@ -10,11 +10,9 @@ RECIPE_TYPES = "machine native sdk"
 inherit autotools-autoreconf gettext auto-package-libs pkgconfig
 
 DEPENDS = "host-cross:gtk-doc libz libpthread libdl libresolv libstdc++ \
-	${DEPENDS_NATIVE}"
-DEPENDS_NATIVE = "native:libglib native:libgmodule native:glib-utils libffi-dev"
-DEPENDS_NATIVE:native = "native:libffi-dev"
-DEPENDS_${PN} += "libffi-dev"
-DEPENDS_${PN}:native += "native:libffi-dev"
+	libffi ${DEPENDS_NATIVE}"
+DEPENDS_NATIVE = "native:libglib native:libgmodule native:glib-utils"
+DEPENDS_NATIVE:native = ""
 
 require conf/fetch/gnome.conf
 SRC_URI_SUBDIR = "${@'.'.join(d.getVar('PV', True).split('.')[:2])}"
@@ -49,8 +47,9 @@ FILES_${PN}-dev += "${datadir}/glib-2.0"
 
 AUTO_PACKAGE_LIBS = "glib gobject gmodule gthread gio"
 AUTO_PACKAGE_LIBS_LIBDIR = "${libdir}:lib:-2.0"
+AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev_${PV}"
 
-AUTO_PACKAGE_LIBS_DEV_DEPENDS += "${PN}_${PV}"
+DEPENDS_${PN} += "libffi"
 DEPENDS_${PN}-libgthread = "libglib libpthread"
 DEPENDS_${PN}-libgobject = "libglib libgthread"
 DEPENDS_${PN}-libgmodule = "libglib"
