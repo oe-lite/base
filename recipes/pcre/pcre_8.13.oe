@@ -1,0 +1,5 @@
+# -*- mode:python; -*-
+require pcre.inc
+
+SRC_URI += "file://pcre-cross.patch"
+SRC_URI += "file://fix-pcre-name-collision.patch"
