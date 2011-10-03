@@ -1,7 +1,7 @@
 DESCRIPTION = "Very high-quality data compression program"
 LICENSE = "bzip2"
 
-RECIPE_TYPES = "machine native"
+RECIPE_TYPES = "machine native sdk"
 
 inherit autotools pkgconfig
 
