@@ -3,8 +3,7 @@ RECIPE_TYPES = "native sdk"
 
 inherit autotools-autoreconf pkgconfig
 
-DEPENDS:native = "native:libexpat native:glib-dev native:glib native:glib-libgio \
-                  native:glib-libgobject native:glib-libglib native:glib-libgthread native:glib-libgmodule \
+DEPENDS = "libexpat libgio libgobject libglib libgthread libgmodule \
                   native:bison native:glib-utils"
 
 require conf/fetch/gnome.conf
@@ -29,6 +28,10 @@ do_configure_fix_gliblibdir() {
       gir/Makefile.in
 }
 PACKAGES += " ${PN}-tests ${PN}-gir-1.0 ${PN}-libgir-1.0"
+DEPENDS_${PN} = "libgirepository libffi libz \
+	libc libdl libpthread libresolv librt \
+	libgio libglib libgmodule libgobject libgthread"
+
 FILES_${PN}-tests = "${datadir}/gobject-introspection-1.0"
 FILES_${PN}-gir-1.0 = "${datadir}/gir-1.0"
 FILES_${PN}-libgir-1.0 = "${libdir}/girepository-1.0"
