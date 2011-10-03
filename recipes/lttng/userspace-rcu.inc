@@ -13,6 +13,5 @@ SRC_URI = "http://lttng.org/files/urcu/userspace-rcu-${PV}.tar.bz2"
 DEPENDS = "libpthread"
 
 # Package dependencies
-PROVIDES_${PN} = "liburcu"
-PROVIDES_${PN}-dev = "liburcu-dev"
+LIBRARY_NAME = "liburcu"
 DEPENDS_${PN} += "libpthread"
