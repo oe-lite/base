@@ -1,7 +1,6 @@
-inherit initramfs-image
+inherit initramfs-image image-qa
 
 RDEPENDS = "\
-busybox \
 initramfs-init \
 util/ssh util/scp \
 "
