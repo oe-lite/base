@@ -1,10 +1,11 @@
+# -*- mode:python; -*-
 require samba.inc
 require samba-basic.inc
 LICENSE = "GPLv3"
 S = "${SRCDIR}/samba-${PV}/source3"
 
 SRC_URI += "file://config-h.patch"
-# FIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIXMMEEEEEEE
+# FIXME
 # need to figure out if we should add support for patchdir
 #SRC_URI += "file://tdbheaderfix.patch;patchdir=${SRCDIR}/samba-${PV}"
 
@@ -19,7 +20,3 @@ EXTRA_OECONF += "\
 	samba_cv_HAVE_WRFILE_KEYTAB=yes \
 	samba_cv_linux_getgrouplist_ok=yes \
 	"
-
-do_compile () {
-	do_compile_make
-}

@@ -1,4 +1,13 @@
+# -*- mode:python; -*-
+SUMMARY = "Samba is the standard Windows interoperability suite of programs for Linux and Unix"
+DESCRIPTION = """Samba provides secure, stable and fast file and print
+services for all clients using the SMB/CIFS protocol, such as all
+versions of DOS and Windows, OS/2, Linux and many others. Samba is an
+important component to seamlessly integrate Linux/Unix Servers and
+Desktops into Active Directory environments using the winbind
+daemon."""
 LICENSE = "GPL"
+
 DEPENDS = "libreadline \
            libiconv \
            libdl \
@@ -64,11 +73,6 @@ do_configure_pre () {
 		touch aclocal.m4	
 		cat aclocal.m4 > acinclude.m4
 	fi
-}
-
-do_compile () {
-	oe_runmake proto_exists
-	do_compile_make
 }
 
 do_install[postfuncs] += "do_install_extra"
