@@ -5,8 +5,8 @@ LICENSE = "BSD"
 
 RECIPE_TYPES = "machine sdk"
 inherit autotools pkgconfig gettext sysvinit make
-DEPENDS = "zlib openssl libpcre-dev libm libdl"
-RDEPENDS = "zlib openssl libpcre"
+DEPENDS = "libz libssl libpcre libm libdl"
+RDEPENDS = "libz libssl libpcre"
 
 SRC_URI =  "http://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-${PV}.tar.bz2"
 SRC_URI += "file://lighttpd.conf"
