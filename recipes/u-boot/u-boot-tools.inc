@@ -22,7 +22,6 @@ do_configure () {
 }
 
 MAKE_TARGETS = "tools-all"
-MAKE_TARGETS_recipe-native = "tools-all"
 
 do_compile () {
     oe_runmake ${MAKE_TARGETS}
