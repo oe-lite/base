@@ -109,3 +109,5 @@ inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "crypto ssl"
 AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev_${PV}"
 DEPENDS_${PN}-dev = ""
+RDEPENDS_${PN}-libcrypto = "libc libgcc libdl"
+RDEPENDS_${PN}-libssl = "libc libdl libcrypto"
