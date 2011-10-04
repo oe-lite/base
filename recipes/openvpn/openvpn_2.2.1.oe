@@ -5,16 +5,10 @@ LICENSE = "GPLv2"
 
 inherit autotools pkgconfig
 
-DEPENDS = "lzo \
-           openssl-dev openssl-libcrypto openssl-libssl \
-           libdl"
-
-RDEPENDS_${PN} = "openssl-libcrypto openssl-libssl \
-            liblzo \
-            libdl"
-
 SRC_URI = "http://swupdate.openvpn.org/community/releases/openvpn-${PV}.tar.gz \
 	file://openvpn"
+
+DEPENDS = "libdl liblzo libssl libcrypto"
 
 CFLAGS += "-fno-inline"
 do_install[postfuncs] += "do_install_openvpn_extra"
@@ -23,3 +17,5 @@ do_install_openvpn_extra () {
 	install -d ${D}/${sysconfdir}/openvpn
 	install -m 755 ${SRCDIR}/openvpn ${D}/${sysconfdir}/init.d
 }
+
+RDEPENDS_${PN} = "libc libgcc ${DEPENDS}"
