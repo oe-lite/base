@@ -26,6 +26,9 @@ S = "${SRCDIR}/samba-${PV}/source"
 
 inherit autotools sysvinit
 
+SRC_URI += "file://config.site"
+SRC_HOST_SITEFILES = "${SRCDIR}/config.site"
+
 FILES_${PN}     += "${libdir}/vfs/*.so ${libdir}/charset/*.so ${libdir}/*.dat \
                     ${libdir}/auth/*.so ${libdir}/security/*.so"
 FILES_${PN}-dbg += "${libdir}/vfs/.debug/*.so ${libdir}/charset/.debug/*.so \

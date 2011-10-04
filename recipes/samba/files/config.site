@@ -1,0 +1,8 @@
+SMB_BUILD_CC_NEGATIVE_ENUM_VALUES=${SMB_BUILD_CC_NEGATIVE_ENUM_VALUES=yes}
+samba_cv_CC_NEGATIVE_ENUM_VALUES=${samba_cv_CC_NEGATIVE_ENUM_VALUES=yes}
+samba_cv_HAVE_BROKEN_GETGROUPS=${samba_cv_HAVE_BROKEN_GETGROUPS=no}
+samba_cv_HAVE_FTRUNCATE_EXTEND=${samba_cv_HAVE_FTRUNCATE_EXTEND=yes}
+samba_cv_HAVE_WRFILE_KEYTAB=${samba_cv_HAVE_WRFILE_KEYTAB=yes}
+samba_cv_have_setresgid=${samba_cv_have_setresgid=yes}
+samba_cv_have_setresuid=${samba_cv_have_setresuid=yes}
+samba_cv_linux_getgrouplist_ok=${samba_cv_linux_getgrouplist_ok=yes}
