@@ -1,0 +1,1 @@
+fd71a70b023b9087c8a7bb76a0dc135a61059652  pkg-config-0.26.tar.gz
