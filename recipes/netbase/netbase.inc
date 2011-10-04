@@ -37,3 +37,5 @@ do_install () {
         echo "auto ${USE_netbase_auto_if}" \
 		>> ${D}${sysconfdir}/network/interfaces
 }
+
+PACKAGES = "${PN}"
