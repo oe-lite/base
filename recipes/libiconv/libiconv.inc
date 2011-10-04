@@ -10,8 +10,7 @@ SRC_URI = "ftp://ftp.gnu.org/pub/gnu/libiconv/libiconv-${PV}.tar.gz"
 
 inherit library autotools
 
-EXTRA_OECONF += "--enable-shared --enable-static --enable-relocatable \
-	--disable-rpath"
+EXTRA_OECONF += "--enable-shared --enable-static --disable-rpath"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "charset"
