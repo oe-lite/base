@@ -18,5 +18,4 @@ EXTRA_OECONF += 'DBUS1_LIBS=""'
 
 # Minimize external dependencies for native glib
 EXTRA_OECONF += "--with-libiconv=no"
-EXTRA_OECONF += "--with-threads=none"
 EXTRA_OECONF += "--with-pcre=internal"
