@@ -17,3 +17,5 @@ autotools_configure() {
 }
 
 LIBRARY_NAME = "libz"
+
+RDEPENDS_${PN} = "libc libgcc"
