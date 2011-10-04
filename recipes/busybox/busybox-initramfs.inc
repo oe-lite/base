@@ -12,6 +12,8 @@ RECIPE_USE_busybox_cron			= "0"
 RECIPE_USE_busybox_hwclock_crontab		= "0"
 RECIPE_USE_busybox_ntpd			= "0"
 
+RECIPE_USE_busybox_mdev			= "1"
+
 # Don't add all the RPROVIDES, as they should be picked up from main
 # busybox recipe. When building os-initramfs, just RDEPEND on
 # busybox-os-initramfs, and assume that it has the desired features.
