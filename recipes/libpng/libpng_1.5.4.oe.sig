@@ -1,1 +1,0 @@
-d05d06e2da369faa470d14c7541e11d4e28a87a5  libpng-1.5.4.tar.bz2
