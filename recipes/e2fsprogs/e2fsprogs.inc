@@ -1,3 +1,4 @@
+# -*- mode:python; -*-
 DESCRIPTION = "EXT2 Filesystem Utilities"
 HOMEPAGE = "http://e2fsprogs.sf.net"
 LICENSE = "GPL"
@@ -6,13 +7,17 @@ RECIPE_TYPES = "machine native sdk"
 
 inherit autotools pkgconfig
 
-DEPENDS = "native:gettext libblkid libuuid libpthread"
+DEPENDS = "native:gettext libpthread"
 
 require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/e2fsprogs/e2fsprogs-${PV}.tar.gz"
 
 EXTRA_OECONF = "--enable-elf-shlibs --enable-dynamic-e2fsck \
---disable-nls --disable-libuuid --disable-libblkid --disable-fsck"
+--disable-nls --disable-fsck"
+
+# Use libblkid and libuuid from util-linux
+DEPENDS += "libblkid libuuid"
+EXTRA_OECONF += "--disable-libuuid --disable-libblkid"
 
 do_compile[prefuncs] += "do_compile_pre"
 do_compile_pre () {
@@ -20,10 +25,6 @@ do_compile_pre () {
 	( cd util; ${BUILD_CC} subst.c -o subst )
 }
 
-# disable while debugging...
-PARALLEL_MAKE = ""
-
-# change EXTRA_OEMAKE default to _not_ set -e, and then set it for specific recipes, as it is a rather blunt setting, causing all kinds of unforeseen breaks.
 EXTRA_OEMAKE = "V=1"
 
 do_install[postfuncs] += "do_install_extra"
