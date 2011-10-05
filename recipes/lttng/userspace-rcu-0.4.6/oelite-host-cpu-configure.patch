@@ -1,0 +1,13 @@
+--- userspace-rcu-0.4.6/configure.ac~orig	2011-10-05 14:04:21.679541630 +0200
++++ userspace-rcu-0.4.6/configure.ac	2011-10-05 14:06:34.945807181 +0200
+@@ -53,6 +53,10 @@
+ 	alpha*) ARCHTYPE="alpha" ;;
+ 	ia64) ARCHTYPE="gcc" ;;
+ 	armv7l) ARCHTYPE="armv7l" ;;
++	arm) case $host_vendor in
++		cortexa*) ARCHTYPE="armv7l" ;;
++		*) ARCHTYPE="unknown" ;;
++	esac ;;
+ 	*) ARCHTYPE="unknown";;
+ esac
+ 
