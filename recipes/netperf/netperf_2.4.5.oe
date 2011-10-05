@@ -1,3 +1,0 @@
-require netperf.inc
-
-SRC_URI += "file://config-site-multiple-files.patch"
