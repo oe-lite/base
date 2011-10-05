@@ -4,7 +4,7 @@ LICENSE = "GPLv2 and LGPLv2.1"
 
 RECIPE_TYPES = "machine"
 
-inherit sysvinit autotools auto-package-libs
+inherit sysvinit autotools-autoreconf auto-package-libs
 
 SRC_URI = "http://lttng.org/files/ust/releases/ust-${PV}.tar.gz"
 SRC_URI += "file://ustd.init"
