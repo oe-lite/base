@@ -9,17 +9,17 @@ inherit autotools pkgconfig
 require conf/fetch/kernelorg.conf
 SRC_URI = "${KERNELORG_MIRROR}/linux/utils/usb/usbutils/usbutils-${PV}.tar.gz"
 
-DEPENDS += "libusb-compat libpthread"
+DEPENDS += "libusb-compat"
 
 sbindir = "${base_sbindir}"
 bindir = "${base_bindir}"
-
-EXTRA_OECONF = "--program-prefix="
 
 do_patch[postfuncs] += "do_patch_rm_libusb"
 do_patch_rm_libusb() {
 	rm -rf ${S}/libusb
 }
+
+EXTRA_OECONF = "--program-prefix= LIBS=-lrt"
 
 do_install[postfuncs] += "do_install_rm_usbids"
 do_install_rm_usbids() {
