@@ -3,17 +3,14 @@ LICENSE = "freetype GPLv2"
 
 RECIPE_TYPES = "machine native"
 
+inherit library autotools pkgconfig binconfig
+
 DEPENDS = "libz"
 
 require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/freetype/freetype-${PV}.tar.bz2"
-#S = "${SRCDIR}/freetype-${PV}"
 
 SRC_URI += "file://no-hardcode.patch"
-SRC_URI += "file://fix-configure.patch"
-SRC_URI += "file://libtool-tag.patch"
-
-inherit library autotools pkgconfig binconfig
 
 EXTRA_OEMAKE += "'LIBTOOL=${LIBTOOL}'"
 
