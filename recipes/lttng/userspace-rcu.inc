@@ -5,7 +5,7 @@ LICENSE = "LGPLv2.1"
 
 RECIPE_TYPES = "machine"
 
-inherit autotools library
+inherit library autotools-autoreconf
 
 SRC_URI = "http://lttng.org/files/urcu/userspace-rcu-${PV}.tar.bz2"
 
