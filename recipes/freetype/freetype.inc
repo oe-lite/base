@@ -1,3 +1,4 @@
+# -*- mode:python; -*-
 DESCRIPTION = "Freetype font rendering library"
 LICENSE = "freetype GPLv2"
 
@@ -7,8 +8,7 @@ inherit library autotools pkgconfig binconfig
 
 DEPENDS = "libz"
 
-require conf/fetch/sourceforge.conf
-SRC_URI = "${SOURCEFORGE_MIRROR}/freetype/freetype-${PV}.tar.bz2"
+SRC_URI = "http://download.savannah.gnu.org/releases/freetype/freetype-${PV}.tar.bz2"
 
 SRC_URI += "file://no-hardcode.patch"
 
