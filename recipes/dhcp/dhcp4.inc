@@ -9,7 +9,7 @@ LICENSE = "ISC"
 
 RECIPE_TYPES = "machine"
 
-inherit autotools-autoreconf
+inherit autotools-autoreconf pkgconfig
 
 SRC_URI = "ftp://ftp.isc.org/isc/dhcp/dhcp-${PV}.tar.gz"
 
