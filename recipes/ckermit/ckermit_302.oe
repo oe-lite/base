@@ -51,10 +51,6 @@ S = "${SRCDIR}"
 # ... and probably other distro's as well.
 #
 
-export CC2 = "${CC}"
-export BINDIR = "${bindir}"
-export MANDIR = "${mandir}/man1"
-export INFODIR = "${infodir}"
 
 # Additional flags. For uclibc we add -DNOARROWKEYS which stops ckermit
 # trying to look inside the stdio headers.
@@ -70,7 +66,7 @@ do_compile () {
 	./wart ckcpro.w ckcpro.c
 
 	# read ${S}/ckccfg.txt to understand this :-)
-	oe_runmake wermit CFLAGS="${CFLAGS} ${LDFLAGS} \
+	oe_runmake wermit CC=${CC} CC2=${CCLD} CFLAGS="${CFLAGS} ${LDFLAGS} \
 		-DLINUX -DCK_POSIX_SIG -DNOTCPOPTS -DLINUXFSSTND -DNOCOTFMC \
 		-DPOSIX -DUSE_STRERROR -DNOSYSLOG -DHAVE_PTMX -DNO_DNS_SRV \
 		-DNOGFTIMER -DNOB_50 -DNOB_75 -DNOB_134 -DNOB_150 -DNOB_200 \
@@ -85,12 +81,12 @@ do_compile () {
 		${CKERMIT_ADDITIONAL}"
 }
 
-EXTRA_OEMAKE += "DESTDIR=${D} prefix=${prefix} BINDIR=${BINDIR} \
-	INFODIR=${INFODIR} MANDIR=${MANDIR}"
+EXTRA_OEMAKE += "DESTDIR=${D} prefix=${prefix} \
+	BINDIR=${bindir} INFODIR=${infodir} MANDIR=${mandir}"
 
 do_install () {
     cd ${SRCDIR}
-	install -d ${D}${BINDIR} ${D}${INFODIR} ${D}${MANDIR} 
+	install -d ${D}${bindir} ${D}${infodir} ${D}${mandir}
 	oe_runmake install
-	(cd ${D}${BINDIR} && ln -s ${BINDIR}/kermit kermit-sshusb)
+	(cd ${D}${bindir} && ln -s ${bindir}/kermit kermit-sshusb)
 }
