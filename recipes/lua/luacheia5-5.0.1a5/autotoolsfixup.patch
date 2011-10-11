@@ -138,8 +138,8 @@ diff -urN luacheia5-5.0.1a5.orig/src/modules/socket/Makefile.am luacheia5-5.0.1a
  # Helper programs that we already built.
 -LUAC = ../../../lua-utils/luac
 -BIN2C = ../../../lua-utils/bin2c
-+LUAC = ../../../lua-5.0.1/bin/luac
-+BIN2C = ../../../lua-5.0.1/bin/bin2c
++LUAC = luac
++BIN2C = bin2c
  
  # Rules for making lch's out of lua files
  .lua.lob:
@@ -152,8 +152,8 @@ diff -urN luacheia5-5.0.1a5.orig/src/modules/socket/Makefile.in luacheia5-5.0.1a
  # Helper programs that we already built.
 -LUAC = ../../../lua-utils/luac
 -BIN2C = ../../../lua-utils/bin2c
-+LUAC = ../../../lua-5.0.1/bin/luac
-+BIN2C = ../../../lua-5.0.1/bin/bin2c
++LUAC = luac
++BIN2C = bin2c
  
  EXTRA_luasocket_la_SOURCES = auxiliar.lua concat.lua http.lua smtp.lua code.lua ftp.lua select.lua url.lua
  LCHS = auxiliar.lch concat.lch http.lch smtp.lch code.lch ftp.lch select.lch url.lch

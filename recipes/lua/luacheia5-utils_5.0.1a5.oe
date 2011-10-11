@@ -1,0 +1,19 @@
+require luacheia5-common.inc
+
+RECIPE_TYPES = "native"
+
+FILESPATHPKG = "${P}:${PN}:luacheia5-${PV}:luacheia5:files"
+
+PARALLEL_MAKE = ""
+
+do_compile () {
+	cd ${S}/lua-utils
+	do_compile_make
+}
+
+do_install () {
+	mkdir -p ${D}${bindir}
+	for util in ${S}/lua-utils/bin2c ${S}/lua-utils/luac ; do
+		install -m 0755 $util ${D}${bindir}/
+	done
+}
