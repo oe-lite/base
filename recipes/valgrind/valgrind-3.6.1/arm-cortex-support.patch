@@ -1,0 +1,22 @@
+--- valgrind-3.6.1/configure.in~orig	2011-10-13 09:09:58.971197169 +0200
++++ valgrind-3.6.1/configure.in	2011-10-13 09:13:57.551197022 +0200
+@@ -163,6 +163,19 @@
+ 	ARCH_MAX="arm"
+ 	;;
+ 
++     arm)
++	case "${host_vendor}" in
++	     cortexa*)
++		AC_MSG_RESULT([ok (${host_cpu}-${host_vendor})])
++		ARCH_MAX="arm"
++	        ;;
++	     *) 
++		AC_MSG_RESULT([no (${host_cpu}-${host_vendor})])
++		AC_MSG_ERROR([Unsupported host architecture. Sorry])
++		;;
++	esac
++	;;
++
+      *) 
+ 	AC_MSG_RESULT([no (${host_cpu})])
+ 	AC_MSG_ERROR([Unsupported host architecture. Sorry])

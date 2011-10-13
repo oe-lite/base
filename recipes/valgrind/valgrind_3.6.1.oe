@@ -3,15 +3,17 @@ HOMEPAGE = "http://valgrind.org/"
 BUGTRACKER = "http://valgrind.org/support/bug_reports.html"
 LICENSE = "GPLv2+ & BSD & FDLv1.2"
 
-inherit autotools auto-package-utils
+inherit autotools-autoreconf auto-package-utils
 
 DEPENDS += "librt"
 # FIXME: what does sysroot-dbg now provide??
 RDEPENDS_${PN} += "librt ${HOST_ARCH}/sysroot-dbg"
 
 SRC_URI = "http://www.valgrind.org/downloads/valgrind-${PV}.tar.bz2"
-SRC_URI += "file://vg-ppc-feature.patch"
 SRC_URI += "file://valgrind-3.6.1-glibc-2.14.patch"
+
+SRC_URI:>TARGET_CPU_powerpc = " file://vg-ppc-feature.patch"
+SRC_URI:>TARGET_CPU_arm = " file://arm-cortex-support.patch"
 
 EXTRA_OECONF = "--enable-tls"
 
