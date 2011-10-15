@@ -306,10 +306,10 @@ BUSYBOX_SIMPLE_USE_FLAGS += "ntpd:ntp-client"
 RECIPE_FLAGS += "busybox_ntpd_sysvinit_start busybox_ntpd_server"
 DEFAULT_USE_busybox_ntpd_sysvinit_start = "70"
 # USE flag: enable ntpd server support
-BUSYBOX_SIMPLE_USE_FALGS += "ntpd_server:service/ntp:CONFIG_FEATURE_NTPD_SERVER"
+BUSYBOX_SIMPLE_USE_FLAGS += "ntpd_server:service/ntp:CONFIG_FEATURE_NTPD_SERVER"
 
 # USE flag: enable httpd server
-BUSYBOX_SIMPLE_USE_FALGS += "httpd:service/http"
+BUSYBOX_SIMPLE_USE_FLAGS += "httpd:service/http"
 # FIXME: add do_configure stuff for busybox httpd, but it really
 # should be split up into more than 1 recipe option
 RECIPE_FLAGS += "busybox_httpd_sysvinit_start busybox_httpd_sysvinit_stop"
