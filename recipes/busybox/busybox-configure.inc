@@ -322,6 +322,12 @@ CONFIG_FEATURE_TFTP_GET,\
 CONFIG_FEATURE_TFTP_PUT,\
 CONFIG_FEATURE_TFTP_BLOCKSIZE"
 
+BUSYBOX_SIMPLE_USE_FLAGS += "nc:util/:\
+CONFIG_NC,\
+CONFIG_NC_SERVER,\
+CONFIG_NC_EXTRA,\
+CONFIG_NC_110_COMPAT"
+
 # USE flag: enable tftp daemon
 BUSYBOX_SIMPLE_USE_FLAGS += "tftpd:service/tftp:\
 CONFIG_TFTPD,\
@@ -420,6 +426,18 @@ BUSYBOX_SIMPLE_USE_FLAGS += "cttyhack:util/"
 # USE flag: enable gunzip utility
 BUSYBOX_SIMPLE_USE_FLAGS += "gunzip:util/"
 
+# USE flag: enable bunzip2 utility
+BUSYBOX_SIMPLE_USE_FLAGS += "bunzip2:util/"
+
+# USE flag: enable unxz utility
+BUSYBOX_SIMPLE_USE_FLAGS += "unxz:util/"
+
+# USE flag: enable unlzma utility
+BUSYBOX_SIMPLE_USE_FLAGS += "unlzma:util/"
+
+# USE flag: enable lzop utility
+BUSYBOX_SIMPLE_USE_FLAGS += "lzop:util/"
+
 # USE flag: enable xargs utility
 BUSYBOX_SIMPLE_USE_FLAGS += "xargs:util/"
 
@@ -470,6 +488,9 @@ BUSYBOX_SIMPLE_USE_FLAGS += "ftpget:util/"
 
 # USE flag: enable ftpput utility
 BUSYBOX_SIMPLE_USE_FLAGS += "ftpput:util/"
+
+# USE flag: enable >2GB file support
+BUSYBOX_SIMPLE_USE_FLAGS += "lfs"
 
 RECIPE_FLAGS += "busybox_inittab_login"
 #
