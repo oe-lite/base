@@ -2,7 +2,7 @@ DESCRIPTION = "GNU multiprecision arithmetic library"
 HOMEPAGE = "http://www.swox.com/gmp/"
 LICENSE = "GPL LGPL"
 
-RECIPES_TYPES = "machine native sdk"
+RECIPE_TYPES = "machine native sdk"
 inherit autotools 
 
 require conf/fetch/gnu.conf
