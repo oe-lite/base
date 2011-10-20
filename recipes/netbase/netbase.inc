@@ -34,7 +34,7 @@ do_install () {
 	install -m 0644 etc-services ${D}${sysconfdir}/services
 	install -m 0644 ${SRCDIR}/interfaces \
 		${D}${sysconfdir}/network/interfaces
-        echo "auto ${USE_netbase_auto_if}" \
+        echo -e "\nauto ${USE_netbase_auto_if}" \
 		>> ${D}${sysconfdir}/network/interfaces
 }
 
