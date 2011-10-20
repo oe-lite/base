@@ -20,8 +20,8 @@ EXTRA_OECONF_LARGEFILE:USE_glib_largefile = ""
 
 RECIPE_FLAGS += "glib_iconv"
 EXTRA_OECONF += "${EXTRA_OECONF_ICONV}"
-EXTRA_OECONF_ICONV = "--without-libiconv"
-EXTRA_OECONF_ICONV:USE_glib_iconv = "--with-libiconv"
+EXTRA_OECONF_ICONV = "--with-libiconv=no"
+EXTRA_OECONF_ICONV:USE_glib_iconv = "--with-libiconv=gnu"
 DEPENDS += "${DEPENDS_ICONV}"
 DEPENDS_ICONV:USE_glib_iconv = "libiconv"
 
