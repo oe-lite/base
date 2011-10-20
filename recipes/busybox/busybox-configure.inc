@@ -243,7 +243,7 @@ do_configure_busybox_watchdog () {
 }
 
 RECIPE_FLAGS += "busybox_udhcpc \
-        busybox_udhcpc_rfc3397"
+"
 # USE flag: enable udhcp client
 DEFAULT_USE_busybox_udhcpc = "1"
 # USE flag: enable RFC3397 support
@@ -303,7 +303,7 @@ BUSYBOX_SIMPLE_USE_FLAGS += "rpc:service/CONFIG_FEATURE_INETD_RPC"
 
 # USE flag: enable ntpd client daemon
 BUSYBOX_SIMPLE_USE_FLAGS += "ntpd:ntp-client"
-RECIPE_FLAGS += "busybox_ntpd_sysvinit_start busybox_ntpd_server"
+RECIPE_FLAGS += "busybox_ntpd_sysvinit_start"
 DEFAULT_USE_busybox_ntpd_sysvinit_start = "70"
 # USE flag: enable ntpd server support
 BUSYBOX_SIMPLE_USE_FLAGS += "ntpd_server:service/ntp:CONFIG_FEATURE_NTPD_SERVER"
