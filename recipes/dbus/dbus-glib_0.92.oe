@@ -17,6 +17,8 @@ DEPENDS += "${DEPENDS_NATIVE}"
 DEPENDS_NATIVE = "native:dbus-glib"
 DEPENDS_NATIVE:native = ""
 
+DEPENDS += "native:glib-utils"
+
 EXTRA_OECONF += "${EXTRA_OECONF_DBUS_BINDING_TOOL}"
 EXTRA_OECONF_DBUS_BINDING_TOOL = "--with-dbus-binding-tool=${STAGE_DIR}/native/bin/dbus-binding-tool"
 EXTRA_OECONF_DBUS_BINDING_TOOL:native = ""
