@@ -46,9 +46,9 @@ do_install_hardlinkfixup () {
 	ln -s ld.bfd ld
 }
 
-FILES_${PN}-ld = "${bindir}/ld.bfd"
-FILES_${PN}-dbg += "${prefix}/${TARGET_ARCH}/bin/.debug/"
+FILES_${PN}-dbg += "${prefix}/${TARGET_ARCH}/bin/.debug"
 
+FILES_${PN}-ld = "${bindir}/ld.bfd"
 FILES_${PN}-ar += "${prefix}/${TARGET_ARCH}/bin/ar"
 FILES_${PN}-as += "${prefix}/${TARGET_ARCH}/bin/as"
 FILES_${PN}-ld += "${bindir}/ld.bfd ${prefix}/${TARGET_ARCH}/bin/ld ${prefix}/${TARGET_ARCH}/bin/ld.bfd"
@@ -61,9 +61,7 @@ FILES_${PN}-strip += "${prefix}/${TARGET_ARCH}/bin/strip"
 PACKAGES += "${PN}-ldscripts"
 FILES_${PN}-ldscripts = "${prefix}/${TARGET_ARCH}/lib/ldscripts"
 
-FILES_${PN}-dbg += "${prefix}/${TARGET_ARCH}/bin/.debug"
-
-RDEPENDS_${PN}-addr2line = "libbfd"
+RDEPENDS_${PN}-addr2line = "binutils-libbfd"
 RDEPENDS_${PN}-as = "libbfd libopcodes"
 RDEPENDS_${PN}-c++filt = "libbfd"
 RDEPENDS_${PN}-gprof = "libbfd"
@@ -71,7 +69,7 @@ RDEPENDS_${PN}-ld = "libbfd"
 RDEPENDS_${PN}-nm = "libbfd"
 RDEPENDS_${PN}-objcopy = "libbfd"
 RDEPENDS_${PN}-objdump = "libbfd libopcodes"
-RDEPENDS_${PN}-libopcodes += "libbfd"
+RDEPENDS_${PN}-libopcodes = "binutils-libbfd"
 RDEPENDS_${PN}-ranlib = "libbfd"
 RDEPENDS_${PN}-readelf = "libbfd"
 RDEPENDS_${PN}-elfedit = "libbfd"
