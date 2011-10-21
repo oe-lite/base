@@ -13,7 +13,7 @@ DEFAULT_USE_dupdate_imagemode = "dual"
 
 inherit sysvinit
 DEFAULT_USE_dupdate_sysvinit_start = "60"
-RDEPENDS_${PN}:>USE_sysvinit += "start-stop-daemon"
+RDEPENDS_${PN}:>USE_sysvinit += "util/start-stop-daemon"
 
 SRC_URI = "git://git.doredevelopment.dk/dupdate.git;protocol=git;${SRC_REV}"
 S = "${SRCDIR}/dupdate"
