@@ -58,6 +58,8 @@ FILES_${PN}-strip += "${prefix}/${TARGET_ARCH}/bin/strip"
 PACKAGES += "${PN}-ldscripts"
 FILES_${PN}-ldscripts = "${prefix}/${TARGET_ARCH}/lib/ldscripts"
 
+FILES_${PN}-dbg += "${prefix}/${TARGET_ARCH}/bin/.debug"
+
 RDEPENDS_${PN}-addr2line = "libbfd"
 RDEPENDS_${PN}-as = "libbfd libopcodes"
 RDEPENDS_${PN}-c++filt = "libbfd"
