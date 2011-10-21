@@ -2,6 +2,7 @@
 DESCRIPTION = "Secure ftp daemon"
 LICENSE = "GPL"
 
+RDEPENDS_SYSVINIT = ""
 inherit c make sysvinit
 
 SRC_URI = "https://security.appspot.com/downloads/vsftpd-${PV}.tar.gz"
@@ -57,7 +58,7 @@ RECIPE_FLAGS += "vsftpd_sysvinit_start vsftpd_sysvinit_stop"
 DEFAULT_USE_vsftpd_sysvinit_start	= "20"
 DEFAULT_USE_vsftpd_sysvinit_stop	= "20"
 
-RDEPENDS_${PN} = "libcrypt libnsl libresolv"
+RDEPENDS_${PN} = "libcrypt libnsl libresolv libc"
 
 # FIXME: do something else!
 #pkg_postinst() {
