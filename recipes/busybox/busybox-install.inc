@@ -1,3 +1,4 @@
+RDEPENDS_INETD= ""
 inherit inetd
 INETD_CONF_FILES = "${SRCDIR}/inetd.conf.d"
 

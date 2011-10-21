@@ -492,6 +492,12 @@ BUSYBOX_SIMPLE_USE_FLAGS += "ftpput:util/"
 # USE flag: enable >2GB file support
 BUSYBOX_SIMPLE_USE_FLAGS += "lfs"
 
+# USE flag: enable less utility
+BUSYBOX_SIMPLE_USE_FLAGS += "less=1:util/"
+
+# USE flag: enable less_regexp utility
+BUSYBOX_SIMPLE_USE_FLAGS += "less_regexp:util/"
+
 RECIPE_FLAGS += "busybox_inittab_login"
 #
 # USE_busybox_inittab_login
