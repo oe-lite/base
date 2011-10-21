@@ -3,7 +3,7 @@ LICENSE = "GPL"
 
 RECIPE_TYPES = "machine"
 
-RDEPENDS_${PN} = "libnss-files libnss-dns"
+RDEPENDS_${PN} = "libnss-files libnss-dns base-version"
 
 RECIPE_FLAGS += "hostname"
 DEFAULT_USE_hostname = "oe-lite"
@@ -105,16 +105,6 @@ do_install () {
 
         ln -sf /proc/mounts ${D}${sysconfdir}/mtab
 }
-
-POSTFUNCS = ""
-POSTFUNCS:>USE_basefiles_version = "do_install_basefiles_version"
-do_install[postfuncs] += "${POSTFUNCS}"
-do_install_basefiles_version () {
-	echo "${DISTRO_VERSION}" > ${SRCDIR}/${USE_basefiles_version}
-	install -m 0644 ${SRCDIR}/${USE_basefiles_version} \
-		${D}${sysconfdir}/${USE_basefiles_version}
-}
-do_install_basefiles_version[expand] = 2
 
 inherit makedevs
 MAKEDEVS_FILES = "${SRCDIR}/device_table-minimal.txt"
