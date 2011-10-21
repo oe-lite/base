@@ -50,3 +50,4 @@ AUTO_PACKAGE_UTILS = "sqlite3"
 AUTO_PACKAGE_LIBS = "sqlite3"
 
 FILES_${PN}-libsqlite3-dev = "${includedir}"
+RDEPENDS_${PN}-sqlite3 += "libsqlite3"
