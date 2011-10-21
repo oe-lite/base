@@ -66,6 +66,7 @@ FILES_${PN}-libcomerr-dev-utils-doc = "${mandir}/man?/compile_et.*"
 FILES_${PN}-libcomerr-dev-doc = "${mandir}/man?/com_err.*"
 DEPENDS_${PN}-libcomerr-dev = "native:${PN}-libcomerr-dev-utils"
 RDEPENDS_${PN}-libcomerr-dev = "host:${PN}-libcomerr-dev-utils"
+RDEPENDS_${PN}-libcomerr += "libpthread"
 
 FILES_${PN}-libe2p-dev = "${includedir}/e2p"
 
