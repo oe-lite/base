@@ -6,8 +6,7 @@ LICENSE = "GPLv2+ & BSD & FDLv1.2"
 inherit autotools-autoreconf auto-package-utils
 
 DEPENDS += "librt"
-# FIXME: what does sysroot-dbg now provide??
-RDEPENDS_${PN} += "librt ${HOST_ARCH}/sysroot-dbg"
+RDEPENDS_${PN} += "librt target:gcc-sysroot-dbg"
 
 SRC_URI = "http://www.valgrind.org/downloads/valgrind-${PV}.tar.bz2"
 SRC_URI += "file://valgrind-3.6.1-glibc-2.14.patch"
