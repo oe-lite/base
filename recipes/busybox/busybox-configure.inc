@@ -28,7 +28,7 @@ def busybox_simple_use_flags(d):
             flag, default = flag.split("=", 1)
         except ValueError:
             default = "0"
-        if provide is None:
+        if not provide:
             provide = flag
         elif provide.endswith("/"):
             provide += flag
@@ -40,9 +40,9 @@ def busybox_simple_use_flags(d):
         d.append("RECIPE_FLAGS", useflag, " ")
         if default != "0":
             d.set("DEFAULT_USE_" + useflag, default)
-        d.set_override("BUSYBOX_PROVIDES", ">USE_" + useflag,
+        d.set_override("BUSYBOX_PROVIDES", (">", "USE_" + useflag),
                        " busybox-%s %s"%(flag, provide))
-        d.set_override("DO_CONFIGURE_PREFUNCS", (">","USE_" + useflag),
+        d.set_override("DO_CONFIGURE_PREFUNCS", (">", "USE_" + useflag),
                        " do_configure_" + useflag)
         function = []
         for config in configs:
