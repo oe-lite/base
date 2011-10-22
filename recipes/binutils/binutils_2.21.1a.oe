@@ -1,2 +1,4 @@
+# -*- mode:python; -*-
 require binutils.inc
-S = "${SRCDIR}/binutils-2.21.1"
+BINUTILS_VERSION = "2.21.1"
+S = "${SRCDIR}/binutils-${BINUTILS_VERSION}"

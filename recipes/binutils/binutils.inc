@@ -1,3 +1,4 @@
+# -*- mode:python; -*-
 SUMMARY = "A GNU collection of binary utilities"
 DESCRIPTION = "The GNU Binutils are a collection of binary tools. \
 The main ones are ld (GNU Linker), and as (GNU Assembler). This \
@@ -21,7 +22,8 @@ EXTRA_OECONF = "--enable-install-libbfd --enable-shared"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "bfd opcodes"
-AUTO_PACKAGE_LIBS_LIBDIR = "${libdir}:lib::-${PV}.so:.so"
+BINUTILS_VERSION ?= "${PV}"
+AUTO_PACKAGE_LIBS_LIBDIR = "${libdir}:lib::-${BINUTILS_VERSION}.so:.so"
 
 PROVIDES_${PN}-dev = "libiberty"
 
@@ -45,6 +47,7 @@ do_install_hardlinkfixup () {
 }
 
 FILES_${PN}-ld = "${bindir}/ld.bfd"
+FILES_${PN}-dbg += "${prefix}/${TARGET_ARCH}/bin/.debug/"
 
 FILES_${PN}-ar += "${prefix}/${TARGET_ARCH}/bin/ar"
 FILES_${PN}-as += "${prefix}/${TARGET_ARCH}/bin/as"
@@ -68,6 +71,7 @@ RDEPENDS_${PN}-ld = "libbfd"
 RDEPENDS_${PN}-nm = "libbfd"
 RDEPENDS_${PN}-objcopy = "libbfd"
 RDEPENDS_${PN}-objdump = "libbfd libopcodes"
+RDEPENDS_${PN}-libopcodes += "libbfd"
 RDEPENDS_${PN}-ranlib = "libbfd"
 RDEPENDS_${PN}-readelf = "libbfd"
 RDEPENDS_${PN}-elfedit = "libbfd"
