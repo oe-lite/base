@@ -42,10 +42,9 @@ do_configure_mipsel() {
 		${S}/configure.in
 }
 
-do_install[postfuncs] = "do_install_extra_files"
+do_install[postfuncs] =+ "do_install_extra_files"
 do_install_extra_files() {
-	install -d ${D}${sysconfdir}/init.d
-	install -m 0755 ${SRCDIR}/dbus-1.init ${D}${sysconfdir}/init.d/dbus-1
+        sysvinit_install_script ${SRCDIR}/dbus-1.init dbus-1
 	# the stock install seems to install the libtool wrapper
 	# script, so we have to copy this manually :M:
 	if [ -e bus/.libs/dbus-daemon-launch-helper ]; then
@@ -98,7 +97,7 @@ FILES_${PN}-dev += "${libdir}/dbus-1.0/include ${bindir}/dbus-glib-tool ${libdir
 #chmod u+s /usr/libexec/dbus-daemon-launch-helper
 #}
 
-RECIPE_FLAGS += "dbus_start dbus_stop"
+RECIPE_FLAGS += "dbus_sysvinit_start dbus_sysvinit_stop"
 SYSVINIT_SCRIPT_dbus = "dbus-1"
 DEFAULT_USE_dbus_sysvinit_start = "25"
 DEFAULT_USE_dbus_sysvinit_stop = "25"
