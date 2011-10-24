@@ -1,11 +1,3 @@
-DESCRIPTION ?= "Root filesystem"
-
-RECIPE_TYPES = "machine"
-
-RDEPENDS = "\
-busybox \
-"
-
 export BUILD_TAG
 
 RSTAGE_FIXUP_FUNCS += "do_version_install"
@@ -18,4 +10,5 @@ do_version_install () {
 }
 
 PROVIDES_${PN} = "rootfs"
-RPROVIDES_${PN} = "rootfs"
+
+inherit rootfs
