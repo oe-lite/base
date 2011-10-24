@@ -372,6 +372,27 @@ do_configure_busybox_ash () {
         .config
 }
 
+# USE flag: enable ash alias
+BUSYBOX_SIMPLE_USE_FLAGS += "ash_alias"
+
+# USE flag: enable sh math support 64
+BUSYBOX_SIMPLE_USE_FLAGS += "sh_math_support_64"
+
+# USE flag: enable ash alias
+BUSYBOX_SIMPLE_USE_FLAGS += "ash_alias"
+
+# USE flag: enable feature buffers use malloc
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_buffers_use_malloc=1"
+
+# USE flag: enable feature buffers go on stack
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_buffers_go_on_stack"
+
+# USE flag: enable feature buffers go in bss
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_buffers_go_in_bss"
+
+# USE flag: enable feature verbose usage
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_verbose_usage"
+
 # USE flag: enable unzip utility
 BUSYBOX_SIMPLE_USE_FLAGS += "unzip:util/"
 
@@ -387,35 +408,11 @@ BUSYBOX_SIMPLE_USE_FLAGS += "unix2dos:util/"
 # USE flag: enable nice utility
 BUSYBOX_SIMPLE_USE_FLAGS += "nice:util/"
 
-# USE flag: enable sort utility
-BUSYBOX_SIMPLE_USE_FLAGS += "sort:util/"
-
-# USE flag: enable uniq utility
-BUSYBOX_SIMPLE_USE_FLAGS += "uniq:util/"
-
-# USE flag: enable usleep utility
-BUSYBOX_SIMPLE_USE_FLAGS += "usleep:util/"
-
-# USE flag: enable who utility
-BUSYBOX_SIMPLE_USE_FLAGS += "who:util/"
-
-# USE flag: enable whoami utility
-BUSYBOX_SIMPLE_USE_FLAGS += "whoami:util/"
-
-# USE flag: enable clear utility
-BUSYBOX_SIMPLE_USE_FLAGS += "clear:util/"
-
-# USE flag: enable resize utility
-BUSYBOX_SIMPLE_USE_FLAGS += "resize:util/"
-
 # USE flag: enable runlevel utility
 BUSYBOX_SIMPLE_USE_FLAGS += "runlevel:util/"
 
 # USE flag: enable arp utility
 BUSYBOX_SIMPLE_USE_FLAGS += "arp:util/"
-
-# USE flag: enable telnet utility
-BUSYBOX_SIMPLE_USE_FLAGS += "telnet:util/"
 
 # USE flag: enable traceroute utility
 BUSYBOX_SIMPLE_USE_FLAGS += "traceroute:util/"
@@ -426,8 +423,14 @@ BUSYBOX_SIMPLE_USE_FLAGS += "cttyhack:util/"
 # USE flag: enable gunzip utility
 BUSYBOX_SIMPLE_USE_FLAGS += "gunzip:util/"
 
+# USE flag: enable bzip2 utility
+BUSYBOX_SIMPLE_USE_FLAGS += "bzip2:util/"
+
 # USE flag: enable bunzip2 utility
 BUSYBOX_SIMPLE_USE_FLAGS += "bunzip2:util/"
+
+# USE flag: enable tar oldgnu compatibility
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_tar_oldgnu_compatibility"
 
 # USE flag: enable unxz utility
 BUSYBOX_SIMPLE_USE_FLAGS += "unxz:util/"
@@ -438,8 +441,149 @@ BUSYBOX_SIMPLE_USE_FLAGS += "unlzma:util/"
 # USE flag: enable lzop utility
 BUSYBOX_SIMPLE_USE_FLAGS += "lzop:util/"
 
+# USE flag: enable feature date isofmt
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_date_isofmt"
+
+# USE flag: enable feature date nano
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_date_nano"
+
+# USE flag: enable feature date compat
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_date_compat"
+
+# USE flag: enable tr utility
+BUSYBOX_SIMPLE_USE_FLAGS += "tr:util/"
+
+# USE flag: enable install utility
+BUSYBOX_SIMPLE_USE_FLAGS += "install:util/"
+
+# USE flag: enable feature ls filetypes
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_ls_filetypes=1"
+
+# USE flag: enable feature ls followlinks
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_ls_followlinks=1"
+
+# USE flag: enable feature ls recursive
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_ls_recursive=1"
+
+# USE flag: enable feature ls sortfiles
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_ls_sortfiles=1"
+
+# USE flag: enable feature ls timestamps
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_ls_timestamps=1"
+
+# USE flag: enable feature ls username
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_ls_username=1"
+
+# USE flag: enable feature ls color
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_ls_color"
+
+# USE flag: enable feature ls color is default
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_ls_color_is_default"
+
+# USE flag: enable sort utility
+BUSYBOX_SIMPLE_USE_FLAGS += "sort:util/"
+
+# USE flag: enable feature fancy tail
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_fancy_tail"
+
+# USE flag: enable tee utility
+BUSYBOX_SIMPLE_USE_FLAGS += "tee:util/"
+
+# USE flag: enable feature tee use block io
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_tee_use_block_io"
+
+# USE flag: enable tty utility
+BUSYBOX_SIMPLE_USE_FLAGS += "tty:util/"
+
+# USE flag: enable uniq utility
+BUSYBOX_SIMPLE_USE_FLAGS += "uniq:util/"
+
+# USE flag: enable usleep utility
+BUSYBOX_SIMPLE_USE_FLAGS += "usleep:util/"
+
+# USE flag: enable wc utility
+BUSYBOX_SIMPLE_USE_FLAGS += "wc:util/"
+
+# USE flag: enable who utility
+BUSYBOX_SIMPLE_USE_FLAGS += "who:util/"
+
+# USE flag: enable whoami utility
+BUSYBOX_SIMPLE_USE_FLAGS += "whoami:util/"
+
+# USE flag: enable feature preserve hardlinks
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_preserve_hardlinks"
+
+# USE flag: enable chvt utility
+BUSYBOX_SIMPLE_USE_FLAGS += "chvt:util/"
+
+# USE flag: enable clear utility
+BUSYBOX_SIMPLE_USE_FLAGS += "clear:util/"
+
+# USE flag: enable deallocvt utility
+BUSYBOX_SIMPLE_USE_FLAGS += "deallocvt:util/"
+
+# USE flag: enable openvt utility
+BUSYBOX_SIMPLE_USE_FLAGS += "openvt:util/"
+
+# USE flag: enable resize utility
+BUSYBOX_SIMPLE_USE_FLAGS += "resize:util/"
+
+# USE flag: enable feature vi readonly
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_vi_readonly"
+
+# USE flag: enable feature vi setopts
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_vi_setopts"
+
+# USE flag: enable feature vi set
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_vi_set"
+
+# USE flag: enable grep utility
+BUSYBOX_SIMPLE_USE_FLAGS += "grep=1:util/"
+
+# USE flag: enable feature grep egrep alias
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_grep_egrep_alias=1"
+
+# USE flag: enable feature grep fgrep alias
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_grep_fgrep_alias"
+
+# USE flag: enable feature grep context
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_grep_context"
+
 # USE flag: enable xargs utility
 BUSYBOX_SIMPLE_USE_FLAGS += "xargs:util/"
+
+# USE flag: enable feature xargs support confirmation
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_xargs_support_confirmation"
+
+# USE flag: enable feature xargs support quotes
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_xargs_support_quotes"
+
+# USE flag: enable feature xargs support termopt
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_xargs_support_termopt"
+
+# USE flag: enable feature xargs support zero term
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_xargs_support_zero_term"
+
+# USE flag: enable feature shadowpasswds
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_shadowpasswds"
+
+# USE flag: enable feature securetty
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_securetty"
+
+# USE flag: enable feature_mount nfs
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_mount_nfs"
+
+# USE flag: enable pivot root utility
+BUSYBOX_SIMPLE_USE_FLAGS += "pivot_root:util/"
+
+# USE flag: enable rdate utility
+BUSYBOX_SIMPLE_USE_FLAGS += "rdate:util/"
+
+# USE flag: enable swaponoff utility
+BUSYBOX_SIMPLE_USE_FLAGS += "swaponoff:util/"
+
+# USE flag: enable feature mount loop
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_mount_loop"
 
 # USE flag: enable pidof utility
 BUSYBOX_SIMPLE_USE_FLAGS += "pidof:util/"
@@ -456,8 +600,29 @@ BUSYBOX_SIMPLE_USE_FLAGS += "readlink:util/"
 # USE flag: enable readpath utility
 BUSYBOX_SIMPLE_USE_FLAGS += "readpath:util/"
 
+# USE flag: enable telnet utility
+BUSYBOX_SIMPLE_USE_FLAGS += "telnet:util/"
+
+# USE flag: enable feature telnet ttype
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_telnet_ttype"
+
+# USE flag: enable feature telnet autologin
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_telnet_autologin"
+
+# USE flag: enable telnetd utility
+BUSYBOX_SIMPLE_USE_FLAGS += "telnetd:util/"
+
 # USE flag: enable wget utility
 BUSYBOX_SIMPLE_USE_FLAGS += "wget:util/"
+
+# USE flag: enable feature wget statusbar
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_wget_statusbar"
+
+# USE flag: enable feature wget authentication
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_wget_authentication"
+
+# USE flag: enable renice utility
+BUSYBOX_SIMPLE_USE_FLAGS += "renice:util/"
 
 # USE flag: enable mesg utility
 BUSYBOX_SIMPLE_USE_FLAGS += "mesg:util/"
