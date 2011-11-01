@@ -340,7 +340,7 @@ DEFAULT_USE_busybox_tftpd_dir = "/tftpboot"
 
 BUSYBOX_SIMPLE_USE_FLAGS += "which=1:util/"
 
-BUSYBOX_SIMPLE_USE_FLAGS += "tee:util/:TEE,FEATURE_TEE_USE_BLOCK_IO"
+BUSYBOX_SIMPLE_USE_FLAGS += "tee:util/:CONFIG_TEE,CONFIG_FEATURE_TEE_USE_BLOCK_IO"
 
 BUSYBOX_SIMPLE_USE_FLAGS += "su:util/"
 # Install busybox setuid root
