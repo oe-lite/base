@@ -88,5 +88,5 @@ do_install () {
     cd ${SRCDIR}
 	install -d ${D}${bindir} ${D}${infodir} ${D}${mandir}
 	oe_runmake install
-	(cd ${D}${bindir} && ln -s ${bindir}/kermit kermit-sshusb)
+    (cd ${D}${bindir} && rm kermit-sshsub && ln -s ${bindir}/kermit kermit-sshsub)
 }
