@@ -24,7 +24,7 @@ EXTRA_OECONF = "--with-backend=${USE_dupdate_backend}"
 EXTRA_OECONF += "--with-imagemode=${USE_dupdate_imagemode}"
 
 INSTALL_POSTFUNCS ?= ""
-do_install[postfuncs] = "${INSTALL_POSTFUNCS}"
+do_install[postfuncs] =+ "${INSTALL_POSTFUNCS}"
 
 INSTALL_POSTFUNCS:>USE_sysvinit = "do_install_sysvinit_postfunc"
 do_install_sysvinit_postfunc () {
