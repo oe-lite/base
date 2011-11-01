@@ -1,4 +1,4 @@
-IMAGES = "initramfs-image tar-image"
+IMAGES = "initramfs-image archive-image"
 
 RDEPENDS = "\
 initramfs-init \
