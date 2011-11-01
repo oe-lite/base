@@ -39,7 +39,7 @@ do_install_hardlinkfixup () {
 	cd ${D}${prefix}/${TARGET_ARCH}/bin
 	for bin in *; do
 		rm $bin
-		ln -s ../..${bindir}/$bin
+		ln -s ../../..${bindir}/$bin
 	done
 	cd ${D}${bindir}
 	rm ld
