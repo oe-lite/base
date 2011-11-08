@@ -7,4 +7,4 @@ util/ssh util/scp \
 
 PROVIDES_${PN} = "initramfs"
 
-inherit rootfs
+inherit rootfs cpio-image
