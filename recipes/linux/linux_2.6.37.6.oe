@@ -1,0 +1,17 @@
+DESCRIPTION = "Linux Kernel"
+HOMEPAGE = "http://www.kernel.org"
+LICENSE = "GPLv2"
+
+inherit kernel
+
+require conf/fetch/kernelorg.conf
+SRC_URI = "${KERNELORG_MIRROR}/linux/kernel/v2.6/linux-${PV}.tar.bz2"
+S = "${SRCDIR}/linux-${PV}"
+
+do_configure[postfuncs] += "do_configure_tracing"
+do_configure_tracing () {
+	cat >> .config <<EOT
+CONFIG_FUNCTION_TRACER=y
+EOT
+	oe_runmake oldconfig
+}
