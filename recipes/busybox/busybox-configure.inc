@@ -378,9 +378,6 @@ BUSYBOX_SIMPLE_USE_FLAGS += "ash_alias"
 # USE flag: enable sh math support 64
 BUSYBOX_SIMPLE_USE_FLAGS += "sh_math_support_64"
 
-# USE flag: enable ash alias
-BUSYBOX_SIMPLE_USE_FLAGS += "ash_alias"
-
 # USE flag: enable feature buffers use malloc
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_buffers_use_malloc=1"
 
@@ -395,9 +392,6 @@ BUSYBOX_SIMPLE_USE_FLAGS += "feature_verbose_usage"
 
 # USE flag: enable unzip utility
 BUSYBOX_SIMPLE_USE_FLAGS += "unzip:util/"
-
-# USE flag: enable tr utility
-BUSYBOX_SIMPLE_USE_FLAGS += "tr:util/"
 
 # USE flag: enable dos2unix utility
 BUSYBOX_SIMPLE_USE_FLAGS += "dos2unix:util/"
@@ -485,15 +479,6 @@ BUSYBOX_SIMPLE_USE_FLAGS += "sort:util/"
 
 # USE flag: enable feature fancy tail
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_fancy_tail"
-
-# USE flag: enable tee utility
-BUSYBOX_SIMPLE_USE_FLAGS += "tee:util/"
-
-# USE flag: enable feature tee use block io
-BUSYBOX_SIMPLE_USE_FLAGS += "feature_tee_use_block_io"
-
-# USE flag: enable tty utility
-BUSYBOX_SIMPLE_USE_FLAGS += "tty:util/"
 
 # USE flag: enable uniq utility
 BUSYBOX_SIMPLE_USE_FLAGS += "uniq:util/"
