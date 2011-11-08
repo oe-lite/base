@@ -1,0 +1,5 @@
+require ${PN}.inc
+
+SRC_URI += "file://makefile-destdir.patch"
+
+SRC_URI += "file://instrumentation-events-2.6.37.patch;apply=0"

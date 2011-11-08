@@ -1,0 +1,12 @@
+--- lttng-modules-2.0-pre10/Makefile.orig	2011-10-31 15:33:51.843457167 +0100
++++ lttng-modules-2.0-pre10/Makefile	2011-10-31 15:36:48.739458694 +0100
+@@ -46,8 +46,7 @@
+ 	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules
+ 
+ modules_install:
+-	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules_install
+-	/sbin/depmod -a
++	$(MAKE) -C $(KERNELDIR) M=$(PWD) INSTALL_MOD_PATH=$(INSTALL_MOD_PATH) modules_install
+ 
+ clean:
+ 	$(MAKE) -C $(KERNELDIR) M=$(PWD) clean
