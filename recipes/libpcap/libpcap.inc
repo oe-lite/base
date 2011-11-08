@@ -20,7 +20,7 @@ RECIPE_FLAGS += "bluetooth"
 EXTRA_OECONF_BLUETOOTH				= "--disable-bluetooth"
 EXTRA_OECONF_BLUETOOTH:USE_bluetooth		= "--enable-bluetooth"
 EXTRA_OECONF += "${EXTRA_OECONF_BLUETOOTH}"
-DEPENDS:>USE_bluetooth += "bluez-libs"
+DEPENDS:>USE_bluetooth = " bluez-libs"
 
 RECIPE_FLAGS += "can"
 EXTRA_OECONF_CAN				= "--disable-can"
