@@ -90,6 +90,7 @@ do_install () {
 
 	if grep "CONFIG_CROND=y" ${S}/.config; then
 		sysvinit_install_script ${SRCDIR}/busybox-crond
+		install -d -m 0755 ${localstatedir}/spool/cron
 	fi
 
 	if grep "CONFIG_WATCHDOG=y" ${S}/.config; then
