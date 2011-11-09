@@ -5,10 +5,11 @@ LICENSE = "GPLv2+ AFLv2.1"
 
 RECIPE_TYPES = "machine native"
 
-inherit autotools pkgconfig gettext sysvinit
+inherit autotools pkgconfig gettext sysvinit passwd
 
 SRC_URI = "http://dbus.freedesktop.org/releases/dbus/dbus-${PV}.tar.gz"
 SRC_URI += "file://dbus-1.init"
+SRC_URI += "file://passwd file://group"
 
 DEPENDS = "libexpat libglib libintl"
 
@@ -52,6 +53,7 @@ do_install_extra_files() {
 		install -m 0755 bus/.libs/dbus-daemon-launch-helper \
 			${D}${libexecdir}/
 	fi
+        install -m 0755 -d /var/run/dbus
 }
 
 RDEPENDS_${PN}-x11 = "${PN}"
@@ -86,14 +88,6 @@ FILES_${PN}-dev += "${libdir}/dbus-1.0/include ${bindir}/dbus-glib-tool ${libdir
 #if [ "x$D" != "x" ]; then
 #  exit 1
 #fi
-#MESSAGEUSER=messagebus
-#MESSAGEHOME=/var/run/dbus
-#mkdir -p $MESSAGEHOME || true
-#grep -q ^$MESSAGEUSER: /etc/group || addgroup "$MESSAGEUSER"
-#chgrp "$MESSAGEUSER" "$MESSAGEHOME"
-#grep -q ^$MESSAGEUSER: /etc/passwd || adduser --system --home "$MESSAGEHOME" --no-create-home --disabled-password --ingroup "$MESSAGEUSER" "$MESSAGEUSER"
-#chown "$MESSAGEUSER"."$MESSAGEUSER" "$MESSAGEHOME"
-#grep -q netdev: /etc/group || addgroup netdev
 #chmod u+s /usr/libexec/dbus-daemon-launch-helper
 #}
 
