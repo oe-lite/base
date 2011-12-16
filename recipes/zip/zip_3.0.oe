@@ -1,0 +1,6 @@
+LICENSE = "BSD-3-Clause*"
+
+require zip.inc
+
+# zip-2.32 still uses directory name of zip-2.30
+S = "${SRCDIR}/zip30"
