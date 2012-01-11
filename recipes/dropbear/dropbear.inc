@@ -74,5 +74,9 @@ do_install() {
 				 -e 's,/usr,${prefix},g' \
 		> ${D}${sysconfdir}/init.d/dropbear
 	chmod 755 ${D}${sysconfdir}/init.d/dropbear
-	ln -s ../init.d/dropbear ${D}${sysconfdir}/rcS.d/S25dropbear
 }
+
+inherit sysvinit
+RECIPE_FLAGS += "dropbear_sysvinit_start dropbear_sysvinit_stop"
+DEFAULT_USE_dropbear_sysvinit_start	= "25"
+DEFAULT_USE_dropbear_sysvinit_stop	= "0"
