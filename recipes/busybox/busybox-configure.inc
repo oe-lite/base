@@ -674,3 +674,10 @@ def do_configure_busybox_inittab_extras(d):
     with open(os.path.join(srcdir, "inittab"), "a") as inittab:
         for extra in d.get("USE_busybox_inittab_extras").split():
             inittab.write(extra + "\n")
+
+BUSYBOX_SIMPLE_USE_FLAGS += "ubiattach:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "ubidetach:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "ubimkvol:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "ubirmvol:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "ubirsvol:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "ubiupdatevol:util/"
