@@ -40,6 +40,7 @@ def do_patch_instrumentation_headers(d):
         v += "." + version["SUBLEVEL"]
     patchfile = os.path.join(
         d.get("SRCDIR"), "instrumentation-events-%s.patch"%(v))
+    print "using patchfile:%s"%patchfile
     if not os.path.exists(patchfile):
         bb.error("Cannot find instrumentation patch file:", patchfile)
         return False
