@@ -30,7 +30,7 @@ DEFAULT_USE_bind_sysvinit_stop = "20"
 # last verified with bind-9.7.2-P3
 PARALLEL_MAKE = ""
 
-do_install[postfuncs] += "do_install_extra_files"
+do_install[postfuncs] =+ "do_install_extra_files"
 do_install_extra_files() {
 	rm "${D}/usr/bin/nslookup"
 	install -d "${D}/etc/bind"

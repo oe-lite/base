@@ -37,7 +37,7 @@ do_autoreconf_pre() {
     sed -i -e 's:dist_man_MANS=	sntp.1::g' sntp/Makefile.am
 }
 
-do_install[postfuncs] += "do_install_extra_files"
+do_install[postfuncs] =+ "do_install_extra_files"
 do_install_extra_files() {
     install -d ${D}/${sysconfdir}
     install -m 644 ${SRCDIR}/ntp.conf ${D}/${sysconfdir}

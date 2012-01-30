@@ -34,7 +34,7 @@ do_compile_sed () {
 	    -i ${SRCDIR}/ust-consumerd.init
 }
 
-do_install[postfuncs] += "do_install_initscript"
+do_install[postfuncs] =+ "do_install_initscript"
 do_install_initscript () {
 	sysvinit_install_script ${SRCDIR}/ust-consumerd.init ust-consumerd
 }
