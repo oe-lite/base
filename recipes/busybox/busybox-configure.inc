@@ -555,6 +555,9 @@ BUSYBOX_SIMPLE_USE_FLAGS += "feature_shadowpasswds"
 # USE flag: enable feature securetty
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_securetty"
 
+# USE flag: enable mount util
+BUSYBOX_SIMPLE_USE_FLAGS += "mount=1:util/"
+
 # USE flag: enable feature_mount nfs
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_mount_nfs"
 
@@ -632,6 +635,9 @@ BUSYBOX_SIMPLE_USE_FLAGS += "flash_unlock:util/"
 
 # USE flag: enable flash_eraseall utility
 BUSYBOX_SIMPLE_USE_FLAGS += "flash_eraseall:util/"
+
+# USE flag: Enable ftp server
+BUSYBOX_SIMPLE_USE_FLAGS += "ftpd:util/"
 
 # USE flag: enable ftpget utility
 BUSYBOX_SIMPLE_USE_FLAGS += "ftpget:util/"
