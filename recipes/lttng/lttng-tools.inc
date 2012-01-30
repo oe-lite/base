@@ -4,14 +4,16 @@ LICENSE = "GPLv2.1+"
 
 RECIPE_TYPES = "machine"
 
-inherit autotools make-vpath
+inherit autotools-autoreconf make-vpath pkgconfig
 
 SRC_URI = "http://lttng.org/files/lttng-tools/lttng-tools-${PV}.tar.bz2"
 
-LIBRARY_DEPENDS = "libpopt liburcu libpthread librt"
+LIBRARY_DEPENDS = "libpopt liburcu libpthread librt lttng-ust libuuid libdl"
+
+EXTRA_OECONF += "CFLAGS=-I${WORKDIR}/build/include/"
 
 # Recipe build dependencies
-DEPENDS =+ "${LIBRARY_DEPENDS}"
+DEPENDS =+ "${LIBRARY_DEPENDS} lttng-ust-dev"
 
 # Package dependencies
 DEPENDS_${PN} += "${LIBRARY_DEPENDS}"

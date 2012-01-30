@@ -1,3 +1,0 @@
-require ${PN}.inc
-
-SRC_URI += "file://modprobe-short-options.patch"
