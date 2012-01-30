@@ -3,7 +3,7 @@ DESCRIPTION = "A message bus system for inter-process communication"
 HOMEPAGE = "http://dbus.freedesktop.org"
 LICENSE = "GPLv2+ AFLv2.1"
 
-RECIPE_TYPES = "machine native"
+RECIPE_TYPES = "machine native sdk"
 
 inherit autotools pkgconfig gettext sysvinit passwd
 
