@@ -3,7 +3,8 @@ DESCRIPTION = "BusyBox: The Swiss Army Knife of Embedded Linux"
 HOMEPAGE = "http://www.busybox.net"
 LICENSE = "GPLv2"
 
-RDEPENDS_SYSVINIT = ""
+RDEPENDS_SYSVINIT:USE_busybox_init = ""
+RDEPENDS_RUNIT:USE_busybox_runit = ""
 inherit c make sysvinit runit crontab
 
 DEFAULT_PREFERENCE = "1"
