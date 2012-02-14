@@ -1,0 +1,5 @@
+require ${PN}.inc
+
+AUTO_PACKAGE_LIBS = "nl-route-3 nl-nf-3 nl-genl-3 nl-cli-3"
+
+SRC_URI += "file://fix-pc-file.patch"
