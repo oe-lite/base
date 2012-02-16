@@ -29,6 +29,9 @@ do_install () {
 		${D}${sysconfdir}/network/if-post-down.d
 	install -m 0755 ${SRCDIR}/init ${D}${sysconfdir}/init.d/networking
 	install -m 0644 ${SRCDIR}/hosts ${D}${sysconfdir}/hosts
+	if [ -f ${SRCDIR}/resolv.conf ] ; then
+		install -m 0644 ${SRCDIR}/resolv.conf ${D}${sysconfdir}/
+	fi
 	install -m 0644 etc-rpc ${D}${sysconfdir}/rpc
 	install -m 0644 etc-protocols ${D}${sysconfdir}/protocols
 	install -m 0644 etc-services ${D}${sysconfdir}/services
@@ -38,4 +41,9 @@ do_install () {
 		>> ${D}${sysconfdir}/network/interfaces
 }
 
-PACKAGES = "${PN}"
+PACKAGES = "${PN}-init ${PN}-hosts ${PN}-resolv-conf ${PN}-interfaces ${PN}"
+RDEPENDS_${PN} = "${PN}-init ${PN}-hosts ${PN}-resolv-conf ${PN}-interfaces"
+FILES_${PN}-init = "${sysconfdir}/init.d ${sysconfdir}/rc?.d"
+FILES_${PN}-hosts = "${sysconfdir}/hosts"
+FILES_${PN}-resolv-conf = "${sysconfdir}/resolv.conf"
+FILES_${PN}-interfaces = "${sysconfdir}/network/interfaces"
