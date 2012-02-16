@@ -5,6 +5,8 @@ LICENSE = "GPL"
 RDEPENDS_SYSVINIT = ""
 inherit c make sysvinit
 
+RECIPE_FLAGS += "vsftpd_config"
+
 SRC_URI = "https://security.appspot.com/downloads/vsftpd-${PV}.tar.gz"
 SRC_URI += "file://init file://vsftpd.conf"
 
@@ -48,6 +50,7 @@ do_install() {
     install -d ${D}${mandir}/man8
     install -d ${D}${mandir}/man5
     oe_runmake 'DESTDIR=${D}' install
+    install -d ${D}/var/share/empty
     install -d ${D}${sysconfdir}
     install -m 0755 ${SRCDIR}/vsftpd.conf ${D}${sysconfdir}/vsftpd.conf
     install -d ${D}${sysconfdir}/init.d/
@@ -59,6 +62,12 @@ DEFAULT_USE_vsftpd_sysvinit_start	= "20"
 DEFAULT_USE_vsftpd_sysvinit_stop	= "20"
 
 RDEPENDS_${PN} = "libcrypt libnsl libresolv libc"
+
+DEFAULT_USE_vsftpd_config = "${PN}-conf"
+RDEPENDS_${PN} += "${USE_vsftpd_config}"
+FILES_${PN} += "/var/share/empty"
+PACKAGES =+ "${PN}-conf"
+FILES_${PN}-conf = "${sysconfdir}/vsftpd.conf"
 
 # FIXME: do something else!
 #pkg_postinst() {
