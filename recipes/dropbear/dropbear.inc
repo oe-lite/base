@@ -74,6 +74,9 @@ do_install() {
 				 -e 's,/usr,${prefix},g' \
 		> ${D}${sysconfdir}/init.d/dropbear
 	chmod 755 ${D}${sysconfdir}/init.d/dropbear
+	#/var/log/lastlog needs to be there for dropbear's lastlog to function
+	install -d ${D}/var/log/
+	touch ${D}/var/log/lastlog
 }
 
 inherit sysvinit
