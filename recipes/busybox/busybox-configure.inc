@@ -609,11 +609,50 @@ BUSYBOX_SIMPLE_USE_FLAGS += "readlink:util/"
 # USE flag: enable readpath utility
 BUSYBOX_SIMPLE_USE_FLAGS += "readpath:util/"
 
+# USE flag: enable ip utility
+BUSYBOX_SIMPLE_USE_FLAGS += "ip=1:util/"
+
+# USE flag: enable feature ifupdown ip buildin
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_ifupdown_ip_builtin=1"
+
 # USE flag: enable telnet utility
 BUSYBOX_SIMPLE_USE_FLAGS += "telnet:util/"
 
 # USE flag: enable feature telnet ttype
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_telnet_ttype"
+
+# USE flag: Enable utility adduser
+BUSYBOX_SIMPLE_USE_FLAGS += "adduser:util/"
+
+# USE flag: Enable feature adduser long options
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_adduser_long_options"
+
+# USE flag: Enable utility deluser
+BUSYBOX_SIMPLE_USE_FLAGS += "deluser:util/"
+
+# USE flag: Enable feature find user
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_find_user"
+
+# USE flag: Enable feature find group
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_find_group"
+
+# USE flag: Enable addgroup utility
+BUSYBOX_SIMPLE_USE_FLAGS += "addgroup:util/"
+
+# USE flag: Enable delgroup utility
+BUSYBOX_SIMPLE_USE_FLAGS += "delgroup:util/"
+
+# USE flag: Enable feature for addgroup long options
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_addgroup_long_options"
+
+# USE flag: Enable feature to add user to group
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_adduser_to_group"
+
+# USE flag: Enable feature to delete user from group
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_del_user_from_group"
+
+# USE flag: Enable delgroup utility
+BUSYBOX_SIMPLE_USE_FLAGS += "delgroup:util/"
 
 # USE flag: enable feature telnet autologin
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_telnet_autologin"
