@@ -1,0 +1,21 @@
+diff -ur ust-0.15.orig//include/ust/tracepoint.h ust-0.15//include/ust/tracepoint.h
+--- ust-0.15.orig//include/ust/tracepoint.h	2012-02-14 13:17:00.220005490 +0100
++++ ust-0.15//include/ust/tracepoint.h	2012-02-14 13:18:28.554631765 +0100
+@@ -27,6 +27,7 @@
+ 
+ #include <urcu-bp.h>
+ #include <urcu/list.h>
++#include <urcu/compiler.h>
+ 
+ struct tracepoint_probe {
+ 	void *func;
+@@ -95,7 +96,7 @@
+ 
+ #define __CHECK_TRACE(name, proto, args)				\
+ 	do {								\
+-		if (unlikely(__tracepoint_##name.state))		\
++		if (caa_unlikely(__tracepoint_##name.state))		\
+ 			__DO_TRACE(&__tracepoint_##name,		\
+ 				TP_PROTO(proto), TP_ARGS(args));	\
+ 	} while (0)
+
