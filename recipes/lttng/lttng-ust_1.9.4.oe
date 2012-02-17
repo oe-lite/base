@@ -12,3 +12,5 @@ PACKAGES = "${PN}-dbg ${PN}-doc ${PN} ${PN}-dev ${PN}-locale ${PN}-demos"
 
 FILES_${PN}-demos = "/tmp/"
 FILES_${PN} += "${libdir}/*.so"
+
+RDEPENDS_${PN} = "liburcu"
