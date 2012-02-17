@@ -8,7 +8,8 @@ inherit library autotools pkgconfig binconfig
 
 DEPENDS = "libz"
 
-SRC_URI = "http://download.savannah.gnu.org/releases/freetype/freetype-${PV}.tar.bz2"
+require conf/fetch/savannah.conf
+SRC_URI = "${SAVANNAH_MIRROR}/freetype/freetype-${PV}.tar.bz2"
 
 SRC_URI += "file://no-hardcode.patch"
 
