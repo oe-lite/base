@@ -21,7 +21,6 @@ EXTRA_OECONF += "--disable-libuuid --disable-libblkid"
 
 do_compile[prefuncs] += "do_compile_pre"
 do_compile_pre () {
-	find ./ -print|xargs chmod u=rwX
 	( cd util; ${BUILD_CC} subst.c -o subst )
 }
 
