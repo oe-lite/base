@@ -4,7 +4,8 @@ LICENSE = "GPLv2+"
 
 RECIPE_TYPES = "machine native"
 
-SRC_URI = "http://mirror.its.uidaho.edu/pub/savannah/attr/attr-${PV}.src.tar.gz"
+require conf/fetch/savannah.conf
+SRC_URI = "${SAVANNAH_MIRROR}/attr/attr-${PV}.src.tar.gz"
 
 inherit autotools
 
