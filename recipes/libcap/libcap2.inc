@@ -8,9 +8,8 @@ RECIPE_TYPES = "machine"
 inherit make c library auto-package-utils
 
 require conf/fetch/kernelorg.conf
-SRC_URI = "${KERNELORG_MIRROR}/linux/libs/security/linux-privs/libcap2/libcap-${PV}.tar.bz2"
-
-S = "${SRCDIR}/libcap-${PV}"
+SRC_URI = "${KERNELORG_GIT}/linux/kernel/git/morgan/libcap.git"
+S = "${SRCDIR}/libcap"
 
 DEPENDS = "native:bison native:flex libattr"
 
