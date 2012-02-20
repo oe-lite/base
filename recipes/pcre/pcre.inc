@@ -13,7 +13,8 @@ RECIPE_TYPES = "native machine sdk"
 
 inherit autotools-autoreconf binconfig c++ pkgconfig binconfig
 
-SRC_URI = "ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-${PV}.tar.gz"
+require conf/fetch/sourceforge.conf
+SRC_URI = "${SOURCEFORGE_MIRROR}/project/${PN}/${PN}/${PV}/${P}.tar.gz"
 
 DEPENDS = "libbz2 libz libreadline libstdc++"
 

@@ -1,1 +1,3 @@
 98eb2af17986ed79660de0e57eb9a58b08b42bb1  pcre-8.13.tar.gz
+dffb43eff9729c0999843a86ef97961b8c4f6ac8  pcre-8.21.tar.gz
+66440d6b04f08e899fed1b0c03303ec3a926999c  pcre-8.30.tar.gz
