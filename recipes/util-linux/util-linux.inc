@@ -51,7 +51,8 @@ do_install[postfuncs] += "do_install_sbin_fixup"
 do_install_sbin_fixup () {
         if [ ${base_sbindir} != "/sbin" ] ; then
 		if [ -d ${D}/sbin ] ; then
-			mv ${D}/sbin/* ${D}/${bindir}/
+			cp -ar ${D}/sbin/. ${D}${bindir}/. \
+				&& rm -rf ${D}/sbin
 		fi
 	fi
 }
