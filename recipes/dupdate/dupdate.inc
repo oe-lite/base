@@ -23,10 +23,9 @@ inherit autotools
 EXTRA_OECONF = "--with-backend=${USE_dupdate_backend}"
 EXTRA_OECONF += "--with-imagemode=${USE_dupdate_imagemode}"
 
-INSTALL_POSTFUNCS ?= ""
-do_install[postfuncs] =+ "${INSTALL_POSTFUNCS}"
-
-INSTALL_POSTFUNCS:>USE_sysvinit = "do_install_sysvinit_postfunc"
-do_install_sysvinit_postfunc () {
+INSTALL_SYSVINIT_POSTFUNC = ""
+INSTALL_SYSVINIT_POSTFUNC:USE_sysvinit = "do_install_sysvinit_dupdate"
+do_install[postfuncs] =+ "${INSTALL_SYSVINIT_POSTFUNC}"
+do_install_sysvinit_dupdate () {
     sysvinit_install_script ${S}/src/dupdate.sh dupdate
 }
