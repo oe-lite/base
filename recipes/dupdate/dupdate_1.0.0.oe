@@ -1,3 +1,0 @@
-require dupdate.inc
-
-SRC_REV = "tag=v${PV}"
