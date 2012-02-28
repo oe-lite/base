@@ -1,30 +1,3 @@
-RECIPE_TYPES = "canadian-cross"
+# -*- mode:python; -*-
+
 inherit sdk-image
-
-IMAGE_BASENAME = "oe-lite-sdk-${HOST_ARCH}-${TARGET_ARCH}"
-ARCHIVE_IMAGE_DIRNAME = "sdk"
-
-RDEPENDS = " \
-    gcc \
-    gcc-g++ \
-    gcc-gdb \
-    target:libc \
-    target:libdl \
-    target:libpthread \
-    target:librt \
-    target:libgcc \
-    target:libcrypt \
-    target:libresolv \
-    target:libnss-files \
-    target:libstdc++ \
-    target:libm \
-    target:libutil \
-    target:libnss-dns \
-    target:gcc-sysroot-garbage \
-    target:gcc-sysroot-locale \
-    target:gcc-sysroot-doc \
-    ${U_BOOT_MKIMAGE} \
-"
-
-U_BOOT_MKIMAGE = "host:u-boot-tools-mkimage"
-U_BOOT_MKIMAGE:HOST_OS_mingw32 = ""
