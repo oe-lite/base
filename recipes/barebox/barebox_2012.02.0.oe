@@ -1,0 +1,4 @@
+require ${PN}.inc
+
+SRC_URI = "git://git.pengutronix.de/git/barebox.git;commit=238b7b1d99940a4fa0579adda026fdebd67ae243"
+S = "${SRCDIR}/barebox"
