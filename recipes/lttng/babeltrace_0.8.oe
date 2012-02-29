@@ -4,6 +4,8 @@ DESCRIPTION = "Babeltrace provides trace read and write libraries in host side, 
 HOMEPAGE = "http://www.efficios.com/babeltrace/"
 LICENSE = "MIT & GPLv2"
 
+RECIPE_TYPES = "machine sdk"
+
 inherit autotools-autoreconf
 
 SRC_URI = "http://www.efficios.com/files/babeltrace/babeltrace-0.8.tar.bz2"
