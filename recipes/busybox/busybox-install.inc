@@ -63,6 +63,19 @@ do_install () {
 		install -d ${D}${USE_busybox_tftpd_dir}
 	fi
 
+	if grep "CONFIG_FTPD=y" ${S}/.config; then
+		if grep "CONFIG_INETD=y" ${S}/.config; then
+			inetd_conf="${D}${sysconfdir}/inetd.conf"
+		else
+			# put it where inetd class finds it, so it can be merged
+			# with inetd.conf when generating image
+			inetd_conf="${SRCDIR}/inetd.conf.d"
+		fi
+		echo "ftp stream tcp nowait root ftpd ftpd -w -S ${USE_busybox_ftpd_dir}" \
+			>> $inetd_conf
+		install -d ${D}${USE_busybox_ftpd_dir}
+	fi
+
 	if grep "CONFIG_TELNETD=y" ${S}/.config; then
 		if grep "CONFIG_TELNETD=y" ${S}/.config; then
 			inetd_conf="${D}${sysconfdir}/inetd.conf"

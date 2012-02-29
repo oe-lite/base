@@ -62,6 +62,7 @@ FILES_${PN}:>USE_busybox_syslogd = " ${localstatedir}/log"
 FILES_${PN}:>USE_busybox_udhcpc = " ${datadir}/udhcpc"
 FILES_${PN}:>USE_busybox_httpd = " /srv/www"
 FILES_${PN}:>USE_busybox_tftpd = " ${USE_busybox_tftpd_dir}"
+FILES_${PN}:>USE_busybox_ftpd = " ${USE_busybox_ftpd_dir}"
 
 RDEPENDS_${PN} = "netbase base-passwd base-files ${LIB_DEPENDS}"
 PROVIDES_${PN} = "${BUSYBOX_PROVIDES}"

@@ -338,6 +338,15 @@ CONFIG_FEATURE_TFTP_BLOCKSIZE"
 RECIPE_FLAGS += "busybox_tftpd_dir"
 DEFAULT_USE_busybox_tftpd_dir = "${servicedir}/tftp"
 
+# USE flag: enable ftp server
+BUSYBOX_SIMPLE_USE_FLAGS += "ftpd:service/ftp:\
+CONFIG_FTPD,\
+CONFIG_FEATURE_FTP_WRITE,\
+CONFIG_FEATURE_FTPD_ACCEPT_BROKEN_LIST"
+# USE flag: ftp server root folder
+RECIPE_FLAGS += "busybox_ftpd_dir"
+DEFAULT_USE_busybox_ftpd_dir = "${servicedir}/ftp"
+
 # USE flag: enable telnet server
 BUSYBOX_SIMPLE_USE_FLAGS += "telnetd:service/telnet"
 
@@ -705,9 +714,6 @@ BUSYBOX_SIMPLE_USE_FLAGS += "flash_unlock:util/"
 
 # USE flag: enable flash_eraseall utility
 BUSYBOX_SIMPLE_USE_FLAGS += "flash_eraseall:util/"
-
-# USE flag: Enable ftp server
-BUSYBOX_SIMPLE_USE_FLAGS += "ftpd:util/"
 
 # USE flag: enable ftpget utility
 BUSYBOX_SIMPLE_USE_FLAGS += "ftpget:util/"
