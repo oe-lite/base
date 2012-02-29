@@ -378,14 +378,24 @@ BUSYBOX_SIMPLE_USE_FLAGS += "ash_alias"
 # USE flag: enable sh math support 64
 BUSYBOX_SIMPLE_USE_FLAGS += "sh_math_support_64"
 
-# USE flag: enable feature buffers use malloc
-BUSYBOX_SIMPLE_USE_FLAGS += "feature_buffers_use_malloc=1"
+# USE flag: choice for reserving buffers
+RECIPE_FLAGS += "busybox_buffers"
+DEFAULT_USE_busybox_buffers = "malloc"
+DO_CONFIGURE_PREFUNCS += "do_configure_busybox_buffers"
+do_configure_busybox_buffers () {
+	case "${USE_busybox_buffers}" in
 
-# USE flag: enable feature buffers go on stack
-BUSYBOX_SIMPLE_USE_FLAGS += "feature_buffers_go_on_stack"
+	malloc)	config="CONFIG_FEATURE_BUFFERS_USE_MALLOC";;
+	stack)	config="CONFIG_FEATURE_BUFFERS_GO_ON_STACK";;
+	bss)	config="CONFIG_FEATURE_BUFFERS_GO_IN_BSS";;
 
-# USE flag: enable feature buffers go in bss
-BUSYBOX_SIMPLE_USE_FLAGS += "feature_buffers_go_in_bss"
+	*)	die "Invalid USE_busybox_buffers: ${USE_busybox_buffers}";;
+
+	esac
+        echo "using config $config"
+	sed -i -e 's/^# \('$config'\) is not set/\1=y/' \
+		.config
+}
 
 # USE flag: enable feature verbose usage
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_verbose_usage"
