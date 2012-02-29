@@ -60,6 +60,7 @@ do_install () {
 		fi
 		echo "tftp dgram udp nowait root tftpd tftpd -c ${USE_busybox_tftpd_dir}" \
 			>> $inetd_conf
+		install -d ${D}${USE_busybox_tftpd_dir}
 	fi
 
 	if grep "CONFIG_HTTPD=y" ${S}/.config; then

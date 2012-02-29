@@ -334,9 +334,9 @@ CONFIG_TFTPD,\
 CONFIG_FEATURE_TFTP_GET,\
 CONFIG_FEATURE_TFTP_PUT,\
 CONFIG_FEATURE_TFTP_BLOCKSIZE"
-RECIPE_FLAGS += "busybox_tftpd_dir"
 # USE flag: tftp daemon root folder
-DEFAULT_USE_busybox_tftpd_dir = "/tftpboot"
+RECIPE_FLAGS += "busybox_tftpd_dir"
+DEFAULT_USE_busybox_tftpd_dir = "${servicedir}/tftp"
 
 BUSYBOX_SIMPLE_USE_FLAGS += "which=1:util/"
 
