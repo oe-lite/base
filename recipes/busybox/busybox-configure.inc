@@ -28,11 +28,10 @@ def busybox_simple_use_flags(d):
             flag, default = flag.split("=", 1)
         except ValueError:
             default = "0"
-        if not provide:
-            provide = flag
-        elif provide.endswith("/"):
-            provide += flag
-        provide = provide.replace("_", "-")
+        if provide:
+            if provide.endswith("/"):
+                provide += flag
+            provide = provide.replace("_", "-")
         if not config:
             config = "CONFIG_" + flag.upper()
         configs = config.split(",")
@@ -40,8 +39,9 @@ def busybox_simple_use_flags(d):
         d.append("RECIPE_FLAGS", useflag, " ")
         if default != "0":
             d.set("DEFAULT_USE_" + useflag, default)
-        d.set_override("BUSYBOX_PROVIDES", (">", "USE_" + useflag),
-                       " busybox-%s %s"%(flag, provide))
+        if provide:
+            d.set_override("BUSYBOX_PROVIDES", (">", "USE_" + useflag),
+                           " busybox-%s %s"%(flag, provide))
         d.set_override("DO_CONFIGURE_PREFUNCS", (">", "USE_" + useflag),
                        " do_configure_" + useflag)
         function = []
@@ -104,7 +104,7 @@ CONFIG_START_STOP_DAEMON,\
 CONFIG_FEATURE_START_STOP_DAEMON_FANCY,\
 CONFIG_FEATURE_START_STOP_DAEMON_LONG_OPTIONS"
 
-BUSYBOX_SIMPLE_USE_FLAGS += "mdev=1::\
+BUSYBOX_SIMPLE_USE_FLAGS += "mdev=1:mdev:\
 CONFIG_MDEV,\
 CONFIG_FEATURE_MDEV_CONF,\
 CONFIG_FEATURE_MDEV_RENAME,\
@@ -283,7 +283,7 @@ do_configure_busybox_udhcpd_relay () {
         .config
 }
 
-BUSYBOX_SIMPLE_USE_FLAGS += "inetd"
+BUSYBOX_SIMPLE_USE_FLAGS += "inetd:inetd"
 
 RECIPE_FLAGS += "busybox_inetd_sysvinit_start"
 DEFAULT_USE_busybox_inetd_sysvinit_start = "26"
