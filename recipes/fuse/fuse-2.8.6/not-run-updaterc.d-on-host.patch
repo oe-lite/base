@@ -1,0 +1,26 @@
+diff -crB fuse-2.8.6.orig/util/Makefile.am fuse-2.8.6//util/Makefile.am
+*** fuse-2.8.6.orig/util/Makefile.am	2012-01-11 14:55:53.082171300 +0100
+--- fuse-2.8.6//util/Makefile.am	2012-01-11 14:57:41.000000000 +0100
+***************
+*** 32,41 ****
+  	$(INSTALL_PROGRAM) $(srcdir)/mount.fuse $(DESTDIR)$(MOUNT_FUSE_PATH)/mount.fuse
+  	$(mkdir_p) $(DESTDIR)$(INIT_D_PATH)
+  	$(INSTALL_SCRIPT) $(srcdir)/init_script $(DESTDIR)$(INIT_D_PATH)/fuse
+- 	@if test -x /usr/sbin/update-rc.d; then \
+- 		echo "/usr/sbin/update-rc.d fuse start 34 S . start 41 0 6 . || true"; \
+- 		/usr/sbin/update-rc.d fuse start 34 S . start 41 0 6 . || true; \
+- 	fi
+  
+  install-data-local:
+  	$(mkdir_p) $(DESTDIR)$(UDEV_RULES_PATH)
+--- 32,37 ----
+***************
+*** 45,51 ****
+  	rm -f $(DESTDIR)$(MOUNT_FUSE_PATH)/mount.fuse
+  	rm -f $(DESTDIR)$(UDEV_RULES_PATH)/99-fuse.rules
+  	rm -f $(DESTDIR)$(INIT_D_PATH)/fuse
+- 	@if test -x /usr/sbin/update-rc.d; then \
+- 		echo "/usr/sbin/update-rc.d fuse remove || true"; \
+- 		/usr/sbin/update-rc.d fuse remove || true; \
+- 	fi
+--- 41,43 ----
