@@ -1,2 +1,3 @@
 # -*- mode:python; -*-
 require linux.inc
+require linux-v2.6.inc
