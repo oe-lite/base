@@ -338,6 +338,9 @@ CONFIG_FEATURE_TFTP_BLOCKSIZE"
 RECIPE_FLAGS += "busybox_tftpd_dir"
 DEFAULT_USE_busybox_tftpd_dir = "${servicedir}/tftp"
 
+# USE flag: enable telnet server
+BUSYBOX_SIMPLE_USE_FLAGS += "telnetd:service/telnet"
+
 BUSYBOX_SIMPLE_USE_FLAGS += "which=1:util/"
 
 BUSYBOX_SIMPLE_USE_FLAGS += "tee:util/:CONFIG_TEE,CONFIG_FEATURE_TEE_USE_BLOCK_IO"
@@ -629,7 +632,10 @@ BUSYBOX_SIMPLE_USE_FLAGS += "feature_ifupdown_ip_builtin=1"
 BUSYBOX_SIMPLE_USE_FLAGS += "telnet:util/"
 
 # USE flag: enable feature telnet ttype
-BUSYBOX_SIMPLE_USE_FLAGS += "feature_telnet_ttype"
+BUSYBOX_SIMPLE_USE_FLAGS += "telnet_ttype=1::CONFIG_FEATURE_TELNET_TTYPE"
+
+# USE flag: enable feature telnet autologin
+BUSYBOX_SIMPLE_USE_FLAGS += "telnet_autologin::CONFIG_FEATURE_TELNET_AUTOLOGIN"
 
 # USE flag: Enable utility adduser
 BUSYBOX_SIMPLE_USE_FLAGS += "adduser:util/"
@@ -663,12 +669,6 @@ BUSYBOX_SIMPLE_USE_FLAGS += "feature_del_user_from_group"
 
 # USE flag: Enable delgroup utility
 BUSYBOX_SIMPLE_USE_FLAGS += "delgroup:util/"
-
-# USE flag: enable feature telnet autologin
-BUSYBOX_SIMPLE_USE_FLAGS += "feature_telnet_autologin"
-
-# USE flag: enable telnetd utility
-BUSYBOX_SIMPLE_USE_FLAGS += "telnetd:util/"
 
 # USE flag: enable wget utility
 BUSYBOX_SIMPLE_USE_FLAGS += "wget:util/"

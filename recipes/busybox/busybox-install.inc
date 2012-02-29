@@ -63,6 +63,18 @@ do_install () {
 		install -d ${D}${USE_busybox_tftpd_dir}
 	fi
 
+	if grep "CONFIG_TELNETD=y" ${S}/.config; then
+		if grep "CONFIG_TELNETD=y" ${S}/.config; then
+			inetd_conf="${D}${sysconfdir}/inetd.conf"
+		else
+			# put it where inetd class finds it, so it can be merged
+			# with inetd.conf when generating image
+			inetd_conf="${SRCDIR}/inetd.conf.d"
+		fi
+		echo "telnet stream tcp nowait root telnetd telnetd" \
+			>> $inetd_conf
+	fi
+
 	if grep "CONFIG_HTTPD=y" ${S}/.config; then
 		install -d ${D}/srv/www
 	fi
