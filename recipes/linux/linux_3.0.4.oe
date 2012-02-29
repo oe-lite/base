@@ -1,14 +1,3 @@
-DESCRIPTION = "Linux Kernel"
-HOMEPAGE = "http://www.kernel.org"
-LICENSE = "GPLv2"
-
-inherit kernel
-
-FILESPATHPKG = "${P}:${PN}-${@'.'.join('${PV}'.split('.')[:2])}:${PN}:files"
-
-require conf/fetch/kernelorg.conf
-SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git;tag=v${PV}"
-S = "${SRCDIR}/linux-stable"
-
-# Include linux-MAJOR.MINOR.inc
-require linux-${@'.'.join('${PV}'.split('.')[:2])}.inc
+# -*- mode:python; -*-
+require linux.inc
+require linux-stable.inc
