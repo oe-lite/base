@@ -3,13 +3,13 @@ HOMEPAGE = "http://tslib.berlios.de/"
 AUTHOR = "Russell King w/ plugins by Chris Larson et. al."
 LICENSE = "LGPLv2"
 
-inherit autotools-autoreconf pkgconfig library
+inherit c++ autotools-autoreconf pkgconfig library
 
 SRC_URI = "http://download.berlios.de/${PN}/${P}.tar.bz2"
 SRC_URI += "file://ts.conf"
 SRC_URI += "file://tslib.sh"
 
-DEPENDS += "libdl libstdc++"
+DEPENDS += "libdl"
 
 EXTRA_OECONF += "--enable-shared ac_cv_func_malloc_0_nonnull=yes"
 
