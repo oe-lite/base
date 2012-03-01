@@ -10,7 +10,7 @@ inherit c c++ make
 SRC_URI = "http://downloads.sourceforge.net/sevenzip/lzma${@bb.data.getVar('PV',d,1).replace('.','')}.tar.bz2"
 S = "${SRCDIR}"
 
-DEPENDS = "libz libstdc++"
+DEPENDS = "libz"
 
 EXTRA_OEMAKE = "-f makefile.gcc"
 
