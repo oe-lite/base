@@ -8,7 +8,7 @@ Linux framebuffer device."
 LICENSE = "LGPL"
 HOMEPAGE = "http://directfb.org"
 
-inherit autotools-autoreconf pkgconfig binconfig
+inherit c++ autotools-autoreconf pkgconfig binconfig
 
 DEPENDS = "libjpeg \
 	libpng12 \
@@ -18,7 +18,6 @@ DEPENDS = "libjpeg \
 	libpthread \
 	libm  \
 	libc  \
-	libstdc++ \
 	libts"
 
 RDEPENDS_${PN} = "libjpeg \
