@@ -12,8 +12,9 @@ SRC_URI = "http://lttng.org/files/lttng-modules/lttng-modules-${PV}.tar.bz2"
 KERNEL_MAKEFILE = "${STAGE_DIR}/${HOST_TYPE}${kernelsrcdir}/Makefile"
 KERNEL_EVENTS_SUBDIR = "${STAGE_DIR}/${HOST_TYPE}${kernelsrcdir}/include/trace/events"
 
-do_patch[postfuncs] += "do_patch_instrumentation_headers"
-def do_patch_instrumentation_headers(d):
+addtask instrumentation after patch stage before configure
+do_instrumentation[dirs] = "${S}"
+def do_instrumentation(d):
     with open(d.get("KERNEL_MAKEFILE")) as makefile:
         version = {
             "VERSION" : None,
