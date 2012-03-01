@@ -5,9 +5,9 @@ DESCRIPTION = "GLib is a general-purpose utility library, which provides many \
 	UNIX-like platforms, Windows, OS/2 and BeOS."
 LICENSE = "LGPLv2+"
 
-inherit autotools
+inherit c++ autotools
 
-DEPENDS = "host-cross:gtk-doc libz libpthread libdl libresolv libstdc++ \
+DEPENDS = "host-cross:gtk-doc libz libpthread libdl libresolv \
 	libffi ${DEPENDS_NATIVE}"
 DEPENDS_NATIVE = "native:libglib native:libgmodule native:glib-utils"
 DEPENDS_NATIVE:native = ""
