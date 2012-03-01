@@ -11,12 +11,12 @@ HOMEPAGE = "http://www.pcre.org/"
 
 RECIPE_TYPES = "native machine sdk"
 
-inherit autotools-autoreconf binconfig c++ pkgconfig binconfig
+inherit c++ autotools-autoreconf binconfig pkgconfig
 
 require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/project/${PN}/${PN}/${PV}/${P}.tar.gz"
 
-DEPENDS = "libbz2 libz libreadline libstdc++"
+DEPENDS = "libbz2 libz libreadline"
 
 CFLAGS += "-D_REENTRANT"
 EXTRA_OECONF = "--with-link-size=2 \
