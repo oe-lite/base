@@ -7,11 +7,11 @@ LICENSE = "GPL"
 
 RECIPE_TYPES = "machine"
 
-inherit autotools pkgconfig sysvinit
+inherit c++ autotools pkgconfig sysvinit
 
 SRC_URI = "http://0pointer.de/lennart/projects/ifplugd/ifplugd-${PV}.tar.gz"
 
-DEPENDS = "libdaemon libstdc++"
+DEPENDS = "libdaemon"
 
 EXTRA_OECONF = "--disable-lynx"
 
