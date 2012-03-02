@@ -82,7 +82,14 @@ do_configure () {
     cp -f boost/config/platform/linux.hpp \
           boost/config/platform/linux-gnueabi.hpp
 
-    echo "using gcc : $(${CXX} -dumpversion) : ${CXX} : <define>-DBOOST_SP_USE_PTHREADS ${BJAM_CFLAGS} ${BJAM_CXXFLAGS} ${BJAM_LINKFLAGS} ;" >> ${S}/tools/build/v2/user-config.jam
+    (cd ${S}/tools/build/v2/
+        if [ ! -f user-config.jam~orig ] ; then
+            cp user-config.jam user-config.jam~orig
+        fi
+        cp user-config.jam~orig user-config.jam
+        echo "using gcc : $(${CXX} -dumpversion) : ${CXX} : <define>-DBOOST_SP_USE_PTHREADS ${BJAM_CFLAGS} ${BJAM_CXXFLAGS} ${BJAM_LINKFLAGS} ;" \
+            >> user-config.jam
+    )
     CC="${BUILD_CC}" CFLAGS="${BUILD_CFLAGS}" ./bootstrap.sh --with-toolset=gcc ${BOOTSTRAP_OPTIONS}
 }
 
