@@ -52,12 +52,16 @@ def do_instrumentation(d):
         print e
         print "cwd is", os.getcwd()
         return False
-    try:
-        shutil.move("lttng-module", "lttng-module~orig")
-    except OSError, e:
-        bb.error("Cannot rename lttng-module subdir")
-        print e
-        return False
+    if os.path.exists("lttng-module~orig"):
+        if os.path.exists("lttng-module"):
+            shutil.rmtree("lttng-module")
+    else:
+        try:
+            shutil.move("lttng-module", "lttng-module~orig")
+        except OSError, e:
+            bb.error("Cannot rename lttng-module subdir")
+            print e
+            return False
     os.mkdir("lttng-module")
     files = os.listdir("mainline")
     mainline_dir = d.get("KERNEL_EVENTS_SUBDIR")
