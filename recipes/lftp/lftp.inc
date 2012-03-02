@@ -5,9 +5,9 @@ LICENSE = "GPLv3"
 
 RECIPE_TYPES = "machine native sdk"
 
-inherit autotools largefile
+inherit c++ autotools-autoreconf pkgconfig largefile
 
-DEPENDS = "libncurses libreadline libstdc++"
+DEPENDS = "libncurses libreadline"
 
 RDEPENDS_${PN} = "libreadline"
 
@@ -17,6 +17,8 @@ SRC_HOST_SITEFILES = "${SRCDIR}/config.site"
 
 EXTRA_OECONF = " \
 --disable-rpath \
---with-included-readline=no \
+--disable-nls \
+--with-gnu-ld \
+--without-libresolv \
 --without-gnutls \
 "
