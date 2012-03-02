@@ -3,7 +3,7 @@ HOMEPAGE = "http://www.infradead.org/~tgr/libnl/"
 
 LICENSE = "LGPLv2.1"
 
-inherit autotools pkgconfig auto-package-libs auto-package-utils
+inherit autotools-autoreconf pkgconfig auto-package-libs auto-package-utils
 DEPENDS += "libm libpthread libdl"
 
 SRC_URI = "http://www.infradead.org/~tgr/${PN}/files/${PN}-${PV}.tar.gz"
