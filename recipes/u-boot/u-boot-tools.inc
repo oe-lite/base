@@ -7,8 +7,10 @@ RECIPE_TYPES = "native sdk"
 
 inherit c make
 
-SRC_URI = "ftp://ftp.denx.de/pub/u-boot/u-boot-${PV}.tar.bz2"
+SRC_URI = "http://ftp.denx.de/pub/u-boot/u-boot-${PV}.tar.bz2"
 S = "${SRCDIR}/u-boot-${PV}"
+MIRRORS =. """http://ftp.denx.de/pub/u-boot/ ftp://ftp.denx.de/pub/u-boot/
+"""
 
 PARALLEL_MAKE = ""
 EXTRA_OEMAKE = 'HOSTCC="${CC}" HOSTSTRIP="${STRIP}" \
