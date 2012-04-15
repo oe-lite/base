@@ -3,7 +3,7 @@ DESCRIPTION = "Dropbear is a lightweight SSH and SCP Implementation"
 HOMEPAGE = "http://matt.ucc.asn.au/dropbear/dropbear.html"
 LICENSE = "MIT"
 
-RECIPE_TYPES = "machine"
+RECIPE_TYPES = "native machine"
 
 inherit autotools
 
