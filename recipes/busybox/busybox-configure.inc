@@ -305,6 +305,11 @@ BUSYBOX_SIMPLE_USE_FLAGS += "rpc:service/:CONFIG_FEATURE_INETD_RPC"
 BUSYBOX_SIMPLE_USE_FLAGS += "ntpd:ntp-client"
 RECIPE_FLAGS += "busybox_ntpd_sysvinit_start"
 DEFAULT_USE_busybox_ntpd_sysvinit_start = "70"
+RECIPE_FLAGS += "busybox_ntpd_configuration"
+DO_CONFIGURE_PREFUNCS:>USE_busybox_ntpd_configuration += " do_configure_busybox_ntpd_configuration"
+do_configure_busybox_ntpd_configuration () {
+        sed -i -e 's:#NTPSERVERS=.*:NTPSERVERS="${USE_busybox_ntpd_configuration}":' ${SRCDIR}/rcS-default
+}
 # USE flag: enable ntpd server support
 BUSYBOX_SIMPLE_USE_FLAGS += "ntpd_server:service/ntp:CONFIG_FEATURE_NTPD_SERVER"
 
