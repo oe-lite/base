@@ -34,3 +34,5 @@ PACKAGES =+ "${PN}-update"
 
 FILES_${PN} += "${datadir}/usb*"
 FILES_${PN}-update = "${sbindir}/update-usbids.sh"
+RDEPENDS_${PN} += "libc librt libusb-compat"
+DEPENDS_${PN} += "libusb-compat"
