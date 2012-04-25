@@ -1,15 +1,15 @@
 DESCRIPTION = "A library for configuring and customizing font access."
 LICENSE = "BSD"
 
-inherit autotools pkgconfig c++
+inherit autotools pkgconfig c++ library
 
 DEPENDS = "libexpat libfreetype libz"
 
-SRC_URI = "http://fontconfig.org/release/fontconfig-${PV}.tar.gz"
+SRC_URI = "http://fontconfig.org/release/${PN}-${PV}.tar.gz"
 
-S = "${SRCDIR}/fontconfig-${PV}"
+S = "${SRCDIR}/${PN}-${PV}"
 
-EXTRA_OECONF = "--disable-docs --with-arch=${HOST_ARCH} --with-cache-dir=${localstatedir}/lib/fontconfig"
+EXTRA_OECONF = "--disable-docs --with-arch=${HOST_ARCH} --with-cache-dir=${localstatedir}/lib/${PN}"
 
 do_configure[postfuncs] += "do_configure_extra"
 do_configure_extra () {
@@ -29,11 +29,13 @@ do_configure_extra () {
 EXTRA_OEMAKE = "FC_LANG=fc-lang FC_GLYPHNAME=fc-glyphname"
 export HASDOCBOOK="no"
 
-PACKAGES =+ "fontconfig-utils-dbg fontconfig-utils "
+PACKAGES =+ "${PN}-utils-dbg ${PN}-utils "
+RECIPE_TYPES = "machine native"
 
-FILES_fontconfig-utils-dbg = "${bindir}/*.dbg"
-FILES_fontconfig-utils = "${bindir}/*"
+FILES_${PN}-utils-dbg = "${bindir}/.debug/*"
+FILES_${PN}-utils = "${bindir}/*"
+FILES_${PN} += "${sysconfdir}/fonts"
 
-DEPENDS_${PN} = "libexpat libfreetype libz libc libgcc"
-RDEPENDS_${PN} = "libexpat libfreetype libz libc libgcc"
-RDEPENDS_${PN}-utils = "libfontconfig libexpat libfreetype libz libc libgcc"
+DEPENDS_${PN} += "libexpat libfreetype libz libc libgcc"
+RDEPENDS_${PN} += "libexpat libfreetype libz libc libgcc"
+RDEPENDS_${PN}-utils += "libfontconfig libexpat libfreetype libz libc libgcc"
