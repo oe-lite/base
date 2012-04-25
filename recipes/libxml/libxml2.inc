@@ -12,11 +12,8 @@ EXTRA_OECONF = "\
  --without-legacy \
  --with-catalog \
  --with-docbook \
+ --without-python \
  --with-c14n"
-
-EXTRA_OECONF += "${EXTRA_OECONF_PYTHON}"
-EXTRA_OECONF_PYTHON = "--without-python"
-EXTRA_OECONF_PYTHON:native = "--with-python"
 
 export LDFLAGS += "-ldl"
 
