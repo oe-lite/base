@@ -1,0 +1,14 @@
+diff -urN gettext-0.18.1.1/gettext-tools/libgettextpo/Makefile.am gettext-0.18.1.1new/gettext-tools/libgettextpo/Makefile.am
+--- gettext-0.18.1.1/gettext-tools/libgettextpo/Makefile.am	2010-06-06 19:55:59.000000000 +0200
++++ gettext-0.18.1.1new/gettext-tools/libgettextpo/Makefile.am	2012-04-02 22:37:14.348518786 +0200
+@@ -89,6 +89,10 @@
+   ../src/plural-eval.c \
+   ../src/msgl-check.c
+ 
++if WOE32DLL
++libgettextpo_la_AUXSOURCES += memchr.c
++endif
++
+ # Libtool's library version information for libgettextpo.
+ # See the libtool documentation, section "Library interface versions".
+ LTV_CURRENT=5
