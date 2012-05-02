@@ -1,0 +1,12 @@
+diff -Nurd gettext-0.18.1.1/gettext-runtime/m4/ansi-c++.m4 gettext-0.18.1.1/gettext-runtime/m4/ansi-c++.m4
+--- gettext-0.18.1.1/gettext-runtime/m4/ansi-c++.m4	2010-06-06 15:49:57.000000000 +0300
++++ gettext-0.18.1.1/gettext-runtime/m4/ansi-c++.m4	2011-07-31 11:08:12.000000000 +0300
+@@ -11,7 +11,7 @@
+ 
+ AC_DEFUN([gt_PROG_ANSI_CXX],
+ [
+-AC_CHECK_PROGS(CXX, $CCC g++ c++ gpp aCC CC cxx cc++ cl FCC KCC RCC xlC_r xlC, :)
++AC_CHECK_TOOLS(CXX, $CCC g++ c++ gpp aCC CC cxx cc++ cl FCC KCC RCC xlC_r xlC, :)
+ if test "$CXX" != ":"; then
+   dnl Use a modified version of AC_PROG_CXX_WORKS that does not exit
+   dnl upon failure.

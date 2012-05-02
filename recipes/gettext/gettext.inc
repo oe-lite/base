@@ -4,12 +4,15 @@ HOMEPAGE = "http://www.gnu.org/software/gettext/gettext.html"
 
 RECIPE_TYPES = "machine native sdk"
 
-inherit autotools-autoreconf make-vpath
+inherit c++ autotools-autoreconf library make-vpath
 
 require conf/fetch/gnu.conf
 SRC_URI = "${GNU_MIRROR}/gettext/gettext-${PV}.tar.gz"
 
-DEPENDS = "libiconv libncurses libdl libm libpthread ${DEPENDS_SELF_NATIVE}"
+<<<<<<< HEAD
+DEPENDS = "libiconv ${DEPENDS_HOST_OS} ${DEPENDS_SELF_NATIVE}"
+DEPENDS_HOST_OS = "libdl libpthread libm libncurses"
+DEPENDS_HOST_OS:HOST_OS_mingw32 = "libm libncurses"
 DEPENDS_SELF_NATIVE = "native:gettext"
 DEPENDS_SELF_NATIVE:native = ""
 
@@ -34,21 +37,26 @@ EXTRA_OECONF += "\
 --without-emacs --without-git --without-cvs \
 --with-included-glib \
 "
-EXTRA_OECONF:>native = " --disable-curses --with-included-gettext"
-EXTRA_OECONF:>sdk = " --disable-curses --with-included-gettext"
-
-FILES_${PN} += "${libdir}/gettext ${datadir}/gettext"
+EXTRA_OECONF += "${EXTRA_OECONF_GETTEXT}"
+EXTRA_OECONF_GETTEXT = ""
+EXTRA_OECONF_GETTEXT:native = "--disable-curses --with-included-gettext"
+EXTRA_OECONF_GETTEXT:HOST_OS_mingw32 = "--with-included-gettext"
 
 DEPENDS_${PN} = "libintl libgettextpo libgettextlib \
     libiconv libncurses libdl libm"
 RDEPENDS_${PN} = "${DEPENDS_${PN}}"
 
+PACKAGES =+ "${PN}-utils"
+FILES_${PN} += "${libdir}/gettext ${datadir}/gettext"
+FILES_${PN}-utils = "${bindir}/*"
+
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "intl gettextpo gettextlib gettextsrc"
-FILES_${PN}-libintl = "${libdir}/preloadable_libintl.so"
-FILES_${PN}-libgettextlib = "${libdir}/libgettextlib-*.so"
-FILES_${PN}-libgettextsrc = "${libdir}/libgettextsrc-*.so"
-
-DEPENDS_${PN}-libgettextpo = "libiconv"
-DEPENDS_${PN}-libgettextlib = "libiconv libncurses"
-DEPENDS_${PN}-libgettextsrc = "libgettextlib libiconv libncurses libdl libm"
+AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev_${PV}"
+DEPENDS_${PN}-libintl += "libiconv"
+DEPENDS_${PN}-libgettextpo += "libiconv"
+DEPENDS_${PN}-libgettextlib += "libiconv libncurses"
+DEPENDS_${PN}-libgettextsrc += "libgettextlib libiconv libncurses libdl libm"
+FILES_${PN}-libintl += "${sharedlibdir}/preloadable_libintl${SOLIBSDEV}"
+FILES_${PN}-libgettextlib += "${sharedlibdir}/libgettextlib${SOLIBSDEV}"
+FILES_${PN}-libgettextsrc += "${sharedlibdir}/libgettextsrc${SOLIBSDEV}"
