@@ -18,7 +18,7 @@ FILES_${PN}-libcharset += "${libdir}/charset.alias"
 AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev_${PV}"
 
 PACKAGES += "${PN}-preload"
-FILES_${PN}-preload = "${libdir}/preloadable_libiconv.so"
+FILES_${PN}-preload = "${sharedlibdir}/preloadable_libiconv${SOLIBSDEV}"
 
 inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "iconv"
