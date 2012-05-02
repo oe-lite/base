@@ -1,0 +1,12 @@
+diff -urN bzip2-1.0.6new/bzip2.c bzip2-1.0.6/bzip2.c
+--- bzip2-1.0.6new/bzip2.c	2010-09-11 01:04:53.000000000 +0200
++++ bzip2-1.0.6/bzip2.c	2012-04-04 19:49:27.346868813 +0200
+@@ -128,7 +128,7 @@
+ #if BZ_LCCWIN32
+ #   include <io.h>
+ #   include <fcntl.h>
+-#   include <sys\stat.h>
++#   include <sys/stat.h>
+ 
+ #   define NORETURN       /**/
+ #   define PATH_SEP       '\\'

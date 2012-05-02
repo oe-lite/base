@@ -3,3 +3,4 @@ LICENSE = "BSD-4-Clause*"
 require bzip2.inc
 
 SRC_URI += "file://autoconfiscate.patch"
+SRC_URI += "file://mingw.patch"
