@@ -6,3 +6,5 @@ require zlib.inc
 # gcc: libz.a: No such file or directory
 # make: *** [libz.so.1.2.5] Error 1
 PARALLEL_MAKE = ""
+
+SRC_URI += "file://mingw.patch"
