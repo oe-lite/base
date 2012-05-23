@@ -1,0 +1,17 @@
+DESCRIPTION = "Hostname script for the base system."
+LICENSE = "GPL-2.0"
+
+inherit sysvinit
+RECIPE_FLAGS += "hostname_sysvinit_start"
+DEFAULT_USE_hostname_sysvinit_start = "01"
+SYSVINIT_SCRIPT_hostname = "hostname.sh"
+RDEPENDS_${PN} += "base-files"
+
+SRC_URI = "file://hostname.sh"
+
+FILES_${PN} = "${sysconfdir}"
+PACKAGES = "${PN}"
+
+do_install () {
+        sysvinit_install_script ${SRCDIR}/hostname.sh
+}
