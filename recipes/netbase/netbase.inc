@@ -1,7 +1,6 @@
 # -*- mode:python; -*-
 DESCRIPTION = "This package provides the necessary infrastructure for basic \
 	TCP/IP based networking."
-LICENSE = "GPL"
 
 RECIPE_FLAGS = "netbase_sysvinit_start netbase_sysvinit_stop netbase_auto_if"
 
