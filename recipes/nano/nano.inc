@@ -2,7 +2,6 @@ DESCRIPTION = "GNU nano (Nano's ANOther editor, or \
 Not ANOther editor) is an enhanced clone of the \
 Pico text editor."
 HOMEPAGE = "http://www.nano-editor.org/"
-LICENSE = "GPLv2"
 
 inherit autotools-autoreconf gettext
 
