@@ -6,7 +6,6 @@ that this just provides a POSIX calling interface to PCRE; the
 regular expressions themselves still follow Perl syntax and
 semantics. The header file for the POSIX-style functions is called
 pcreposix.h."""
-LICENSE = "BSD"
 HOMEPAGE = "http://www.pcre.org/"
 
 RECIPE_TYPES = "native machine sdk"
