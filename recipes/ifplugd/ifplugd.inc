@@ -3,7 +3,6 @@ DESCRIPTION = "ifplugd is a Linux daemon which will automatically configure \
 	your ethernet device when a cable is plugged in and automatically \
 	unconfigure it if the cable is pulled."
 HOMEPAGE = "http://0pointer.de/lennart/projects/ifplugd/"
-LICENSE = "GPL"
 
 RECIPE_TYPES = "machine"
 
