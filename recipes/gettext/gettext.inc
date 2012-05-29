@@ -1,7 +1,6 @@
 # -*- mode:python; -*-
 DESCRIPTION = "The GNU internationalization library."
 HOMEPAGE = "http://www.gnu.org/software/gettext/gettext.html"
-LICENSE = "GPLv3"
 
 RECIPE_TYPES = "machine native sdk"
 
