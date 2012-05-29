@@ -1,7 +1,6 @@
 DESCRIPTION = "lftp is a sophisticated command line based file \
 transfer program. Supported protocols include FTP, HTTP, \
 and FISH."
-LICENSE = "GPLv3"
 
 RECIPE_TYPES = "machine native sdk"
 
