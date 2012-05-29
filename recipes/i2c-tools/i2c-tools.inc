@@ -1,5 +1,4 @@
 DESCRIPTION = "Set of i2c tools for linux"
-LICENSE = "GPLv2"
 
 inherit autotools auto-package-utils
 
