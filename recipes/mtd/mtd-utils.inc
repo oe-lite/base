@@ -1,7 +1,6 @@
 # -*- mode:python; -*-
 DESCRIPTION = "Tools for managing memory technology devices."
 HOMEPAGE = "http://www.linux-mtd.infradead.org/"
-LICENSE = "GPLv2"
 
 RECIPE_TYPES = "machine native sdk"
 
