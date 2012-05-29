@@ -3,7 +3,6 @@ which allows individual devices on an IP network to get their own \
 network configuration information from a server.  DHCP helps make it \
 easier to administer devices."
 HOMEPAGE = "http://www.isc.org/"
-LICENSE = "ISC"
 
 RECIPE_TYPES = "machine"
 
