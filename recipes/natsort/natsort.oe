@@ -1,5 +1,6 @@
 DESCRIPTION = "Perform 'natural order' comparisons of strings"
 HOMEPAGE = "http://sourcefrog.net/projects/natsort/"
+LICENSE = "Zlib"
 
 RECIPE_TYPES = "machine"
 
