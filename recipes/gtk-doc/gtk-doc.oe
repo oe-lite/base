@@ -1,5 +1,5 @@
 SRC_URI = "file://gtk-doc.m4"
-LICENSE = "LGPL"
+LICENSE = "GPL-2.0"
 PR = "r3"
 
 RECIPE_TYPES = "native cross sdk-cross"
