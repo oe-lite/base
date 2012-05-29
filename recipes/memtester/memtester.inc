@@ -1,5 +1,4 @@
 DESCRIPTION = "Utility to test for faulty memory subsystem"
-LICENSE = "GPLv2"
 
 inherit c make
 
