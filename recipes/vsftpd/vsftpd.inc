@@ -1,6 +1,5 @@
 # -*- mode:python; -*-
 DESCRIPTION = "Secure ftp daemon"
-LICENSE = "GPL"
 
 RDEPENDS_SYSVINIT = ""
 inherit c make sysvinit
