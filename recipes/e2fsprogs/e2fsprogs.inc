@@ -1,7 +1,6 @@
 # -*- mode:python; -*-
 DESCRIPTION = "EXT2 Filesystem Utilities"
 HOMEPAGE = "http://e2fsprogs.sf.net"
-LICENSE = "GPL"
 
 RECIPE_TYPES = "machine native sdk"
 
