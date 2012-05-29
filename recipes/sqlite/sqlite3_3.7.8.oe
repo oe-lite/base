@@ -1,3 +1,5 @@
+LICENSE = "custom"
+
 require sqlite3.inc
 
 addhook sqlite3_file_version_mangle to post_recipe_parse first
