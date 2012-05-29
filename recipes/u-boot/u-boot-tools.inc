@@ -1,7 +1,6 @@
 # -*- mode:python; -*-
 DESCRIPTION = "Das U-Boot bootloader native tools"
 HOMEPAGE ?= "http://www.denx.de/wiki/U-Boot"
-LICENSE = "GPL"
 
 RECIPE_TYPES = "native sdk"
 
