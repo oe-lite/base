@@ -1,7 +1,7 @@
 # -*- mode:python; -*-
 DESCRIPTION = "A sophisticated network protocol analyzer"
 HOMEPAGE = "http://www.tcpdump.org/"
-LICENSE = "BSD"
+LICENSE = "BSD-4-Clause*"
 
 RECIPE_TYPES = "machine"
 
