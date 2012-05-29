@@ -1,5 +1,5 @@
 DESCRIPTION = "Miscellaneous files for the base system."
-LICENSE = "GPL"
+LICENSE = "GPL-2.0"
 
 RECIPE_TYPES = "machine"
 
