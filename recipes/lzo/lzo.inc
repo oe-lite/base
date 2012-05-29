@@ -1,6 +1,5 @@
 DESCRIPTION = "Lossless data compression library"
 HOMEPAGE = "http://www.oberhumer.com/opensource/lzo/"
-LICENSE = "GPLv2"
 
 RECIPE_TYPES = "machine native sdk"
 
