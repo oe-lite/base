@@ -6,7 +6,6 @@ versions of DOS and Windows, OS/2, Linux and many others. Samba is an
 important component to seamlessly integrate Linux/Unix Servers and
 Desktops into Active Directory environments using the winbind
 daemon."""
-LICENSE = "GPL"
 
 DEPENDS = "libreadline \
            libiconv \

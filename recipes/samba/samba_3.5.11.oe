@@ -1,7 +1,7 @@
 # -*- mode:python; -*-
 require samba.inc
 require samba-basic.inc
-LICENSE = "GPLv3"
+LICENSE = "GPL-3.0+"
 S = "${SRCDIR}/samba-${PV}/source3"
 
 SRC_URI += "file://config-h.patch"
