@@ -1,7 +1,6 @@
 # -*- mode:python; -*-
 DESCRIPTION = "Jim Clarkes XML parser library."
 HOMEPAGE = "http://expat.sf.net/"
-LICENSE = "MIT"
 
 RECIPE_TYPES = "machine native sdk"
 

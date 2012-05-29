@@ -1,3 +1,5 @@
+LICENSE = "MIT"
+
 require expat.inc
 
 SRC_URI += "file://autotools.patch"
