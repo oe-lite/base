@@ -3,7 +3,7 @@ software package offering a consistent, medium-independent, \
 cross-platform approach to connection establishment, terminal \
 sessions, file transfer, character-set translation, and automation \
 of communication tasks."
-LICENSE = "Kermit"
+LICENSE = "BSD-3-Clause*"
 HOMEPAGE = "http://www.columbia.edu/kermit/"
 
 inherit c make
