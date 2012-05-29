@@ -1,6 +1,6 @@
 # -*- mode:python; -*-
 DESCRIPTION = "A tool to make device nodes"
-LICENSE = "GPL"
+LICENSE = "GPL-2.0"
 
 RECIPE_TYPES = "native"
 
