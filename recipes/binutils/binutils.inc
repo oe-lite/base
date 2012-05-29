@@ -9,7 +9,6 @@ files), objcopy (copy and translate object files), objdump (Display \
 object information), and other tools and related libraries."
 HOMEPAGE = "http://www.gnu.org/software/binutils/"
 BUGTRACKER = "http://sourceware.org/bugzilla/"
-LICENSE = "GPLv3"
 
 inherit autotools gettext
 
