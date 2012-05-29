@@ -1,4 +1,6 @@
 # -*- mode:python; -*-
+LICENSE = "LGPL-2.0+"
+
 require ${PN}.inc
 
 SRC_URI += "file://glibconfig-sysdefs.h"
