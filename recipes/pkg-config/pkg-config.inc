@@ -4,7 +4,6 @@ compile/link flags that works with automake and autoconf. \
 It replaces the ubiquitous *-config scripts you may have \
 seen with a single tool."
 HOMEPAGE = "http://pkg-config.freedesktop.org/wiki/"
-LICENSE = "GPL"
 
 RECIPE_TYPES = "machine native sdk"
 
