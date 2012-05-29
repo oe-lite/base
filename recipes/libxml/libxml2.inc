@@ -1,5 +1,4 @@
 DESCRIPTION = "GNOME XML Parser library"
-LICENSE = "MIT"
 
 RECIPE_TYPES = "machine native sdk"
 
