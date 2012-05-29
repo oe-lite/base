@@ -1,7 +1,7 @@
 DESCRIPTION = "Valgrind memory debugger"
 HOMEPAGE = "http://valgrind.org/"
 BUGTRACKER = "http://valgrind.org/support/bug_reports.html"
-LICENSE = "GPLv2+ & BSD & FDLv1.2"
+LICENSE = "GPL-2.0 & GPL-2.0+ & BSD-3-Clause & GFDL-1.2"
 
 inherit autotools-autoreconf auto-package-utils
 
