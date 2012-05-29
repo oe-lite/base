@@ -1,4 +1,6 @@
 # -*- mode:python; -*-
+LICENSE = "GPL-3.0"
+
 require binutils.inc
 BINUTILS_VERSION = "2.21.1"
 S = "${SRCDIR}/binutils-${BINUTILS_VERSION}"
