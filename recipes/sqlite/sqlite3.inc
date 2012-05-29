@@ -1,7 +1,6 @@
 # -*- mode:python; -*-
 DESCRIPTION = "An Embeddable SQL Database Engine"
 HOMEPAGE = "http://www.sqlite.org"
-LICENSE = "PD"
 
 RECIPE_TYPES = "machine"
 
