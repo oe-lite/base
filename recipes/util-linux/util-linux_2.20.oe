@@ -1,4 +1,6 @@
 # -*- mode:python; -*-
+LICENSE = "GPL-3.0+ & GPL-2.0+ & GPL-2.0 & LGPL-2.0+ & BSD-4-Clause-UC*"
+
 require util-linux.inc
 
 # Add define for backwards compatibility with old and unofficial function

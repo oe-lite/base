@@ -1,7 +1,6 @@
 # -*- mode:python; -*-
 DESCRIPTION = "Util-linux is a suite of essential utilities for any \
 	Linux system."
-LICENSE = "GPL"
 
 RECIPE_TYPES = "machine native sdk"
 
