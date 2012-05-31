@@ -1,0 +1,3 @@
+# base rootfs class
+inherit rootfs
+CLASS_RDEPENDS += "base-hostname"
