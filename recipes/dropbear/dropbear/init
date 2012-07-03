@@ -70,6 +70,7 @@ done
 case "$1" in
   start)
 	echo -n "Starting $DESC: "
+	splash_progress PLACEHOLDER
 	gen_keys
 	KEY_ARGS=""
 	test -f $DROPBEAR_DSSKEY && KEY_ARGS="$KEY_ARGS -d $DROPBEAR_DSSKEY"
