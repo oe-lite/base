@@ -95,3 +95,8 @@ RECIPE_FLAGS += "dbus_sysvinit_start dbus_sysvinit_stop"
 SYSVINIT_SCRIPT_dbus = "dbus-1"
 DEFAULT_USE_dbus_sysvinit_start = "25"
 DEFAULT_USE_dbus_sysvinit_stop = "25"
+
+inherit splashutils-progress
+RECIPE_FLAGS += "dbus_1_splashutils_progress dbus_1_splashutils_msg"
+SPLASHUTILS_INITSCRIPTS = "dbus_1"
+DEFAULT_USE_dbus_1_splashutils_msg = "\"Starting Dbus\""
