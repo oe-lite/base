@@ -16,6 +16,7 @@ case "$1" in
 		echo "$HTTPROOT is missing."
 		exit 1
 	fi
+	splash_progress PLACEHOLDER
 	start-stop-daemon -S -b -n $NAME -a $DAEMON -- $ARGS
 	echo "done."
 	;;

@@ -2,6 +2,8 @@
 MDEV=/sbin/mdev
 DESC="Busybox mdev setup"
 
+splash_progress PLACEHOLDER
+
 # Complain if thing's aren't right
 if [ ! -e /proc/filesystems ]; then
   echo "mdev requires a mounted procfs, not started."
