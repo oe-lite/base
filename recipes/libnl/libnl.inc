@@ -12,4 +12,8 @@ AUTO_PACKAGE_UTILS = "\
 n1-class-add nl-class-delete n1-class-lookup \
 nl-class-list nl-cls-add nl-cls-delete nl-cls-list \
 nl-link-list nl-pktloc-lookup nl-qdisc-add \
-nl-qdisc-delete nl-qdisc-list"
+nl-qdisc-delete nl-qdisc-list nl-class-add \
+nl-classid-lookup"
+
+RDEPENDS_${PN} += "libm libpthread libc"
+AUTO_PACKAGE_UTILS_RDEPENDS += "${PN}"

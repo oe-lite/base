@@ -3,3 +3,11 @@ require ${PN}.inc
 AUTO_PACKAGE_LIBS = "nl-route-3 nl-nf-3 nl-genl-3 nl-cli-3"
 
 SRC_URI += "file://fix-pc-file.patch"
+AUTO_PACKAGE_UTILS_RDEPENDS += "libnl-route-3 \
+				libnl-genl-3 \
+				libnl-nf-3"
+RDEPENDS_${PN}-libnl-nf-3 += "${PN} libnl-route-3"
+RDEPENDS_${PN}-libnl-cli-3 += "${PN} \
+				libnl-route-3 \
+				libnl-genl-3 \
+				libnl-nf-3"
