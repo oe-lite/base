@@ -1,5 +1,7 @@
 # -*- mode:python; -*-
 
+inherit splashutils-progress
+
 do_configure () {
         set -e
         unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
@@ -113,6 +115,9 @@ CONFIG_FEATURE_MDEV_EXEC,\
 CONFIG_FEATURE_MDEV_LOAD_FIRMWARE"
 RECIPE_FLAGS += "busybox_mdev_sysvinit_start"
 DEFAULT_USE_busybox_mdev_sysvinit_start = "10"
+RECIPE_FLAGS += "busybox_mdev_splashutils_progress busybox_mdev_splashutils_msg"
+SPLASHUTILS_INITSCRIPTS:>USE_busybox_mdev += " busybox_mdev"
+DEFAULT_USE_busybox_mdev_splashutils_msg = "\"Starting Mdev\""
 
 RECIPE_FLAGS += "busybox_klogd \
         busybox_klogd_sysvinit_start busybox_klogd_conlevel"
@@ -128,6 +133,9 @@ do_configure_busybox_klogd () {
         .config
         sed -i -e 's/^#\(CONSOLE_LEVEL\)=.*/\1="-c ${USE_busybox_klogd_conlevel}"/' ${SRCDIR}/busybox-klogd
 }
+RECIPE_FLAGS += "busybox_klogd_splashutils_progress busybox_klogd_splashutils_msg"
+SPLASHUTILS_INITSCRIPTS:>USE_busybox_klogd += " busybox_klogd"
+DEFAULT_USE_busybox_klogd_splashutils_msg = "\"Starting Busybox Klogd\""
 
 RECIPE_FLAGS += "busybox_syslogd \
         busybox_syslogd_sysvinit_start busybox_syslogd_sysvinit_stop \
@@ -187,6 +195,9 @@ do_configure_busybox_syslogd_rotate () {
                -e 's/^#\(ROTATE_N\)=.*/\1="-b ${USE_busybox_syslogd_rotate_n}"/' \
         ${SRCDIR}/busybox-syslogd
 }
+RECIPE_FLAGS += "busybox_syslogd_splashutils_progress busybox_syslogd_splashutils_msg"
+SPLASHUTILS_INITSCRIPTS:>USE_busybox_syslogd += " busybox_syslogd"
+DEFAULT_USE_busybox_syslogd_splashutils_msg = "\"Starting Busybox Syslogd\""
 
 BUSYBOX_SIMPLE_USE_FLAGS += "logger=1:util/"
 
@@ -199,6 +210,9 @@ RECIPE_FLAGS += "busybox_hwclock_sysvinit_start busybox_hwclock_sysvinit_stop"
 DEFAULT_USE_busybox_hwclock = "1"
 DEFAULT_USE_busybox_hwclock_sysvinit_start = "15"
 DEFAULT_USE_busybox_hwclock_sysvinit_stop  = "15"
+RECIPE_FLAGS += "busybox_hwclock_splashutils_progress busybox_hwclock_splashutils_msg"
+SPLASHUTILS_INITSCRIPTS:>USE_busybox_hwclock += " busybox_hwclock"
+DEFAULT_USE_busybox_hwclock_splashutils_msg = "\"Starting Busybox HWclock\""
 
 RECIPE_FLAGS += "busybox_hwclock_crontab"
 # USE flag: synchronize to rtc every hour using crond
@@ -220,6 +234,9 @@ do_configure_busybox_cron () {
                -e 's/^# \(CONFIG_CRONTAB\) is not set/\1=y/' \
         .config
 }
+RECIPE_FLAGS += "busybox_crond_splashutils_progress busybox_crond_splashutils_msg"
+SPLASHUTILS_INITSCRIPTS:>USE_busybox_cron += " busybox_crond"
+DEFAULT_USE_busybox_crond_splashutils_msg = "\"Starting Busybox crond\""
 
 RECIPE_FLAGS += "busybox_watchdog \
         busybox_watchdog_sysvinit_start busybox_watchdog_sysvinit_stop \
@@ -241,6 +258,9 @@ do_configure_busybox_watchdog () {
         sed -i -e 's|^\(WATCHDOG\)=.*|\1="${USE_busybox_watchdog_dev}"|' \
         ${SRCDIR}/busybox-watchdog.runit
 }
+RECIPE_FLAGS += "busybox_watchdog_splashutils_progress busybox_watchdog_splashutils_msg"
+SPLASHUTILS_INITSCRIPTS:>USE_busybox_watchdog += " busybox_watchdog"
+DEFAULT_USE_busybox_watchdog_splashutils_msg = "\"Starting Busybox watchdog\""
 
 RECIPE_FLAGS += "busybox_udhcpc \
 "
@@ -300,6 +320,9 @@ BUSYBOX_SIMPLE_USE_FLAGS += "daytime:service/:CONFIG_FEATURE_INETD_SUPPORT_BUILT
 BUSYBOX_SIMPLE_USE_FLAGS += "chargen:service/:CONFIG_FEATURE_INETD_SUPPORT_BUILTIN_CHARGEN"
 # USE flag: enable inetd builtin rpc
 BUSYBOX_SIMPLE_USE_FLAGS += "rpc:service/:CONFIG_FEATURE_INETD_RPC"
+RECIPE_FLAGS += "busybox_inetd_splashutils_progress busybox_inetd_splashutils_msg"
+SPLASHUTILS_INITSCRIPTS:>USE_busybox_inetd += " busybox_inetd"
+DEFAULT_USE_busybox_inetd_splashutils_msg = "\"Starting Busybox inetd\""
 
 # USE flag: enable ntpd client daemon
 BUSYBOX_SIMPLE_USE_FLAGS += "ntpd:ntp-client"
@@ -314,6 +337,9 @@ do_configure_busybox_ntpd_configuration () {
 }
 # USE flag: enable ntpd server support
 BUSYBOX_SIMPLE_USE_FLAGS += "ntpd_server:service/ntp:CONFIG_FEATURE_NTPD_SERVER"
+RECIPE_FLAGS += "busybox_ntpd_splashutils_progress busybox_ntpd_splashutils_msg"
+SPLASHUTILS_INITSCRIPTS:>USE_busybox_ntpd += " busybox_ntpd"
+DEFAULT_USE_busybox_ntpd_splashutils_msg = "\"Starting Busybox ntpd\""
 
 # USE flag: enable httpd server
 BUSYBOX_SIMPLE_USE_FLAGS += "httpd:service/http"
@@ -322,6 +348,9 @@ BUSYBOX_SIMPLE_USE_FLAGS += "httpd:service/http"
 RECIPE_FLAGS += "busybox_httpd_sysvinit_start busybox_httpd_sysvinit_stop"
 DEFAULT_USE_busybox_httpd_sysvinit_start = "0"
 DEFAULT_USE_busybox_httpd_sysvinit_stop  = "0"
+RECIPE_FLAGS += "busybox_httpd_splashutils_progress busybox_httpd_splashutils_msg"
+SPLASHUTILS_INITSCRIPTS:>USE_busybox_httpd += " busybox_httpd"
+DEFAULT_USE_busybox_httpd_splashutils_msg = "\"Starting Busybox httpd\""
 
 BUSYBOX_SIMPLE_USE_FLAGS += "tftp:util/:\
 CONFIG_TFTP,\

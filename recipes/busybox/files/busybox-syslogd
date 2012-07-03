@@ -8,6 +8,7 @@ FILE="-O /var/log/messages"
 
 case "$1" in
     start)
+	splash_progress PLACEHOLDER
 	syslogd -S $FILE $REMOTE $ROTATE_SIZE $ROTATE_N
         ;;
     stop)

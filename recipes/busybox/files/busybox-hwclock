@@ -24,6 +24,7 @@
 
 case "$1" in
         start)
+		splash_progress PLACEHOLDER
                 if [ "$VERBOSE" != no ]
                 then
                         echo "System time was `date`."

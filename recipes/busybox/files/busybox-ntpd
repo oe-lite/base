@@ -3,6 +3,7 @@
 
 case "$1" in
     start)
+	splash_progress PLACEHOLDER
 	if [ -n "$NTPSERVERS" ] ; then
 		ntpd $NTPSERVERS
 	fi

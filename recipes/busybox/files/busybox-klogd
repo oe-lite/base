@@ -4,6 +4,7 @@
 
 case "$1" in
     start)
+	splash_progress PLACEHOLDER
 	klogd $CONSOLE_LEVEL
         ;;
 esac

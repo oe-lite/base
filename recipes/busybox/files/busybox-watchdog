@@ -5,6 +5,7 @@ WATCHDOG=/dev/watchdog
 
 case "$1" in
     start)
+	splash_progress PLACEHOLDER
 	[ -f $PIDFILE ] \
 	    && kill `cat $PIDFILE`
 	watchdog -t 1 -F $WATCHDOG &
