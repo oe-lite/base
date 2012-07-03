@@ -29,3 +29,9 @@ do_install[postfuncs] =+ "${INSTALL_SYSVINIT_POSTFUNC}"
 do_install_sysvinit_dupdate () {
     sysvinit_install_script ${S}/src/dupdate.sh dupdate
 }
+
+inherit splashutils-progress
+RECIPE_FLAGS += "dupdate_splashutils_progress dupdate_splashutils_msg"
+SPLASHUTILS_INITSCRIPTS = ""
+SPLASHUTILS_INITSCRIPTS:USE_sysvinit = "dupdate"
+DEFAULT_USE_dupdate_splashutils_msg = "\"Starting Dupdate Daemon\""

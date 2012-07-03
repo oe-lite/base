@@ -1,0 +1,12 @@
+diff --git a/src/dupdate.sh b/src/dupdate.sh
+index 6af4966..36707dc 100755
+--- a/src/dupdate.sh
++++ b/src/dupdate.sh
+@@ -13,6 +13,7 @@ set -e
+ case "$1" in
+     start)
+         echo -n "starting $DESC: $NAME... "
++	splash_progress PLACEHOLDER
+ 	[ -d $DIR ] && rm -rf $DIR
+ 	mkdir -p $DIR
+ 	start-stop-daemon -S -n $NAME -a $DAEMON -- $ARGS

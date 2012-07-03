@@ -1,5 +1,7 @@
 require dupdate.inc
 
+SRC_URI:>USE_sysvinit += " file://splash_progress.patch"
+
 #SRC_REV = "tag=v${PV}"
 # We cheat and take the commit after 1.0.1 tag, which has a small help
 # text bugfix
