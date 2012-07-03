@@ -83,3 +83,8 @@ inherit sysvinit
 RECIPE_FLAGS += "dropbear_sysvinit_start dropbear_sysvinit_stop"
 DEFAULT_USE_dropbear_sysvinit_start	= "25"
 DEFAULT_USE_dropbear_sysvinit_stop	= "0"
+
+inherit splashutils-progress
+RECIPE_FLAGS += "dropbear_splashutils_progress dropbear_splashutils_msg"
+SPLASHUTILS_INITSCRIPTS = "dropbear"
+DEFAULT_USE_dropbear_splashutils_msg = "\"Starting Dropbear\""
