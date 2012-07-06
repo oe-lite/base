@@ -65,4 +65,5 @@ FILES_${PN}:>USE_busybox_tftpd = " ${USE_busybox_tftpd_dir}"
 FILES_${PN}:>USE_busybox_ftpd = " ${USE_busybox_ftpd_dir}"
 
 RDEPENDS_${PN} = "netbase base-passwd base-files ${LIB_DEPENDS}"
+BUSYBOX_PROVIDES += "util/awk"
 PROVIDES_${PN} = "${BUSYBOX_PROVIDES}"
