@@ -631,6 +631,10 @@ BUSYBOX_SIMPLE_USE_FLAGS += "swaponoff:util/"
 # USE flag: enable feature mount loop
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_mount_loop"
 
+BUSYBOX_SIMPLE_USE_FLAGS += "stat:util/:\
+CONFIG_STAT,\
+CONFIG_FEATURE_STAT_FORMAT"
+
 BUSYBOX_SIMPLE_USE_FLAGS += "blkid:util/:\
 CONFIG_BLKID,\
 CONFIG_VOLUMEID,\
