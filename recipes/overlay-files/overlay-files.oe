@@ -1,0 +1,52 @@
+DESCRIPTION = "Script for managing overlay files"
+
+# To use this, add "inherit overlay-files" to your filesystem recipe,
+# and set the following USE flags:
+#   USE_overlay_files           a space separated list of file paths
+#   USE_overlay_files_dir       a directory path
+#   USE_overlay_files_base      a directory path
+#
+# The filesystem generated will then support overlaying the files
+# specified in USE_overlay_files in the directory specified in
+# USE_overlay_files_base (default "", ie. root) with the files in the
+# directory specified in USE_overlay_files_dir.
+#
+# With
+#   USE_overlay_files      = "foo/bar hello"
+#   USE_overlay_files_dir  = "/overlay"
+#   USE_overlay_files_base = ""
+# the /overlay dir will be checked when target boots, and if
+# /overlay/foo/bar is found, then /foo/bar will be made into a symlink
+# to /overlay/foo/bar, and similar for hello.  If a normal file is
+# found as a normal file, it will be renamed to /foo/bar.default
+# before creating the symlink.
+
+SRC_URI = "file://overlay.sh"
+
+inherit sysvinit
+SYSVINIT_SCRIPTS = "overlay.sh"
+RECIPE_FLAGS += "overlay_files_overlay_sysvinit_start"
+SYSVINIT_SCRIPT_overlay_files_overlay = "overlay.sh"
+DEFAULT_USE_overlay_files_overlay_sysvinit_start = "12"
+
+VARS_TO_REPLACE = "OVERLAY_FILES_ETC USE_overlay_files_dir USE_overlay_files_base"
+
+S = "${SRCDIR}"
+
+require conf/overlay-files.conf
+
+def do_compile(d):
+    with open(os.path.join(d.get("S"), "overlay.sh")) as script_file:
+        script = script_file.read()
+    for var in (d.get("VARS_TO_REPLACE") or "").split():
+        val = d.get(var) or ""
+        print "%s = %r"%(var, val)
+        script = script.replace("${%s}"%(var), val)
+    with open(os.path.join(d.get("B"), "overlay.sh"), "w") as script_file:
+        script_file.write(script)
+
+do_install() {
+	sysvinit_install_script ${B}/overlay.sh overlay.sh
+}
+
+PACKAGES = "${PN}"
