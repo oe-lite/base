@@ -1,0 +1,22 @@
+# FIXME: when OE-lite is extended with support for packages to include
+# rstage fixup scripts/functions, move this to the overlay-files
+# recipe/package.
+
+require conf/overlay-files.conf
+
+OVERLAY_FILES_RSTAGE_POSTFUNC:>USE_overlay_files = " do_rstage_overlay_files"
+do_rstage[postfuncs] += "${OVERLAY_FILES_RSTAGE_POSTFUNC}"
+
+do_rstage_overlay_files[dirs] = "${RSTAGE_DIR}"
+do_rstage_overlay_files () {
+    for file in $USE_overlay_files ; do
+        if test -e ./$file ; then
+            mv ./$file ./$file.default
+            ln -sf `basename $file`.default ./$file
+        fi
+        echo $file >> ./${OVERLAY_FILES_ETC}
+    done
+}
+
+CLASS_RDEPENDS_OVERLAY_FILES ?= "overlay-files"
+CLASS_RDEPENDS += "${CLASS_RDEPENDS_OVERLAY_FILES}"
