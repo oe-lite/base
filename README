@@ -1,0 +1,8 @@
+OE-lite/base metadata
+---------------------
+
+This is the base metadata of the OE-lite project, containing recipes for
+building essential software components of typical embedded Linux systems.
+
+OE-lite is an embedded Linux build system,
+See http://oe-lite.org for more information.
