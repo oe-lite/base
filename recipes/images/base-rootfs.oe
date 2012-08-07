@@ -1,1 +1,1 @@
-inherit rootfs jffs2-image ext2-image cpio-image
+inherit rootfs jffs2-image ext2-image cpio-image archive-image
