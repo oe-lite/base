@@ -1,0 +1,8 @@
+include tslib.inc
+
+DEFAULT_PREFERENCE = "-1"
+
+SRC_URI = "git://github.com/kergoth/tslib.git;commit=f6c499a523bff845ddd57b1d96c9d1389f0df17b"
+S = "${SRCDIR}/tslib"
+
+SRC_URI += "${SRC_URI_EXTRA}"
