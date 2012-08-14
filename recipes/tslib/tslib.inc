@@ -6,8 +6,9 @@ LICENSE = "LGPLv2"
 inherit c++ autotools-autoreconf pkgconfig library
 
 SRC_URI = "http://download.berlios.de/${PN}/${P}.tar.bz2"
-SRC_URI += "file://ts.conf"
-SRC_URI += "file://tslib.sh"
+
+SRC_URI_EXTRA = "file://ts.conf file://tslib.sh"
+SRC_URI += "${SRC_URI_EXTRA}"
 
 DEPENDS += "libdl"
 
