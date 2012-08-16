@@ -3,8 +3,6 @@ DESCRIPTION = "Secure ftp daemon"
 
 inherit c make sysvinit
 
-RECIPE_FLAGS += "vsftpd_config"
-
 SRC_URI = "https://security.appspot.com/downloads/vsftpd-${PV}.tar.gz"
 SRC_URI += "file://init file://vsftpd.conf"
 
@@ -60,12 +58,11 @@ DEFAULT_USE_vsftpd_sysvinit_start	= "20"
 DEFAULT_USE_vsftpd_sysvinit_stop	= "20"
 
 RDEPENDS_${PN} = "libcrypt libnsl libresolv libc"
-
-DEFAULT_USE_vsftpd_config = "${PN}-conf"
-RDEPENDS_${PN} += "${USE_vsftpd_config}"
 FILES_${PN} += "/var/share/empty"
-PACKAGES =+ "${PN}-conf"
-FILES_${PN}-conf = "${sysconfdir}/vsftpd.conf"
+
+PACKAGES =+ "${PN}-config"
+RDEPENDS_${PN} += "${PN}-config"
+FILES_${PN}-config = "${sysconfdir}/vsftpd.conf"
 
 # FIXME: do something else!
 #pkg_postinst() {
