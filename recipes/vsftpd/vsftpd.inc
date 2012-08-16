@@ -1,7 +1,6 @@
 # -*- mode:python; -*-
 DESCRIPTION = "Secure ftp daemon"
 
-RDEPENDS_SYSVINIT = ""
 inherit c make sysvinit
 
 RECIPE_FLAGS += "vsftpd_config"
