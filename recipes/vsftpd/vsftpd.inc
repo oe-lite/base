@@ -67,6 +67,10 @@ FILES_${PN} += "/var/share/empty"
 PACKAGES =+ "${PN}-conf"
 FILES_${PN}-conf = "${sysconfdir}/vsftpd.conf"
 
+PACKAGES =+ "${PN}-init"
+RDEPENDS_${PN}:>USE_sysvinit += "${PN}-init"
+FILES_${PN}-init = "${sysconfdir}/init.d ${sysconfdir}/rc?.d"
+
 # FIXME: do something else!
 #pkg_postinst() {
 #    if [ "x$D" != "x" ]; then
