@@ -56,8 +56,8 @@ BJAM_OPTIONS += "'-sBUILD=release <optimization>space <inlining>on <debug-symbol
 BJAM_OPTIONS += "'--layout=system'"
 
 # Generate boost jam compiler options
-addhook boost_flags to post_recipe_parse last
-def boost_flags(d):
+do_configure[prefuncs] += "boost_flags"
+python boost_flags() {
     import bb
 
     cflags = (bb.data.getVar('CFLAGS', d, True) or '').split( )
@@ -77,7 +77,12 @@ def boost_flags(d):
     for ldflag in ldflags:
         boost_ldflags.append('<linkflags>%s'%(ldflag))
     bb.data.setVar('BJAM_LINKFLAGS', ' '.join(boost_ldflags), d)
+}
 
+# Needs to be defined for early parsing
+BJAM_CFLAGS=""
+BJAM_CXXFLAGS=""
+BJAM_LINKFLAGS=""
 do_configure () {
     cp -f boost/config/platform/linux.hpp \
           boost/config/platform/linux-gnueabi.hpp
