@@ -1,5 +1,4 @@
 DESCRIPTION = "Base system password/group files."
-LICENSE = "GPL"
 
 DEFAULT_PREFERENCE = "-1"
 
