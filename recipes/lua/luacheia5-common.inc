@@ -4,7 +4,7 @@ LICENSE = "zlib/libpng License, MIT License, GNU Library or Lesser General Publi
 #check http://sourceforge.net/projects/luacheia/develop/
 HOMEPAGE = "http://www.lua.org/"
 
-inherit autotools-autoreconf
+inherit autotools
 
 DEPENDS += "libm libdl readline"
 
