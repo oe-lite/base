@@ -1,0 +1,17 @@
+--- a/wpa_supplicant-0.7.3/wpa_supplicant/Makefile	2010-09-07 17:43:39.000000000 +0200
++++ b/wpa_supplicant-0.7.3/wpa_supplicant/Makefile	2012-08-13 10:52:36.862324445 +0200
+@@ -1053,10 +1053,10 @@
+ endif
+ DBUS_OBJS += dbus/dbus_dict_helpers.o
+ ifndef DBUS_LIBS
+-DBUS_LIBS := $(shell pkg-config --libs dbus-1)
++DBUS_LIBS := -ldbus-1
+ endif
+ ifndef DBUS_INCLUDE
+-DBUS_INCLUDE := $(shell pkg-config --cflags dbus-1)
++DBUS_INCLUDE := 
+ endif
+ dbus_version=$(subst ., ,$(shell pkg-config --modversion dbus-1))
+ DBUS_VERSION_MAJOR=$(word 1,$(dbus_version))
+
+Diff finished.  Mon Aug 13 10:54:02 2012
