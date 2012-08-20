@@ -5,6 +5,7 @@ LICENSE = "LGPLv2.1"
 
 inherit autotools-autoreconf pkgconfig auto-package-libs auto-package-utils
 DEPENDS += "libm libpthread libdl"
+DEPENDS_${PN} += "libm libpthread libdl"
 
 SRC_URI = "http://www.infradead.org/~tgr/${PN}/files/${PN}-${PV}.tar.gz"
 
