@@ -8,7 +8,7 @@ inherit c++ autotools-autoreconf pkgconfig largefile
 
 DEPENDS = "libncurses libreadline"
 
-RDEPENDS_${PN} = "libreadline"
+RDEPENDS_${PN} = "libncurses libreadline libstdc++ libm libgcc libc"
 
 LFTP_MIRROR = "http://ftp.yar.ru/pub/source/lftp"
 
