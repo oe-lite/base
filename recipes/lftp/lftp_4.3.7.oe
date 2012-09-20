@@ -1,0 +1,5 @@
+LICENSE = "GPL-3.0+"
+
+require lftp.inc
+
+DEFAULT_PREFERENCE = "-1"
