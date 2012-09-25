@@ -1,1 +1,0 @@
-fe90aaa453537fdfbb199389a983dbf03901a87c  lftp-4.3.7.tar.bz2
