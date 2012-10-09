@@ -1,5 +1,3 @@
 LICENSE = "GPL-2.0"
 
 require ${PN}.inc
-
-SRC_URI += "file://nopam.patch"
