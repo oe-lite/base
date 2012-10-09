@@ -7,6 +7,7 @@ inherit autotools pkgconfig library binconfig
 SRC_URI = "ftp://xmlsoft.org/${PN}/${PN}-${PV}.tar.gz"
 
 DEPENDS = "libdl libm"
+RDEPENDS_${PN} = "libdl libm"
 
 EXTRA_OECONF = "\
  --without-legacy \
