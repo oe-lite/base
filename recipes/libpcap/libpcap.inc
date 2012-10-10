@@ -51,3 +51,5 @@ do_install () {
 	install -d ${D}${includedir}/net
 	ln -sf ../pcap-bpf.h ${D}${includedir}/net/bpf.h
 }
+
+RDEPENDS_${PN} = "libc libgcc"
