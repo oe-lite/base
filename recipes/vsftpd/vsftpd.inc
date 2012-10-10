@@ -32,9 +32,9 @@ do_configure() {
     # Configure CFLAGS and hardcode LIBS
     mv Makefile.new Makefile
     cat Makefile \
-        | sed -e 's:^\(CC.*=\).*:\1 ${CC}:g' \
-        | sed -e 's:^\(CFLAGS.*=\).*:\1 ${CFLAGS}:g' \
-        | sed -e 's:^\(LIBS.*=\).*:\1 -lnsl -lresolv -lcrypt:g' \
+        | sed -e 's:^\(CC\s*=\).*:\1 ${CC}:g' \
+        | sed -e 's:^\(CFLAGS\s*=\)\(.*\):\1 ${CFLAGS} \2:g' \
+        | sed -e 's:^\(LIBS\s*=\).*:\1 -lnsl -lresolv -lcrypt:g' \
         > Makefile.new
     mv Makefile.new Makefile
 }
