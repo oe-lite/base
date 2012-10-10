@@ -1,0 +1,5 @@
+LICENSE = "GPL-2.0+"
+
+require ${PN}.inc
+
+DEFAULT_PREFERENCE = "-1"
