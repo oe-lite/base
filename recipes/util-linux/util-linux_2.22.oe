@@ -1,0 +1,8 @@
+# -*- mode:python; -*-
+LICENSE = "GPL-3.0+ & GPL-2.0+ & GPL-2.0 & LGPL-2.0+ & BSD-4-Clause-UC*"
+
+require util-linux.inc
+
+EXTRA_OECONF_PAM = " --disable-login --disable-su"
+
+DEFAULT_PREFERENCE = "-1"
