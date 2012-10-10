@@ -1,0 +1,5 @@
+LICENSE = "MIT"
+
+require libxml2.inc
+
+DEFAULT_PREFERENCE = "-1"
