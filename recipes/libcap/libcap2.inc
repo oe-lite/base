@@ -14,6 +14,7 @@ S = "${SRCDIR}/libcap"
 DEPENDS = "native:bison native:flex libattr"
 
 BUILD_CFLAGS += "-I${S}/libcap/include"
+EXTRA_OEMAKE = "PAM_CAP=no"
 
 do_install() {
 	oe_runmake DESTDIR="${D}" \
