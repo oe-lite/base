@@ -18,6 +18,7 @@ SRC_URI = "${GNU_MIRROR}/binutils/binutils-${PV}.tar.bz2 "
 DEPENDS = "native:flex native:bison"
 
 EXTRA_OECONF = "--enable-install-libbfd --enable-shared"
+EXTRA_OECONF:>HOST_CPU_arm = " --disable-werror"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "bfd opcodes"
