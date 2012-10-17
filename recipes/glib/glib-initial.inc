@@ -19,6 +19,7 @@ EXTRA_OECONF += 'DBUS1_LIBS=""'
 # Minimize external dependencies for native glib
 EXTRA_OECONF += "--with-libiconv=no"
 EXTRA_OECONF += "--with-pcre=internal"
+EXTRA_OECONF += "--disable-fam"
 
 do_patch[postfuncs] += "do_patch_glib_gettextize_native"
 do_patch_glib_gettextize_native () {
