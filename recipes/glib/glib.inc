@@ -14,13 +14,13 @@ AUTORECONF_GENFILES ?= "INSTALL README"
 # autoreconf operation.  To be able to (re)run autoreconf after
 # configure, we fake them using silly stubs.
 do_autoreconf_genfiles_touch () {
-	for f in AUTORECONF_GENFILES ; do
+	for f in $AUTORECONF_GENFILES ; do
 		touch $f
         done
 }
 do_autoreconf[prefuncs] += "do_autoreconf_genfiles_touch"
 do_autoreconf_genfiles_rm () {
-	for f in AUTORECONF_GENFILES ; do
+	for f in $AUTORECONF_GENFILES ; do
 		rm $f
         done
 }
