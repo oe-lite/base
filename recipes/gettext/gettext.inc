@@ -35,6 +35,7 @@ EXTRA_OECONF += "\
 --with-included-glib \
 "
 EXTRA_OECONF:>native = " --disable-curses --with-included-gettext"
+EXTRA_OECONF:>sdk = " --disable-curses --with-included-gettext"
 
 FILES_${PN} += "${libdir}/gettext ${datadir}/gettext"
 
