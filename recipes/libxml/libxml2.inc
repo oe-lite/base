@@ -6,8 +6,10 @@ inherit autotools pkgconfig library binconfig
 
 SRC_URI = "ftp://xmlsoft.org/${PN}/${PN}-${PV}.tar.gz"
 
-DEPENDS = "libdl libm"
-RDEPENDS_${PN} = "libdl libm"
+DEPENDS = "${DEPENDS_HOST_OS} libm"
+DEPENDS_HOST_OS = "libdl"
+DEPENDS_HOST_OS:HOST_OS_mingw32 = ""
+RDEPENDS_${PN} = "${DEPENDS}"
 
 EXTRA_OECONF = "\
  --without-legacy \
@@ -16,10 +18,12 @@ EXTRA_OECONF = "\
  --without-python \
  --with-c14n"
 
-export LDFLAGS += "-ldl"
+LDFLAGS_LDL = "-ldl"
+LDFLAGS_LDL:TARGET_OS_mingw32 = ""
+export LDFLAGS += "${LDFLAGS_LDL}"
 
 PACKAGES =+ "${PN}-utils"
-FILES_${PN} = "${libexecdir}/* ${libdir}/lib*${SOLIBS} \
+FILES_${PN} = "${libexecdir}/* ${sharedlibdir}/lib*${SOLIBS} \
             ${sysconfdir} ${sharedstatedir} ${localstatedir} \
             ${base_libdir}/*${SOLIBS} \
             ${datadir}/${PN} ${libdir}/${PN}/* \
@@ -27,5 +31,5 @@ FILES_${PN} = "${libexecdir}/* ${libdir}/lib*${SOLIBS} \
             ${datadir}/idl ${datadir}/omf ${datadir}/sounds \
             ${libdir}/bonobo/servers"
 
-FILES_${PN}-utils = "${bindir}/xmllint ${bindir}/xmlcatalog ${libdir}/*.sh"
+FILES_${PN}-utils = "${bindir}/xmllint* ${bindir}/xmlcatalog* ${libdir}/*.sh"
 FILES_${PN}-doc += "${datadir}/gtk-doc"
