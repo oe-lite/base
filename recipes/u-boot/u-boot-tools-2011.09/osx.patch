@@ -1,0 +1,46 @@
+diff -urN u-boot-2011.09/tools/env/fw_env.c u-boot-2011.09.2/tools/env/fw_env.c
+--- u-boot-2011.09/tools/env/fw_env.c	2011-09-29 21:11:15.000000000 +0200
++++ u-boot-2011.09.2/tools/env/fw_env.c	2012-10-04 15:10:59.000000000 +0200
+@@ -38,6 +38,11 @@
+ #ifdef MTD_OLD
+ # include <stdint.h>
+ # include <linux/mtd/mtd.h>
++#elif __APPLE__
++# include <stdint.h>
++#define ulong unsigned long
++#include <linux/mtd/mtd-abi.h>
++typedef long long               loff_t;
+ #else
+ # define  __user	/* nothing */
+ # include <mtd/mtd-user.h>
+diff -urN u-boot-2011.09/tools/getline.h u-boot-2011.09.2/tools/getline.h
+--- u-boot-2011.09/tools/getline.h	2011-09-29 21:11:15.000000000 +0200
++++ u-boot-2011.09.2/tools/getline.h	2012-10-04 15:08:24.000000000 +0200
+@@ -1 +1,4 @@
++#ifdef __APPLE__
++#undef getline
++#endif
+ int getline(char **lineptr, size_t *n, FILE *stream);
+diff -urN u-boot-2011.09/tools/os_support.c u-boot-2011.09.2/tools/os_support.c
+--- u-boot-2011.09/tools/os_support.c	2011-09-29 21:11:15.000000000 +0200
++++ u-boot-2011.09.2/tools/os_support.c	2012-10-04 15:10:59.000000000 +0200
+@@ -23,6 +23,6 @@
+ #ifdef __MINGW32__
+ #include "mingw_support.c"
+ #endif
+-#ifdef __APPLE__
++#if defined(__APPLE__) && __DARWIN_C_LEVEL < 200809L
+ #include "getline.c"
+ #endif
+diff -urN u-boot-2011.09/tools/os_support.h u-boot-2011.09.2/tools/os_support.h
+--- u-boot-2011.09/tools/os_support.h	2011-09-29 21:11:15.000000000 +0200
++++ u-boot-2011.09.2/tools/os_support.h	2012-10-04 15:10:59.000000000 +0200
+@@ -28,7 +28,7 @@
+ #include "mingw_support.h"
+ #endif
+ 
+-#ifdef __APPLE__
++#if defined(__APPLE__) && __DARWIN_C_LEVEL < 200809L
+ #include "getline.h"
+ #endif
+ 
