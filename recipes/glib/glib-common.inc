@@ -6,12 +6,26 @@ DESCRIPTION = "GLib is a general-purpose utility library, which provides many \
 
 inherit c++ autotools
 
-DEPENDS = "host-cross:gtk-doc libz libffi ${DEPENDS_NATIVE} ${DEPENDS_HOST_OS}"
-DEPENDS_NATIVE = "native:libglib native:libgmodule native:glib-utils"
+DEPENDS = "host-cross:gtk-doc libz libffi"
+
+DEPENDS += "${DEPENDS_NATIVE}"
+DEPENDS_NATIVE = "native:libglib native:libgthread native:libgmodule native:glib-utils"
 DEPENDS_NATIVE:native = ""
-DEPENDS_HOST_OS = "libdl libpthread libresolv"
-DEPENDS_HOST_OS:HOST_OS_mingw32 = "libintl"
-DEPENDS_HOST_OS:native = ""
+
+DEPENDS += "${DEPENDS_LIBDL}"
+DEPENDS_LIBDL = "libdl"
+DEPENDS_LIBDL:HOST_OS_mingw32 = ""
+DEPENDS_LIBDL:native = ""
+
+DEPENDS += "${DEPENDS_LIBRESOLV}"
+DEPENDS_LIBRESOLV = "libresolv"
+DEPENDS_LIBRESOLV:HOST_OS_mingw32 = ""
+DEPENDS_LIBRESOLV:native = ""
+
+DEPENDS += "${DEPENDS_LIBINTL}"
+DEPENDS_LIBINTL = ""
+DEPENDS_LIBINTL:HOST_OS_mingw32 = "libintl"
+DEPENDS_LIBINTL:HOST_KERNEL_darwin = "libintl"
 
 require conf/fetch/gnome.conf
 SRC_URI_SUBDIR = "${@'.'.join(d.getVar('PV', True).split('.')[:2])}"
@@ -53,11 +67,12 @@ DEPENDS_FAM = ""
 DEPENDS_PCRE = ""
 
 DEPENDS_${PN} += "libffi"
-DEPENDS_${PN}-libglib += "libc libgcc ${DEPENDS_PCRE} ${DEPENDS_HOST_OS}"
+DEPENDS_${PN}-utils += "${PN}-libgio"
+DEPENDS_${PN}-libglib += "libc libgcc ${DEPENDS_PCRE} ${DEPENDS_LIBDL} ${DEPENDS_LIBINTL} ${DEPENDS_LIBRESOLV}"
 DEPENDS_${PN}-libgthread += "libc libglib ${DEPENDS_THREADS} ${DEPENDS_PCRE}"
 DEPENDS_${PN}-libgobject += "libc libgcc libffi libglib libgthread ${DEPENDS_THREADS} ${DEPENDS_PCRE}"
-DEPENDS_${PN}-libgmodule += "libc libdl libglib ${DEPENDS_PCRE}"
-DEPENDS_${PN}-libgio += "libc libgcc libdl libresolv libz libffi libglib libgmodule libgobject libgthread ${DEPENDS_PCRE} ${DEPENDS_THREADS}"
+DEPENDS_${PN}-libgmodule += "libc ${DEPENDS_LIBDL} libglib ${DEPENDS_PCRE}"
+DEPENDS_${PN}-libgio += "libc libgcc ${DEPENDS_LIBDL} ${DEPENDS_LIBRESOLV} libz libffi libglib libgmodule libgobject libgthread ${DEPENDS_PCRE} ${DEPENDS_THREADS}"
 
 FILES_${PN}-libgio-dev = "${libdir}/pkgconfig/gio-*-2.0.pc"
 FILES_${PN}-libgmodule-dev = "${libdir}/pkgconfig/gmodule-*-2.0.pc"
