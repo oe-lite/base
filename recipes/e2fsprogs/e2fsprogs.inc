@@ -23,8 +23,6 @@ do_compile_pre () {
 	( cd util; ${BUILD_CC} subst.c -o subst )
 }
 
-EXTRA_OEMAKE = "V=1"
-
 do_install[postfuncs] += "do_install_extra"
 do_install_extra () {
     	oe_runmake install-libs DESTDIR=${D}
