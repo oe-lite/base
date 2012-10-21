@@ -33,7 +33,7 @@ PACKAGES =+ "${PN}-utils-dbg ${PN}-utils "
 RECIPE_TYPES = "machine native"
 
 FILES_${PN}-utils-dbg = "${bindir}/.debug/*"
-FILES_${PN}-utils = "${bindir}/*"
+FILES_${PN}-utils = "${bindir}/fc*"
 FILES_${PN} += "${sysconfdir}/fonts"
 
 DEPENDS_${PN} += "libexpat libfreetype libz libc libgcc"
