@@ -6,8 +6,8 @@ S = "${SRCDIR}"
 
 do_install () {
 	install -d ${D}${sysconfdir}/
-	install -D -p -m 644 passwd ${D}${sysconfdir}/
-	install -D -p -m 644 group ${D}${sysconfdir}/
+	install -p -m 644 passwd ${D}${sysconfdir}/
+	install -p -m 644 group ${D}${sysconfdir}/
 }
 
 require root-password.inc
