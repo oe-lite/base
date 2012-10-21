@@ -1,0 +1,14 @@
+# -*- mode:python; -*-
+LICENSE = "MIT"
+
+RECIPE_TYPES = "machine native sdk"
+
+inherit library autotools
+
+SRC_URI = "http://www.mr511.de/software/${PN}-${PV}.tar.gz"
+
+EXTRA_OEMAKE_INSTALL += "instroot=${D}"
+
+EXTRA_OECONF:>TARGET_OS_darwin = "--disable-compat"
+
+FILES_${PN}-locale += "${libdir}/locale"
