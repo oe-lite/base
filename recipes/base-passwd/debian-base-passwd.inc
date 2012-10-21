@@ -8,8 +8,9 @@ SRC_URI = "${DEBIAN_MIRROR}/main/b/base-passwd/base-passwd_${PV}.tar.gz"
 S = "${SRCDIR}/base-passwd"
 
 do_install () {
-	install -D -p -m 644 passwd.master ${D}${sysconfdir}/passwd
-	install -D -p -m 644 group.master ${D}${sysconfdir}/group
+	mkdir ${D}${sysconfdir}
+	install -p -m 644 passwd.master ${D}${sysconfdir}/passwd
+	install -p -m 644 group.master ${D}${sysconfdir}/group
 }
 
 require root-password.inc
