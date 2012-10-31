@@ -1,0 +1,7 @@
+require ${PN}.inc
+
+LICENSE = "GPLv2 & (LGPLv2.1 | MPL-1.1 | BSD)"
+
+SRC_URI += "file://remove.ldconfig.call.patch"
+SRC_URI += "file://man.patch"
+SRC_URI += "file://avoid_strip.patch"
