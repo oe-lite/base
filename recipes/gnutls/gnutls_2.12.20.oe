@@ -1,0 +1,13 @@
+require gnutls.inc
+
+LICENSE = "GPLv3+ & LGPLv2.1+"
+LICENSE_${PN} = "LGPLv2.1+"
+LICENSE_${PN}-xx = "LGPLv2.1+"
+LICENSE_${PN}-bin = "GPLv3+"
+LICENSE_${PN}-extra = "GPLv3+"
+LICENSE_${PN}-openssl = "GPLv3+"
+
+SRC_URI += "file://gnutls-openssl.patch"
+SRC_URI += "file://correct_rpl_gettimeofday_signature.patch"
+SRC_URI += "file://configure-fix.patch"
+SRC_URI += "file://fix-gettext-version.patch"
