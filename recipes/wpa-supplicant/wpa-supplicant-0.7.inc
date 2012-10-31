@@ -2,13 +2,13 @@ DESCRIPTION = "A Client for Wi-Fi Protected Access (WPA)."
 HOMEPAGE = "http://hostap.epitest.fi/wpa_supplicant/"
 BUGTRACKER = "http://hostap.epitest.fi/bugz/"
 
-inherit make c++
+inherit make c++ pkgconfig
 
 LICENSE = "GPLv2 | BSD"
 
-DEPENDS += "dbus-libdbus-dev dbus-libdbus gnutls libnl-dev libnl libnl-libnl-genl-3 libnl-libnl-genl-3-dev"
+DEPENDS += "libdbus libgnutls libgnutls-extra libnl-3 libnl-genl-3 libnl-genl-3 libdl"
 
-RDEPENDS_${PN} = "wpa-supplicant-passphrase wpa-supplicant-cli"
+RDEPENDS_${PN} = "${PN}-passphrase ${PN}-cli"
 
 SRC_URI = "http://hostap.epitest.fi/releases/wpa_supplicant-${PV}.tar.gz \
            file://defconfig-gnutls \
@@ -23,14 +23,8 @@ export DBUS_INCLUDE=""
 
 S = "${SRCDIR}/wpa_supplicant-${PV}/wpa_supplicant"
 
-PACKAGES += "wpa-supplicant-passphrase wpa-supplicant-cli "
-FILES_wpa-supplicant-passphrase = "${bindir}/wpa_passphrase"
-FILES_wpa-supplicant-cli = "${sbindir}/wpa_cli"
-FILES_${PN} += "${datadir}/dbus-1/system-services/*"
-CONFFILES_${PN} += "${sysconfdir}/wpa_supplicant.conf"
-
 RDEPENDS_wpa-supplicant-passphrase += "libgcrypt"
-RDEPENDS_${PN} += "gnutls libgcrypt libgpg-error dbus-libdbus dbus"
+RDEPENDS_${PN} += "libgnutls libgnutls-extra libgcrypt libgpg-error libdbus"
 
 do_configure () {
 	install -m 0755 ${SRCDIR}/defconfig-gnutls .config
@@ -73,3 +67,8 @@ do_install () {
 	install -m 0644 ${SRCDIR}/99_wpa_supplicant ${D}/etc/default/volatiles
 }
 
+FILES_${PN} += "${datadir}/dbus-1/system-services/*"
+PROVIDES_${PN} = "util/wpa-supplicant"
+
+inherit auto-package-utils
+AUTO_PACKAGE_UTILS = "wpa_passphrase wpa_cli"
