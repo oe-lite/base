@@ -1,4 +1,0 @@
-# -*- mode:python; -*-
-require ${PN}.inc
-
-LICENSE = "MIT"
