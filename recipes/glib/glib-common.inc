@@ -29,6 +29,7 @@ do_install[postfuncs] += "do_install_unmangle"
 do_install_unmangle() {
     sed -i -e s:${STAGE_DIR}/native${stage_bindir}:${bindir}:g \
         ${D}${bindir}/glib-mkenums || true
+        rm -r ${D}${datadir}/bash-completion/completions/
 }
 
 PACKAGES =+ "${PN}-utils ${PN}-gdb"
