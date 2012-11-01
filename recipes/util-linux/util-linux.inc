@@ -60,16 +60,6 @@ FILES_${PN}-doc += "${datadir}/getopt/"
 
 inherit auto-package-utils auto-package-libs
 
-AUTO_PACKAGE_UTILS = "agetty blkid cal chkdupexe chrt col colcrt colrm \
-	column cytune ddate dmesg fallocate fdisk findfs findmnt flock fsck \
-	fsck.cramfs fsck.minix getopt hexdump hwclock ionice ipcmk ipcrm ipcs \
-	isosize line logger look losetup lsblk lscpu mkfs mkfs.bfs mkfs.cramfs \
-	mkfs.minix mcookie mkswap mount namei pivot_root rename renice \
-	rev script scriptreplay setarch setsid sfdisk swaplabel swapon \
-	switch_root tailf taskset umount unshare uuidd uuidgen wall whereis \
-	wipefs addpart blockdev ctrlaltdel delpart fdformat fsfreeze fstrim \
-	ldattach readprofile rtcwake tunelp"
-AUTO_PACKAGE_UTILS:>USE_ncurses = " more cfdisk"
 RDEPENDS_${PN} = "${AUTO_PACKAGE_UTILS_PACKAGES}"
 
 AUTO_PACKAGE_LIBS = "blkid uuid mount"
