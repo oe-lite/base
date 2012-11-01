@@ -6,3 +6,5 @@ samba_cv_HAVE_WRFILE_KEYTAB=${samba_cv_HAVE_WRFILE_KEYTAB=yes}
 samba_cv_have_setresgid=${samba_cv_have_setresgid=yes}
 samba_cv_have_setresuid=${samba_cv_have_setresuid=yes}
 samba_cv_linux_getgrouplist_ok=${samba_cv_linux_getgrouplist_ok=yes}
+libreplace_cv_HAVE_GETADDRINFO=${libreplace_cv_HAVE_GETADDRINFO=yes}
+ac_cv_file__proc_sys_kernel_core_pattern=${ac_cv_file__proc_sys_kernel_core_pattern=yes}
