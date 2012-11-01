@@ -1,3 +1,8 @@
 LICENSE = "GPL-2.0 & LGPL-2.0 & MIT & BSD-3-Clause*"
 
 require e2fsprogs.inc
+
+# Map the old non-API functions uuid__generate* to the new __uuid_generate
+# API functions.
+CFLAGS += "-Duuid__generate_random=__uuid_generate_random"
+CFLAGS += "-Duuid__generate_time=__uuid_generate_time"
