@@ -6,3 +6,7 @@ require e2fsprogs.inc
 # API functions.
 CFLAGS += "-Duuid__generate_random=__uuid_generate_random"
 CFLAGS += "-Duuid__generate_time=__uuid_generate_time"
+
+AUTO_PACKAGE_UTILS = "e2fsck mke2fs tune2fs badblocks resize2fs e2freefrag \
+	mklostfound:mklost+found uuidd e2initrdhelper logsave \
+	debugfs dumpe2fs e2image e2undo filefrag chattr lsattr"
