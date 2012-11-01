@@ -80,9 +80,6 @@ DEPENDS_${PN}-libss-dev = "native:${PN}-libss-dev-utils"
 RDEPENDS_${PN}-libss-dev = "host:${PN}-libss-dev-utils"
 
 inherit auto-package-utils
-AUTO_PACKAGE_UTILS = "e2fsck mke2fs tune2fs badblocks resize2fs e2freefrag \
-	mklostfound:mklost+found uuidd e2initrdhelper logsave \
-	debugfs dumpe2fs e2image e2undo filefrag chattr lsattr"
 
 FILES_${PN}-e2fsck = "${sbindir}/fsck.ext*"
 FILES_${PN}-e2fsck-doc = "${mandir}/man?/fsck.ext*.*"
@@ -114,6 +111,3 @@ RDEPENDS_${PN}-e2initrdhelper = "${PN}-libext2fs ${PN}-libcomerr \
 
 RDEPENDS_${PN}-e2initrdhelper = "${PN}-libcomerr ${PN}-libe2p"
 
-PACKAGES =+ "${PN}-attr-utils"
-RDEPENDS_${PN}-attr-utils = "${PN}-lsattr ${PN}-chattr"
-ALLOW_EMPTY_${PN}-attr-utils = "1"
