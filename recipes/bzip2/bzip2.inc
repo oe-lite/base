@@ -2,7 +2,7 @@ DESCRIPTION = "Very high-quality data compression program"
 
 RECIPE_TYPES = "machine native sdk"
 
-inherit autotools pkgconfig
+inherit autotools-autoreconf pkgconfig
 
 SRC_URI = "http://www.bzip.org/${PV}/bzip2-${PV}.tar.gz"
 
@@ -35,7 +35,10 @@ RDEPENDS_${PN}-bzgrep = "${PN}-libbz2"
 RDEPENDS_${PN}-bzip2recover = "${PN}-libbz2"
 RDEPENDS_${PN}-bzmore = "${PN}-libbz2"
 
-do_configure () {
-    bash ./autogen.sh
-    do_configure_autotools
+do_autoreconf[prefuncs] += "do_autoreconf_prep"
+do_autoreconf_prep() {
+	ln -sf LICENSE COPYING
+	ln -sf CHANGES NEWS
+	touch AUTHORS
+	touch ChangeLog
 }
