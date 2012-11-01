@@ -1,5 +1,0 @@
-require ${PN}.inc
-
-COMPATIBLE_HOST_ARCHS = "i.86- x86_64- powerpc- powerpc64- arm-cortexa"
-
-SRC_URI += "file://fix_likely_problem.patch"
