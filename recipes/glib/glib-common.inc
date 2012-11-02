@@ -51,7 +51,7 @@ DEPENDS_PCRE = ""
 DEPENDS_${PN} += "libffi"
 DEPENDS_${PN}-libglib = "libc libgcc ${DEPENDS_PCRE}"
 DEPENDS_${PN}-libgthread = "libc libglib ${DEPENDS_THREADS} ${DEPENDS_PCRE}"
-DEPENDS_${PN}-libgobject = "libc libffi libglib libgthread ${DEPENDS_THREADS} ${DEPENDS_PCRE}"
+DEPENDS_${PN}-libgobject = "libc libgcc libffi libglib libgthread ${DEPENDS_THREADS} ${DEPENDS_PCRE}"
 DEPENDS_${PN}-libgmodule = "libc libdl libglib ${DEPENDS_PCRE}"
 DEPENDS_${PN}-libgio     = "libc libgcc libdl libresolv libz libffi libglib libgmodule libgobject libgthread ${DEPENDS_PCRE} ${DEPENDS_THREADS}"
 
