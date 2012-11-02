@@ -111,3 +111,4 @@ RDEPENDS_${PN}-e2initrdhelper = "${PN}-libext2fs ${PN}-libcomerr \
 
 RDEPENDS_${PN}-e2initrdhelper = "${PN}-libcomerr ${PN}-libe2p"
 
+RDEPENDS_${PN}-e4defrag = "${PN}-libext2fs ${PN}-libcomerr"
