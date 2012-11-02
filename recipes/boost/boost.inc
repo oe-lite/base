@@ -5,7 +5,7 @@ RECIPE_TYPES = "machine native sdk"
 inherit c++ auto-package-libs
 
 require conf/fetch/sourceforge.conf
-BOOST_VER = "${@'_'.join(bb.data.getVar('PV',d,1).split('.'))}"
+BOOST_VER = "${@'_'.join(d.get('PV').split('.'))}"
 SRC_URI = "${SOURCEFORGE_MIRROR}/boost/boost_${BOOST_VER}.tar.bz2"
 S = "${SRCDIR}/boost_${BOOST_VER}"
 
@@ -57,27 +57,25 @@ BJAM_OPTIONS += "'--layout=system'"
 
 # Generate boost jam compiler options
 do_configure[prefuncs] += "boost_flags"
-python boost_flags() {
-    import bb
+def boost_flags(d):
 
-    cflags = (bb.data.getVar('CFLAGS', d, True) or '').split( )
+    cflags = (d.get('CFLAGS') or '').split( )
     boost_cflags = []
     for cflag in cflags:
         boost_cflags.append('<cflags>%s'%(cflag))
-    bb.data.setVar('BJAM_CFLAGS', ' '.join(boost_cflags), d)
+    d.set('BJAM_CFLAGS', ' '.join(boost_cflags))
 
-    cxxflags = (bb.data.getVar('CXXFLAGS', d, True) or '').split( )
+    cxxflags = (d.get('CXXFLAGS') or '').split( )
     boost_cxxflags = []
     for cxxflag in cxxflags:
         boost_cxxflags.append('<cxxflags>%s'%(cxxflag))
-    bb.data.setVar('BJAM_CXXFLAGS', ' '.join(boost_cxxflags), d)
+    d.set('BJAM_CXXFLAGS', ' '.join(boost_cxxflags))
 
-    ldflags = (bb.data.getVar('LDFLAGS', d, True) or '').split( )
+    ldflags = (d.get('LDFLAGS') or '').split( )
     boost_ldflags = []
     for ldflag in ldflags:
         boost_ldflags.append('<linkflags>%s'%(ldflag))
-    bb.data.setVar('BJAM_LINKFLAGS', ' '.join(boost_ldflags), d)
-}
+    d.set('BJAM_LINKFLAGS', ' '.join(boost_ldflags))
 
 # Needs to be defined for early parsing
 BJAM_CFLAGS=""
