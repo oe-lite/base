@@ -1,0 +1,14 @@
+--- lttng-tools-2.0.4/src/bin/lttng-sessiond/main.c~orig	2012-11-02 08:34:45.061277553 +0100
++++ lttng-tools-2.0.4/src/bin/lttng-sessiond/main.c	2012-11-02 08:35:02.373277409 +0100
+@@ -1664,9 +1664,9 @@
+ 		 * Exec consumerd.
+ 		 */
+ 		if (opt_verbose_consumer) {
+-			verbosity = "--verbose";
++			verbosity = "-v";
+ 		} else {
+-			verbosity = "--quiet";
++			verbosity = "-q";
+ 		}
+ 		switch (consumer_data->type) {
+ 		case LTTNG_CONSUMER_KERNEL:
