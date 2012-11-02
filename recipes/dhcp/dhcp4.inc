@@ -13,15 +13,16 @@ inherit autotools-autoreconf pkgconfig
 
 SRC_URI = "ftp://ftp.isc.org/isc/dhcp/dhcp-${PV}.tar.gz"
 
-SRC_URI += "file://site.h"
-SRC_URI += "file://init-relay"
-SRC_URI += "file://default-relay"
-SRC_URI += "file://init-server"
-SRC_URI += "file://default-server"
-SRC_URI += "file://dhclient.conf"
-SRC_URI += "file://dhcpd.conf"
+SRC_URI += "${SRC_URI_EXTRA}"
+SRC_URI_EXTRA += "file://site.h"
+SRC_URI_EXTRA += "file://init-relay"
+SRC_URI_EXTRA += "file://default-relay"
+SRC_URI_EXTRA += "file://init-server"
+SRC_URI_EXTRA += "file://default-server"
+SRC_URI_EXTRA += "file://dhclient.conf"
+SRC_URI_EXTRA += "file://dhcpd.conf"
 
-DEPENDS = "bind-dev libdl"
+DEPENDS = "libdl"
 
 TARGET_CFLAGS += "-D_GNU_SOURCE"
 EXTRA_OECONF = "\
@@ -29,7 +30,6 @@ EXTRA_OECONF = "\
 	--with-srv6-lease-file=${localstatedir}/lib/dhcp/dhcpd6.leases \
 	--with-cli-lease-file=${localstatedir}/lib/dhcp/dhclient.leases \
 	--with-cli6-lease-file=${localstatedir}/lib/dhcp/dhclient6.leases \
-	--with-libbind=${TARGET_SYSROOT}${target_libdir}/.. \
 "
 
 CFLAGS += "-ldl"

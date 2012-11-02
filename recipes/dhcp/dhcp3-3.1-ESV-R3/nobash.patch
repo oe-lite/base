@@ -1,8 +1,0 @@
---- dhcp-4.2.0-P2/client/scripts/linux.orig	2011-01-27 20:31:40.560508597 +0100
-+++ dhcp-4.2.0-P2/client/scripts/linux	2011-01-27 20:31:47.220821130 +0100
-@@ -1,4 +1,4 @@
--#!/bin/bash
-+#!/bin/sh
- # dhclient-script for Linux. Dan Halbert, March, 1997.
- # Updated for Linux 2.[12] by Brian J. Murrell, January 1999.
- # No guarantees about this. I'm a novice at the details of Linux
