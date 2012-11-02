@@ -1,0 +1,8 @@
+# -*- mode:python; -*-
+require ${PN}.inc
+
+LICENSE = "MIT"
+
+SRC_URI += "file://ax_enable_builddir.patch"
+
+DEFAULT_PREFERENCE = "-1"
