@@ -1,7 +1,7 @@
 require dhcp4.inc
 
 SRC_URI += "file://fix-external-bind.patch"
-#SRC_URI += "file://nobash.patch"
+SRC_URI += "file://nobash.patch"
 
 DEPENDS += "bind-dev"
 EXTRA_OECONF += "--with-libbind=${TARGET_SYSROOT}${target_libdir}/.."
