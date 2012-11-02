@@ -1,1 +1,1 @@
-dfb91843185927376df8c2552488f3dffb0548a0  glib-2.30.0.tar.bz2
+7f7033081cbaebccbf15a2b0fc1ea203d940b109  glib-2.30.0.tar.xz

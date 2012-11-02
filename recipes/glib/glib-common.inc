@@ -13,7 +13,7 @@ DEPENDS_NATIVE:native = ""
 
 require conf/fetch/gnome.conf
 SRC_URI_SUBDIR = "${@'.'.join(d.getVar('PV', True).split('.')[:2])}"
-SRC_URI = "${GNOME_MIRROR}/glib/${SRC_URI_SUBDIR}/glib-${PV}.tar.bz2"
+SRC_URI = "${GNOME_MIRROR}/glib/${SRC_URI_SUBDIR}/glib-${PV}.tar.xz"
 S = "${SRCDIR}/glib-${PV}"
 
 EXTRA_OECONF = "--disable-debug \
