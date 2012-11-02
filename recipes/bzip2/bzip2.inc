@@ -9,7 +9,7 @@ SRC_URI = "http://www.bzip.org/${PV}/bzip2-${PV}.tar.gz"
 inherit auto-package-libs auto-package-utils
 
 AUTO_PACKAGE_LIBS = "bz2"
-FILES_${PN}-libbz2-dev = "${includedir}"
+FILES_${PN}-libbz2-dev = "${includedir} ${libdir}/pkgconfig/bzip2.pc"
 
 AUTO_PACKAGE_UTILS = "bzip2 bzdiff bzgrep bzip2recover bzmore"
 
