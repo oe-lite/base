@@ -48,8 +48,8 @@ BJAM_CONF = "${SQD}'-DBOOST_PLATFORM_CONFIG=${EQD}boost/config/platform/${TARGET
 #		'-sNO_ZLIB=1'
 
 BJAM_OPTIONS = "-sTOOLS=gcc"
-BJAM_OPTIONS += "'-sGCC=${CC} ${CFLAGS} '${BJAM_CONF}"
-BJAM_OPTIONS += "'-sGXX=${CXX} ${CXXFLAGS} '${BJAM_CONF}"
+BJAM_OPTIONS += "'-sGCC=${CC} ${CPPFLAGS} ${CFLAGS} '${BJAM_CONF}"
+BJAM_OPTIONS += "'-sGXX=${CXX} ${CPPFLAGS} ${CXXFLAGS} '${BJAM_CONF}"
 BJAM_OPTIONS += "'-sGCC_INCLUDE_DIRECTORY=${TARGET_SYSROOT}${target_includedir}'"
 BJAM_OPTIONS += "'-sGCC_STDLIB_DIRECTORY=${TARGET_SYSROOT}${target_libdir}'"
 BJAM_OPTIONS += "'-sBUILD=release <optimization>space <inlining>on <debug-symbols>off'"
@@ -58,16 +58,17 @@ BJAM_OPTIONS += "'--layout=system'"
 # Generate boost jam compiler options
 do_configure[prefuncs] += "boost_flags"
 def boost_flags(d):
+    cppflags = (d.get('CPPFLAGS') or '').split( )
 
     cflags = (d.get('CFLAGS') or '').split( )
     boost_cflags = []
-    for cflag in cflags:
+    for cflag in cppflags + cflags:
         boost_cflags.append('<cflags>%s'%(cflag))
     d.set('BJAM_CFLAGS', ' '.join(boost_cflags))
 
     cxxflags = (d.get('CXXFLAGS') or '').split( )
     boost_cxxflags = []
-    for cxxflag in cxxflags:
+    for cxxflag in cppflags + cxxflags:
         boost_cxxflags.append('<cxxflags>%s'%(cxxflag))
     d.set('BJAM_CXXFLAGS', ' '.join(boost_cxxflags))
 
@@ -93,7 +94,7 @@ do_configure () {
         echo "using gcc : $(${CXX} -dumpversion) : ${CXX} : <define>-DBOOST_SP_USE_PTHREADS ${BJAM_CFLAGS} ${BJAM_CXXFLAGS} ${BJAM_LINKFLAGS} ;" \
             >> user-config.jam
     )
-    CC="${BUILD_CC}" CFLAGS="${BUILD_CFLAGS}" ./bootstrap.sh --with-toolset=gcc ${BOOTSTRAP_OPTIONS}
+    CC="${BUILD_CC}" CFLAGS="${BUILD_CFLAGS}" CPPFLAGS="${BUILD_CFLAGS}" CXXFLAGS="${BUILD_CFLAGS}" ./bootstrap.sh --with-toolset=gcc ${BOOTSTRAP_OPTIONS}
 }
 
 do_compile() {
