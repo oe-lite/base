@@ -32,7 +32,7 @@ do_configure[postfuncs] += "${DO_CONFIGURE_POSTFUNCS}"
 
 RECIPE_FLAGS += "dropbear_norevdns"
 
-DO_CONFIGURE_POSTFUNCS:>USE_dropbear_norevdns = "do_configure_norevdns"
+DO_CONFIGURE_POSTFUNCS:>USE_dropbear_norevdns = " do_configure_norevdns"
 do_configure_norevdns() {
 	sed -i -e 's|\(#define DO_HOST_LOOKUP\)$|/* \1 */|' options.h
 }
@@ -42,7 +42,7 @@ do_configure_norevdns() {
 # ciphers and hashes slower, perhaps by 50%.
 RECIPE_FLAGS += "dropbear_smallcode"
 DEFAULT_USE_dropbear_smallcode = "1"
-DO_CONFIGURE_POSTFUNCS:>USE_dropbear_smallcode = "do_configure_smallcode"
+DO_CONFIGURE_POSTFUNCS:>USE_dropbear_smallcode = " do_configure_smallcode"
 do_configure_smallcode() {
 	sed -i -e 's|/\*.*\(#define DROPBEAR_SMALL_CODE\).*$|\1|' options.h
 }
