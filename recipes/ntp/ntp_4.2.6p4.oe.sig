@@ -1,1 +1,0 @@
-b53c4565c5d1c37494584d4fb826f82ffea285cf  ntp-4.2.6p4.tar.gz
