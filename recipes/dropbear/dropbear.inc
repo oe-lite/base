@@ -20,7 +20,7 @@ RDEPENDS_${PN} = "${COMMON_DEPS}"
 
 RPROVIDES_${PN} = "ssh sshd scp"
 
-CFLAGS += '-D_GNU_SOURCE -DXAUTH_COMMAND=\\\\"xauth\\ -q\\\\"'
+CFLAGS += "-D_GNU_SOURCE"
 
 SBINCOMMANDS = "dropbear dropbearkey dropbearconvert"
 BINCOMMANDS = "dbclient ssh scp"
@@ -45,6 +45,11 @@ DEFAULT_USE_dropbear_smallcode = "1"
 DO_CONFIGURE_POSTFUNCS:>USE_dropbear_smallcode = " do_configure_smallcode"
 do_configure_smallcode() {
 	sed -i -e 's|/\*.*\(#define DROPBEAR_SMALL_CODE\).*$|\1|' options.h
+}
+
+DO_CONFIGURE_POSTFUNCS += "do_configure_xauthcmd"
+do_configure_xauthcmd() {
+	sed -i -e 's|\(#define XAUTH_COMMAND\).*$|\1 "xauth -q"|' options.h
 }
 
 do_install() {
