@@ -24,53 +24,42 @@ do_configure () {
 	cd ..
 	ln -sf apps/openssl.pod crypto/crypto.pod ssl/ssl.pod doc/
 
-	# FIXME: drop this silly case construction and use BB variable
-	# overrides instead, which should improve build hashing effectiveness
-	target="${TARGET_OS}-${TARGET_CPU}"
-	case $target in
-	linux-gnueabi-arm)
-		target=linux-armv4
+	case "${HOST_OS}" in
+
+	linux*)
+		case "${HOST_CPU}" in
+		i?86)		target="linux-elf" ;;
+		armeb)		target="linux-generic32" ;;
+		arm)		target="linux-armv4" ;;
+		powerpc64)	target="linux-ppc64" ;;
+		powerpc)	target="linux-ppc" ;;
+		*)		target="linux-${HOST_CPU}" ;;
+		esac
 		;;
-	linux-gnueabi-armeb)
-		target=linux-elf-armeb
+
+	mingw*)
+		case "${HOST_CPU}" in
+		i?86)		target="mingw" ;;
+		x86_64)		target="mingw64" ;;
+		*)		target="mingw-${HOST_CPU}" ;;
+		esac
 		;;
-	linux-gnu-sh3)
-		target=debian-sh3
+
+	darwin*)
+		case "${HOST_CPU}" in
+		i?86)		target="darwin-i386-cc" ;;
+		x86_64)		target="darwin64-x86_64-cc" ;;
+		powerpc)	target="darwin-ppc-cc" ;;
+		*)		target="darwin-${HOST_CPU}" ;;
+		esac
 		;;
-	linux-gnu-sh4)
-		target=debian-sh4
+
+	*)
+		target="${HOST_OS}-${HOST_CPU}"
 		;;
-	linux-gnu-i486)
-		target=debian-i386-i486
-		;;
-	linux-gnu-i586 | linux-gnu-viac3)
-		target=debian-i386-i586
-		;;
-	linux-gnu-i686)
-		target=debian-i386-i686/cmov
-		;;
-	linux-gnu-mips)
-		target=debian-mips
-		;;
-	linux-gnu-mipsel)
-		target=debian-mipsel
-		;;
-	linux-gnu-powerpc)
-		target=linux-ppc
-		;;
-	linux-gnu-gnuspe-powerpc)
-		target=linux-ppc
-		;;
-	linux-gnu-supersparc)
-		target=linux-sparcv8
-		;;
-	linux-gnu-sparc)
-		target=linux-sparcv8
-		;;
-	darwin-i386)
-		target=darwin-i386-cc
-		;;
+
 	esac
+
 	# inject machine-specific flags
 	sed -i -e "s|^\(\"$target\",\s*\"[^:]\+\):\([^:]\+\)|\1:${CFLAG}|g" Configure
         useprefix=${prefix}
