@@ -66,9 +66,10 @@ do_configure () {
 	if [ -z "$useprefix" ]; then
 		useprefix=/
 	fi
+        uselibdir=`echo ${libdir} | sed -e "s%^$useprefix%%"`
 	perl ./Configure shared \
 		--prefix=$useprefix \
-		--libdir=${libdir} \
+		--libdir=$uselibdir \
 		--openssldir=${libdir}/ssl \
 		$target
 }
