@@ -58,3 +58,5 @@ DEPENDS_${PN}-libgio     = "libc libgcc libdl libresolv libz libffi libglib libg
 FILES_${PN}-libgio-dev = "${libdir}/pkgconfig/gio-*-2.0.pc"
 FILES_${PN}-libgmodule-dev = "${libdir}/pkgconfig/gmodule-*-2.0.pc"
 FILES_${PN} += "${libdir}/gdbus-2.0"
+
+include glib-${PV}.inc
