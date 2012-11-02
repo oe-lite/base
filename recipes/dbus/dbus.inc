@@ -11,7 +11,7 @@ SRC_URI = "http://dbus.freedesktop.org/releases/dbus/dbus-${PV}.tar.gz"
 SRC_URI += "file://dbus-1.init"
 SRC_URI += "file://passwd file://group"
 
-DEPENDS = "libexpat libglib libintl"
+DEPENDS = "libexpat libglib libintl librt"
 
 RECIPE_FLAGS += "dbus_x11"
 EXTRA_OECONF_X11 = "--without-x"
