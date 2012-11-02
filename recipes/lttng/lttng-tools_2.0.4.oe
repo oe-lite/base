@@ -2,4 +2,17 @@ require ${PN}.inc
 
 SRC_URI += "file://modprobe-short-options.patch"
 
+inherit auto-package-libs
+AUTO_PACKAGE_LIBS = "lttng-ctl"
+FILES_${PN}-liblttng-ctl = "${libdir}/lttng/libexec"
+FILES_${PN}-liblttng-ctl-dev = "${includedir}/lttng/lttng.h"
+DEPENDS_${PN}-liblttngctl = "libgcc libc libdl librt libpthread \
+	liburcu libuuid libpopt lttng-ust lttng-ust-dev"
+
+inherit auto-package-utils
+AUTO_PACKAGE_UTILS = "lttng ltt-sessiond"
+RDEPENDS_${PN}-lttng = "liblttngctl libpopt libpthread libc"
+RDEPENDS_${PN}-ltt-sessiond = "liblttngctl libpopt libpthread librt libc"
+RDEPENDS_${PN} += "${AUTO_PACKAGE_UTILS_PACKAGES}"
+
 DEFAULT_PREFERENCE = "-1"
