@@ -1,0 +1,5 @@
+require ${PN}.inc
+
+COMPATIBLE_HOST_ARCHS = "i.86- x86_64- powerpc- powerpc64- arm-cortexa"
+
+DEFAULT_PREFERENCE = "-1"
