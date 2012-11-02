@@ -66,7 +66,11 @@ do_configure () {
         if [ -z "$useprefix" ]; then
                 useprefix=/
         fi        
-	perl ./Configure shared --prefix=$useprefix --openssldir=${libdir}/ssl $target
+	perl ./Configure shared \
+		--prefix=$useprefix \
+		--libdir=${libdir} \
+		--openssldir=${libdir}/ssl \
+		$target
 }
 
 do_compile () {
