@@ -62,10 +62,10 @@ do_configure () {
 
 	# inject machine-specific flags
 	sed -i -e "s|^\(\"$target\",\s*\"[^:]\+\):\([^:]\+\)|\1:${CFLAG}|g" Configure
-        useprefix=${prefix}
-        if [ -z "$useprefix" ]; then
-                useprefix=/
-        fi        
+	useprefix=${prefix}
+	if [ -z "$useprefix" ]; then
+		useprefix=/
+	fi
 	perl ./Configure shared \
 		--prefix=$useprefix \
 		--libdir=${libdir} \
