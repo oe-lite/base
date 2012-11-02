@@ -1,0 +1,10 @@
+--- busybox-1.17.1/init/init.c.orig	2011-02-14 15:41:54.675209241 +0100
++++ busybox-1.17.1/init/init.c	2011-02-14 15:44:52.234017950 +0100
+@@ -620,6 +620,7 @@
+ 	kill(-1, SIGKILL);
+ 	message(L_CONSOLE, "Sent SIG%s to all processes", "KILL");
+ 	sync();
++	system("umount -a -r -n");
+ 	/*sleep(1); - callers take care about making a pause */
+ }
+ 
