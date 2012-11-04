@@ -27,9 +27,9 @@ FILES_${PN}-mkfs = "${sbindir}/mkdosfs ${sbindir}/mkfs.*"
 FILES_${PN}-fsck = "${sbindir}/dosfsck ${sbindir}/fsck.*"
 FILES_${PN}-fslabel = "${sbindir}/dosfslabel"
 
-RPROVIDES_${PN}-mkfs = "util/mkfs.msdos util/mkfs.vfat util/mkdosfs"
-RPROVIDES_${PN}-fsck = "util/fsck.msdos util/fsck.vfat util/dosfsck"
-RPROVIDES_${PN}-fslabel = "util/dosfslabel"
+PROVIDES_${PN}-mkfs = "util/mkfs.msdos util/mkfs.vfat util/mkdosfs"
+PROVIDES_${PN}-fsck = "util/fsck.msdos util/fsck.vfat util/dosfsck"
+PROVIDES_${PN}-fslabel = "util/dosfslabel"
 
 RDEPENDS_${PN} = "${PN}-mkfs ${PN}-fsck ${PN}-fslabel"
 DEPENDS_${PN} = "${PN}-mkfs ${PN}-fsck ${PN}-fslabel"
