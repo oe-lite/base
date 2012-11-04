@@ -18,7 +18,7 @@ COMMON_DEPS = "libz libcrypt libutil libcrypt libgcc"
 DEPENDS = "${COMMON_DEPS}"
 RDEPENDS_${PN} = "${COMMON_DEPS}"
 
-RPROVIDES_${PN} = "ssh sshd scp"
+PROVIDES_${PN} = "util/ssh service/ssh util/scp"
 
 CFLAGS += "-D_GNU_SOURCE"
 
