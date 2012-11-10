@@ -97,7 +97,6 @@ RDEPENDS_${PN}-mke2fs = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p \
 
 FILES_${PN}-tune2fs = "${sbindir}/e2label ${sbindir}/findfs \
 	${mandir}/man?/e2label.* ${mandir}/man?/findfs.*"
-RPROVIDES_${PN}-tune2fs = "tune2fs"
 RDEPENDS_${PN}-tune2fs = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p \
 	libblkid libuuid"
 
