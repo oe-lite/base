@@ -52,4 +52,4 @@ AUTO_PACKAGE_UTILS = "${U_BOOT_TOOLS}"
 
 PACKAGES =+ "${PN}-env"
 FILES_${PN}-env = "${bindir}/fw_*env"
-RPROVIDES_${PN}-env = "util/fw_printenv util/fw_setenv"
+PROVIDES_${PN}-env = "util/fw_printenv util/fw_setenv"
