@@ -13,16 +13,13 @@ SRC_URI = "http://hostap.epitest.fi/releases/wpa_supplicant-${PV}.tar.gz \
            file://wpa-supplicant.sh \
            file://wpa_supplicant.conf \
            file://wpa_supplicant.conf-sane \
-           file://99_wpa_supplicant \
 	   "
-
-export DBUS_LIBS="-ldbus-1"
-export DBUS_INCLUDE="" 
 
 S = "${SRCDIR}/wpa_supplicant-${PV}/wpa_supplicant"
 
 RDEPENDS_${PN}-wpa-passphrase += "libgcrypt"
-RDEPENDS_${PN} += "libgnutls libgnutls-extra libgcrypt libgpg-error libdbus"
+RDEPENDS_${PN}-wpa-supplicant += "libgnutls libgnutls-extra libgcrypt libgpg-error libdbus libnl-3 libnl-genl-3"
+RDEPENDS_${PN} = "util/wpa-passphrase util/wpa-cli util/wpa-supplicant"
 
 do_configure () {
 	install -m 0755 ${SRCDIR}/defconfig-gnutls .config
@@ -60,13 +57,9 @@ do_install () {
 	install -d ${D}/${datadir}/dbus-1/system-services
 	install -m 644 ${S}/dbus/*.service ${D}/${datadir}/dbus-1/system-services
 	sed -i -e s:${base_sbindir}:${sbindir}:g ${D}/${datadir}/dbus-1/system-services/*.service
-
-	install -d ${D}/etc/default/volatiles
-	install -m 0644 ${SRCDIR}/99_wpa_supplicant ${D}/etc/default/volatiles
 }
 
 FILES_${PN} += "${datadir}/dbus-1/system-services/*"
-PROVIDES_${PN} = "util/wpa-supplicant"
 
 inherit auto-package-utils
-AUTO_PACKAGE_UTILS = "wpa_passphrase wpa_cli"
+AUTO_PACKAGE_UTILS = "wpa_passphrase wpa_cli wpa_supplicant"
