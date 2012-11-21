@@ -34,3 +34,4 @@ inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "iwconfig ifrename"
 FILES_${PN}-iwconfig = "${base_sbindir}/iwgetid ${base_sbindir}/iwlist \
 	${base_sbindir}/iwpriv ${base_sbindir}/iwspy"
+RDEPENDS_${PN}-ifrename += "libiw"
