@@ -1,6 +1,7 @@
 DESCRIPTION = "A Client for Wi-Fi Protected Access (WPA)."
 HOMEPAGE = "http://hostap.epitest.fi/wpa_supplicant/"
 BUGTRACKER = "http://hostap.epitest.fi/bugz/"
+require wpa-supplicant-configure.inc
 
 inherit make c++ pkgconfig
 
@@ -20,6 +21,19 @@ S = "${SRCDIR}/wpa_supplicant-${PV}/wpa_supplicant"
 RDEPENDS_${PN}-wpa-passphrase += "libgcrypt"
 RDEPENDS_${PN}-wpa-supplicant += "libgnutls libgnutls-extra libgcrypt libgpg-error libdbus libnl-3 libnl-genl-3"
 RDEPENDS_${PN} = "util/wpa-passphrase util/wpa-cli util/wpa-supplicant"
+
+RECIPE_FLAGS += "readline"
+WPA_SUPPLICANT_FLAGS:>USE_readline += " CONFIG_READLINE"
+DEPENDS:>USE_readline += " libreadline libncurses"
+RDEPENDS_${PN}-wpa-cli:>USE_readline += " libncurses libreadline"
+
+RECIPE_FLAGS += "wpa_fast_eap"
+WPA_SUPPLICANT_FLAGS:>USE_wpa_fast_eap += " CONFIG_EAP_FAST"
+DEPENDS:>USE_wpa_fast_eap += " libssl"
+RDEPENDS_${PN}-wpa-supplicant:>USE_wpa_fast_eap += " libssl"
+
+RECIPE_FLAGS += "wpa_wps"
+WPA_SUPPLICANT_FLAGS:>USE_wpa_wps += " CONFIG_WPS CONFIG_WPS2"
 
 do_configure () {
 	install -m 0755 ${SRCDIR}/defconfig-gnutls .config
