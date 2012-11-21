@@ -1,0 +1,11 @@
+--- iw-3.7/version.sh.org	2012-11-09 14:03:53.089541469 +0100
++++ iw-3.7/version.sh	2012-11-09 14:05:19.906817310 +0100
+@@ -3,7 +3,7 @@
+ VERSION="3.7"
+ OUT="$1"
+ 
+-if head=`git rev-parse --verify HEAD 2>/dev/null`; then
++if false; then
+ 	git update-index --refresh --unmerged > /dev/null
+ 	descr=$(git describe)
+ 
