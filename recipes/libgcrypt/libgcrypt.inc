@@ -15,9 +15,6 @@ do_install[postfuncs] += "do_install_append"
 do_install_append() {
 	install -d ${D}/${libdir}/pkgconfig
 	install -m 0644 ${S}/src/libgcrypt.pc ${D}/${libdir}/pkgconfig/
-	
-	# Remove empty sbin directory since we don't build the daemon that would install there
-	rmdir ${D}${sbindir}
 }
 
 FILES_${PN}-dev += "${bindir}/dumpsexp ${bindir}/hmac256"
