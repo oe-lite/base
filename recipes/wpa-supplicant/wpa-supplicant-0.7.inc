@@ -8,7 +8,7 @@ LICENSE = "GPLv2 | BSD"
 
 DEPENDS += "libdbus libgnutls libgnutls-extra libnl-3 libnl-genl-3 libnl-genl-3 libdl"
 
-RDEPENDS_${PN} = "${PN}-passphrase ${PN}-cli"
+RDEPENDS_${PN} = "util/wpa-passphrase util/wpa-cli"
 
 SRC_URI = "http://hostap.epitest.fi/releases/wpa_supplicant-${PV}.tar.gz \
            file://defconfig-gnutls \
@@ -23,7 +23,7 @@ export DBUS_INCLUDE=""
 
 S = "${SRCDIR}/wpa_supplicant-${PV}/wpa_supplicant"
 
-RDEPENDS_wpa-supplicant-passphrase += "libgcrypt"
+RDEPENDS_${PN}-wpa-passphrase += "libgcrypt"
 RDEPENDS_${PN} += "libgnutls libgnutls-extra libgcrypt libgpg-error libdbus"
 
 do_configure () {
