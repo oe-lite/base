@@ -11,6 +11,7 @@ RDEPENDS_${PN} += "librt target:gcc-sysroot-dbg"
 SRC_URI = "http://www.valgrind.org/downloads/valgrind-${PV}.tar.bz2"
 SRC_URI += "file://valgrind-3.6.1-glibc-2.14.patch"
 SRC_URI += "file://linux30.patch"
+SRC_URI += "file://autoreconf-pkglib-data.patch"
 
 SRC_URI:>TARGET_CPU_powerpc = " file://vg-ppc-feature.patch"
 SRC_URI:>TARGET_CPU_arm = " file://arm-cortex-support.patch"
