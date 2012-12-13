@@ -6,6 +6,7 @@ COMPATIBLE_HOST_ARCHS = "i.86- x86_64- powerpc- powerpc64- arm-cortexa"
 
 SRC_URI += "file://valgrind-3.6.1-glibc-2.14.patch"
 SRC_URI += "file://linux30.patch"
+SRC_URI += "file://autoreconf-pkglib-data.patch"
 SRC_URI:>TARGET_CPU_powerpc = " file://vg-ppc-feature.patch"
 SRC_URI:>TARGET_CPU_arm = " file://arm-cortex-support.patch"
 
