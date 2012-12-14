@@ -12,7 +12,7 @@ SRC_URI = "http://www.openssl.org/source/openssl-${PV}.tar.gz"
 
 DEPENDS = "libdl"
 
-CFLAG = "${@['-DL_ENDIAN', '-DB_ENDIAN']['${TARGET_ENDIAN}'=='b']} -DTERMIO ${TARGET_CFLAGS}"
+CFLAG = "${@['-DL_ENDIAN', '-DB_ENDIAN']['${HOST_ENDIAN}'=='b']} -DTERMIO ${HOST_CFLAGS}"
 
 export DIRS = "crypto ssl apps engines"
 export EX_LIBS = "-lgcc -ldl"
