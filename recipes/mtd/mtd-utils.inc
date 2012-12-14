@@ -7,6 +7,7 @@ RECIPE_TYPES = "machine native sdk"
 inherit c make auto-package-utils
 
 SRC_URI = "git://git.infradead.org/mtd-utils.git;protocol=git;tag=v${PV}"
+SRC_URI:>HOST_OS_darwin = " file://osx.patch"
 S = "${SRCDIR}/mtd-utils"
 
 DEPENDS = "libz liblzo libuuid libm"
