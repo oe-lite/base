@@ -1,0 +1,931 @@
+diff -urN mtd-utils/compr_lzo.c mtd-utils.2/compr_lzo.c
+--- mtd-utils/compr_lzo.c	2012-10-04 16:25:48.000000000 +0200
++++ mtd-utils.2/compr_lzo.c	2012-10-04 17:22:23.000000000 +0200
+@@ -26,7 +26,9 @@
+ #include <string.h>
+ 
+ #ifndef WITHOUT_LZO
++#ifndef __APPLE__
+ #include <asm/types.h>
++#endif
+ #include <linux/jffs2.h>
+ #include <lzo/lzo1x.h>
+ #include "compr.h"
+diff -urN mtd-utils/compr_zlib.c mtd-utils.2/compr_zlib.c
+--- mtd-utils/compr_zlib.c	2012-10-04 16:25:48.000000000 +0200
++++ mtd-utils.2/compr_zlib.c	2012-10-04 17:21:41.000000000 +0200
+@@ -39,7 +39,9 @@
+ #include <zlib.h>
+ #undef crc32
+ #include <stdio.h>
++#ifndef __APPLE__
+ #include <asm/types.h>
++#endif
+ #include <linux/jffs2.h>
+ #include "common.h"
+ #include "compr.h"
+diff -urN mtd-utils/docfdisk.c mtd-utils.2/docfdisk.c
+--- mtd-utils/docfdisk.c	2012-10-04 17:11:52.000000000 +0200
++++ mtd-utils.2/docfdisk.c	2012-10-04 17:41:00.000000000 +0200
+@@ -24,13 +24,19 @@
+ #include <stdio.h>
+ #include <fcntl.h>
+ #include <time.h>
++#ifdef __APPLE__
++#define _DARWIN_C_SOURCE
++#include <sys/types.h>
++#endif
+ #include <sys/stat.h>
+ #include <sys/ioctl.h>
+ #include <sys/mount.h>
+ #include <errno.h>
+ #include <string.h>
+ 
++#ifndef __APPLE__
+ #include <asm/types.h>
++#endif
+ #include <mtd/mtd-user.h>
+ #include <mtd/inftl-user.h>
+ #include <mtd_swab.h>
+diff -urN mtd-utils/flash_erase.c mtd-utils.2/flash_erase.c
+--- mtd-utils/flash_erase.c	2012-10-04 17:11:52.000000000 +0200
++++ mtd-utils.2/flash_erase.c	2012-10-04 17:13:48.000000000 +0200
+@@ -36,7 +36,11 @@
+ #include <common.h>
+ #include <crc32.h>
+ #include <libmtd.h>
+-
++#ifdef __APPLE__
++#define __BYTE_ORDER BYTE_ORDER
++#define bswap_16(x) OSSwapInt16(x) 
++#define bswap_32(x) OSSwapInt32(x)
++#endif
+ #include <mtd/mtd-user.h>
+ #include <mtd/jffs2-user.h>
+ 
+diff -urN mtd-utils/ftl_check.c mtd-utils.2/ftl_check.c
+--- mtd-utils/ftl_check.c	2012-10-04 17:11:52.000000000 +0200
++++ mtd-utils.2/ftl_check.c	2012-10-04 17:14:11.000000000 +0200
+@@ -51,8 +51,12 @@
+ #include <mtd/mtd-user.h>
+ #include <mtd/ftl-user.h>
+ 
++#ifndef __APPLE__
+ #include <byteswap.h>
+ #include <endian.h>
++#else
++#include <libkern/OSByteOrder.h>
++#endif
+ 
+ #if __BYTE_ORDER == __LITTLE_ENDIAN
+ # define TO_LE32(x) (x)
+diff -urN mtd-utils/ftl_check.c.orig mtd-utils.2/ftl_check.c.orig
+--- mtd-utils/ftl_check.c.orig	1970-01-01 01:00:00.000000000 +0100
++++ mtd-utils.2/ftl_check.c.orig	2012-10-04 17:13:57.000000000 +0200
+@@ -0,0 +1,237 @@
++/* Ported to MTD system.
++ * Based on:
++ */
++/*======================================================================
++
++  Utility to create an FTL partition in a memory region
++
++  ftl_check.c 1.10 1999/10/25 20:01:35
++
++  The contents of this file are subject to the Mozilla Public
++  License Version 1.1 (the "License"); you may not use this file
++  except in compliance with the License. You may obtain a copy of
++  the License at http://www.mozilla.org/MPL/
++
++  Software distributed under the License is distributed on an "AS
++  IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
++  implied. See the License for the specific language governing
++  rights and limitations under the License.
++
++  The initial developer of the original code is David A. Hinds
++  <dhinds@pcmcia.sourceforge.org>.  Portions created by David A. Hinds
++  are Copyright (C) 1999 David A. Hinds.  All Rights Reserved.
++
++  Alternatively, the contents of this file may be used under the
++  terms of the GNU Public License version 2 (the "GPL"), in which
++  case the provisions of the GPL are applicable instead of the
++  above.  If you wish to allow the use of your version of this file
++  only under the terms of the GPL and not to allow others to use
++  your version of this file under the MPL, indicate your decision
++  by deleting the provisions above and replace them with the notice
++  and other provisions required by the GPL.  If you do not delete
++  the provisions above, a recipient may use your version of this
++  file under either the MPL or the GPL.
++
++  ======================================================================*/
++
++#define PROGRAM_NAME "ftl_check"
++
++#include <sys/types.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <stddef.h>
++#include <string.h>
++#include <unistd.h>
++#include <fcntl.h>
++#include <errno.h>
++#include <sys/time.h>
++#include <sys/ioctl.h>
++#include <sys/stat.h>
++
++#include <mtd/mtd-user.h>
++#include <mtd/ftl-user.h>
++
++#ifndef __APPLE__
++#include <byteswap.h>
++#include <endian.h>
++<<<<<<< Updated upstream
++=======
++#else
++#include <libkern/OSByteOrder.h>
++#endif
++#include "common.h"
++>>>>>>> Stashed changes
++
++#if __BYTE_ORDER == __LITTLE_ENDIAN
++# define TO_LE32(x) (x)
++# define TO_LE16(x) (x)
++#elif __BYTE_ORDER == __BIG_ENDIAN
++# define TO_LE32(x) (bswap_32(x))
++# define TO_LE16(x) (bswap_16(x))
++#else
++# error cannot detect endianess
++#endif
++
++#define FROM_LE32(x) TO_LE32(x)
++#define FROM_LE16(x) TO_LE16(x)
++
++/*====================================================================*/
++
++static void print_size(u_int s)
++{
++	if ((s > 0x100000) && ((s % 0x100000) == 0))
++		printf("%d mb", s / 0x100000);
++	else if ((s > 0x400) && ((s % 0x400) == 0))
++		printf("%d kb", s / 0x400);
++	else
++		printf("%d bytes", s);
++}
++
++/*====================================================================*/
++
++static void check_partition(int fd)
++{
++	mtd_info_t mtd;
++	erase_unit_header_t hdr, hdr2;
++	u_int i, j, nbam, *bam;
++	int control, data, free, deleted;
++
++	/* Get partition size, block size */
++	if (ioctl(fd, MEMGETINFO, &mtd) != 0) {
++		perror("get info failed");
++		return;
++	}
++
++	printf("Memory region info:\n");
++	printf("  Region size = ");
++	print_size(mtd.size);
++	printf("  Erase block size = ");
++	print_size(mtd.erasesize);
++	printf("\n\n");
++
++	for (i = 0; i < mtd.size/mtd.erasesize; i++) {
++		if (lseek(fd, (i * mtd.erasesize), SEEK_SET) == -1) {
++			perror("seek failed");
++			break;
++		}
++		read(fd, &hdr, sizeof(hdr));
++		if ((FROM_LE32(hdr.FormattedSize) > 0) &&
++				(FROM_LE32(hdr.FormattedSize) <= mtd.size) &&
++				(FROM_LE16(hdr.NumEraseUnits) > 0) &&
++				(FROM_LE16(hdr.NumEraseUnits) <= mtd.size/mtd.erasesize))
++			break;
++	}
++	if (i == mtd.size/mtd.erasesize) {
++		fprintf(stderr, "No valid erase unit headers!\n");
++		return;
++	}
++
++	printf("Partition header:\n");
++	printf("  Formatted size = ");
++	print_size(FROM_LE32(hdr.FormattedSize));
++	printf(", erase units = %d, transfer units = %d\n",
++			FROM_LE16(hdr.NumEraseUnits), hdr.NumTransferUnits);
++	printf("  Erase unit size = ");
++	print_size(1 << hdr.EraseUnitSize);
++	printf(", virtual block size = ");
++	print_size(1 << hdr.BlockSize);
++	printf("\n");
++
++	/* Create basic block allocation table for control blocks */
++	nbam = (mtd.erasesize >> hdr.BlockSize);
++	bam = malloc(nbam * sizeof(u_int));
++
++	for (i = 0; i < FROM_LE16(hdr.NumEraseUnits); i++) {
++		if (lseek(fd, (i << hdr.EraseUnitSize), SEEK_SET) == -1) {
++			perror("seek failed");
++			break;
++		}
++		if (read(fd, &hdr2, sizeof(hdr2)) == -1) {
++			perror("read failed");
++			break;
++		}
++		printf("\nErase unit %d:\n", i);
++		if ((hdr2.FormattedSize != hdr.FormattedSize) ||
++				(hdr2.NumEraseUnits != hdr.NumEraseUnits) ||
++				(hdr2.SerialNumber != hdr.SerialNumber))
++			printf("  Erase unit header is corrupt.\n");
++		else if (FROM_LE16(hdr2.LogicalEUN) == 0xffff)
++			printf("  Transfer unit, erase count = %d\n", FROM_LE32(hdr2.EraseCount));
++		else {
++			printf("  Logical unit %d, erase count = %d\n",
++					FROM_LE16(hdr2.LogicalEUN), FROM_LE32(hdr2.EraseCount));
++			if (lseek(fd, (i << hdr.EraseUnitSize)+FROM_LE32(hdr.BAMOffset),
++						SEEK_SET) == -1) {
++				perror("seek failed");
++				break;
++			}
++			if (read(fd, bam, nbam * sizeof(u_int)) == -1) {
++				perror("read failed");
++				break;
++			}
++			free = deleted = control = data = 0;
++			for (j = 0; j < nbam; j++) {
++				if (BLOCK_FREE(FROM_LE32(bam[j])))
++					free++;
++				else if (BLOCK_DELETED(FROM_LE32(bam[j])))
++					deleted++;
++				else switch (BLOCK_TYPE(FROM_LE32(bam[j]))) {
++					case BLOCK_CONTROL: control++; break;
++					case BLOCK_DATA: data++; break;
++					default: break;
++				}
++			}
++			printf("  Block allocation: %d control, %d data, %d free,"
++					" %d deleted\n", control, data, free, deleted);
++		}
++	}
++} /* format_partition */
++
++/* Show usage information */
++void showusage(void)
++{
++	fprintf(stderr, "usage: %s device\n", PROGRAM_NAME);
++}
++
++/*====================================================================*/
++
++int main(int argc, char *argv[])
++{
++	int optch, errflg, fd;
++	struct stat buf;
++
++	errflg = 0;
++	while ((optch = getopt(argc, argv, "h")) != -1) {
++		switch (optch) {
++			case 'h':
++				errflg = 1; break;
++			default:
++				errflg = -1; break;
++		}
++	}
++	if (errflg || (optind != argc-1)) {
++		showusage();
++		exit(errflg > 0 ? 0 : EXIT_FAILURE);
++	}
++
++	if (stat(argv[optind], &buf) != 0) {
++		perror("status check failed");
++		exit(EXIT_FAILURE);
++	}
++	if (!(buf.st_mode & S_IFCHR)) {
++		fprintf(stderr, "%s is not a character special device\n",
++				argv[optind]);
++		exit(EXIT_FAILURE);
++	}
++	fd = open(argv[optind], O_RDONLY);
++	if (fd == -1) {
++		perror("open failed");
++		exit(EXIT_FAILURE);
++	}
++
++	check_partition(fd);
++	close(fd);
++
++	exit(EXIT_SUCCESS);
++	return 0;
++}
+diff -urN mtd-utils/ftl_format.c mtd-utils.2/ftl_format.c
+--- mtd-utils/ftl_format.c	2012-10-04 17:11:52.000000000 +0200
++++ mtd-utils.2/ftl_format.c	2012-10-04 17:13:48.000000000 +0200
+@@ -51,8 +51,12 @@
+ #include <mtd/mtd-user.h>
+ #include <mtd/ftl-user.h>
+ 
++#ifndef __APPLE__
+ #include <byteswap.h>
+ #include <endian.h>
++#else
++#include <libkern/OSByteOrder.h>
++#endif
+ 
+ #if __BYTE_ORDER == __LITTLE_ENDIAN
+ # define TO_LE32(x) (x)
+diff -urN mtd-utils/include/mtd/jffs2-user.h mtd-utils.2/include/mtd/jffs2-user.h
+--- mtd-utils/include/mtd/jffs2-user.h	2012-10-04 16:25:48.000000000 +0200
++++ mtd-utils.2/include/mtd/jffs2-user.h	2012-10-04 17:13:48.000000000 +0200
+@@ -9,8 +9,13 @@
+ 
+ /* This file is blessed for inclusion by userspace */
+ #include <linux/jffs2.h>
+-#include <endian.h>
++
++#ifndef __APPLE__
+ #include <byteswap.h>
++#include <endian.h>
++#else
++#include <libkern/OSByteOrder.h>
++#endif
+ 
+ #undef cpu_to_je16
+ #undef cpu_to_je32
+diff -urN mtd-utils/include/mtd/mtd-abi.h mtd-utils.2/include/mtd/mtd-abi.h
+--- mtd-utils/include/mtd/mtd-abi.h	2012-10-04 17:11:52.000000000 +0200
++++ mtd-utils.2/include/mtd/mtd-abi.h	2012-10-04 18:06:14.000000000 +0200
+@@ -20,7 +20,32 @@
+ #ifndef __MTD_ABI_H__
+ #define __MTD_ABI_H__
+ 
++#ifndef __APPLE__
+ #include <linux/types.h>
++#else
++#ifndef CUSTOM_OSX_TYPES
++#define CUSTOM_OSX_TYPES
++#include <sys/types.h>
++#include <stdint.h>
++typedef uint16_t __be16;
++typedef uint32_t __be32; 
++typedef uint64_t __be64;
++typedef signed char __s8;
++typedef unsigned char __u8;
++typedef signed short __s16;
++typedef unsigned short __u16;
++typedef signed int __s32;
++typedef unsigned int __u32;
++typedef signed long __s64;
++typedef unsigned long __u64;
++
++typedef unsigned short __le16;
++typedef unsigned int __le32;
++typedef unsigned long __le64;
++typedef long long       __kernel_loff_t;
++typedef __kernel_loff_t loff_t;
++#endif
++#endif
+ 
+ struct erase_info_user {
+ 	__u32 start;
+diff -urN mtd-utils/include/mtd/ubi-media.h mtd-utils.2/include/mtd/ubi-media.h
+--- mtd-utils/include/mtd/ubi-media.h	2012-10-04 16:25:48.000000000 +0200
++++ mtd-utils.2/include/mtd/ubi-media.h	2012-10-04 18:06:00.000000000 +0200
+@@ -30,7 +30,32 @@
+ #ifndef __UBI_MEDIA_H__
+ #define __UBI_MEDIA_H__
+ 
++#ifdef __APPLE__
++#ifndef CUSTOM_OSX_TYPES
++#define CUSTOM_OSX_TYPES
++#include <sys/types.h>
++#include <stdint.h>
++typedef uint16_t __be16;
++typedef uint32_t __be32; 
++typedef uint64_t __be64;
++typedef signed char __s8;
++typedef unsigned char __u8;
++typedef signed short __s16;
++typedef unsigned short __u16;
++typedef signed int __s32;
++typedef unsigned int __u32;
++typedef signed long __s64;
++typedef unsigned long __u64;
++
++typedef unsigned short __le16;
++typedef unsigned int __le32;
++typedef unsigned long __le64;
++typedef long long       __kernel_loff_t;
++typedef __kernel_loff_t loff_t;
++#endif
++#else
+ #include <asm/byteorder.h>
++#endif
+ 
+ /* The version of UBI images supported by this implementation */
+ #define UBI_VERSION 1
+diff -urN mtd-utils/include/mtd_swab.h mtd-utils.2/include/mtd_swab.h
+--- mtd-utils/include/mtd_swab.h	2012-10-04 16:25:48.000000000 +0200
++++ mtd-utils.2/include/mtd_swab.h	2012-10-04 17:31:46.000000000 +0200
+@@ -1,7 +1,14 @@
+ #ifndef MTD_SWAB_H
+ #define MTD_SWAB_H
+ 
++#ifndef __APPLE__
+ #include <endian.h>
++#else
++#define __BYTE_ORDER BYTE_ORDER
++#define __LITTLE_ENDIAN LITTLE_ENDIAN
++#define __BIG_ENDIAN BIG_ENDIAN
++#include <libkern/OSByteOrder.h>
++#endif
+ 
+ #define swab16(x) \
+         ((uint16_t)( \
+diff -urN mtd-utils/jffs-dump.c mtd-utils.2/jffs-dump.c
+--- mtd-utils/jffs-dump.c	2012-10-04 16:25:48.000000000 +0200
++++ mtd-utils.2/jffs-dump.c	2012-10-04 17:13:48.000000000 +0200
+@@ -11,7 +11,25 @@
+ #include <sys/stat.h>
+ #include <dirent.h>
+ #include <unistd.h>
++#ifndef __APPLE__
+ #include <linux/types.h>
++#else
++#include <sys/types.h>
++typedef signed char __s8;
++typedef unsigned char __u8;
++typedef signed short __s16;
++typedef unsigned short __u16;
++typedef signed int __s32;
++typedef unsigned int __u32;
++typedef signed long __s64;
++typedef unsigned long __u64;
++
++typedef unsigned short __le16;
++typedef unsigned int __le32;
++typedef unsigned long __le64;
++typedef long long       __kernel_loff_t;
++typedef __kernel_loff_t loff_t;
++#endif
+ #include <asm/byteorder.h>
+ 
+ #include "common.h"
+diff -urN mtd-utils/jffs2dump.c mtd-utils.2/jffs2dump.c
+--- mtd-utils/jffs2dump.c	2012-10-04 17:11:52.000000000 +0200
++++ mtd-utils.2/jffs2dump.c	2012-10-04 17:28:25.000000000 +0200
+@@ -28,11 +28,22 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <sys/param.h>
++#ifndef __APPLE__
+ #include <asm/types.h>
++#endif
+ #include <dirent.h>
+ #include <mtd/jffs2-user.h>
+-#include <endian.h>
++#ifndef __APPLE__
+ #include <byteswap.h>
++#include <endian.h>
++#else
++#define __BYTE_ORDER BYTE_ORDER
++#define __LITTLE_ENDIAN LITTLE_ENDIAN
++#define __BIG_ENDIAN BIG_ENDIAN
++#include <libkern/OSByteOrder.h>
++#define bswap_16(x) OSSwapInt16(x) 
++#define bswap_32(x) OSSwapInt32(x)
++#endif
+ #include <getopt.h>
+ #include <crc32.h>
+ #include "summary.h"
+diff -urN mtd-utils/lib/libfec.c mtd-utils.2/lib/libfec.c
+--- mtd-utils/lib/libfec.c	2012-10-04 17:11:52.000000000 +0200
++++ mtd-utils.2/lib/libfec.c	2012-10-04 17:13:48.000000000 +0200
+@@ -45,6 +45,9 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#ifdef __APPLE__
++#include <sys/types.h> 
++#endif
+ 
+ /*
+  * stuff used for testing purposes only
+@@ -54,7 +57,7 @@
+ #define DEB(x)
+ #define DDB(x) x
+ #define	DEBUG	0	/* minimal debugging */
+-#ifdef	MSDOS
++#if defined(MSDOS) || defined(__APPLE__)
+ #include <time.h>
+ struct timeval {
+     unsigned long ticks;
+diff -urN mtd-utils/mkfs.jffs2.c mtd-utils.2/mkfs.jffs2.c
+--- mtd-utils/mkfs.jffs2.c	2012-10-04 17:11:52.000000000 +0200
++++ mtd-utils.2/mkfs.jffs2.c	2012-10-04 17:23:11.000000000 +0200
+@@ -70,7 +70,16 @@
+ #include <sys/xattr.h>
+ #include <sys/acl.h>
+ #endif
++#ifndef __APPLE__
+ #include <byteswap.h>
++#else
++#define __BYTE_ORDER BYTE_ORDER
++#define __LITTLE_ENDIAN LITTLE_ENDIAN
++#define __BIG_ENDIAN BIG_ENDIAN
++#include <libkern/OSByteOrder.h>
++#define bswap_16(x) OSSwapInt16(x) 
++#define bswap_32(x) OSSwapInt32(x)
++#endif
+ #include <crc32.h>
+ #include <inttypes.h>
+ 
+diff -urN mtd-utils/mkfs.ubifs/compr.c mtd-utils.2/mkfs.ubifs/compr.c
+--- mtd-utils/mkfs.ubifs/compr.c	2012-10-04 16:25:48.000000000 +0200
++++ mtd-utils.2/mkfs.ubifs/compr.c	2012-10-04 18:12:47.000000000 +0200
+@@ -25,7 +25,9 @@
+ #include <stdint.h>
+ #include <string.h>
+ #include <lzo/lzo1x.h>
++#ifndef __APPLE__
+ #include <linux/types.h>
++#endif
+ 
+ #define crc32 __zlib_crc32
+ #include <zlib.h>
+diff -urN mtd-utils/mkfs.ubifs/defs.h mtd-utils.2/mkfs.ubifs/defs.h
+--- mtd-utils/mkfs.ubifs/defs.h	2012-10-04 16:25:48.000000000 +0200
++++ mtd-utils.2/mkfs.ubifs/defs.h	2012-10-04 18:11:18.000000000 +0200
+@@ -54,6 +54,8 @@
+ 	size_t len;
+ };
+ 
++
++#ifndef __APPLE__
+ /**
+  * fls - find last (most-significant) bit set
+  * @x: the word to search
+@@ -89,6 +91,7 @@
+ 	}
+ 	return r;
+ }
++#endif
+ 
+ #define do_div(n,base) ({ \
+ int __res; \
+diff -urN mtd-utils/mkfs.ubifs/mkfs.ubifs.c mtd-utils.2/mkfs.ubifs/mkfs.ubifs.c
+--- mtd-utils/mkfs.ubifs/mkfs.ubifs.c	2012-10-04 17:11:52.000000000 +0200
++++ mtd-utils.2/mkfs.ubifs/mkfs.ubifs.c	2012-10-04 18:21:56.000000000 +0200
+@@ -23,6 +23,14 @@
+ #include "mkfs.ubifs.h"
+ #include <crc32.h>
+ 
++#ifdef __APPLE__
++#define llseek lseek
++#define off64_t off_t
++# ifndef O_LARGEFILE 
++#  define O_LARGEFILE 0 
++# endif
++#endif
++
+ #define PROGRAM_VERSION "1.5"
+ 
+ /* Size (prime number) of hash table for link counting */
+@@ -821,7 +829,7 @@
+ 		if (ubi_leb_change_start(ubi, out_fd, lnum, c->leb_size, dtype))
+ 			return sys_err_msg("ubi_leb_change_start failed");
+ 
+-	if (lseek64(out_fd, pos, SEEK_SET) != pos)
++	if (llseek(out_fd, pos, SEEK_SET) != pos)
+ 		return sys_err_msg("lseek64 failed seeking %lld",
+ 				   (long long)pos);
+ 
+@@ -1079,6 +1087,7 @@
+ 
+ 	if (c->default_compr != UBIFS_COMPR_NONE)
+ 		use_flags |= UBIFS_COMPR_FL;
++#ifndef __APPLE__
+ 	if (flags & FS_COMPR_FL)
+ 		use_flags |= UBIFS_COMPR_FL;
+ 	if (flags & FS_SYNC_FL)
+@@ -1089,7 +1098,7 @@
+ 		use_flags |= UBIFS_APPEND_FL;
+ 	if (flags & FS_DIRSYNC_FL && S_ISDIR(st->st_mode))
+ 		use_flags |= UBIFS_DIRSYNC_FL;
+-
++#endif
+ 	memset(ino, 0, UBIFS_INO_NODE_SZ);
+ 
+ 	ino_key_init(&key, inum);
+@@ -1158,8 +1167,10 @@
+ 		fd = dirfd(dir);
+ 		if (fd == -1)
+ 			return sys_err_msg("dirfd failed");
++#ifndef __APPLE__		
+ 		if (ioctl(fd, FS_IOC_GETFLAGS, &flags) == -1)
+ 			flags = 0;
++#endif
+ 	}
+ 
+ 	return add_inode(st, inum, flags);
+@@ -1343,10 +1354,12 @@
+ 		key_write(&key, &dn->key);
+ 		dn->size = cpu_to_le32(bytes_read);
+ 		out_len = NODE_BUFFER_SIZE - UBIFS_DATA_NODE_SZ;
++#ifndef __APPLE__
+ 		if (c->default_compr == UBIFS_COMPR_NONE &&
+ 		    (flags & FS_COMPR_FL))
+ 			use_compr = UBIFS_COMPR_LZO;
+ 		else
++#endif
+ 			use_compr = c->default_compr;
+ 		compr_type = compress_data(buf, bytes_read, &dn->data,
+ 					   &out_len, use_compr);
+@@ -1388,8 +1401,10 @@
+ 		if (fd == -1)
+ 			return sys_err_msg("failed to open file '%s'",
+ 					   path_name);
++#ifndef __APPLE__
+ 		if (ioctl(fd, FS_IOC_GETFLAGS, &flags) == -1)
+ 			flags = 0;
++#endif		
+ 		if (close(fd) == -1)
+ 			return sys_err_msg("failed to close file '%s'",
+ 					   path_name);
+diff -urN mtd-utils/mkfs.ubifs/mkfs.ubifs.h mtd-utils.2/mkfs.ubifs/mkfs.ubifs.h
+--- mtd-utils/mkfs.ubifs/mkfs.ubifs.h	2012-10-04 17:11:52.000000000 +0200
++++ mtd-utils.2/mkfs.ubifs/mkfs.ubifs.h	2012-10-04 18:08:35.000000000 +0200
+@@ -31,10 +31,46 @@
+ #include <limits.h>
+ #include <string.h>
+ #include <stdint.h>
+-#include <endian.h>
++#ifndef __APPLE__
+ #include <byteswap.h>
++#include <endian.h>
++#else
++#define __BYTE_ORDER BYTE_ORDER
++#define __LITTLE_ENDIAN LITTLE_ENDIAN
++#define __BIG_ENDIAN BIG_ENDIAN
++#include <libkern/OSByteOrder.h>
++#define bswap_16(x) OSSwapInt16(x) 
++#define bswap_32(x) OSSwapInt32(x)
++#endif
++#ifndef __APPLE__
+ #include <linux/types.h>
++#else
++#ifndef CUSTOM_OSX_TYPES
++#define CUSTOM_OSX_TYPES
++#include <sys/types.h>
++#include <stdint.h>
++typedef uint16_t __be16;
++typedef uint32_t __be32;
++typedef uint64_t __be64;
++typedef signed char __s8;
++typedef unsigned char __u8;
++typedef signed short __s16;
++typedef unsigned short __u16;
++typedef signed int __s32;
++typedef unsigned int __u32;
++typedef signed long __s64;
++typedef unsigned long __u64;
++
++typedef unsigned short __le16;
++typedef unsigned int __le32;
++typedef unsigned long __le64;
++typedef long long       __kernel_loff_t;
++typedef __kernel_loff_t loff_t;
++#endif
++#endif
++#ifndef __APPLE__
+ #include <linux/fs.h>
++#endif
+ 
+ #include <getopt.h>
+ #include <sys/types.h>
+diff -urN mtd-utils/mkfs.ubifs/ubifs-media.h mtd-utils.2/mkfs.ubifs/ubifs-media.h
+--- mtd-utils/mkfs.ubifs/ubifs-media.h	2012-10-04 16:25:49.000000000 +0200
++++ mtd-utils.2/mkfs.ubifs/ubifs-media.h	2012-10-04 18:14:11.000000000 +0200
+@@ -33,6 +33,32 @@
+ #ifndef __UBIFS_MEDIA_H__
+ #define __UBIFS_MEDIA_H__
+ 
++#ifdef __APPLE__
++#ifndef CUSTOM_OSX_TYPES
++#define CUSTOM_OSX_TYPES
++#include <sys/types.h>
++#include <stdint.h>
++typedef uint16_t __be16;
++typedef uint32_t __be32;
++typedef uint64_t __be64;
++typedef signed char __s8;
++typedef unsigned char __u8;
++typedef signed short __s16;
++typedef unsigned short __u16;
++typedef signed int __s32;
++typedef unsigned int __u32;
++typedef signed long __s64;
++typedef unsigned long __u64;
++
++typedef unsigned short __le16;
++typedef unsigned int __le32;
++typedef unsigned long __le64;
++typedef long long       __kernel_loff_t;
++typedef __kernel_loff_t loff_t;
++#endif
++#endif
++
++
+ /* UBIFS node magic number (must not have the padding byte first or last) */
+ #define UBIFS_NODE_MAGIC  0x06101831
+ 
+diff -urN mtd-utils/nanddump.c mtd-utils.2/nanddump.c
+--- mtd-utils/nanddump.c	2012-10-04 17:11:52.000000000 +0200
++++ mtd-utils.2/nanddump.c	2012-10-04 17:13:48.000000000 +0200
+@@ -30,7 +30,9 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ 
++#ifndef __APPLE__
+ #include <asm/types.h>
++#endif
+ #include <mtd/mtd-user.h>
+ #include "common.h"
+ #include <libmtd.h>
+diff -urN mtd-utils/nandtest.c mtd-utils.2/nandtest.c
+--- mtd-utils/nandtest.c	2012-10-04 17:11:52.000000000 +0200
++++ mtd-utils.2/nandtest.c	2012-10-04 17:24:34.000000000 +0200
+@@ -14,7 +14,9 @@
+ #include <sys/types.h>
+ #include <getopt.h>
+ 
++#ifndef __APPLE__
+ #include <asm/types.h>
++#endif
+ #include "mtd/mtd-user.h"
+ 
+ void usage(void)
+diff -urN mtd-utils/nandwrite.c mtd-utils.2/nandwrite.c
+--- mtd-utils/nandwrite.c	2012-10-04 17:11:52.000000000 +0200
++++ mtd-utils.2/nandwrite.c	2012-10-04 17:23:54.000000000 +0200
+@@ -39,7 +39,9 @@
+ #include <sys/types.h>
+ #include <getopt.h>
+ 
++#ifndef __APPLE__
+ #include <asm/types.h>
++#endif
+ #include "mtd/mtd-user.h"
+ #include "common.h"
+ #include <libmtd.h>
+diff -urN mtd-utils/nftl_format.c mtd-utils.2/nftl_format.c
+--- mtd-utils/nftl_format.c	2012-10-04 16:25:49.000000000 +0200
++++ mtd-utils.2/nftl_format.c	2012-10-04 17:39:34.000000000 +0200
+@@ -28,13 +28,19 @@
+ #include <stdio.h>
+ #include <fcntl.h>
+ #include <time.h>
++#ifdef __APPLE__
++#define _DARWIN_C_SOURCE
++#include <sys/types.h>
++#endif
+ #include <sys/stat.h>
+ #include <sys/ioctl.h>
+ #include <sys/mount.h>
+ #include <errno.h>
+ #include <string.h>
+ 
++#ifndef __APPLE__
+ #include <asm/types.h>
++#endif
+ #include <mtd/mtd-user.h>
+ #include <mtd/nftl-user.h>
+ #include <mtd/inftl-user.h>
+diff -urN mtd-utils/nftldump.c mtd-utils.2/nftldump.c
+--- mtd-utils/nftldump.c	2012-10-04 16:25:49.000000000 +0200
++++ mtd-utils.2/nftldump.c	2012-10-04 17:30:37.000000000 +0200
+@@ -34,7 +34,9 @@
+ #include <errno.h>
+ 
+ #include <sys/ioctl.h>
++#ifndef __APPLE__
+ #include <asm/types.h>
++#endif
+ #include <mtd/mtd-user.h>
+ #include <mtd/nftl-user.h>
+ #include <mtd_swab.h>
+diff -urN mtd-utils/rbtree.h mtd-utils.2/rbtree.h
+--- mtd-utils/rbtree.h	2012-10-04 17:11:52.000000000 +0200
++++ mtd-utils.2/rbtree.h	2012-10-04 17:17:40.000000000 +0200
+@@ -94,8 +94,10 @@
+ #ifndef	_LINUX_RBTREE_H
+ #define	_LINUX_RBTREE_H
+ 
++#ifndef __APPLE__
+ #include <linux/kernel.h>
+ #include <linux/stddef.h>
++#endif
+ 
+ struct rb_node
+ {
+diff -urN mtd-utils/recv_image.c mtd-utils.2/recv_image.c
+--- mtd-utils/recv_image.c	2012-10-04 17:11:52.000000000 +0200
++++ mtd-utils.2/recv_image.c	2012-10-04 17:51:38.000000000 +0200
+@@ -4,7 +4,15 @@
+ #define _BSD_SOURCE	/* struct ip_mreq */
+ 
+ #include <errno.h>
++#ifndef __APPLE__
+ #include <error.h>
++#else
++#define _DARWIN_C_SOURCE 1
++#ifndef IPV6_ADD_MEMBERSHIP
++#define IPV6_ADD_MEMBERSHIP IPV6_JOIN_GROUP
++#define IPV6_DROP_MEMBERSHIP IPV6_LEAVE_GROUP
++#endif
++#endif
+ #include <stdio.h>
+ #include <netdb.h>
+ #include <stdlib.h>
+diff -urN mtd-utils/rfddump.c mtd-utils.2/rfddump.c
+--- mtd-utils/rfddump.c	2012-10-04 16:25:49.000000000 +0200
++++ mtd-utils.2/rfddump.c	2012-10-04 17:42:38.000000000 +0200
+@@ -25,7 +25,9 @@
+ #include <getopt.h>
+ 
+ #include <mtd/mtd-user.h>
++#ifndef __APPLE__
+ #include <linux/types.h>
++#endif
+ #include <mtd_swab.h>
+ 
+ /* next is an array of mapping for each corresponding sector */
+diff -urN mtd-utils/rfdformat.c mtd-utils.2/rfdformat.c
+--- mtd-utils/rfdformat.c	2012-10-04 16:25:49.000000000 +0200
++++ mtd-utils.2/rfdformat.c	2012-10-04 17:43:17.000000000 +0200
+@@ -27,7 +27,9 @@
+ #include <getopt.h>
+ 
+ #include <mtd/mtd-user.h>
++#ifndef __APPLE__
+ #include <linux/types.h>
++#endif
+ 
+ void display_help(void)
+ {
+diff -urN mtd-utils/serve_image.c mtd-utils.2/serve_image.c
+--- mtd-utils/serve_image.c	2012-10-04 17:11:52.000000000 +0200
++++ mtd-utils.2/serve_image.c	2012-10-04 17:43:59.000000000 +0200
+@@ -3,7 +3,9 @@
+ 
+ #include <time.h>
+ #include <errno.h>  	
+-#include <error.h> 	
++#ifndef __APPLE__
++#include <error.h>
++#endif 	
+ #include <netdb.h> 	
+ #include <stdio.h> 	
+ #include <stdlib.h> 	
+diff -urN mtd-utils/summary.h mtd-utils.2/summary.h
+--- mtd-utils/summary.h	2012-10-04 16:25:49.000000000 +0200
++++ mtd-utils.2/summary.h	2012-10-04 17:29:20.000000000 +0200
+@@ -12,7 +12,9 @@
+ #ifndef JFFS2_SUMMARY_H
+ #define JFFS2_SUMMARY_H
+ 
++#ifndef __APPLE__
+ #include <linux/uio.h>
++#endif
+ #include <linux/jffs2.h>
+ 
+ #define DIRTY_SPACE(x) do { typeof(x) _x = (x); \
+diff -urN mtd-utils/sumtool.c mtd-utils.2/sumtool.c
+--- mtd-utils/sumtool.c	2012-10-04 16:25:49.000000000 +0200
++++ mtd-utils.2/sumtool.c	2012-10-04 17:52:53.000000000 +0200
+@@ -40,11 +40,22 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <sys/param.h>
++#ifndef __APPLE__
+ #include <asm/types.h>
++#endif
+ #include <dirent.h>
+ #include <mtd/jffs2-user.h>
+-#include <endian.h>
++#ifndef __APPLE__
+ #include <byteswap.h>
++#include <endian.h>
++#else
++#define __BYTE_ORDER BYTE_ORDER
++#define __LITTLE_ENDIAN LITTLE_ENDIAN
++#define __BIG_ENDIAN BIG_ENDIAN
++#include <libkern/OSByteOrder.h>
++#define bswap_16(x) OSSwapInt16(x) 
++#define bswap_32(x) OSSwapInt32(x)
++#endif
+ #include <getopt.h>
+ #include <crc32.h>
+ #include "summary.h"
