@@ -179,6 +179,10 @@ static void add_new_fifo(char *name, char *path, unsigned long uid,
 
     Regular files must exist in the target root directory.  If a char,
     block, fifo, or directory does not exist, it will be created.
+
+    count can be prepended with an 'h' to indicate the numbers to append must be hex.
+    I.e. if start, inc and count are 0,1,h12 respectively the devices will be appended with
+    0,1,2....9,a,b and not 0,1,2....9,10,11 which is the case if 'h' is omitted
 */
 static int interpret_table_entry(char *line)
 {
@@ -186,14 +190,24 @@ static int interpret_table_entry(char *line)
 	char path[4096], type;
 	unsigned long mode = 0755, uid = 0, gid = 0, major = 0, minor = 0;
 	unsigned long start = 0, increment = 1, count = 0;
+	char countstr[20+1];
+	char*pcountstr = countstr;
+	int do_hex = 0;
 
-	if (0 > sscanf(line, "%40s %c %lo %lu %lu %lu %lu %lu %lu %lu", path,
+	if (0 > sscanf(line, "%40s %c %lo %lu %lu %lu %lu %lu %lu %20s", path,
 		    &type, &mode, &uid, &gid, &major, &minor, &start,
-		    &increment, &count)) 
+		    &increment, &countstr)) 
 	{
 		return 1;
 	}
 
+	if (countstr[0] == 'h') {
+		pcountstr++;
+		do_hex = 1;
+	}
+	if (0 > sscanf(pcountstr,"%lu", &count)) {
+		return 1;
+	}
 	if (!strcmp(path, "/")) {
 		error_msg_and_die("Device table entries require absolute paths");
 	}
@@ -222,7 +236,11 @@ static int interpret_table_entry(char *line)
 			char buf[80];
 
 			for (i = start; i < count; i++) {
-				sprintf(buf, "%s%d", name, i);
+				if (do_hex) {
+					sprintf(buf, "%s%x", name, i);
+				} else {
+					sprintf(buf, "%s%d", name, i);
+				}
 				/* FIXME:  MKDEV uses illicit insider knowledge of kernel 
 				 * major/minor representation...  */
 				rdev = MKDEV(major, minor + (i * increment - start));
