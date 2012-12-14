@@ -36,6 +36,7 @@ AUTO_PACKAGE_UTILS = "\
 
 FILES_mtd-utils-ubicrc32 = "${sbindir}/ubicrc32.pl"
 
+DEPENDS_${PN}-mkfs-jffs2 = "libz liblzo"
 RDEPENDS_${PN}-mkfs-jffs2 = "libz liblzo"
 RDEPENDS_${PN}-mkfs-ubifs = "libz liblzo libuuid libm"
 
