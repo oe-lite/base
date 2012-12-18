@@ -619,6 +619,9 @@ BUSYBOX_SIMPLE_USE_FLAGS += "mount=1:util/"
 # USE flag: enable feature_mount nfs
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_mount_nfs"
 
+# USE flag: enable mkfs vfat
+BUSYBOX_SIMPLE_USE_FLAGS += "mkfs_vfat:util/"
+
 # USE flag: enable pivot root utility
 BUSYBOX_SIMPLE_USE_FLAGS += "pivot_root:util/"
 
