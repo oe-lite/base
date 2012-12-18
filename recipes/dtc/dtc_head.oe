@@ -1,0 +1,3 @@
+require dtc.inc
+
+SRCREV = ";commit=e4b497f367a3b2ae99cc52089a14a221b13a76ef"
