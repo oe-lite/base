@@ -10,6 +10,7 @@ inherit c make sysvinit runit crontab
 DEFAULT_PREFERENCE = "1"
 
 SRC_URI = "http://www.busybox.net/downloads/busybox-${PV}.tar.bz2"
+SRC_URI_FIXES = "http://busybox.net/downloads/fixes-${PV}/"
 
 SRC_URI += "\
 	file://defconfig \
