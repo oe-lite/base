@@ -1,3 +1,7 @@
 require busybox.inc
 
+SRC_URI += "${SRC_URI_FIXES}/busybox-1.20.2-kernel_ver.patch"
+SRC_URI += "${SRC_URI_FIXES}/busybox-1.20.2-pkg-config-selinux.patch"
+SRC_URI += "${SRC_URI_FIXES}/busybox-1.20.2-sys-resource.patch"
+
 SRC_URI += "file://udhcp-simple-script-route-del-dev-null.patch"
