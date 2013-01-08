@@ -196,7 +196,7 @@ static int interpret_table_entry(char *line)
 
 	if (0 > sscanf(line, "%40s %c %lo %lu %lu %lu %lu %lu %lu %20s", path,
 		    &type, &mode, &uid, &gid, &major, &minor, &start,
-		    &increment, &countstr)) 
+		    &increment, countstr)) 
 	{
 		return 1;
 	}
@@ -205,9 +205,8 @@ static int interpret_table_entry(char *line)
 		pcountstr++;
 		do_hex = 1;
 	}
-	if (0 > sscanf(pcountstr,"%lu", &count)) {
-		return 1;
-	}
+	sscanf(pcountstr,"%lu", &count);
+	
 	if (!strcmp(path, "/")) {
 		error_msg_and_die("Device table entries require absolute paths");
 	}
