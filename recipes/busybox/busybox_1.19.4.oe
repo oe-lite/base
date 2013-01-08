@@ -1,3 +1,5 @@
 require busybox.inc
 
+SRC_URI += "${SRC_URI_FIXES}/busybox-1.19.4-udhcp.patch"
+
 SRC_URI += "file://udhcp-simple-script-route-del-dev-null.patch"
