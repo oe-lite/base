@@ -1,0 +1,56 @@
+Index: gettext-0.18.1.1/gettext-tools/gnulib-lib/stdio.in.h
+===================================================================
+--- gettext-0.18.1.1.orig/gettext-tools/gnulib-lib/stdio.in.h	2012-11-15 18:46:24.000000000 +0000
++++ gettext-0.18.1.1/gettext-tools/gnulib-lib/stdio.in.h	2012-11-15 19:14:37.000000000 +0000
+@@ -138,10 +138,12 @@
+ #endif
+ 
+ /* It is very rare that the developer ever has full control of stdin,
+-   so any use of gets warrants an unconditional warning.  Assume it is
+-   always declared, since it is required by C89.  */
++   so any use of gets warrants an unconditional warning.  */
+ #undef gets
++#ifdef HAVE_RAW_DECL_GETS
+ _GL_WARN_ON_USE (gets, "gets is a security hole - use fgets instead");
++#endif
++#undef gets
+ 
+ #if @GNULIB_FOPEN@
+ # if @REPLACE_FOPEN@
+Index: gettext-0.18.1.1/gettext-runtime/gnulib-lib/stdio.in.h
+===================================================================
+--- gettext-0.18.1.1.orig/gettext-runtime/gnulib-lib/stdio.in.h	2010-05-17 19:56:12.000000000 +0000
++++ gettext-0.18.1.1/gettext-runtime/gnulib-lib/stdio.in.h	2012-11-15 19:11:15.000000000 +0000
+@@ -138,10 +138,11 @@
+ #endif
+ 
+ /* It is very rare that the developer ever has full control of stdin,
+-   so any use of gets warrants an unconditional warning.  Assume it is
+-   always declared, since it is required by C89.  */
++   so any use of gets warrants an unconditional warning. */
+ #undef gets
++#ifdef HAVE_RAW_DECL_GETS
+ _GL_WARN_ON_USE (gets, "gets is a security hole - use fgets instead");
++#endif
+ 
+ #if @GNULIB_FOPEN@
+ # if @REPLACE_FOPEN@
+Index: gettext-0.18.1.1/gettext-tools/libgettextpo/stdio.in.h
+===================================================================
+--- gettext-0.18.1.1.orig/gettext-tools/libgettextpo/stdio.in.h	2010-05-17 19:58:03.000000000 +0000
++++ gettext-0.18.1.1/gettext-tools/libgettextpo/stdio.in.h	2012-11-15 19:11:53.000000000 +0000
+@@ -138,10 +138,11 @@
+ #endif
+ 
+ /* It is very rare that the developer ever has full control of stdin,
+-   so any use of gets warrants an unconditional warning.  Assume it is
+-   always declared, since it is required by C89.  */
++   so any use of gets warrants an unconditional warning.  */
+ #undef gets
++#ifdef HAVE_RAW_DECL_GETS
+ _GL_WARN_ON_USE (gets, "gets is a security hole - use fgets instead");
++#endif
+ 
+ #if @GNULIB_FOPEN@
+ # if @REPLACE_FOPEN@
+

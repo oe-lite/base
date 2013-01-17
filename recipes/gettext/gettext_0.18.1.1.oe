@@ -1,3 +1,5 @@
 LICENSE = "GPL-3.0+ & LGPL-2.1+"
 
 require gettext.inc
+
+SRC_URI += "file://gettext0.18.1.1-9ubuntu1-glibc-2.16-fix.patch"
