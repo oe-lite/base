@@ -4,4 +4,5 @@ require gettext.inc
 
 SRC_URI += "file://ac-fix.patch"
 SRC_URI += "file://gettext-0.18-gettextpo-woe32-memchr.patch"
+SRC_URI += "file://gettext0.18.1.1-9ubuntu1-glibc-2.16-fix.patch"
 SRC_URI:>HOST_KERNEL_darwin = " file://osx.patch"
