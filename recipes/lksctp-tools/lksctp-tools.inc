@@ -1,5 +1,4 @@
 DESCRIPTION = "The Linux Kernel Stream Control Transmission Protocol (lksctp) project"
-LICENSE = "LGPLv2"
 
 inherit autotools auto-package-utils auto-package-libs
 
