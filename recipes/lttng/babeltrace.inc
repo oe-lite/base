@@ -11,7 +11,7 @@ inherit autotools-autoreconf
 SRC_URI = "http://www.efficios.com/files/babeltrace/babeltrace-0.8.tar.bz2"
 
 DEPENDS += "libuuid libpopt libgmodule librt"
-RDEPENDS_${PN} += "libgmodule libpopt libuuid libpcre libpthread libc libglib libdl"
+RDEPENDS_${PN} += "libgmodule libpopt libuuid libpcre libpthread libc libglib libdl librt"
 
 PACKAGES = "${PN}-dbg ${PN}-doc ${PN} ${PN}-dev ${PN}-locale"
 FILES_${PN} += "${libdir}/*.so"
