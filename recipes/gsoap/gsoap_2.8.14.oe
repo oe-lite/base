@@ -1,0 +1,12 @@
+require gsoap.inc
+
+DEPENDS = "native:gsoap-utils"
+DEPENDS += "libstdc++ libssl libcrypto libz libdl"
+
+inherit auto-package-utils
+
+AUTO_PACKAGE_UTILS = "soapcpp2 wsdl2h"
+
+RDEPENDS_${PN}-wsdl2h += "libcrypto libssl libz libdl libstdc++ libm libgcc libc"
+
+FILES_${PN} += "${datadir}"
