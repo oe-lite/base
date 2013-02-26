@@ -24,6 +24,12 @@ do_configure () {
 
 MAKE_TARGETS = "tools-all"
 
+do_compile[prefuncs] += "do_compile_fix_gdb_include_path"
+
+do_compile_fix_gdb_include_path() {
+    sed 's#\(BFD_ROOT_DIR =\).*#\1 ${HOST_SYSROOT}${includedir}#' -i ${S}/config.mk
+}
+
 do_compile () {
     oe_runmake ${MAKE_TARGETS}
 }
