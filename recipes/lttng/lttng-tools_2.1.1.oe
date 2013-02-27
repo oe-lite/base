@@ -1,0 +1,20 @@
+require ${PN}.inc
+
+SRC_URI += "file://include-fix.patch"
+
+inherit auto-package-libs
+AUTO_PACKAGE_LIBS = "lttngctl lttngconsumerd"
+FILES_${PN}-liblttngctl-dev = "${includedir}/lttng/lttng.h"
+FILES_${PN}-liblttngconsumerd-dev = "${includedir}/lttng/lttng-consumerd.h"
+DEPENDS_${PN}-liblttngctl = "libpopt libpthread libc"
+DEPENDS_${PN}-liblttngconsumerd = "libpopt libpthread libc"
+
+inherit auto-package-utils
+AUTO_PACKAGE_UTILS = "lttng lttng-consumerd lttng-sessiond lttng-relayd"
+RDEPENDS_${PN}-lttng = "liblttngctl libpopt libpthread libc"
+RDEPENDS_${PN}-lttng-consumerd = "liblttngconsumerd libpopt libpthread libc"
+RDEPENDS_${PN}-lttng-sessiond = "liblttngctl libpopt libpthread librt libc"
+RDEPENDS_${PN}-lttng-relayd = "liblttngctl libpopt  libpthread librt libc"
+RDEPENDS_${PN} += "${AUTO_PACKAGE_UTILS_PACKAGES}"
+FILES_${PN}-lttng-consumerd = "${libdir}/lttng/libexec/lttng-consumerd \
+				${libdir}/lttng/libexec/.debug/lttng-consumerd "
