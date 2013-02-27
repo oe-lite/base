@@ -1,0 +1,2 @@
+# -*- mode:python; -*-
+require ${PN}.inc
