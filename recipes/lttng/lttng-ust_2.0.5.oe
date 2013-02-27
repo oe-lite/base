@@ -1,2 +1,0 @@
-require ${PN}.inc
-LICENSE = "LGPLv2.1+ & BSD"
