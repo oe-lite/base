@@ -4,8 +4,6 @@ BUGTRACKER = "http://hostap.epitest.fi/bugz/"
 
 inherit make c++ pkgconfig
 
-LICENSE = "GPLv2 | BSD"
-
 DEPENDS += "libdbus libgnutls libgnutls-extra libnl-3 libnl-genl-3 libnl-genl-3 libdl"
 
 RDEPENDS_${PN} = "util/wpa-passphrase util/wpa-cli"
