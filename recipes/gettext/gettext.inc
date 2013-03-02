@@ -9,7 +9,6 @@ inherit c++ autotools-autoreconf library make-vpath
 require conf/fetch/gnu.conf
 SRC_URI = "${GNU_MIRROR}/gettext/gettext-${PV}.tar.gz"
 
-<<<<<<< HEAD
 DEPENDS = "libiconv ${DEPENDS_HOST_OS} ${DEPENDS_SELF_NATIVE}"
 DEPENDS_HOST_OS = "libdl libpthread libm libncurses"
 DEPENDS_HOST_OS:HOST_OS_mingw32 = "libm libncurses"
