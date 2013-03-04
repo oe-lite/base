@@ -51,14 +51,14 @@ U_BOOT_TOOLS = "bmp_logo mkimage envcrc gen_eth_addr img2srec img2brec.sh \
 do_install () {
     install -d ${D}${bindir}
     for tool in ${U_BOOT_TOOLS} ; do
-	if [ -f tools/$tool${HOST_EXEEXT} ] ; then
-	    install -m 0755 tools/$tool${HOST_EXEEXT} \
-		${D}${bindir}/$tool${HOST_EXEEXT}
-	fi
+        if [ -f tools/$tool${HOST_EXEEXT} ] ; then
+            install -m 0755 tools/$tool${HOST_EXEEXT} \
+                ${D}${bindir}/$tool${HOST_EXEEXT}
+        fi
     done
     if [ -f tools/env/fw_printenv${HOST_EXEEXT} ] ; then
-	install -m 0755 tools/env/fw_printenv${HOST_EXEEXT} \
-	    ${D}${bindir}/fw_printenv${HOST_EXEEXT}
+        install -m 0755 tools/env/fw_printenv${HOST_EXEEXT} \
+            ${D}${bindir}/fw_printenv${HOST_EXEEXT}
     fi
     ln -s fw_printenv${HOST_EXEEXT} ${D}${bindir}/fw_setenv${HOST_EXEEXT}
 }
