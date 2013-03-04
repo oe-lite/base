@@ -11,6 +11,16 @@ S = "${SRCDIR}/u-boot-${PV}"
 MIRRORS =. """http://ftp.denx.de/pub/u-boot/ ftp://ftp.denx.de/pub/u-boot/
 """
 
+DEPENDS:sdk = "native:u-boot-tools-bmp-logo"
+
+DO_COMPILE_FIX_SDK_BUILD = ""
+DO_COMPILE_FIX_SDK_BUILD:sdk = "do_compile_fix_sdk_build"
+do_compile[prefuncs] += "${DO_COMPILE_FIX_SDK_BUILD}"
+
+do_compile_fix_sdk_build() {
+    sed 's#$(obj)./bmp_logo $(LOGO_BMP) >$@#${BUILD_SYSROOT}/bin/bmp_logo $(LOGO_BMP) >$@#' -i ${S}/tools/Makefile
+}
+
 PARALLEL_MAKE = ""
 EXTRA_OEMAKE = 'HOSTCC="${CC}" HOSTSTRIP="${STRIP}" \
     CROSS_COMPILE="${HOST_PREFIX}"'
@@ -35,7 +45,7 @@ do_compile () {
 }
 
 inherit auto-package-utils
-U_BOOT_TOOLS = "mkimage envcrc gen_eth_addr img2srec img2brec.sh \
+U_BOOT_TOOLS = "bmp_logo mkimage envcrc gen_eth_addr img2srec img2brec.sh \
     jtagconsole netconsole setlocalversion"
 
 do_install () {
