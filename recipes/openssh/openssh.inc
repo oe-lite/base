@@ -12,10 +12,11 @@ LICENSE = "BSD"
 
 RECIPE_TYPES = "machine"
 
-inherit autotools
+inherit autotools passwd
 
 SRC_URI = "ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-${PV}.tar.gz"
 SRC_URI += "file://sshd_config file://ssh_config file://init"
+SRC_URI += "file://passwd file://group"
 
 DEPENDS = "libcrypto libssl libz libdl libutil libresolv libcrypt"
 
@@ -72,3 +73,8 @@ FILES_${PN}-sshd-doc = "${mandir}/*/moduli.* ${mandir}/*/sshd_config.*"
 RDEPENDS_${PN} += "${AUTO_PACKAGE_UTILS_PACKAGES}"
 AUTO_PACKAGE_UTILS_RDEPENDS = "libc libgcc libdl libutil libcrypto libz"
 RDEPENDS_${PN}-sshd = "${PN}-keygen"
+
+inherit sysvinit
+RECIPE_FLAGS = "sshd_sysvinit_start sshd_sysvinit_stop"
+DEFAULT_USE_sshd_sysvinit_start = "25"
+DEFAULT_USE_sshd_sysvinit_stop = "0"
