@@ -4,9 +4,9 @@ BUGTRACKER = "https://savannah.gnu.org/support/?group=gnutls"
 
 inherit c++ autotools-autoreconf binconfig pkgconfig gettext
 
-DEPENDS += "zlib lzo libtasn1 libgcrypt readline"
-DEPENDS_${PN} += "zlib lzo libtasn1 libgcrypt readline"
-RDEPENDS_${PN} += "gnutls-extra lzo libtasn1"
+DEPENDS += "libz liblzo libtasn1 libgcrypt libreadline"
+DEPENDS_${PN} += "libz liblzo libtasn1 libgcrypt libreadline"
+RDEPENDS_${PN} += "gnutls-extra liblzo libtasn1"
 
 require conf/fetch/gnu.conf
 
