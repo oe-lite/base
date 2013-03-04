@@ -27,3 +27,5 @@ AUTO_PACKAGE_UTILS_RDEPENDS += "libnl-route-3 libnl-genl-3 libnl-nf-3"
 
 RDEPENDS_${PN} += "libm libpthread libc"
 AUTO_PACKAGE_UTILS_RDEPENDS += "${PN} libnl-3"
+AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev_${PV}"
+AUTO_PACKAGE_LIBS_DEV_RDEPENDS = "${PN}-dev_${PV}"
