@@ -1,3 +1,5 @@
 require libiconv.inc
 
 LICENSE = "GPL-3.0 & LGPL-2.0"
+
+SRC_URI += "file://gets-undefined-in-C11.patch"
