@@ -1,9 +1,0 @@
---- libnl-3.2.7/libnl-3.0.pc.in.orig	2012-02-14 10:14:31.033464884 +0100
-+++ libnl-3.2.7/libnl-3.0.pc.in	2012-02-14 10:15:14.655707202 +0100
-@@ -6,5 +6,5 @@
- Name: libnl
- Description: Convenience library for netlink sockets
- Version: @PACKAGE_VERSION@
--Libs: -L${libdir} -lnl-@MAJ_VERSION@
-+Libs: -L${libdir} -lnl-@MAJ_VERSION@ -lnl-genl-3 -lnl-nf-3 -lnl-route-3
- Cflags: -I${includedir}/libnl@MAJ_VERSION@

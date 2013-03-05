@@ -1,5 +1,0 @@
-require ${PN}.inc
-
-LICENSE = "LGPLv2.1"
-
-SRC_URI += "file://fix-pc-file.patch"
