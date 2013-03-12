@@ -56,6 +56,14 @@ do_compile() {
 	do_compile_make
 }
 
+EXTRA_OEMAKE_COMPILE:TARGET_BINFMT_flat = "busybox_unstripped"
+do_compile[postfuncs] += "${do_compile_binfmt_fixup}"
+do_compile_binfmt_fixup:TARGET_BINFMT_flat = "do_compile_binfmt_flat_fixup"
+do_compile_binfmt_flat_fixup() {
+	mv busybox_unstripped busybox
+	mv busybox_unstripped.gdb busybox_unstripped
+}
+
 require busybox-install.inc
 
 FILES_${PN}:>USE_busybox_runit = " ${runitservicedir}"
