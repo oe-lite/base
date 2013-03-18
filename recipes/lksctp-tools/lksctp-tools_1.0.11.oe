@@ -1,3 +1,0 @@
-require lksctp-tools.inc
-
-LICENSE = "LGPL-2.0"
