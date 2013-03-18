@@ -1,0 +1,4 @@
+# -*- mode:python; -*-
+include dbus.inc
+
+#SRC_URI += "file://tmpdir.patch"
