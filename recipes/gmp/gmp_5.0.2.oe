@@ -1,6 +1,0 @@
-require ${PN}.inc
-
-LICENSE = "GPL LGPL"
-
-SRC_URI += "file://configure.patch"
-SRC_URI += "file://amd64.patch"
