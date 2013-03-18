@@ -1,0 +1,13 @@
+--- b/Makefile	2013-03-18 14:19:22.297921165 +0100
++++ a/Makefile	2013-03-18 14:26:05.053909264 +0100
+@@ -77,7 +77,7 @@
+ # manual pages will be installed.
+ MANDIR := $(PREFIX)/man
+ 
+-MACHINE := $(shell uname -m)
++MACHINE := $(HOST_CPU)
+ 
+ # Extra non-default programs to build; e.g., sensord
+ #PROG_EXTRA := sensord
+
+Diff finished.  Mon Mar 18 14:26:32 2013
