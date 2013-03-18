@@ -1,0 +1,9 @@
+require busybox.inc
+
+SRC_URI += "${SRC_URI_FIXES}/busybox-1.21.0-mdev.patch"
+SRC_URI += "${SRC_URI_FIXES}/busybox-1.21.0-platform.patch"
+SRC_URI += "${SRC_URI_FIXES}/busybox-1.21.0-xz.patch"
+
+SRC_URI += "file://udhcp-simple-script-route-del-dev-null.patch"
+
+SRC_URI:>BUILD_KERNEL_darwin = " file://osx.patch"
