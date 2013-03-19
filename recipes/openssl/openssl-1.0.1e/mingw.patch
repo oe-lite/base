@@ -1,0 +1,12 @@
+diff -urN openssl-1.0.0e/Makefile.shared openssl-1.0.0enew//Makefile.shared
+--- openssl-1.0.0e/Makefile.shared	2010-08-21 13:36:49.000000000 +0200
++++ openssl-1.0.0enew//Makefile.shared	2012-04-10 15:43:18.384797024 +0200
+@@ -293,7 +293,7 @@
+ 	fi; \
+ 	dll_name=$$SHLIB$$SHLIB_SOVER$$SHLIB_SUFFIX; \
+ 	$(PERL) util/mkrc.pl $$dll_name | \
+-		$(CROSS_COMPILE)windres -o rc.o; \
++		$(WINDRES) -o rc.o; \
+ 	extras="$$extras rc.o"; \
+ 	ALLSYMSFLAGS='-Wl,--whole-archive'; \
+ 	NOALLSYMSFLAGS='-Wl,--no-whole-archive'; \
