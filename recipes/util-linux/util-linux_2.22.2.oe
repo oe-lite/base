@@ -1,0 +1,18 @@
+# -*- mode:python; -*-
+LICENSE = "GPL-3.0+ & GPL-2.0+ & GPL-2.0 & LGPL-2.0+ & BSD-4-Clause-UC*"
+
+require util-linux.inc
+
+EXTRA_OECONF_PAM = " --disable-login --disable-su"
+
+AUTO_PACKAGE_UTILS = "agetty blkid cal chrt col colcrt colrm \
+	column cytune dmesg fallocate fdisk findfs findmnt flock fsck \
+	fsck.cramfs fsck.minix getopt hexdump hwclock ionice ipcmk ipcrm ipcs \
+	isosize logger look losetup lsblk lscpu mkfs mkfs.bfs mkfs.cramfs \
+	mkfs.minix mcookie mkswap mount namei pivot_root rename renice \
+	rev script scriptreplay setarch setsid sfdisk swaplabel swapon \
+	switch_root tailf taskset umount unshare uuidd uuidgen wall whereis \
+	wipefs addpart blockdev ctrlaltdel delpart fdformat fsfreeze fstrim \
+	ldattach readprofile rtcwake tunelp more mountpoint partx eject \
+	kill lslocks utmpdump wdctl chcpu raw resizepart sulogin"
+AUTO_PACKAGE_UTILS:>USE_ncurses = " cfdisk"
