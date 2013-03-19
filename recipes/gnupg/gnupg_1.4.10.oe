@@ -1,0 +1,11 @@
+require gnupg.inc
+
+DEPENDS += "readline"
+EXTRA_OECONF += "--with-readline ac_cv_sys_symbol_underscore=yes --without-libusb"
+#   --without-readline      do not support fancy command line editing
+
+SRC_URI += "file://long-long-thumb.patch"
+SRC_URI += "file://mips_gcc4.4.patch"
+
+
+

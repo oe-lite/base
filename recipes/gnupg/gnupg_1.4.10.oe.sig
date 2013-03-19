@@ -1,0 +1,1 @@
+fd1b6a5f3b2dd836b598a1123ac257b8f105615d  gnupg-1.4.10.tar.bz2
