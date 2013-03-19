@@ -1,1 +1,0 @@
-236013d220c9eda3d8838f5b20b9ab0bb85ae603  libpng-1.2.46.tar.bz2
