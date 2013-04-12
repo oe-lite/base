@@ -426,6 +426,37 @@ BUSYBOX_SIMPLE_USE_FLAGS += "ash_alias"
 # USE flag: enable sh math support 64
 BUSYBOX_SIMPLE_USE_FLAGS += "sh_math_support_64"
 
+RECIPE_FLAGS += "busybox_hush"
+
+# USE flag: enable hush shell
+DEFAULT_USE_busybox_hush = "0"
+# Run-time provides hush shell
+BUSYBOX_PROVIDES:>USE_busybox_hush += " busybox-hush sh getopts echo printf test"
+DO_CONFIGURE_PREFUNCS:>USE_busybox_hush = " do_configure_busybox_hush"
+do_configure_busybox_hush () {
+        sed -i -e 's/^# \(CONFIG_HUSH\) is not set/\1=y/' \
+               -e 's/^# \(CONFIG_HUSH_BASH_COMPAT\) is not set/\1=y/' \
+               -e 's/^# \(CONFIG_HUSH_BRACE_EXPANSION\) is not set/\1=y/' \
+               -e 's/^# \(CONFIG_HUSH_HELP\) is not set/\1=y/' \
+               -e 's/^# \(CONFIG_HUSH_INTERACTIVE\) is not set/\1=y/' \
+               -e 's/^# \(CONFIG_HUSH_SAVEHISTORY\) is not set/\1=y/' \
+               -e 's/^# \(CONFIG_HUSH_JOB\) is not set/\1=y/' \
+               -e 's/^# \(CONFIG_HUSH_TICK\) is not set/\1=y/' \
+               -e 's/^# \(CONFIG_HUSH_IF\) is not set/\1=y/' \
+               -e 's/^# \(CONFIG_HUSH_LOOPS\) is not set/\1=y/' \
+               -e 's/^# \(CONFIG_HUSH_CASE\) is not set/\1=y/' \
+               -e 's/^# \(CONFIG_HUSH_FUNCTIONS\) is not set/\1=y/' \
+               -e 's/^# \(CONFIG_HUSH_LOCAL\) is not set/\1=y/' \
+               -e 's/^# \(CONFIG_HUSH_RANDOM_SUPPORT\) is not set/\1=y/' \
+               -e 's/^# \(CONFIG_HUSH_EXPORT_N\) is not set/\1=y/' \
+               -e 's/^# \(CONFIG_HUSH_MODE_X\) is not set/\1=y/' \
+               -e 's/^# \(CONFIG_FEATURE_SH_IS_HUSH\) is not set/\1=y/' \
+               -e 's/^# \(CONFIG_FEATURE_BASH_IS_HUSH\) is not set/\1=y/' \
+               -e 's/^\(CONFIG_FEATURE_SH_IS_NONE\)=y/# \1 is not set/' \
+               -e 's/^\(CONFIG_FEATURE_BASH_IS_NONE\)=y/# \1 is not set/' \
+        .config
+}
+
 # USE flag: choice for reserving buffers
 RECIPE_FLAGS += "busybox_buffers"
 DEFAULT_USE_busybox_buffers = "malloc"
