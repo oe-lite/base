@@ -1,2 +1,6 @@
 require dropbear.inc
 LICENSE = "MIT & custom"
+
+# One fork() call is left, so we use this debug flag to compile it out for
+# nommu systems
+CFLAGS:>HOST_OS_uclinux-uclibc = " -DDEBUG_NOFORK"
