@@ -4,7 +4,7 @@ and FISH."
 
 RECIPE_TYPES = "machine native sdk"
 
-inherit c++ autotools-autoreconf pkgconfig largefile
+inherit c++ autotools pkgconfig largefile
 
 DEPENDS = "libncurses libreadline"
 
