@@ -62,14 +62,26 @@ do_configure () {
 
 	# inject machine-specific flags
 	sed -i -e "s|^\(\"$target\",\s*\"[^:]\+\):\([^:]\+\)|\1:${CFLAG}|g" Configure
-	useprefix=${prefix}
-	if [ -z "$useprefix" ]; then
-		useprefix=/
+
+	# As the openssl buildsystem assumes that bin, include and libdirs
+	# all are subdirs to same prefix, we need to force prefix to ""
+	# to be able to handle cases where fx. prefix=/usr and bindir=/bin
+	# and instead manually patch in those subdirs with full path.
+	sedc=""
+	if [ "${bindir}" != "/bin" ] ; then
+		sedc=$sedc"s%\(\$(INSTALLTOP)\)/bin%\1${bindir}%g;"
 	fi
-        uselibdir=`echo ${libdir} | sed -e "s%^$useprefix%%"`
+	if [ "${includedir}" != "/include" ] ; then
+		sedc=$sedc"s%\(\$(INSTALLTOP)\)/include%\1${includedir}%g;"
+	fi
+	if [ -n "$sedc" ] ; then
+		find . -name Makefile -exec sed -i -e "$sedc" {} \;
+		sed -i -e "$sedc" Makefile.org
+        fi
+
 	perl ./Configure shared \
-		--prefix=$useprefix \
-		--libdir=$uselibdir \
+		--prefix=/ \
+		--libdir=${libdir} \
 		--openssldir=${libdir}/ssl \
 		$target
 }
