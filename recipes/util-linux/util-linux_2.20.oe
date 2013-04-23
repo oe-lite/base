@@ -6,3 +6,14 @@ require util-linux.inc
 # Add define for backwards compatibility with old and unofficial function
 # calls available until 2.19. Used by at least e2fsprogs.
 SRC_URI += "file://uuidd-unofficial-api-backward-compat.patch"
+
+AUTO_PACKAGE_UTILS = "agetty blkid cal chkdupexe chrt col colcrt colrm \
+	column cytune ddate dmesg fallocate fdisk findfs findmnt flock fsck \
+	fsck.cramfs fsck.minix getopt hexdump hwclock ionice ipcmk ipcrm ipcs \
+	isosize line logger look losetup lsblk lscpu mkfs mkfs.bfs mkfs.cramfs \
+	mkfs.minix mcookie mkswap mount namei pivot_root rename renice \
+	rev script scriptreplay setarch setsid sfdisk swaplabel swapon \
+	switch_root tailf taskset umount unshare uuidd uuidgen wall whereis \
+	wipefs addpart blockdev ctrlaltdel delpart fdformat fsfreeze fstrim \
+	ldattach readprofile rtcwake tunelp more mountpoint partx"
+AUTO_PACKAGE_UTILS:>USE_ncurses = " cfdisk"
