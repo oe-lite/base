@@ -11,9 +11,18 @@ S = "${SRCDIR}/mtd-utils"
 
 DEPENDS = "libz liblzo libuuid libm"
 
+do_configure () {
+	sed -i \
+		-e "s%\(PREFIX\)=.*%\1=${prefix}%g" \
+		-e "s%\(EXEC_PREFIX\)=.*%\1=${exec_prefix}%g" \
+		-e "s%\(SBINDIR\)=.*%\1=${sbindir}%g" \
+		-e "s%\(MANDIR\)=.*%\1=${mandir}%g" \
+		-e "s%\(INCLUDEDIR\)=.*%\1=${includedir}%g" \
+		common.mk
+}
+
 EXTRA_OEMAKE = "'LDFLAGS=${LDFLAGS}' \
 	'CFLAGS=${CFLAGS} -I${S}/include -DWITHOUT_XATTR'"
-EXTRA_OEMAKE:>native += " 'PREFIX=${prefix}' 'SBINDIR=${bindir}'"
 
 do_install () {
 	oe_runmake install DESTDIR=${D}
