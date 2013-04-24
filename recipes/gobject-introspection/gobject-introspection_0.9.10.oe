@@ -5,7 +5,7 @@ RECIPE_TYPES = "native"
 
 inherit autotools-autoreconf pkgconfig
 
-DEPENDS = "libexpat libgio libgobject libglib libgthread libgmodule \
+DEPENDS = "libgio libgobject libglib libgthread libgmodule \
                   native:bison native:glib-utils"
 
 require conf/fetch/gnome.conf
