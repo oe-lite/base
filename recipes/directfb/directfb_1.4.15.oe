@@ -12,6 +12,3 @@ EXTRA_OECONF = "\
   --disable-vnc \
   --disable-x11 \
 "
-
-# Parallel build broken.  Last verified on version 1.4.15.
-PARALLEL_MAKE = ""
