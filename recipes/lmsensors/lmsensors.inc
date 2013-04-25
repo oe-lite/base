@@ -1,6 +1,8 @@
 DESCRIPTION = "LM sensors: Monitoring tool"
 HOMEPAGE = "http://www.lm-sensors.org/"
 
+COMPATIBLE_MACHINES = ".*"
+
 inherit make c
 
 DEPENDS = "kernel-dev native:flex native:bison libm"
