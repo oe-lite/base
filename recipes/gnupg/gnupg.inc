@@ -6,11 +6,6 @@ inherit autotools gettext
 
 DEPENDS = "zlib bzip2"
 
-MIRRORS ="""
-ftp://ftp.gnupg.org/gcrypt
-http://mirrors.rootmode.com/ftp.gnupg.org
-"""
-
 SRC_URI = "ftp://ftp.gnupg.org/gcrypt/gnupg/gnupg-${PV}.tar.bz2"
 
 S = "${SRCDIR}/gnupg-${PV}"
