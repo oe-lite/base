@@ -4,3 +4,4 @@ require ${PN}.inc
 LICENSE = "MIT"
 
 SRC_URI += "file://ax_enable_builddir.patch"
+SRC_URI += "file://configure-no-multiosdir.patch"
