@@ -12,7 +12,6 @@ inherit autotools
 AUTOTOOLS_DISTCLEAN = "0"
 
 inherit gettext
-DEFAULT_USE_nls = "1"
 EXTRA_OECONF_GETTEXT = "--enable-gettext=no"
 EXTRA_OECONF_GETTEXT:USE_nls = "--enable-gettext=yes"
 
