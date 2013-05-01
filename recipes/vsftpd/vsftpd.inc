@@ -60,8 +60,11 @@ DEFAULT_USE_vsftpd_sysvinit_stop	= "20"
 RDEPENDS_${PN} = "libcrypt libnsl libresolv libc"
 FILES_${PN} += "/var/share/empty"
 
+RECIPE_FLAGS += "vsftpd_config"
+DEFAULT_USE_vsftpd_config = "${PN}-config"
+
 PACKAGES =+ "${PN}-config"
-RDEPENDS_${PN} += "${PN}-config"
+RDEPENDS_${PN} += "${USE_vsftpd_config}"
 FILES_${PN}-config = "${sysconfdir}/vsftpd.conf"
 
 PACKAGES =+ "${PN}-init"
