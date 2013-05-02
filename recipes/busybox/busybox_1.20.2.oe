@@ -7,4 +7,6 @@ SRC_URI += "${SRC_URI_FIXES}/busybox-1.20.2-ntpd.patch"
 
 SRC_URI += "file://udhcp-simple-script-route-del-dev-null.patch"
 
+SRC_URI += "file://busybox-1.20.2-fix-resource-h-failure.patch"
+
 SRC_URI:>BUILD_KERNEL_darwin = " file://osx.patch"
