@@ -1,3 +1,5 @@
 # -*- mode:python; -*-
 require linux.inc
 require linux-stable.inc
+
+DEFAULT_PREFERENCE = "-1"
