@@ -18,3 +18,5 @@ RDEPENDS_${PN}-lttng-relayd = "liblttngctl libpopt  libpthread librt libc"
 RDEPENDS_${PN} += "${AUTO_PACKAGE_UTILS_PACKAGES}"
 FILES_${PN}-lttng-consumerd = "${libdir}/lttng/libexec/lttng-consumerd \
 				${libdir}/lttng/libexec/.debug/lttng-consumerd "
+
+DEFAULT_PREFERENCE = "-1"

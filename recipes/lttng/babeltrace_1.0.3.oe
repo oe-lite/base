@@ -1,2 +1,4 @@
 # -*- mode:python; -*-
 require ${PN}.inc
+
+DEFAULT_PREFERENCE = "-1"

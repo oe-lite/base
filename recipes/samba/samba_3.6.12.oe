@@ -11,3 +11,5 @@ SRC_URI += "file://config-h.patch"
 
 ## https://bugzilla.samba.org/show_bug.cgi?id=8410
 SRC_URI += "file://bug-8410-workaround.patch;striplevel=2"
+
+DEFAULT_PREFERENCE = "-1"

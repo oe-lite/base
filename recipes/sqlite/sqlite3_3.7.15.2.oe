@@ -12,3 +12,5 @@ def sqlite3_file_version_mangle(d):
 
 SRC_URI = "http://www.sqlite.org/sqlite-autoconf-${PV_MANGLED}.tar.gz"
 S = "${SRCDIR}/sqlite-autoconf-${PV_MANGLED}"
+
+DEFAULT_PREFERENCE = "-1"

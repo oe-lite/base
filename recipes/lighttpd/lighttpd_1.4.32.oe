@@ -4,3 +4,5 @@ require ${PN}.inc
 LICENSE = "BSD"
 
 SRC_URI += "file://hackOutUsrLib.patch"
+
+DEFAULT_PREFERENCE = "-1"

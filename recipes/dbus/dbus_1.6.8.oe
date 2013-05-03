@@ -2,3 +2,5 @@
 include dbus.inc
 
 #SRC_URI += "file://tmpdir.patch"
+
+DEFAULT_PREFERENCE = "-1"

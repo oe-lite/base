@@ -1,3 +1,5 @@
 include boost.inc
 
 BOOST_LIBS += "chrono"
+
+DEFAULT_PREFERENCE = "-1"

@@ -7,3 +7,5 @@ SRC_URI += "file://parallel-make.patch"
 SRC_URI += "file://mingw.patch"
 # above patch should be a step in the right direction, but not enough
 PARALLEL_MAKE = ""
+
+DEFAULT_PREFERENCE = "-1"

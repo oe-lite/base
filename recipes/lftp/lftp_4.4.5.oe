@@ -3,3 +3,5 @@ LICENSE = "GPL-3.0+"
 require lftp.inc
 
 SRC_URI += "file://gets-undefined-in-C11.patch"
+
+DEFAULT_PREFERENCE = "-1"

@@ -1,1 +1,3 @@
 require netperf.inc
+
+DEFAULT_PREFERENCE = "-1"

@@ -1,1 +1,3 @@
 require libpng12.inc
+
+DEFAULT_PREFERENCE = "-1"
