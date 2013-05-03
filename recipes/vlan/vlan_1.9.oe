@@ -16,7 +16,7 @@ do_configure() {
 }
 
 do_compile() {
-	oe_runmake vconfig
+	oe_runmake -e vconfig
 }
 
 do_install() {
