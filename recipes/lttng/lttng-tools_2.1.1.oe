@@ -2,6 +2,8 @@ require ${PN}.inc
 
 SRC_URI += "file://include-fix.patch"
 
+DEPENDS_LTTNG_UST_VERSION = "_2.1.1"
+
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "lttngctl lttngconsumerd"
 FILES_${PN}-liblttngctl-dev = "${includedir}/lttng/lttng.h"
