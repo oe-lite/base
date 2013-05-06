@@ -4,7 +4,9 @@ RDEPENDS_${PN} = "libssl libpthread libcrypto libc libcrypt"
 inherit sysvinit
 
 SRC_URI = "http://www.tildeslash.com/monit/dist/monit-${PV}.tar.gz\
-	file://monit"
+	file://monit \
+	file://fix-rebuild.patch \
+	"
 
 RECIPE_FLAGS = "monit_sysvinit_start"
 DEFAULT_USE_monit_sysvinit_start = "99"
