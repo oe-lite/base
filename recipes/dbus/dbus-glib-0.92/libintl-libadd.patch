@@ -1,0 +1,21 @@
+diff -urN dbus-glib-0.92~orig/dbus/Makefile.am dbus-glib-0.92/dbus/Makefile.am
+--- dbus-glib-0.92~orig/dbus/Makefile.am	2010-11-08 05:44:44.000000000 +0100
++++ dbus-glib-0.92/dbus/Makefile.am	2013-05-06 09:57:00.066113453 +0200
+@@ -60,7 +60,7 @@
+ 
+ libdbus_glibdir = $(includedir)/dbus-1.0/dbus
+ 
+-libdbus_glib_1_la_LIBADD= $(DBUS_LIBS) $(DBUS_GLIB_LIBS)
++libdbus_glib_1_la_LIBADD= $(DBUS_LIBS) $(DBUS_GLIB_LIBS) $(DBUS_GLIB_TOOL_LIBS)
+ ## don't export symbols that start with "_" (we use this 
+ ## convention for internal symbols)
+ libdbus_glib_1_la_LDFLAGS= -export-symbols-regex "^[^_].*" -version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) -no-undefined
+@@ -75,7 +75,7 @@
+ 	dbus-gparser.c				\
+ 	dbus-gparser.h
+ 
+-libdbus_gtool_la_LIBADD = $(DBUS_LIBS) -lexpat
++libdbus_gtool_la_LIBADD = $(DBUS_LIBS) $(DBUS_GLIB_TOOL_LIBS)
+ 
+ bin_PROGRAMS=dbus-binding-tool
+ 

@@ -5,3 +5,5 @@ LICENSE = "GPLv2+ AFLv2.1"
 
 SRC_URI += "file://no-examples.patch"
 
+SRC_URI += "file://libintl-libadd.patch"
+DEPENDS_${PN}-libdbus-glib += "libexpat"
