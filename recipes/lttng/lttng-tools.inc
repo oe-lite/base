@@ -8,7 +8,7 @@ inherit autotools-autoreconf make pkgconfig
 
 SRC_URI = "http://lttng.org/files/lttng-tools/lttng-tools-${PV}.tar.bz2"
 
-LIBRARY_DEPENDS = "libpopt liburcu libpthread librt libuuid libdl"
+LIBRARY_DEPENDS = "libpopt libpthread librt libuuid libdl"
 
 LIBRARY_DEPENDS += "lttng-ust${DEPENDS_LTTNG_UST_VERSION}"
 DEPENDS_LTTNG_UST_VERSION ?= ""
