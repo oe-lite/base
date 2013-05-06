@@ -1,0 +1,14 @@
+--- a/libmonit/test/Makefile.am~	2012-05-06 11:40:45.000000000 +0200
++++ b/libmonit/test/Makefile.am	2013-05-06 10:58:41.502912238 +0200
+@@ -31,9 +31,6 @@
+ 
+ DISTCLEANFILES = *~ 
+ 
+-distclean-local: 
+-	-rm -f Makefile.in
+-
+ verify:
+ 	@/bin/bash ./test.sh
+ 
+
+Diff finished.  Mon May  6 10:58:49 2013
