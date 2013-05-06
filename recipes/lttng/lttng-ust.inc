@@ -4,7 +4,8 @@ HOMEPAGE = "http://lttng.org/lttng2.0"
 
 inherit c++ autotools-autoreconf
 
-DEPENDS = "liburcu util-linux libuuid librt libdl"
+DEPENDS_LIBURCU ?= "liburcu"
+DEPENDS = "${DEPENDS_LIBURCU} util-linux libuuid librt libdl"
 SRC_URI = "http://lttng.org/files/lttng-ust/lttng-ust-${PV}.tar.bz2"
 
 PACKAGES = "${PN}-dbg ${PN}-doc ${PN} ${PN}-dev ${PN}-locale ${PN}-demos"
@@ -12,4 +13,5 @@ PACKAGES = "${PN}-dbg ${PN}-doc ${PN} ${PN}-dev ${PN}-locale ${PN}-demos"
 FILES_${PN}-demos = "/tmp/"
 FILES_${PN} += "${libdir}/*.so"
 
-RDEPENDS_${PN} = "liburcu"
+DEPENDS_${PN} = "${DEPENDS_LIBURCU}"
+RDEPENDS_${PN} = "${DEPENDS_LIBURCU}"
