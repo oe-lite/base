@@ -16,6 +16,7 @@ EXTRA_OECONF = "\
     --disable-devpoll --disable-epoll \
     --sysconfdir=${sysconfdir}/bind \
     --with-openssl=${TARGET_SYSROOT}${target_prefix} \
+    --with-gssapi=no \
     --with-libxml2=${TARGET_SYSROOT}${target_prefix} \
     --enable-exportlib \
     --with-export-includedir=${includedir} \
