@@ -3,6 +3,7 @@ require ${PN}.inc
 SRC_URI += "file://include-fix.patch"
 
 DEPENDS_LTTNG_UST_VERSION = "_2.1.1"
+COMPATIBLE_HOST_ARCHS = "i.86- x86_64- powerpc- powerpc64- arm-"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "lttngctl lttngconsumerd"
