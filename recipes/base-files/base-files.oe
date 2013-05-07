@@ -3,7 +3,9 @@ LICENSE = "GPL-2.0"
 
 RECIPE_TYPES = "machine"
 
-RDEPENDS_${PN} = "libnss-files libnss-dns base-version"
+RDEPENDS_${PN} = "base-version ${RDEPENDS_LIBNSS}"
+RDEPENDS_LIBNSS = "libnss-files libnss-dns"
+RDEPENDS_LIBNSS:HOST_LIBC_uclibc = ""
 
 RECIPE_FLAGS += "hostname"
 DEFAULT_USE_hostname = "oe-lite"
@@ -17,9 +19,10 @@ SRC_URI = "\
 	file://fstab \
 	file://dot.bashrc \
 	file://device_table-minimal.txt \
-	file://nsswitch.conf \
 	file://dot.profile \
+	${SRC_URI_LIBNSS} \
 "
+SRC_URI_LIBNSS = "file://nsswitch.conf"
 
 RECIPE_FLAGS += "basefiles_issue"
 DEFAULT_USE_basefiles_issue = "OE Lite Linux"
@@ -101,9 +104,15 @@ do_install () {
         install -m 0755 ${SRCDIR}/dot.bashrc ${D}${sysconfdir}/skel/.bashrc
         install -m 0644 ${SRCDIR}/motd ${D}${sysconfdir}/motd
         install -m 0644 ${SRCDIR}/host.conf ${D}${sysconfdir}/host.conf
-        install -m 0644 ${SRCDIR}/nsswitch.conf ${D}${sysconfdir}/
 
         ln -sf /proc/mounts ${D}${sysconfdir}/mtab
+}
+
+do_install[postfuncs] += "${DO_INSTALL_LIBNSS}"
+DO_INSTALL_LIBNSS = "do_install_libnss"
+DO_INSTALL_LIBNSS:HOST_LIBC_uclibc = ""
+do_install_libnss() {
+        install -m 0644 ${SRCDIR}/nsswitch.conf ${D}${sysconfdir}/
 }
 
 inherit makedevs
