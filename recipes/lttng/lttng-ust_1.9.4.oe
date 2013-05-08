@@ -1,4 +1,6 @@
 require ${PN}.inc
 LICENSE = "LGPLv2.1+ & BSD"
 
+COMPATIBLE_HOST_ARCHS = "i.86- x86_64- powerpc- powerpc64- arm-"
+
 SRC_URI = "http://lttng.org/files/lttng-ust/lttng-ust-${PV}.tar.gz"
