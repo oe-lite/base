@@ -1,0 +1,8 @@
+require net-snmp.inc
+
+SRC_URI += "file://net-snmp-libnl.patch"
+
+EXTRA_OECONF += "--disable-embedded-perl --with-perl-modules=no"
+EXTRA_OEMAKE = "INSTALL_PREFIX=${D}"
+
+PARALLEL_MAKE = ""
