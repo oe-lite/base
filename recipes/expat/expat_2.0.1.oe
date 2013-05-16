@@ -3,18 +3,5 @@ LICENSE = "MIT"
 require expat.inc
 
 SRC_URI += "file://autotools.patch"
-
-do_configure() {
-	rm -f ${S}/conftools/libtool.m4
-	touch ${S}/conftools/libtool.m4
-	do_configure_autotools
-}
-
-do_install() {
-	oe_runmake prefix="${D}${prefix}" \
-		bindir="${D}${bindir}" \
-		libdir="${D}${libdir}" \
-		includedir="${D}${includedir}" \
-		man1dir="${D}${mandir}/man1" \
-		install
-}
+SRC_URI += "file://cdpath.patch"
+SRC_URI += "file://libtool-bindir.patch"

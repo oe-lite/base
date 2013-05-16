@@ -1,0 +1,10 @@
+--- expat-2.0.1/configure.in~orig	2013-05-16 11:37:20.936981596 +0200
++++ expat-2.0.1/configure.in	2013-05-16 11:37:32.976981296 +0200
+@@ -31,6 +31,7 @@
+ 
+ AC_CONFIG_SRCDIR(Makefile.in)
+ AC_CONFIG_AUX_DIR(conftools)
++AC_CONFIG_MACRO_DIR(conftools)
+ 
+ 
+ dnl
