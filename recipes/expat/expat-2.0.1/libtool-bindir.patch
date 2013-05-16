@@ -1,0 +1,11 @@
+--- expat-2.0.1/Makefile.in~orig	2013-05-16 12:27:58.376905480 +0200
++++ expat-2.0.1/Makefile.in	2013-05-16 12:29:05.580903796 +0200
+@@ -117,7 +117,7 @@
+ COMPILE = $(CC) $(INCLUDES) $(CFLAGS) $(DEFS) $(CPPFLAGS)
+ CXXCOMPILE = $(CXX) $(INCLUDES) $(CXXFLAGS) $(DEFS) $(CPPFLAGS)
+ LTCOMPILE = $(LIBTOOL) $(LTFLAGS) --mode=compile $(COMPILE)
+-LINK_LIB = $(LIBTOOL) $(LTFLAGS) --mode=link $(COMPILE) -no-undefined $(VSNFLAG) -rpath $(libdir) $(LDFLAGS) -o $@
++LINK_LIB = $(LIBTOOL) $(LTFLAGS) --mode=link $(COMPILE) -no-undefined $(VSNFLAG) -rpath $(libdir) -bindir $(DESTDIR)$(bindir) $(LDFLAGS) -o $@
+ LINK_EXE = $(LIBTOOL) $(LTFLAGS) --mode=link $(COMPILE) $(LDFLAGS) -o $@
+ LINK_CXX_EXE = $(LIBTOOL) $(LTFLAGS) --mode=link $(CXXCOMPILE) $(LDFLAGS) -o $@
+ 
