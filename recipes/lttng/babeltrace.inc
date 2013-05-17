@@ -6,7 +6,7 @@ LICENSE = "MIT & GPLv2"
 
 RECIPE_TYPES = "machine sdk"
 
-inherit autotools-autoreconf pkgconfig
+inherit autotools-autoreconf pkgconfig make-vpath
 
 SRC_URI = "http://www.efficios.com/files/babeltrace/babeltrace-${PV}.tar.bz2"
 
