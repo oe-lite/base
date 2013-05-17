@@ -26,6 +26,8 @@ do_autoreconf_genfiles_rm () {
 }
 do_autoreconf[postfuncs] += "do_autoreconf_genfiles_rm"
 
+EXTRA_OECONF += "--enable-static"
+
 RECIPE_FLAGS += "ipv6"
 EXTRA_OECONF += "${EXTRA_OECONF_IPV6}"
 EXTRA_OECONF_IPV6 = "--disable-ipv6"
