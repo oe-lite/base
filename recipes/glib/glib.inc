@@ -8,6 +8,8 @@ inherit autotools pkgconfig
 SRC_URI += "file://config.site"
 SRC_HOST_SITEFILES = "${SRCDIR}/config.site"
 
+EXTRA_OECONF += "--enable-static"
+
 RECIPE_FLAGS += "ipv6"
 EXTRA_OECONF += "${EXTRA_OECONF_IPV6}"
 EXTRA_OECONF_IPV6 = "--disable-ipv6"
