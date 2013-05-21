@@ -1,0 +1,2 @@
+require ${PN}.inc
+require linux-stable.inc
