@@ -1,9 +1,7 @@
 require openssl.inc
 
 SRC_URI += "file://engines-install-in-libdir-ssl.patch"
-
-SRC_URI += "file://parallel-make.patch"
-
 SRC_URI += "file://mingw.patch"
-# above patch should be a step in the right direction, but not enough
+
+# Parallel make is simply broken for now.
 PARALLEL_MAKE = ""
