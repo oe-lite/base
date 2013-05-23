@@ -6,4 +6,9 @@ SRC_URI += "file://mingw.patch"
 # Parallel make is simply broken for now.
 PARALLEL_MAKE = ""
 
+# Fixup to get openssl to respect ${LDFLAGS}.  From OpenEmbedded, thanks :-)
+SRC_URI += "file://oe-ldflags.patch file://shared-libs.patch"
+export OE_LDFLAGS="${LDFLAGS}"
+SRC_URI += "file://no-librpath-rpath.patch"
+
 DEFAULT_PREFERENCE = "-1"
