@@ -1,6 +1,0 @@
-require dhcp4.inc
-
-SRC_URI = "ftp://ftp.isc.org/isc/dhcp/${PV}/dhcp-${PV}.tar.gz"
-SRC_URI += "${SRC_URI_EXTRA}"
-
-SRC_URI += "file://nobash.patch"
