@@ -11,7 +11,9 @@ MA = "${@bb.data.getVar('PV', d, 1).split('.')[0]}"
 MI = "${@bb.data.getVar('PV', d, 1).split('-')[0].split('.')[1]}"
 SRC_URI = "${KERNELORG_MIRROR}/linux/utils/${PN}/v${MA}.${MI}/${P}.tar.bz2"
 
-DEPENDS = "libc libutil libcrypt libz libtermcap"
+DEPENDS = "libc libz"
+DEPENDS:>HOST_LIBC_glibc = " libutil libcrypt libtermcap"
+DEPENDS:>HOST_LIBC_uclibc = " libutil libcrypt libtermcap"
 
 EXTRA_OECONF = "\
 --disable-rpath \
