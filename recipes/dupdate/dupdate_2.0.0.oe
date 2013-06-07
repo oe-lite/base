@@ -1,0 +1,5 @@
+require dupdate.inc
+
+SRC_REV ?= "tag=v${PV}"
+
+SRC_URI:>USE_sysvinit += " file://splash_progress.patch"

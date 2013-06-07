@@ -1,0 +1,10 @@
+--- dupdate/src/dupdate.sh~	2013-06-04 15:59:00.317569535 +0200
++++ dupdate/src/dupdate.sh	2013-06-04 16:00:06.618933427 +0200
+@@ -13,6 +13,7 @@
+ case "$1" in
+     start)
+         echo -n "starting $DESC: $NAME... "
++	splash_progress PLACEHOLDER
+ 	[ -d $DIR ] && rm -rf $DIR
+ 	mkdir -p $DIR
+ 	start-stop-daemon -S -n $NAME -a $DAEMON -- $ARGS
