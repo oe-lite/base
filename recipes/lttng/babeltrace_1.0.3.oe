@@ -1,4 +1,6 @@
 # -*- mode:python; -*-
 require ${PN}.inc
 
+COMPATIBLE_HOST_ARCHS = ".*-*linux"
+
 DEFAULT_PREFERENCE = "-1"
