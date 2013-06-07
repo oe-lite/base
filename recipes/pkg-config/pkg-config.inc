@@ -9,8 +9,9 @@ RECIPE_TYPES = "machine native sdk"
 
 inherit autotools-autoreconf pkgconfig
 
-DEPENDS = "libdl libglib"
-DEPENDS:>TARGET_OS_linux-gnu = " libpthread"
+DEPENDS = " libglib"
+DEPENDS:>HOST_LIBC_glibc = " libdl libpthread"
+DEPENDS:>HOST_LIBC_uclibc = " libdl libpthread"
 
 SRC_URI = "http://pkgconfig.freedesktop.org/releases/pkg-config-${PV}.tar.gz"
 
