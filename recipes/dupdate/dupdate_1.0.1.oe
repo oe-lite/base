@@ -1,4 +1,4 @@
-require dupdate.inc
+require dupdate1.inc
 
 SRC_URI:>USE_sysvinit += " file://splash_progress.patch"
 
