@@ -1,1 +1,3 @@
 require monit.inc
+
+SRC_URI += "file://parallel-make.patch"
