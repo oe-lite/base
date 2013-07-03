@@ -1,4 +1,2 @@
 # -*- mode:python; -*-
 require ${PN}.inc
-
-COMPATIBLE_HOST_ARCHS = ".*-*linux"
