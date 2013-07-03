@@ -3,6 +3,8 @@ DESCRIPTION = "Lightweight high-performance web server"
 HOMEPAGE = "http://www.lighttpd.net/"
 BUGTRACKER = "http://redmine.lighttpd.net/projects/lighttpd/issues"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 RECIPE_TYPES = "machine sdk"
 
 inherit autotools pkgconfig gettext sysvinit make
