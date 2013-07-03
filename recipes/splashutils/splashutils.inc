@@ -4,6 +4,8 @@ DESCRIPTION = "Userspace implementation of a splash screen for Linux systems"
 HOMEPAGE = "http://fbsplash.alanhaggai.org/index.html"
 LICENSE = "GPLv2"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit autotools-autoreconf pkgconfig binconfig
 
 SRC_URI = "http://fbsplash.alanhaggai.org/tarballs/files/splashutils-lite-${PV}.tar.bz2"
