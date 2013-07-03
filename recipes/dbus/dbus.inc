@@ -11,7 +11,11 @@ SRC_URI = "http://dbus.freedesktop.org/releases/dbus/dbus-${PV}.tar.gz"
 SRC_URI += "file://dbus-1.init"
 SRC_URI += "file://passwd file://group"
 
-DEPENDS = "libexpat libglib libintl libpthread librt"
+DEPENDS = "libexpat libglib libintl"
+
+DEPENDS += "${DEPENDS_LIBC}"
+DEPENDS_LIBC = "libpthread librt"
+DEPENDS_LIBC:HOST_LIBC_mingw = ""
 
 RECIPE_FLAGS += "dbus_x11"
 EXTRA_OECONF_X11 = "--without-x"
@@ -58,8 +62,8 @@ do_install_extra_files() {
 
 RDEPENDS_${PN}-x11 = "${PN}"
 PROVIDES_${PN} = "dbus-1"
-RDEPENDS_${PN} += "libc libpthread librt libexpat libdbus"
-RDEPENDS_${PN}-x11 += "libc libpthread librt"
+RDEPENDS_${PN} += "libc ${DEPENDS_LIBC} libexpat libdbus"
+RDEPENDS_${PN}-x11 += "libc ${DEPENDS_LIBC}"
 
 PACKAGES =+ "${PN}-x11"
 
@@ -68,7 +72,7 @@ AUTO_PACKAGE_LIBS = "dbus"
 AUTO_PACKAGE_LIBS_LIBDIR = "${libdir}:lib:-1"
 AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev_${PV}"
 FILES_${PN}-libdbus-dev = "${includedir}/dbus-1.0 ${libdir}/dbus-1.0/include"
-DEPENDS_${PN}-libdbus = "libc libpthread librt"
+DEPENDS_${PN}-libdbus = "libc ${DEPENDS_LIBC}"
 
 FILES_${PN} = "\
 	${bindir}/dbus-daemon* \
