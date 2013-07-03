@@ -6,7 +6,9 @@ RECIPE_TYPES = "machine native sdk"
 
 inherit autotools pkgconfig
 
-DEPENDS = "native:gettext libpthread"
+DEPENDS = "native:gettext ${DEPENDS_LIBC}"
+DEPENDS_LIBC = "libpthread"
+DEPENDS_LIBC:HOST_LIBC_mingw = ""
 
 require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/e2fsprogs/e2fsprogs-${PV}.tar.gz"
