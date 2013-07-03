@@ -7,7 +7,9 @@ RECIPE_TYPES = "machine native sdk"
 
 inherit c++ autotools pkgconfig binconfig
 
-DEPENDS = "libpthread libstdc++ libm libdl"
+DEPENDS = "libstdc++ libm ${DEPENDS_LIBC}"
+DEPENDS_LIBC = "libpthread libdl"
+DEPENDS_LIBC:HOST_LIBC_mingw = ""
 
 CROSS_DEPENDS = "native:icu-src"
 CROSS_DEPENDS:native = ""
