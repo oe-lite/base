@@ -1,6 +1,8 @@
 DESCRIPTION = "Hostname script for the base system."
 LICENSE = "GPL-2.0"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit sysvinit
 RECIPE_FLAGS += "hostname_sysvinit_start"
 DEFAULT_USE_hostname_sysvinit_start = "01"
