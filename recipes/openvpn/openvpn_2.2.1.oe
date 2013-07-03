@@ -3,6 +3,8 @@ DESCRIPTION = "A full-featured SSL VPN solution via tun device."
 HOMEPAGE = "http://openvpn.sourceforge.net"
 LICENSE = "GPLv2"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit autotools pkgconfig
 
 SRC_URI = "http://swupdate.openvpn.org/community/releases/openvpn-${PV}.tar.gz \
