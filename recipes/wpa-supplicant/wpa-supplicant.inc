@@ -5,7 +5,9 @@ require wpa-supplicant-configure.inc
 
 inherit make c++ pkgconfig
 
-DEPENDS += "libdbus libgnutls libgnutls-extra libnl-3 libnl-genl-3 libnl-genl-3 libdl"
+DEPENDS_LIBC = "libdl"
+DEPENDS_LIBC:HOST_LIBC_mingw = ""
+DEPENDS += "libdbus libgnutls libgnutls-extra libnl-3 libnl-genl-3 libnl-genl-3 ${DEPENDS_LIBC}"
 
 RDEPENDS_${PN} = "util/wpa-passphrase util/wpa-cli"
 
