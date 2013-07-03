@@ -9,7 +9,9 @@ BOOST_VER = "${@'_'.join(d.get('PV').split('.'))}"
 SRC_URI = "${SOURCEFORGE_MIRROR}/boost/boost_${BOOST_VER}.tar.bz2"
 S = "${SRCDIR}/boost_${BOOST_VER}"
 
-DEPENDS = "libz libbz2 librt libstdc++ libm libpthread libc libgcc"
+DEPENDS_LIBC = "librt libpthread"
+DEPENDS_LIBC:HOST_LIBC_mingw = ""
+DEPENDS = "${DEPENDS_LIBC} libz libbz2 libstdc++ libm libc libgcc"
 
 # Oh yippee, a new build system, it's sooo cooool I could eat my own
 # foot.  inlining=on lets the compiler choose, I think.  At least this
