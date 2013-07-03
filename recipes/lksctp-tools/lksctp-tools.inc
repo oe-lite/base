@@ -1,5 +1,7 @@
 DESCRIPTION = "The Linux Kernel Stream Control Transmission Protocol (lksctp) project"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit autotools auto-package-utils auto-package-libs
 
 DEPENDS += "libpthread libdl"
