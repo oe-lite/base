@@ -11,7 +11,9 @@ LICENSE = "GPL MIT Artistic"
 
 inherit c make auto-package-utils
 
-DEPENDS = "libdl libxml2 libjpeg libpng12 tiff-dev"
+DEPENDS = "${DEPENDS_LIBC} libxml2 libjpeg libpng12 tiff-dev"
+DEPENDS_LIBC = "libdl"
+DEPENDS_LIBC:HOST_LIBC_mingw = ""
 
 require conf/fetch/sourceforge.conf
 SRC_URI = " \
@@ -144,7 +146,7 @@ RDEPENDS_${PN}-ppmtojpeg += "${PN}-pnmtojpeg"
 RDEPENDS_${PN}-ppmtouil += "${PN}-pamtouil"
 RDEPENDS_${PN}-gemtopbm += "${PN}-gemtopnm"
 
-RDEPENDS_${PN}-svgtopam += "libxml2 libdl"
+RDEPENDS_${PN}-svgtopam += "libxml2 ${DEPENDS_LIBC}"
 RDEPENDS_${PN}-pnmtopng += "libpng12"
 RDEPENDS_${PN}-pnmtojpeg += "libjpeg"
 RDEPENDS_${PN}-pnmtotiffcmyk += "libjpeg"
