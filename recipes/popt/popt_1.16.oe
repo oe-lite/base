@@ -1,1 +1,12 @@
 require ${PN}.inc
+
+SRC_URI += "file://197416.all.patch \
+	file://217602.all.patch \
+	file://278402-manpage.all.patch \
+	file://318833.all.patch \
+	file://356669.all.patch \
+	file://367153-manpage.all.patch"
+
+SRC_URI:>HOST_LIBC_mingw = " file://0001-nl_langinfo.mingw32.patch \
+	file://get-w32-console-maxcols.mingw32.patch \
+	file://no-uid-stuff-on.mingw32.patch"
