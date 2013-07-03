@@ -2,6 +2,8 @@ DESCRIPTION = "Network performance benchmark including tests for TCP, UDP, socke
 HOMEPAGE = "http://www.netperf.org/"
 LICENSE = "netperf"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 NETPERF_MIRROR = "ftp://ftp.netperf.org/netperf"
 SRC_URI = "${NETPERF_MIRROR}/netperf-${PV}.tar.bz2"
 
