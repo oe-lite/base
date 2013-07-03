@@ -18,7 +18,9 @@ SRC_URI = "ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-${PV}.tar.
 SRC_URI += "file://sshd_config file://ssh_config file://init"
 SRC_URI += "file://passwd file://group"
 
-DEPENDS = "libcrypto libssl libz libdl libutil libresolv libcrypt"
+DEPENDS = "libcrypto libssl libz ${DEPENDS_LIBC}"
+DEPENDS_LIBC = "libdl libutil libresolv libcrypt"
+DEPENDS_LIBC:HOST_LIBC_mingw = ""
 
 export ASKPASS_PROGRAM = "${bindir}/ssh-askpass"
 export LD = "${CC}"
