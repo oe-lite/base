@@ -2,6 +2,8 @@ DESCRIPTION = "htop process monitor"
 HOMEPAGE = "http://htop.sf.net"
 LICENSE = "GPLv2"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit autotools
 require conf/fetch/sourceforge.conf
 
