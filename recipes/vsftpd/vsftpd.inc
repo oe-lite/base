@@ -6,7 +6,9 @@ inherit c make sysvinit
 SRC_URI = "https://security.appspot.com/downloads/vsftpd-${PV}.tar.gz"
 SRC_URI += "file://init file://vsftpd.conf"
 
-DEPENDS = "libcrypt libnsl libresolv"
+DEPENDS_LIBC = "libcrypt libnsl libresolv"
+DEPENDS_LIBC:HOST_LIBC_mingw = ""
+DEPENDS = "${DEPENDS_LIBC}"
 
 do_configure() {
     # Fix hardcoded /usr, /etc, /var mess.
