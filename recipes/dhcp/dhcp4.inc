@@ -7,6 +7,8 @@ DESCRIPTION = "DHCP (Dynamic Host Configuration Protocol) is a protocol \
 HOMEPAGE = "http://www.isc.org/"
 LICENSE = "ISC"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 RECIPE_TYPES = "machine"
 
 inherit autotools-autoreconf pkgconfig
