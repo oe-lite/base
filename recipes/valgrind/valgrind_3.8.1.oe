@@ -2,7 +2,7 @@ require ${PN}.inc
 
 LICENSE = "GPL-2.0 & GPL-2.0+ & BSD-3-Clause & GFDL-1.2"
 
-COMPATIBLE_HOST_ARCHS = "i.86- x86_64- powerpc- powerpc64- arm-cortexa mips-"
+COMPATIBLE_HOST_ARCHS = "i.86-.*-.*linux- x86_64-.*-.*linux- powerpc-.*-.*linux- powerpc64-.*-.*linux- arm-cortexa-.*linux- mips-.*-.*linux-"
 
 SRC_URI += "file://configure-arm-cortex.patch"
 
