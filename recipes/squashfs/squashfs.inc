@@ -4,7 +4,8 @@ LICENSE = "GPL"
 
 inherit make c
 
-DEPENDS += "zlib"
+DEPENDS += "libz libm ${DEPENDS_LIBC}"
+DEPENDS_LIBC = "libpthread"
 
 require conf/fetch/sourceforge.conf
 SRC_URI = "http://downloads.sourceforge.net/project/squashfs/squashfs/squashfs${PV}/squashfs${PV}.tar.gz"
@@ -18,3 +19,6 @@ do_install() {
   install -m 0755 ${S}/mksquashfs ${D}/bin/
   install -m 0755 ${S}/unsquashfs ${D}/bin/
 }
+
+DEPENDS_${PN} = "${DEPENDS}"
+RDEPENDS_${PN} = "${DEPENDS}"
