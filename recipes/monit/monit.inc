@@ -3,6 +3,8 @@ DEPENDS = "libssl libpthread libcrypto libdl libcrypt"
 RDEPENDS_${PN} = "libssl libpthread libcrypto libc libcrypt"
 inherit sysvinit
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 SRC_URI = "http://www.tildeslash.com/monit/dist/monit-${PV}.tar.gz\
 	file://monit \
 	file://fix-rebuild.patch \
