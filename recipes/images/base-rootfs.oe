@@ -1,1 +1,3 @@
 inherit rootfs jffs2-image ext2-image cpio-image archive-image
+
+COMPATIBLE_HOST_ARCHS = ".*linux"
