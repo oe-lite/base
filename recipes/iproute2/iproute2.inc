@@ -5,6 +5,8 @@ and tc are the most important.  ip controls IPv4 and IPv6 \
 configuration and tc stands for traffic control."
 LICENSE = "GPLv2+"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit autotools-autoreconf pkgconfig auto-package-utils
 
 SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/shemminger/iproute2.git;commit=${GIT_COMMIT}"
