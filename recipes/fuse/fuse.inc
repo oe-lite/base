@@ -2,6 +2,8 @@ DESCRIPTION = "With FUSE it is possible to implement a fully functional filesyst
 HOMEPAGE = "http://fuse.sf.net"
 LICENSE = "GPL"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit autotools pkgconfig
 DEPENDS = "libpthread librt libdl"
 require conf/fetch/sourceforge.conf
