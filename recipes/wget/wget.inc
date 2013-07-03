@@ -3,7 +3,9 @@ LICENSE = "GPLv3"
 
 RECIPE_TYPES = "machine native"
 
-DEPENDS = "librt"
+DEPENDS_LIBC = "librt"
+DEPENDS_LIBC:HOST_LIBC_mingw = ""
+DEPENDS = "${DEPENDS_LIBC}"
 
 inherit autotools gettext
 
