@@ -1,3 +1,5 @@
 inherit initramfs-image
 
 RDEPENDS = "initramfs-init"
+
+COMPATIBLE_HOST_ARCHS = ".*linux"
