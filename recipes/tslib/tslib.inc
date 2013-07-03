@@ -3,6 +3,8 @@ HOMEPAGE = "http://tslib.berlios.de/"
 AUTHOR = "Russell King w/ plugins by Chris Larson et. al."
 LICENSE = "LGPLv2"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit c++ autotools-autoreconf pkgconfig library
 
 SRC_URI = "http://download.berlios.de/${PN}/${P}.tar.bz2"
