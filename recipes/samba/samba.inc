@@ -7,6 +7,8 @@ important component to seamlessly integrate Linux/Unix Servers and
 Desktops into Active Directory environments using the winbind
 daemon."""
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 DEPENDS = "libreadline \
            libiconv \
            libdl \
