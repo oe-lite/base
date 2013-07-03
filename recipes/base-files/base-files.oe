@@ -1,6 +1,8 @@
 DESCRIPTION = "Miscellaneous files for the base system."
 LICENSE = "GPL-2.0"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 RECIPE_TYPES = "machine"
 
 RDEPENDS_${PN} = "base-version ${RDEPENDS_LIBNSS}"
