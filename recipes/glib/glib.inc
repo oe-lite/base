@@ -26,7 +26,9 @@ do_autoreconf_genfiles_rm () {
 }
 do_autoreconf[postfuncs] += "do_autoreconf_genfiles_rm"
 
-EXTRA_OECONF += "--enable-static"
+EXTRA_OECONF += "${EXTRA_OECONF_STATIC}"
+EXTRA_OECONF_STATIC = "--enable-static"
+EXTRA_OECONF_STATIC:HOST_LIBC_mingw = ""
 
 RECIPE_FLAGS += "ipv6"
 EXTRA_OECONF += "${EXTRA_OECONF_IPV6}"
