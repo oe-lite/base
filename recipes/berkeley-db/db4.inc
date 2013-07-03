@@ -5,7 +5,9 @@ SRC_URI = "http://download.oracle.com/berkeley-db/db-${PV}.tar.gz"
 
 inherit autotools c++ largefile
 
-DEPENDS = "libpthread"
+DEPENDS = "${DEPENDS_LIBC}"
+DEPENDS_LIBC = "libpthread"
+DEPENDS_LIBC:HOST_LIBC_mingw = ""
 
 B = "${S}/build_unix"
 
