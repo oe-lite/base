@@ -5,8 +5,10 @@ SRC_URI = "http://www.infradead.org/~tgr/${PN}/files/${PN}-${PV}.tar.gz"
 
 inherit autotools-autoreconf pkgconfig
 
-DEPENDS += "libm libpthread libdl"
-DEPENDS_${PN} += "libm libpthread libdl"
+DEPENDS += "libm ${DEPENDS_LIBC}"
+DEPENDS_LIBC = "libpthread libdl"
+DEPENDS_LIBC:HOST_LIBC_mingw = ""
+DEPENDS_${PN} += "libm ${DEPENDS_LIBC}"
 
 FILES_${PN}-dbg += "${libdir}/libnl/cli/*/.debug"
 
