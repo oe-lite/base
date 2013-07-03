@@ -3,6 +3,6 @@ LICENSE = "LGPLv2.1+ & BSD"
 
 DEPENDS_LIBURCU = "liburcu0.7"
 
-COMPATIBLE_HOST_ARCHS = "i.86- x86_64- powerpc- powerpc64- arm-"
+COMPATIBLE_HOST_ARCHS = "i.86-.*-.*linux- x86_64-.*-.*linux- powerpc-.*-.*linux- powerpc64-.*-.*linux- arm-.*-.*linux-"
 
 DEFAULT_PREFERENCE = "-1"

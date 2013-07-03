@@ -4,7 +4,7 @@ SRC_URI += "file://modprobe-short-options.patch"
 SRC_URI += "file://lttng-tools-fix-compiling-error-for-powerpc-arm.patch"
 
 DEPENDS_LTTNG_UST_VERSION = "_1.9.4"
-COMPATIBLE_HOST_ARCHS = "i.86- x86_64- powerpc- powerpc64- arm-"
+COMPATIBLE_HOST_ARCHS = "i.86-.*-.*linux- x86_64-.*-.*linux- powerpc-.*-.*linux- powerpc64-.*-.*linux- arm-.*-.*linux-"
 
 inherit make-vpath
 
