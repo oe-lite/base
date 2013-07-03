@@ -1,4 +1,4 @@
 require ${PN}.inc
 
-COMPATIBLE_HOST_ARCHS = "i.86- x86_64- powerpc- powerpc64- arm-cortexa"
+COMPATIBLE_HOST_ARCHS = "i.86-.*-.*linux-.*- x86_64-.*-.*linux-.* powerpc-.*-.*linux-.* powerpc64-.*-.*linux-.* arm-cortexa.*-.*linux-.*"
 

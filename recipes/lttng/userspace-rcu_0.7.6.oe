@@ -1,6 +1,6 @@
 require ${PN}.inc
 
-COMPATIBLE_HOST_ARCHS = "i.86- x86_64- powerpc- powerpc64- arm-"
+COMPATIBLE_HOST_ARCHS = "i.86-.*-.*linux- x86_64-.*-.*linux- powerpc-.*-.*linux- powerpc64-.*-.*linux- arm-.*-.*linux-"
 
 PROVIDES_${PN} += "${LIBRARY_NAME}0.7"
 PROVIDES_${PN}-dev += "${LIBRARY_NAME}0.7-dev"
