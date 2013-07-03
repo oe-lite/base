@@ -8,7 +8,9 @@ inherit autotools pkgconfig
 SRC_URI += "file://config.site"
 SRC_HOST_SITEFILES = "${SRCDIR}/config.site"
 
-EXTRA_OECONF += "--enable-static"
+EXTRA_OECONF += "${EXTRA_OECONF_STATIC}"
+EXTRA_OECONF_STATIC = "--enable-static"
+EXTRA_OECONF_STATIC:HOST_LIBC_mingw = ""
 
 RECIPE_FLAGS += "ipv6"
 EXTRA_OECONF += "${EXTRA_OECONF_IPV6}"
