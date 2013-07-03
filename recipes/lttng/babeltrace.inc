@@ -10,8 +10,10 @@ inherit autotools-autoreconf pkgconfig make-vpath
 
 SRC_URI = "http://www.efficios.com/files/babeltrace/babeltrace-${PV}.tar.bz2"
 
-DEPENDS += "libuuid libpopt libgmodule librt"
-RDEPENDS_${PN} += "libgmodule libpopt libuuid libpcre libpthread libc libglib libdl librt"
+DEPENDS += "libuuid libpopt libgmodule ${DEPENDS_LIBC}"
+DEPENDS_LIBC = "librt"
+DEPENDS_LIBC:HOST_LIBC_mingw = ""
+RDEPENDS_${PN} += "libgmodule libpopt libuuid libpcre libpthread libc libglib libdl ${DEPENDS_LIBC}"
 
 PACKAGES = "${PN}-dbg ${PN}-doc ${PN} ${PN}-dev ${PN}-locale"
 FILES_${PN} += "${libdir}/*.so"
