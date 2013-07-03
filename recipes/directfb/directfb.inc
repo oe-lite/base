@@ -8,6 +8,8 @@ Linux framebuffer device."
 LICENSE = "LGPL"
 HOMEPAGE = "http://directfb.org"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit c++ autotools-autoreconf make-vpath pkgconfig binconfig
 
 DEPENDS = "libjpeg \
