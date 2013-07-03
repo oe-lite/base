@@ -2,6 +2,8 @@
 DESCRIPTION = "Host side USB console utilities."
 LICENSE = "GPLv2"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 RECIPE_TYPES = "machine"
 
 inherit autotools pkgconfig
