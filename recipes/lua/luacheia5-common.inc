@@ -6,7 +6,9 @@ HOMEPAGE = "http://www.lua.org/"
 
 inherit autotools-autoreconf
 
-DEPENDS += "libm libdl readline"
+DEPENDS_LIBC = "libdl"
+DEPENDS_LIBC:HOST_LIBC_mingw = ""
+DEPENDS += "libm ${DEPENDS_LIBC} readline"
 
 require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/luacheia/luacheia5-${PV}.tar.gz"
