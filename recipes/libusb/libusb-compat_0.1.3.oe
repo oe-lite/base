@@ -2,6 +2,8 @@ DESCRIPTION = "libusb-0 compatibility library using libusb-1"
 HOMEPAGE = "http://libusb.sf.net"
 LICENSE = "LGPLv2.1"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit autotools library pkgconfig binconfig
 
 DEPENDS = "libusb1 libpthread"
