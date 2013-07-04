@@ -2,6 +2,8 @@
 DESCRIPTION = "A tool to generate squashfs filesystem as a normal (non-root) user."
 LICENSE = "GPL"
 
+COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
+
 inherit make c
 
 DEPENDS += "libz libm ${DEPENDS_LIBC}"
