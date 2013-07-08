@@ -1,0 +1,19 @@
+--- a/scripts/ushare~	2007-12-09 14:03:36.000000000 +0100
++++ b/scripts/ushare	2013-07-06 21:38:44.142673343 +0200
+@@ -26,11 +26,9 @@
+ # abort if no executable exists
+ [ -x $DAEMON ] || exit 0
+ 
+-# Get lsb functions
+-. /lib/lsb/init-functions
+-. /etc/default/rcS
+-
+-[ -f /etc/default/ushare ] && . /etc/default/ushare
++log_daemon_msg() {
++    echo $1
++}
+ 
+ checkpid() {
+   [ -e $PIDFILE ] || touch $PIDFILE
+
+Diff finished.  Sat Jul  6 21:38:49 2013
