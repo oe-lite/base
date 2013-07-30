@@ -38,6 +38,8 @@ SRC_URI += "\
 	file://default.script \
 "
 
+PACKAGES:<USE_busybox_udhcpc = " ${PN}-udhcpc-scripts "
+
 RECIPE_FLAGS += "busybox_init_shutdown_umount"
 DEFAULT_USE_busybox_init_shutdown_umount = "1"
 SRC_URI:>USE_busybox_init_shutdown_umount = " file://init-shutdown-umount.patch"
@@ -70,11 +72,14 @@ require busybox-install.inc
 
 FILES_${PN}:>USE_busybox_runit = " ${runitservicedir}"
 FILES_${PN}:>USE_busybox_syslogd = " ${localstatedir}/log"
-FILES_${PN}:>USE_busybox_udhcpc = " ${datadir}/udhcpc"
 FILES_${PN}:>USE_busybox_httpd = " /srv/www"
 FILES_${PN}:>USE_busybox_tftpd = " ${USE_busybox_tftpd_dir}"
 FILES_${PN}:>USE_busybox_ftpd = " ${USE_busybox_ftpd_dir}"
 
+FILES_${PN}-udhcpc-scripts = "${datadir}/udhcpc ${sysconfdir}/udhcpc.d"
+
 RDEPENDS_${PN} = "netbase base-passwd base-files ${LIB_DEPENDS}"
+RDEPENDS_${PN}:>USE_busybox_udhcpc += "${PN}-udhcpc-scripts"
+
 BUSYBOX_PROVIDES += "util/awk"
 PROVIDES_${PN} = "${BUSYBOX_PROVIDES}"
