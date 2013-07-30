@@ -135,3 +135,29 @@ do_install () {
 		sysvinit_install_script ${SRCDIR}/busybox-httpd
 	fi
 }
+
+do_install[postfuncs] += "${BUSYBOX_INSTALL_POSTFUNCS}"
+BUSYBOX_INSTALL_POSTFUNCS = ""
+BUSYBOX_INSTALL_POSTFUNCS:>USE_busybox_mdev = " do_install_fix_mdev"
+
+python do_install_fix_mdev () {
+	import os, fileinput
+	path = d.get("D")
+	os.chdir(path)
+	sysconfdir=d.get("sysconfdir")
+	parse_state = "do_nothing"
+	for line in fileinput.FileInput("." + sysconfdir + "/init.d/busybox-mdev", inplace=1):
+		if d.get("USE_busybox_mdev_dash_s"):
+			line=line.replace("#mdev_dash_s SECTION_START", "")
+			line=line.replace("#mdev_dash_s SECTION_END", "")
+		else:
+			if parse_state == "do_nothing":
+				if line.find("#mdev_dash_s SECTION_START") == 0:
+					parse_state = "delete_line"
+					line = ""
+			else:
+				if line.find("#mdev_dash_s SECTION_END") == 0:
+					parse_state = "do_nothing"
+				line = ""
+		print line,
+}
