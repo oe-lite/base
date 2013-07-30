@@ -34,16 +34,20 @@ if mountpoint -q /dev/shm/; then
   umount -l /dev/shm/
 fi
 
+#mdev_dash_s SECTION_START
 # Create tmpfs for /dev
 echo "Creating tmpfs at /dev"
 mount -t tmpfs tmpfs /dev -o size=64k,mode=0755
+#mdev_dash_s SECTION_END
 
 # Register mdev as hotplug event helper
 echo "$MDEV" > /proc/sys/kernel/hotplug
 
+#mdev_dash_s SECTION_START
 # Populate /dev from /sys info
 echo "Populating /dev using mdev"
 $MDEV -s
+#mdev_dash_s SECTION_END
 
 # Touch .udev to inform scripts that /dev needs no further setup
 touch /dev/.udev

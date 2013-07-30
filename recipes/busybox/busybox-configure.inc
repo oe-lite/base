@@ -118,6 +118,8 @@ DEFAULT_USE_busybox_mdev_sysvinit_start = "10"
 RECIPE_FLAGS += "busybox_mdev_splashutils_progress busybox_mdev_splashutils_msg"
 SPLASHUTILS_INITSCRIPTS:>USE_busybox_mdev += " busybox_mdev"
 DEFAULT_USE_busybox_mdev_splashutils_msg = "\"Starting Mdev\""
+RECIPE_FLAGS += "busybox_mdev_dash_s"
+DEFAULT_USE_busybox_mdev_dash_s = "1"
 
 RECIPE_FLAGS += "busybox_klogd \
         busybox_klogd_sysvinit_start busybox_klogd_conlevel"
