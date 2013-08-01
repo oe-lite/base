@@ -70,6 +70,11 @@ do_compile_binfmt_flat_fixup() {
 
 require busybox-install.inc
 
+RDEPENDS_${PN}:>USE_busybox_init = " ${PN}-sysinit"
+PACKAGES:<USE_busybox_init = "${PN}-sysinit "
+FILES_${PN}-sysinit:USE_busybox_init = "${sysconfdir}/init.d/rcS \
+	${sysconfdir}/default/rcS"
+
 FILES_${PN}:>USE_busybox_runit = " ${runitservicedir}"
 FILES_${PN}:>USE_busybox_syslogd = " ${localstatedir}/log"
 FILES_${PN}:>USE_busybox_httpd = " /srv/www"
