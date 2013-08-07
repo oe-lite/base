@@ -38,7 +38,7 @@ SRC_URI += "\
 	file://default.script \
 "
 
-PACKAGES:<USE_busybox_udhcpc = " ${PN}-udhcpc-scripts "
+PACKAGES:<USE_busybox_udhcpc = "${PN}-udhcpc-scripts "
 
 RECIPE_FLAGS += "busybox_init_shutdown_umount"
 DEFAULT_USE_busybox_init_shutdown_umount = "1"
@@ -79,7 +79,7 @@ FILES_${PN}:>USE_busybox_ftpd = " ${USE_busybox_ftpd_dir}"
 FILES_${PN}-udhcpc-scripts = "${datadir}/udhcpc ${sysconfdir}/udhcpc.d"
 
 RDEPENDS_${PN} = "netbase base-passwd base-files ${LIB_DEPENDS}"
-RDEPENDS_${PN}:>USE_busybox_udhcpc += "${PN}-udhcpc-scripts"
+RDEPENDS_${PN}:>USE_busybox_udhcpc += " ${PN}-udhcpc-scripts"
 
 BUSYBOX_PROVIDES += "util/awk"
 PROVIDES_${PN} = "${BUSYBOX_PROVIDES}"
