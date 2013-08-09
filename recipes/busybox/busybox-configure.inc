@@ -481,6 +481,12 @@ do_configure_busybox_buffers () {
 # USE flag: enable feature verbose usage
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_verbose_usage"
 
+# USE flag: enable chpasswd
+BUSYBOX_SIMPLE_USE_FLAGS += "chpasswd:util/"
+
+# USE flag: enable acpid
+BUSYBOX_SIMPLE_USE_FLAGS += "acpid:util/"
+
 # USE flag: enable unzip utility
 BUSYBOX_SIMPLE_USE_FLAGS += "unzip:util/"
 
