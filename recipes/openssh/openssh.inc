@@ -72,7 +72,7 @@ FILES_${PN}-sshd-doc = "${mandir}/*/moduli.* ${mandir}/*/sshd_config.*"
 
 RDEPENDS_${PN} += "${AUTO_PACKAGE_UTILS_PACKAGES}"
 AUTO_PACKAGE_UTILS_RDEPENDS = "libc libgcc libdl libutil libcrypto libz"
-RDEPENDS_${PN}-sshd = "${PN}-keygen"
+RDEPENDS_${PN}-sshd = "${PN}-ssh-keygen"
 
 inherit sysvinit
 RECIPE_FLAGS = "sshd_sysvinit_start sshd_sysvinit_stop"
