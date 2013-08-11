@@ -64,14 +64,20 @@ EXTRA_OECONF_GETTEXT = ""
 EXTRA_OECONF_GETTEXT:native = "--disable-curses --with-included-gettext"
 EXTRA_OECONF_GETTEXT:HOST_OS_mingw32 = "--disable-curses --with-included-gettext"
 
+FILES_${PN} += "${libdir}/gettext ${datadir}/gettext"
 DEPENDS_${PN} = "libintl libgettextpo libgettextlib \
     libiconv ${DEPENDS_LIBNCURSES} ${DEPENDS_LIBDL} libm"
 RDEPENDS_${PN} = "${DEPENDS_${PN}}"
 
+inherit auto-package-utils
+AUTO_PACKAGE_UTILS = "autopoint envsubst gettext gettextize gettext.sh \
+	msgattrib msgcat msgcmp msgcomm msgconv msgen msgexec msgfilter \
+	msgfmt msggrep msginit msgmerge msgunfmt msguniq ngettext \
+	recode-sr-latin xgettext"
+DEPENDS_${PN}-gettext-sh = "${PN}-gettext ${PN}-ngettext"
+RDEPENDS_${PN}-gettext-sh = "${PN}-gettext ${PN}-ngettext"
 PACKAGES =+ "${PN}-utils"
-FILES_${PN} += "${libdir}/gettext ${datadir}/gettext"
-FILES_${PN}-utils = "${bindir}/*"
-DEPENDS_${PN}-utils += "gettext"
+DEPENDS_${PN}-utils += "gettext ${AUTO_PACKAGE_UTILS_PACKAGES}"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "intl gettextpo gettextlib gettextsrc"
