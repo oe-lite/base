@@ -1,0 +1,22 @@
+DESCRIPTION = """
+Sudo (su "do") allows a system administrator to delegate authority to give
+certain users (or groups of users) the ability to run some (or all) commands
+as root or another user while providing an audit trail of the commands and
+their arguments.
+"""
+LICENSE = "ISC"
+
+RECIPE_TYPES = "machine"
+
+SRC_URI = "http://www.sudo.ws/sudo/dist/${PN}-${PV}.tar.gz"
+
+inherit autotools pkgconfig auto-package-utils
+
+DEPENDS += "libdl"
+
+AUTO_PACKAGE_UTILS = "sudo sudoreplay visudo sudoedit"
+AUTO_PACKAGE_UTILS_RDEPENDS += "${PN}"
+DEPENDS_${PN}-sudo += "libdl"
+RDEPENDS_${PN}-sudo += "libdl"
+
+RDEPENDS_${PN}-sudoedit = "${PN}-sudo"
