@@ -1,0 +1,2 @@
+require ${PN}.inc
+LICENSE = "GPL2 + LGPL-2.1"
