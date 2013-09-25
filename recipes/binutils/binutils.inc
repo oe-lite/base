@@ -80,3 +80,7 @@ RDEPENDS_${PN}-strings = "libbfd"
 
 # The binutils package is used to pull in all provided util features
 RDEPENDS_${PN} = "${AUTO_PACKAGE_UTILS_PROVIDES}"
+
+# We need to set a different priority than the highest gcc recipe priority, so
+# that we don't get into multiple provider problems with libbfd.
+DEFAULT_PREFERENCE = "2"
