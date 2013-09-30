@@ -17,6 +17,7 @@ inherit autotools passwd
 SRC_URI = "ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-${PV}.tar.gz"
 SRC_URI += "file://sshd_config file://ssh_config file://init"
 SRC_URI += "file://passwd file://group"
+SRC_URI += "file://sftp-server-skip-libcrypto.patch"
 
 DEPENDS = "libcrypto libssl libz ${DEPENDS_LIBC}"
 DEPENDS_LIBC = "libdl libutil libresolv libcrypt"
@@ -26,7 +27,7 @@ export ASKPASS_PROGRAM = "${bindir}/ssh-askpass"
 export LD = "${CC}"
 CFLAGS =+ "-I${S} "
 CFLAGS += "-D__FILE_OFFSET_BITS=64"
-LDFLAGS =+ "-L${S} -L${S}/openbsd-compat "
+LDFLAGS =+ "-L${S} -L${S}/openbsd-compat"
 
 EXTRA_OECONF = "--disable-suid-ssh --with-ssl \
 	--with-rand-helper=no \
@@ -44,6 +45,12 @@ do_patch_aclocal_mangle () {
 	if [ ! -e acinclude.m4 -a -e aclocal.m4 ]; then
 		cp aclocal.m4 acinclude.m4
 	fi
+}
+
+#remove unnecessary crypto dependency
+do_configure[postfuncs] += "do_configure_sftp_server"
+do_configure_sftp_server () {
+    echo SFTP_LIBS=`grep ^LIBS= ${S}/Makefile | cut -b6- | sed 's/-lcrypto//'` >> ${S}/Makefile
 }
 
 do_compile[postfuncs] += "do_compile_install_config_files"
@@ -73,8 +80,19 @@ FILES_${PN}-sshd = "${sysconfdir}/init.d/sshd \
 FILES_${PN}-sshd-doc = "${mandir}/*/moduli.* ${mandir}/*/sshd_config.*"
 
 RDEPENDS_${PN} += "${AUTO_PACKAGE_UTILS_PACKAGES}"
-AUTO_PACKAGE_UTILS_RDEPENDS = "libc libgcc libdl libutil libcrypto libz"
+AUTO_PACKAGE_UTILS_RDEPENDS = "libc libgcc libdl libutil libz"
 RDEPENDS_${PN}-sshd = "${PN}-ssh-keygen"
+
+RDEPENDS_${PN}-ssh-add           += "libcrypto"
+RDEPENDS_${PN}-ssh-agent         += "libcrypto"
+RDEPENDS_${PN}-ssh-keyscan       += "libcrypto"
+RDEPENDS_${PN}-ssh-keygen        += "libcrypto"
+RDEPENDS_${PN}-ssh-keysign       += "libcrypto"
+RDEPENDS_${PN}-scp               += "libcrypto"
+RDEPENDS_${PN}-ssh               += "libcrypto"
+RDEPENDS_${PN}-sshd              += "libcrypto"
+RDEPENDS_${PN}-sftp              += "libcrypto"
+RDEPENDS_${PN}-ssh-pkcs11-helper += "libcrypto"
 
 inherit sysvinit
 RECIPE_FLAGS = "sshd_sysvinit_start sshd_sysvinit_stop"
