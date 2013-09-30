@@ -27,4 +27,5 @@ do_install_conf() {
 }
 
 CONFFILES_${PN} = "${sysconfdir}/rsyslog.conf"
+FILES_${PN}-dev += "${libdir}/${PN}/*.la"
 FILES_${PN} += "${base_libdir}/systemd ${sysconfdir}/rsyslog.conf"
