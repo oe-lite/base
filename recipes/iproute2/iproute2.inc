@@ -28,3 +28,6 @@ AUTO_PACKAGE_UTILS = "ifcfg ip routef routel rtmon rtpr tc"
 RDEPENDS_${PN}-ip += "libresolv libc libm libdl"
 RDEPENDS_${PN}-rtmon += "libresolv libc libm libdl"
 RDEPENDS_${PN}-tc += "libresolv libc libm libdl"
+
+RECIPE_FLAGS = "iproute2_rt_tables"
+RDEPENDS_${PN}-ip:>USE_iproute2_rt_tables = " iproute2"
