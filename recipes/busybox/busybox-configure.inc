@@ -812,6 +812,15 @@ BUSYBOX_SIMPLE_USE_FLAGS += "less=1:util/"
 # USE flag: enable less_regexp utility
 BUSYBOX_SIMPLE_USE_FLAGS += "less_regexp:util/"
 
+# USE flag: enable brctl utility
+BUSYBOX_SIMPLE_USE_FLAGS += "brctl:util/:\
+CONFIG_BRCTL,\
+CONFIG_FEATURE_BRCTL_FANCY,\
+CONFIG_FEATURE_BRCTL_SHOW, \
+"
+
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_show_threads"
+
 BUSYBOX_SIMPLE_USE_FLAGS += "df_fancy::CONFIG_FEATURE_DF_FANCY"
 
 RECIPE_FLAGS += "busybox_inittab_login"
