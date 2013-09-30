@@ -1,10 +1,10 @@
 # -*- mode:python; -*-
 DESCRIPTION = "Secure ftp daemon"
 
-inherit c make sysvinit
+inherit c make sysvinit passwd
 
 SRC_URI = "https://security.appspot.com/downloads/vsftpd-${PV}.tar.gz"
-SRC_URI += "file://init file://vsftpd.conf"
+SRC_URI += "file://init file://vsftpd.conf file://passwd file://group"
 
 DEPENDS_LIBC = "libcrypt libnsl libresolv"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
