@@ -57,3 +57,7 @@ do_install_cachedir () {
 }
 do_install[postfuncs] += "do_install_cachedir"
 FILES_${PN}-fbsplashctl += "${base_libdir}/splash/cache"
+
+MIRRORS = """
+http://fbsplash.alanhaggai.org/tarballs/files http://sourceforge.net/projects/fbsplash.berlios/files/
+"""
