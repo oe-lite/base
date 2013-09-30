@@ -12,15 +12,22 @@ SRC_URI = "http://www.rsyslog.com/files/download/rsyslog/${PN}-${PV}.tar.gz \
           file://rsyslog"
 
 inherit autotools-autoreconf sysvinit
-RECIPE_FLAGS = "rsyslog_sysvinit_start rsyslog_logdir"
+RECIPE_FLAGS = "rsyslog_sysvinit_start rsyslog_logdir rsyslog_logfile"
 DEFAULT_USE_rsyslog_sysvinit_start = "20"
 DEFAULT_USE_rsyslog_logdir = "${localstatedir}/log"
+DEFAULT_USE_rsyslog_logfile = "messages"
 do_install[postfuncs] =+ "do_install_conf"
 do_install_conf() {
 	sysvinit_install_script ${SRCDIR}/${PN}
 
+	if [ -n "${USE_rsyslog_logfile}" ]; then
+		sed 's#/var/log/messages#/var/log/${USE_rsyslog_logfile}#' \
+			-i ${SRCDIR}/rsyslog.conf
+	fi
+
 	if [ -n "${USE_rsyslog_logdir}" ]; then
-	     sed 's#/var/log#${USE_rsyslog_logdir}#' -i ${SRCDIR}/rsyslog.conf
+		sed 's#/var/log#${USE_rsyslog_logdir}#' \
+			-i ${SRCDIR}/rsyslog.conf
 	fi
 
 	install ${SRCDIR}/rsyslog.conf ${D}${sysconfdir}/rsyslog.conf
