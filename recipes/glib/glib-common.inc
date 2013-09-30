@@ -52,7 +52,7 @@ PACKAGES =+ "${PN}-utils ${PN}-gdb"
 FILES_${PN}-utils = "${bindir}/g*"
 FILES_${PN}-gdb = "${datadir}/gdb ${datadir}/glib-2.0/gdb"
 FILES_${PN}-doc += "${datadir}/gtk-doc"
-FILES_${PN}-dev += "${datadir}/glib-2.0"
+FILES_${PN}-dev += "${datadir}/glib-2.0 ${libdir}/gdbus-2.0"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "glib gobject gmodule gthread gio"
@@ -76,6 +76,6 @@ DEPENDS_${PN}-libgio += "libc libgcc ${DEPENDS_LIBDL} ${DEPENDS_LIBRESOLV} libz 
 
 FILES_${PN}-libgio-dev = "${libdir}/pkgconfig/gio-*-2.0.pc"
 FILES_${PN}-libgmodule-dev = "${libdir}/pkgconfig/gmodule-*-2.0.pc"
-FILES_${PN} += "${libdir}/gdbus-2.0 ${libdir}/charset.alias"
+FILES_${PN} += "${libdir}/charset.alias"
 
 include glib-${PV}.inc
