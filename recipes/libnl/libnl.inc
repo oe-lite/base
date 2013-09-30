@@ -10,6 +10,8 @@ DEPENDS_LIBC = "libpthread libdl"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
 DEPENDS_${PN} += "libm ${DEPENDS_LIBC}"
 
+FILES_${PN}-dev += "${libdir}/libnl/cli/*/*.a"
+FILES_${PN}-dev += "${libdir}/libnl/cli/*/*.la"
 FILES_${PN}-dbg += "${libdir}/libnl/cli/*/.debug"
 
 inherit auto-package-libs
