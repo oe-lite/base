@@ -1,0 +1,15 @@
+LICENSE = "Open Market"
+DESCRIPTION = "Fast CGI backend (web server to CGI handler) library"
+
+inherit autotools pkgconfig auto-package-utils auto-package-libs
+
+SRC_URI = "http://www.fastcgi.com/dist/fcgi-${PV}.tar.gz \
+	file://link-against-math.patch \
+	file://cstdio.patch"
+
+S= "${SRCDIR}/fcgi-${PV}"
+
+AUTO_PACKAGE_UTILS = "cgi-fcgi"
+AUTO_PACKAGE_LIBS = "fcgi"
+
+PARALLEL_MAKE=""
