@@ -1,0 +1,14 @@
+diff -c /home/jabk/projects/deif/oe-lite/tmp/work/machine/powerpc-e300c3-linux-gnu/openssh-6.1p1/src/openssh-6.1p1/Makefile.in\~ /home/jabk/projects/deif/oe-lite/tmp/work/machine/powerpc-e300c3-linux-gnu/openssh-6.1p1/src/openssh-6.1p1/Makefile.in
+--- a/Makefile.in~	2012-04-04 03:27:57.000000000 +0200
++++ b/Makefile.in	2013-08-06 11:58:16.303164455 +0200
+@@ -166,7 +166,7 @@
+ 	$(LD) -o $@ ssh-keyscan.o roaming_dummy.o $(LDFLAGS) -lssh -lopenbsd-compat -lssh $(LIBS)
+ 
+ sftp-server$(EXEEXT): $(LIBCOMPAT) libssh.a sftp.o sftp-common.o sftp-server.o sftp-server-main.o
+-	$(LD) -o $@ sftp-server.o sftp-common.o sftp-server-main.o $(LDFLAGS) -lssh -lopenbsd-compat $(LIBS)
++	$(LD) -o $@ sftp-server.o sftp-common.o sftp-server-main.o $(LDFLAGS) -lssh -lopenbsd-compat $(SFTP_LIBS)
+ 
+ sftp$(EXEEXT): $(LIBCOMPAT) libssh.a sftp.o sftp-client.o sftp-common.o sftp-glob.o progressmeter.o
+ 	$(LD) -o $@ progressmeter.o sftp.o sftp-client.o sftp-common.o sftp-glob.o $(LDFLAGS) -lssh -lopenbsd-compat $(LIBS) $(LIBEDIT)
+
+Diff finished.  Tue Aug  6 11:58:21 2013
