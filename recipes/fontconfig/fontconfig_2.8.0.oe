@@ -38,4 +38,5 @@ FILES_${PN} += "${sysconfdir}/fonts"
 
 DEPENDS_${PN} += "libexpat libfreetype libz libc libgcc"
 RDEPENDS_${PN} += "libexpat libfreetype libz libc libgcc"
-RDEPENDS_${PN}-utils += "libfontconfig libexpat libfreetype libz libc libgcc"
+DEPENDS_${PN}-utils += "libfontconfig"
+RDEPENDS_${PN}-utils += "libfontconfig"
