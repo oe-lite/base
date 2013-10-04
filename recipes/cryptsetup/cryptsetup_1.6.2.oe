@@ -1,0 +1,26 @@
+SUMMARY = "cryptsetup is used to conveniently setup dm-crypt managed block devices under Linux"
+DESCRIPTION = "While LUKS is a standard on-disk format, there is also a reference implementation. LUKS for dm-crypt is implemented in an enhanced version of cryptsetup."
+HOMEPAGE="http://code.google.com/p/cryptsetup/"
+LICENSE="GPLv2"
+SRC_URI = "http://cryptsetup.googlecode.com/files/cryptsetup-1.6.2.tar.bz2"
+
+RECIPE_TYPES = "machine"
+
+inherit autotools pkgconfig auto-package-utils auto-package-libs
+
+DEPENDS += "libuuid libdevmapper popt libgcrypt"
+
+RECIPE_FLAGS += "cryptosetup_udev_disable"
+
+DEFAULT_cryptosetup_udev_disable = "0"
+EXTRA_OECONF:>USE_cryptosetup_udev_disable = " --disable-udev "
+
+
+AUTO_PACKAGE_UTILS = "cryptsetup veritysetup"
+AUTO_PACKAGE_UTILS_RDEPENDS += "${PN} libpopti libc"
+
+AUTO_PACKAGE_LIBS = "${PN}"
+AUTO_PACKAGE_LIB_DEV_DEPENDS = "libuuid libdevmapper libgcrypt"
+AUTO_PACKAGE_LIB_RDEPENDS = "libuuid libdevmapper libgcrypt libgpg-error libc"
+
+RDEPENDS_${PN} = "${AUTO_PACKAGE_UTILS_PACKAGES} ${LIBS_AUTO_RPACKAGES}"
