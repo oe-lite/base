@@ -2,6 +2,8 @@ DESCRIPTION = "This software provides support for the Tag Image File Format (TIF
 LICENSE = "BSD-2-Clause*"
 HOMEPAGE = "http://www.remotesensing.org/libtiff/"
 
+RECIPE_TYPES = "machine native"
+
 SRC_URI = "ftp://ftp.remotesensing.org/pub/libtiff/tiff-${PV}.tar.gz"
 
 inherit autotools c++
