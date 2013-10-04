@@ -3,6 +3,7 @@ DAEMON=/usr/sbin/crond
 NAME=crond
 DESC="Busybox Periodic Command Scheduler"
 ARGS=""
+PIDFILE=/var/run/busybox-crond.pid
 
 test -f $DAEMON || exit 0
 
@@ -12,12 +13,12 @@ case "$1" in
     start)
 	splash_progress PLACEHOLDER
         echo -n "starting $DESC: $NAME... "
-	start-stop-daemon -S -b -n $NAME -a $DAEMON -- $ARGS
+	start-stop-daemon -S -b -m -p $PIDFILE -a $DAEMON -- $ARGS
 	echo "done."
 	;;
     stop)
         echo -n "stopping $DESC: $NAME... "
-	start-stop-daemon -K -n $NAME
+	start-stop-daemon -K -p $PIDFILE
 	echo "done."
 	;;
     restart)

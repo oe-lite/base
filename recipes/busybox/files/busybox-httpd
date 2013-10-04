@@ -4,6 +4,7 @@ NAME=httpd
 DESC="Busybox HTTP Daemon"
 HTTPROOT="/srv/www"
 ARGS="-h $HTTPROOT"
+PIDFILE=/var/run/httpd.pid
 
 test -f $DAEMON || exit 0
 
@@ -17,12 +18,12 @@ case "$1" in
 		exit 1
 	fi
 	splash_progress PLACEHOLDER
-	start-stop-daemon -S -b -n $NAME -a $DAEMON -- $ARGS
+	start-stop-daemon -S -b -m -p $PIDFILE -a $DAEMON -- $ARGS
 	echo "done."
 	;;
     stop)
         echo -n "stopping $DESC: $NAME... "
-	start-stop-daemon -K -n $NAME
+	start-stop-daemon -K -p $PIDFILE
 	echo "done."
 	;;
     restart)
