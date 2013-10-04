@@ -3,6 +3,7 @@ DAEMON=/usr/sbin/udhcpd
 NAME=udhcpd
 DESC="Busybox UDHCP Server"
 ARGS="/etc/udhcpd.conf"
+PIDFILE=/var/run/udhcpd.pid
 
 test -f $DAEMON || exit 1
 
@@ -15,12 +16,12 @@ case "$1" in
 		echo "error: /etc/udhcpd.conf is missing."
 		exit 1
 	fi
-	/sbin/start-stop-daemon -S -b -n $NAME -a $DAEMON -- $ARGS
+	/sbin/start-stop-daemon -S -b -m -p $PIDFILE -a $DAEMON -- $ARGS
 	echo "done."
 	;;
     stop)
         echo -n "stopping $DESC: $NAME... "
-	/sbin/start-stop-daemon -K -n $NAME
+	/sbin/start-stop-daemon -K -p $PIDFILE
 	echo "done."
 	;;
     restart)
