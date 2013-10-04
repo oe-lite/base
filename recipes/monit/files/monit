@@ -9,7 +9,7 @@ test -x "$monit" || exit 0
 case "$1" in
   start)
     echo -n "Starting Monit"
-    start-stop-daemon --start --quiet --exec $monit -- $monit_args
+    start-stop-daemon --start --quiet --pidfile $pidfile --exec $monit -- $monit_args
     RETVAL=$?
     echo "."
     ;;
