@@ -4,6 +4,7 @@ NAME=vsftpd
 DESC="FTP Server"
 ARGS=""
 FTPDIR=/var/lib/ftp
+PIDFILE=/var/run/vsftpd.pid
 
 test -f $DAEMON || exit 0
 
@@ -18,12 +19,12 @@ case "$1" in
             chmod a-w $FTPDIR
             chmod u+w $FTPDIR/in
         fi
-        start-stop-daemon -S -b -x $DAEMON -- $ARGS
+        start-stop-daemon -m -p $PIDFILE -S -b  $DAEMON -- $ARGS
         echo "done."
         ;;
     stop)
         echo -n "* stopping $DESC: $NAME... "
-        start-stop-daemon -K -x $DAEMON
+        start-stop-daemon -K -p $PIDFILE $DAEMON
         echo "done."
         ;;
     restart)
