@@ -2,7 +2,7 @@ DESCRIPTION = "GNU Transport Layer Security Library"
 HOMEPAGE = "http://www.gnu.org/software/gnutls/"
 BUGTRACKER = "https://savannah.gnu.org/support/?group=gnutls"
 
-inherit c++ autotools-autoreconf binconfig pkgconfig gettext
+inherit c++ autotools binconfig pkgconfig gettext
 
 DEPENDS += "libz liblzo libtasn1 libgcrypt libreadline"
 DEPENDS_${PN} += "libz liblzo libtasn1 libgcrypt libreadline"
@@ -10,7 +10,8 @@ RDEPENDS_${PN} += "gnutls-extra liblzo libtasn1"
 
 require conf/fetch/gnu.conf
 
-SRC_URI = "${GNU_MIRROR}/gnutls/gnutls-${PV}.tar.bz2"
+SRC_URI = "${GNU_MIRROR}/gnutls/gnutls-${PV}.tar.bz2 \
+	   file://gets-not-defined-in-glibc-2.16.patch"
 
 EXTRA_OECONF="--with-included-opencdk --with-included-libcfg --disable-rpath \
               --with-libtasn1-prefix=${HOST_SYSROOT} \
