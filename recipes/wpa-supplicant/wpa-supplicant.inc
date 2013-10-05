@@ -77,3 +77,7 @@ FILES_${PN} += "${datadir}/dbus-1/system-services/*"
 
 inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "wpa_passphrase wpa_cli wpa_supplicant"
+
+PACKAGES =+  "${PN}-conf"
+FILES_${PN}-conf = "${sysconfdir}/wpa_supplicant.conf"
+RDEPENDS_${PN}-wpa-supplicant += "${PN}-conf"
