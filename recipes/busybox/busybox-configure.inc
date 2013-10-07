@@ -673,6 +673,12 @@ BUSYBOX_SIMPLE_USE_FLAGS += "swaponoff:util/"
 # USE flag: enable feature mount loop
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_mount_loop"
 
+# USE flag: enable sfdisk
+BUSYBOX_SIMPLE_USE_FLAGS += "sfdisk:util/"
+
+# USE flag: enable pidof
+BUSYBOX_SIMPLE_USE_FLAGS += "pidof:util/"
+
 BUSYBOX_SIMPLE_USE_FLAGS += "stat:util/:\
 CONFIG_STAT,\
 CONFIG_FEATURE_STAT_FORMAT"
