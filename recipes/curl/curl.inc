@@ -16,3 +16,8 @@ RECIPE_TYPES = "machine native"
 inherit autotools library pkgconfig auto-package-utils
 
 AUTO_PACKAGE_UTILS = "curl curl-config"
+
+DEPENDS_${PN} = "libc libgcc"
+RDEPENDS_${PN} = "libc libgcc"
+DEPENDS_${PN}-curl = "libc libcurl"
+RDEPENDS_${PN}-curl = "libc libcurl"
