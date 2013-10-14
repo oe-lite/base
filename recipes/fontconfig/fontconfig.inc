@@ -10,17 +10,17 @@ S = "${SRCDIR}/${PN}-${PV}"
 
 EXTRA_OECONF = "--disable-docs --with-arch=${HOST_ARCH} --with-cache-dir=${localstatedir}/lib/${PN}"
 
+do_configure_extra_MAKEFILES = "fc-case/Makefile fc-glyphname/Makefile \
+	fc-lang/Makefile fc-arch/Makefile"
+
 do_configure[postfuncs] += "do_configure_extra"
 do_configure_extra () {
-	for makefile in fc-case/Makefile \
-			fc-glyphname/Makefile \
-			fc-lang/Makefile \
-			fc-arch/Makefile
+	for makefile in ${do_configure_extra_MAKEFILES}
 	do
-		sed -i -e 's|LDFLAGS =.*|LDFLAGS =${BUILD_LDFLAGS}|' \
-		       -e 's|CFLAGS =.*|CFLAGS =${BUILD_CFLAGS}|' \
-		       -e 's|CPPFLAGS =.*|CPPFLAGS =${BUILD_CPPFLAGS}|' \
-		       -e 's|CXXFLAGS =.*|CFLAGS =${BUILD_CXXFLAGS}|' \
+		sed -i -e 's|^LDFLAGS =.*|LDFLAGS =${BUILD_LDFLAGS}|' \
+		       -e 's|^CFLAGS =.*|CFLAGS =${BUILD_CFLAGS}|' \
+		       -e 's|^CPPFLAGS =.*|CPPFLAGS =${BUILD_CPPFLAGS}|' \
+		       -e 's|^CXXFLAGS =.*|CFLAGS =${BUILD_CXXFLAGS}|' \
 		       $makefile
 	done
 }
