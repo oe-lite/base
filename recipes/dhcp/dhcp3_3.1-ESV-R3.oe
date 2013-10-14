@@ -2,4 +2,7 @@ LICENSE = "ISC"
 
 require ${PN}.inc
 
+do_configure_ARGS = "linux-2.2"
+
 SRC_URI += "file://nobash.patch"
+SRC_URI += "file://configure-sysname-major-minor.patch"
