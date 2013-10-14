@@ -16,8 +16,10 @@ SRC_URI = "ftp://ftp.isc.org/isc/dhcp/dhcp-${PV}.tar.gz \
 
 S = "${SRCDIR}/dhcp-${PV}"
 
+do_configure_ARGS ?= ""
+
 do_configure() {
-    ./configure
+    ./configure ${do_configure_ARGS}
 }
 
 EXTRA_OEMAKE += "VARDB=${localstatedir}/lib/dhcp VARRUN=${localstatedir}/run"
