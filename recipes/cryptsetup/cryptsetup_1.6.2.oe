@@ -16,6 +16,18 @@ EXTRA_OECONF += "${EXTRA_OECONF_UDEV}"
 EXTRA_OECONF_UDEV = "--disable-udev"
 EXTRA_OECONF_UDEV:USE_cryptsetup_udev = "--enable-udev"
 
+RECIPE_FLAGS += "cryptsetup_kernel_crypto"
+DEFAULT_USE_cryptsetup_kernel_crypto = "0"
+EXTRA_OECONF += "${EXTRA_OECONF_KERNEL_CRYPTO}"
+EXTRA_OECONF_KERNEL_CRYPTO = "--disable-kernel_crypto"
+EXTRA_OECONF_KERNEL_CRYPTO:USE_cryptsetup_kernel_crypto = "--enable-kernel_crypto"
+
+RECIPE_FLAGS += "cryptsetup_selinux"
+DEFAULT_USE_cryptsetup_selinux = "0"
+EXTRA_OECONF += "${EXTRA_OECONF_SELINUX}"
+EXTRA_OECONF_SELINUX = "--disable-selinux"
+EXTRA_OECONF_SELINUX:USE_cryptsetup_selinux = "--enable-selinux"
+
 AUTO_PACKAGE_UTILS = "cryptsetup veritysetup"
 AUTO_PACKAGE_UTILS_RDEPENDS += "libpopti libc"
 
