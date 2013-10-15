@@ -17,7 +17,7 @@ EXTRA_OECONF:>USE_cryptosetup_udev_disable = " --disable-udev "
 
 
 AUTO_PACKAGE_UTILS = "cryptsetup veritysetup"
-AUTO_PACKAGE_UTILS_RDEPENDS += "${PN} libpopti libc"
+AUTO_PACKAGE_UTILS_RDEPENDS += "libpopti libc"
 
 AUTO_PACKAGE_LIBS = "${PN}"
 AUTO_PACKAGE_LIB_DEV_DEPENDS = "libuuid libdevmapper libgcrypt"
