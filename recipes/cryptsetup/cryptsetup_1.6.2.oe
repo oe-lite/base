@@ -10,11 +10,11 @@ inherit autotools pkgconfig auto-package-utils auto-package-libs
 
 DEPENDS += "libuuid libdevmapper popt libgcrypt"
 
-RECIPE_FLAGS += "cryptosetup_udev_disable"
-
-DEFAULT_cryptosetup_udev_disable = "0"
-EXTRA_OECONF:>USE_cryptosetup_udev_disable = " --disable-udev "
-
+RECIPE_FLAGS += "cryptsetup_udev"
+DEFAULT_USE_cryptsetup_udev = "0"
+EXTRA_OECONF += "${EXTRA_OECONF_UDEV}"
+EXTRA_OECONF_UDEV = "--disable-udev"
+EXTRA_OECONF_UDEV:USE_cryptsetup_udev = "--enable-udev"
 
 AUTO_PACKAGE_UTILS = "cryptsetup veritysetup"
 AUTO_PACKAGE_UTILS_RDEPENDS += "libpopti libc"
