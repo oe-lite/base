@@ -8,7 +8,12 @@ DEPENDS_${PN} += "libgpg-error libcap2"
 
 SRC_URI = "ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-${PV}.tar.gz"
 
-EXTRA_OECONF = "--without-pth --disable-asm --with-capabilities"
+RECIPE_FLAGS = "libgcrypt_capabilities"
+DEFAULT_USE_libgcrypt_capabilities = "1"
+
+EXTRA_OECONF = "--without-pth --disable-asm ${EXTRA_OECONF_CAPABILITIES}"
+EXTRA_OECONF_CAPABILITIES = "--without-capabilities"
+EXTRA_OECONF_CAPABILITIES:USE_libgcrypt_capabilities = "--with-capabilities"
 
 # libgcrypt.pc is added locally and thus installed here
 do_install[postfuncs] += "do_install_append"
