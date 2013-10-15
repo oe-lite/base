@@ -1,6 +1,8 @@
 DESCRIPTION = "A multi-purpose linux bootloader"
 HOMEPAGE = "http://syslinux.zytor.com/"
 
+COMPATIBLE_HOST_ARCHS = "i.86-.*-linux- x86_64-.*-linux-"
+
 RECIPE_TYPES = "native machine"
 
 inherit c make auto-package-utils
