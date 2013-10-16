@@ -180,9 +180,18 @@ static void add_new_fifo(char *name, char *path, unsigned long uid,
     Regular files must exist in the target root directory.  If a char,
     block, fifo, or directory does not exist, it will be created.
 
-    count can be prepended with an 'h' to indicate the numbers to append must be hex.
-    I.e. if start, inc and count are 0,1,h12 respectively the devices will be appended with
-    0,1,2....9,a,b and not 0,1,2....9,10,11 which is the case if 'h' is omitted
+    count can be prepended with 'h' to indicate the device numbers must be in hex.
+    Notice the number specified in the file must be decimal even with 'h' prepended.
+
+    count can also be specified directly as a hex number by prepending 0x. 
+    I.e. to generate 12 instances of a device can be done using either:
+       12, h12 or 0xc
+    resulting in the device being numbered:
+	0,1,2,....10,11
+	0,1,2,....a,b
+	0,1,2.....a,b
+    respectively
+
 */
 static int interpret_table_entry(char *line)
 {
@@ -190,23 +199,38 @@ static int interpret_table_entry(char *line)
 	char path[4096], type;
 	unsigned long mode = 0755, uid = 0, gid = 0, major = 0, minor = 0;
 	unsigned long start = 0, increment = 1, count = 0;
-	char countstr[20+1];
-	char*pcountstr = countstr;
+	char scanstr[8][200];
 	int do_hex = 0;
+	int i;
 
-	if (0 > sscanf(line, "%40s %c %lo %lu %lu %lu %lu %lu %lu %20s", path,
-		    &type, &mode, &uid, &gid, &major, &minor, &start,
-		    &increment, countstr)) 
+	for(i=0; i < 8; i++) {
+		scanstr[i][0] = '\0';
+	}
+
+	if ( 0 > sscanf(line, "%40s %c %s %s %s %s %s %s %s %s",
+			path, &type,
+			scanstr[0], scanstr[1],
+			scanstr[2], scanstr[3],
+			scanstr[4], scanstr[5],
+			scanstr[6], scanstr[7]))
 	{
 		return 1;
 	}
+	sscanf(scanstr[0], "%lo", &mode);
+	sscanf(scanstr[1], "%lu", &uid);
+	sscanf(scanstr[2], "%lu", &gid);
+	sscanf(scanstr[3], "%lu", &major);
+	sscanf(scanstr[4], "%lu", &minor);
+	sscanf(scanstr[5], "%lu", &start);
+	sscanf(scanstr[6], "%lu", &increment);
 
-	if (countstr[0] == 'h') {
-		pcountstr++;
+	if (1 == sscanf(scanstr[7], "h%lu",&count))
 		do_hex = 1;
-	}
-	sscanf(pcountstr,"%lu", &count);
-	
+	else if (1 == sscanf(scanstr[7], "0x%lx", &count))
+		do_hex = 1;
+	else 
+		sscanf(scanstr[7], "%lu", &count);
+
 	if (!strcmp(path, "/")) {
 		error_msg_and_die("Device table entries require absolute paths");
 	}
