@@ -18,8 +18,8 @@
 #define MKDEV(ma,mi)	(((ma) << MINORBITS) | (mi))
 
 /* These are all stolen from busybox's libbb to make
- * error handling simpler (and since I maintain busybox, 
- * I'm rather partial to these for error handling). 
+ * error handling simpler (and since I maintain busybox,
+ * I'm rather partial to these for error handling).
  *  -Erik
  */
 static const char *const app_name = "makedevs";
@@ -103,7 +103,7 @@ static char *xstrdup(const char *s)
 }
 
 
-static void add_new_directory(char *name, char *path, 
+static void add_new_directory(char *name, char *path,
 		unsigned long uid, unsigned long gid, unsigned long mode)
 {
 	mkdir(path, mode);
@@ -111,7 +111,7 @@ static void add_new_directory(char *name, char *path,
 //	printf("Directory: %s %s  UID: %ld  GID %ld  MODE: %ld\n", path, name, uid, gid, mode);
 }
 
-static void add_new_device(char *name, char *path, unsigned long uid, 
+static void add_new_device(char *name, char *path, unsigned long uid,
 	unsigned long gid, unsigned long mode, dev_t rdev)
 {
 	int status;
@@ -140,11 +140,11 @@ static void add_new_file(char *name, char *path, unsigned long uid,
 				  unsigned long gid, unsigned long mode)
 {
 	int fd = open(path,O_CREAT | O_WRONLY, mode);
-	if (fd < 0) { 
+	if (fd < 0) {
 		error_msg_and_die("%s: file can not be created!", path);
 	} else {
 		close(fd);
-	} 
+	}
 	chmod(path, mode);
 	chown(path, uid, gid);
 //	printf("File: %s %s  UID: %ld  GID: %ld  MODE: %ld\n",
@@ -167,7 +167,7 @@ static void add_new_fifo(char *name, char *path, unsigned long uid,
     <path>	<type> <mode>	<uid>	<gid>	<major>	<minor>	<start>	<inc>	<count>
     /dev/mem    c      640      0       0       1       1       0        0        -
 
-    type can be one of: 
+    type can be one of:
 	f	A regular file
 	d	Directory
 	c	Character special device file
@@ -183,7 +183,7 @@ static void add_new_fifo(char *name, char *path, unsigned long uid,
     count can be prepended with 'h' to indicate the device numbers must be in hex.
     Notice the number specified in the file must be decimal even with 'h' prepended.
 
-    count can also be specified directly as a hex number by prepending 0x. 
+    count can also be specified directly as a hex number by prepending 0x.
     I.e. to generate 12 instances of a device can be done using either:
        12, h12 or 0xc
     resulting in the device being numbered:
@@ -228,7 +228,7 @@ static int interpret_table_entry(char *line)
 		do_hex = 1;
 	else if (1 == sscanf(scanstr[7], "0x%lx", &count))
 		do_hex = 1;
-	else 
+	else
 		sscanf(scanstr[7], "%lu", &count);
 
 	if (!strcmp(path, "/")) {
@@ -264,13 +264,13 @@ static int interpret_table_entry(char *line)
 				} else {
 					sprintf(buf, "%s%d", name, i);
 				}
-				/* FIXME:  MKDEV uses illicit insider knowledge of kernel 
+				/* FIXME:  MKDEV uses illicit insider knowledge of kernel
 				 * major/minor representation...  */
 				rdev = MKDEV(major, minor + (i * increment - start));
 				add_new_device(buf, path, uid, gid, mode, rdev);
 			}
 		} else {
-			/* FIXME:  MKDEV uses illicit insider knowledge of kernel 
+			/* FIXME:  MKDEV uses illicit insider knowledge of kernel
 			 * major/minor representation...  */
 			dev_t rdev = MKDEV(major, minor);
 
@@ -368,7 +368,7 @@ int main(int argc, char **argv)
 
 	umask (0);
 
-	while ((opt = getopt_long(argc, argv, "D:d:r:qhv", 
+	while ((opt = getopt_long(argc, argv, "D:d:r:qhv",
 			long_options, &c)) >= 0) {
 		switch (opt) {
 		case 'D':
