@@ -33,6 +33,10 @@ do_install_conf() {
 	install ${SRCDIR}/rsyslog.conf ${D}${sysconfdir}/rsyslog.conf
 }
 
-CONFFILES_${PN} = "${sysconfdir}/rsyslog.conf"
+PACKAGES =+ "${PN}-conf"
+
 FILES_${PN}-dev += "${libdir}/${PN}/*.la"
-FILES_${PN} += "${base_libdir}/systemd ${sysconfdir}/rsyslog.conf"
+FILES_${PN} += "${base_libdir}/systemd"
+FILES_${PN}-conf += "${sysconfdir}/rsyslog.conf"
+
+RDEPENDS_${PN} += "${PN}-conf"
