@@ -45,6 +45,12 @@ else
   DROPBEAR_DSSKEY_DEFAULT="/etc/dropbear/dropbear_dss_host_key"
 fi
 
+# If /etc file exist use this despite readonly
+test -e /etc/dropbear/dropbear_rsa_host_key && \
+	DROPBEAR_RSAKEY_DEFAULT="/etc/dropbear/dropbear_rsa_host_key"
+test -e /etc/dropbear/dropbear_dss_host_key && \
+	DROPBEAR_DSSKEY_DEFAULT="/etc/dropbear/dropbear_dss_host_key"
+
 test -z "$DROPBEAR_BANNER" || \
   DROPBEAR_EXTRA_ARGS="$DROPBEAR_EXTRA_ARGS -b $DROPBEAR_BANNER"
 test -n "$DROPBEAR_RSAKEY" || \
