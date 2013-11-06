@@ -1,0 +1,11 @@
+--- nspr/configure.orig	2013-11-05 09:41:33.006022388 +0100
++++ nspr/configure	2013-11-05 09:34:32.242034820 +0100
+@@ -755,7 +755,7 @@
+ OBJDIR='$(OBJDIR_NAME)'
+ OBJDIR_NAME=.
+ OBJDIR_SUFFIX=OBJ
+-NSINSTALL='$(MOD_DEPTH)/config/$(OBJDIR_NAME)/nsinstall'
++NSINSTALL=nsinstall
+ NOSUCHFILE=/no-such-file
+ LIBNSPR='-L$(dist_libdir) -lnspr$(MOD_MAJOR_VERSION)'
+ LIBPLC='-L$(dist_libdir) -lplc$(MOD_MAJOR_VERSION)'

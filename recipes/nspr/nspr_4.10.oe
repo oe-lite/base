@@ -1,0 +1,58 @@
+SUMMARY = "Netscape portable runtime, or NSPR, a platform abstraction library"
+DESCRIPTION = """
+NSPR, a platform abstraction library, makes all operating systems it supports
+appear the same to (for example) Mozilla-style web-browsers. NSPR provides platform
+independence for non-GUI operating system facilities
+"""
+HOMEPAGE = "https://developer.mozilla.org/docs/NSPR"
+LICENSE = "MPL"
+
+RECIPE_TYPES = "machine native"
+
+SRC_URI = "ftp://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v4.10/src/${PN}-${PV}.tar.gz"
+SRC_URI:>machine += " file://nsinstall.patch"
+
+inherit pkgconfig autotools auto-package-libs auto-package-utils
+
+DEPENDS += "libstdc++ libdl librt libpthread "
+DEPENDS:>machine += " native:nspr-nsinstall"
+
+EXTRA_OECONF:>machine = ""
+
+EXTRA_OECONF += " \
+	--enable-mdupdate \
+"
+
+S = "${SRCDIR}/${PN}-${PV}/${PN}"
+
+NSINSTALL_POST_FUNC = ""
+NSINSTALL_POST_FUNC:native = "do_install_nsinstall"
+do_install[postfuncs] += "${NSINSTALL_POST_FUNC}"
+do_install_nsinstall() {
+	install -d ${D}/${bindir}
+	install -m 0755 ${S}/config/nsinstall ${D}/${bindir}
+}
+
+
+
+AUTO_PACKAGE_UTILS = "nspr-config nsinstall"
+
+FILES_${PN}-nspr-config += " ${bindir}/compile-et.pl "
+FILES_${PN}-nspr-config += " ${bindir}/prerr.properties "
+
+AUTO_PACKAGE_UTILS_RDEPENDS += "${PN}"
+
+# This package only creates .so files. These are
+# what we need in the 'main package'
+SOLIBS = ".so"
+SOLIBSDEV = ".so.*"
+
+AUTO_PACKAGE_LIBS = "nspr4 plc4 plds4"
+AUTO_PACKAGE_LIB_RDEPENDS = "libpthread libdl librt libc"
+
+RDEPENDS_${PN} = "libnspr4 libplc4 libplds4"
+
+RDEPENDS_${PN}-plc4 = "libnspr4"
+RDEPENDS_${PN}-plds4 = "libnspr4"
+
+DEPENDS_${PN} = "${LIBS_AUTO_PACKAGES}"
