@@ -25,6 +25,7 @@ do_compile_fix_sdk_build() {
 
 PARALLEL_MAKE = ""
 EXTRA_OEMAKE = 'HOSTCC="${CC}" HOSTSTRIP=":" \
+    HOSTLDFLAGS="${HOST_LDFLAGS}" \
     CROSS_COMPILE="${HOST_PREFIX}"'
 
 RECIPE_FLAGS = "u_boot_tools_config"
