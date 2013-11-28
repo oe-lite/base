@@ -1,0 +1,12 @@
+diff -urN ifplugd-0.28.orig/src/nlapi.c ifplugd-0.28/src/nlapi.c
+--- ifplugd-0.28.orig/src/nlapi.c	2013-11-27 14:57:53.810265321 +0100
++++ ifplugd-0.28/src/nlapi.c	2013-11-27 14:58:28.506266147 +0100
+@@ -71,7 +71,7 @@
+     
+     for (;;) {
+         int bytes;
+-        char replybuf[1024];
++        char replybuf[4096];
+         struct nlmsghdr *p = (struct nlmsghdr *) replybuf;
+         
+         if ((bytes = recv(nlapi_fd, &replybuf, sizeof(replybuf), block ? 0 : MSG_DONTWAIT)) < 0) {

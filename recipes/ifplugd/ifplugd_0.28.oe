@@ -3,6 +3,7 @@ LICENSE = "GPL-2.0+"
 require ${PN}.inc
 
 SRC_URI += "file://nobash.patch"
+SRC_URI += "file://nlapi_buffer.patch"
 
 # Avoid typedef conflicts between sys/types.h and linux/types.h
 # .../sys/types.h:62:17: error: conflicting types for 'dev_t'
