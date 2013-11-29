@@ -6,7 +6,7 @@ DESCRIPTION = "GLib is a general-purpose utility library, which provides many \
 
 inherit c++ autotools
 
-DEPENDS = "host-cross:gtk-doc libz libffi"
+DEPENDS = "host-cross:gtk-doc libz libffi libelf"
 
 DEPENDS += "${DEPENDS_NATIVE}"
 DEPENDS_NATIVE = "native:libglib native:libgthread native:libgmodule native:glib-utils"
