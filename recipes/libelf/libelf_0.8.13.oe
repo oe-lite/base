@@ -12,6 +12,10 @@ SRC_URI:>HOST_LIBC_mingw += "file://mingw-configure-crlf.patch"
 
 EXTRA_OEMAKE_INSTALL += "instroot=${D}"
 
-EXTRA_OECONF:>TARGET_OS_darwin = "--disable-compat"
+EXTRA_OECONF:>HOST_OS_darwin = "--disable-compat"
 
 FILES_${PN}-locale += "${libdir}/locale"
+
+# OE-lite/core now also provides libelf, so let's use that, except for darwin
+DEFAULT_PREFERENCE = "-1"
+DEFAULT_PREFERENCE:HOST_OS_darwin = "0"
