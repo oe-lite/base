@@ -7,3 +7,8 @@ SRC_URI += "file://parallel-make.patch"
 SRC_URI += "file://mingw.patch"
 # above patch should be a step in the right direction, but not enough
 PARALLEL_MAKE = ""
+
+# Fixup to get openssl to respect ${LDFLAGS}.  From OpenEmbedded, thanks :-)
+SRC_URI += "file://oe-ldflags.patch file://shared-libs.patch"
+export OE_LDFLAGS="${LDFLAGS}"
+SRC_URI += "file://no-librpath-rpath.patch"
