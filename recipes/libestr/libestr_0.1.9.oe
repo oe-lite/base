@@ -1,0 +1,9 @@
+DESCRIPTION = "libestr - some essentials for string handling (and a bit more)"
+HOMEPAGE = "http://doc.libestr.adiscon.com/index.html"
+SRC_URI = "http://libestr.adiscon.com/files/download/${PN}-${PV}.tar.gz"
+LICENSE = "GPL-2.1"
+
+inherit autotools-autoreconf library
+
+DEPENDS_${PN} += "libc libgcc"
+RDEPENDS_${PN} += "libc libgcc"
