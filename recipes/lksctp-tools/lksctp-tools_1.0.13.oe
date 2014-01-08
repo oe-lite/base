@@ -1,5 +1,0 @@
-require lksctp-tools.inc
-
-inherit autotools-autoreconf
-
-LICENSE = "LGPL-2.0"
