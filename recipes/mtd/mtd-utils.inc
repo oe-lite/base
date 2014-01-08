@@ -46,10 +46,16 @@ AUTO_PACKAGE_UTILS = "\
 	ubirename ubirmvol ubirsvol ubiupdatevol unubi \
 "
 
+AUTO_PACKAGE_UTILS_DEPENDS = "libc libgcc"
+AUTO_PACKAGE_UTILS_RDEPENDS = "libc libgcc"
+
 FILES_mtd-utils-ubicrc32 = "${sbindir}/ubicrc32.pl"
 
+DEPENDS_${PN}-jffs2reader = "libz liblzo2"
+RDEPENDS_${PN}-jffs2reader = "libz liblzo2"
 DEPENDS_${PN}-mkfs-jffs2 = "libz liblzo2"
 RDEPENDS_${PN}-mkfs-jffs2 = "libz liblzo2"
+DEPENDS_${PN}-mkfs-ubifs = "libz liblzo2 libuuid libm"
 RDEPENDS_${PN}-mkfs-ubifs = "libz liblzo2 libuuid libm"
 
 # The mtd-utils package is used to pull in all provided util features

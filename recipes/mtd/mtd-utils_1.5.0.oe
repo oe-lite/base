@@ -1,0 +1,6 @@
+# -*- mode:python; -*-
+LICENSE = "GPL-2.0+"
+
+require mtd-utils.inc
+
+AUTO_PACKAGE_UTILS += "jffs2reader"
