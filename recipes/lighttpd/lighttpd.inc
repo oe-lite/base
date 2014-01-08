@@ -49,6 +49,7 @@ EXTRA_OECONF += "${EXTRA_OECONF_PCRE}"
 DEPENDS_PCRE = ""
 DEPENDS_PCRE:USE_lighttpd_pcre = "libpcre"
 DEPENDS += "${DEPENDS_PCRE}"
+DEPENDS_${PN} += "libc libcrypto libdl libm libpcre libssl libz"
 RDEPENDS_${PN} += "${DEPENDS_PCRE}"
 
 RECIPE_FLAGS += "lighttpd_zlib"
