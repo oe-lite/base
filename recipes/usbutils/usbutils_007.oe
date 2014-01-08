@@ -1,0 +1,32 @@
+# -*- mode:python; -*-
+DESCRIPTION = "Host side USB console utilities."
+LICENSE = "GPLv2"
+
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
+RECIPE_TYPES = "machine"
+
+inherit autotools pkgconfig
+
+require conf/fetch/kernelorg.conf
+SRC_URI = "${KERNELORG_MIRROR}/linux/utils/usb/usbutils/usbutils-${PV}.tar.gz"
+SRC_URI += "file://usb-devices-avoid-dependency-on-bash.patch"
+SRC_URI += "file://Fix-NULL-pointer-crash.patch"
+
+DEPENDS += "libusb-compat"
+
+do_install[postfuncs] += "do_install_rm_usbids"
+do_install_rm_usbids() {
+	# The 0.86 Makefile.am installs both usb.ids and usb.ids.gz.
+	if [ -f ${D}${datadir}/usb.ids.gz ]
+	then
+		rm -f ${D}${datadir}/usb.ids
+	fi
+}
+
+PACKAGES =+ "${PN}-update"
+
+FILES_${PN} += "${datadir}/usb*"
+FILES_${PN}-update = "${sbindir}/update-usbids.sh"
+RDEPENDS_${PN} += "libc librt libusb-compat"
+DEPENDS_${PN} += "libusb-compat"
