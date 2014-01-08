@@ -1,0 +1,1 @@
+062319276d913c753a4b1341036e6a2e42abccc9  libusb-compat-0.1.5.tar.bz2
