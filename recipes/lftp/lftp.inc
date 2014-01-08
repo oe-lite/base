@@ -10,9 +10,11 @@ inherit c++ autotools pkgconfig largefile
 
 DEPENDS = "libncurses libreadline"
 
-RDEPENDS_${PN} = "libncurses libreadline libstdc++ libm libgcc libc"
+COMMON_DEPENDS = "libncurses libreadline libstdc++ libm libgcc libc"
+DEPENDS_${PN} = "${COMMON_DEPENDS}"
+RDEPENDS_${PN} = "${COMMON_DEPENDS}"
 
-LFTP_MIRROR = "http://ftp.yar.ru/pub/source/lftp"
+LFTP_MIRROR = "http://lftp.yar.ru/ftp"
 
 SRC_URI = "${LFTP_MIRROR}/lftp-${PV}.tar.bz2"
 SRC_URI += "file://config.site"
