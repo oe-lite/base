@@ -1,0 +1,4 @@
+# -*- mode:python; -*-
+require ${PN}.inc
+
+LIBRARY_VERSION = "0"
