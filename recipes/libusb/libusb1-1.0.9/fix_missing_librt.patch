@@ -1,0 +1,11 @@
+--- libusb-1.0.9/libusb-1.0.pc.in.orig	2014-01-08 09:58:53.347028290 +0100
++++ libusb-1.0.9/libusb-1.0.pc.in	2014-01-08 09:59:02.667028155 +0100
+@@ -6,7 +6,7 @@
+ Name: libusb-1.0
+ Description: C API for USB device access from Linux, Mac OS X, OpenBSD, NetBSD and Windows userspace
+ Version: @VERSION@
+-Libs: -L${libdir} -lusb-1.0
++Libs: -L${libdir} -lusb-1.0 -lrt
+ Libs.private: @PC_LIBS_PRIVATE@
+ Cflags: -I${includedir}/libusb-1.0
+ 
