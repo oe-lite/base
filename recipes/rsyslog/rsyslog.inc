@@ -4,14 +4,17 @@ LICENSE = "GPL-3.0"
 
 DEPENDS_LIBC = "libdl libpthread librt"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
-DEPENDS = "libz ${DEPENDS_LIBC}"
-RDEPENDS_${PN} += "libz ${DEPENDS_LIBC}"
+DEPENDS = "libz libuuid ${DEPENDS_LIBC}"
+DEPENDS_${PN} += "libz libuuid ${DEPENDS_LIBC}"
+RDEPENDS_${PN} += "libz libuuid ${DEPENDS_LIBC}"
 
 SRC_URI = "http://www.rsyslog.com/files/download/rsyslog/${PN}-${PV}.tar.gz \
           file://rsyslog.conf \
           file://rsyslog"
 
 inherit autotools-autoreconf sysvinit pkgconfig
+
+EXTRA_OECONF += "--enable-cached-man-pages"
 
 RECIPE_FLAGS = "rsyslog_sysvinit_start rsyslog_logdir rsyslog_logfile"
 DEFAULT_USE_rsyslog_sysvinit_start = "20"
