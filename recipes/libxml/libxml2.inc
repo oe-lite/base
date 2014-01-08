@@ -6,10 +6,10 @@ inherit autotools make-vpath pkgconfig library binconfig
 
 SRC_URI = "ftp://xmlsoft.org/${PN}/${PN}-${PV}.tar.gz"
 
-DEPENDS = "${DEPENDS_HOST_OS} libm"
+DEPENDS = "libc libm ${DEPENDS_HOST_OS}"
 DEPENDS_HOST_OS = "libdl"
-DEPENDS_HOST_OS:HOST_OS_mingw32 = ""
-RDEPENDS_${PN} = "${DEPENDS}"
+DEPENDS_HOST_OS:HOST_LIBC_mingw = ""
+DEPENDS_${PN} += "libc libm ${DEPENDS_HOST_OS}"
 
 EXTRA_OECONF = "\
  --without-legacy \
@@ -33,3 +33,5 @@ FILES_${PN} = "${libexecdir}/* ${sharedlibdir}/lib*${SOLIBS} \
 
 FILES_${PN}-utils = "${bindir}/xmllint* ${bindir}/xmlcatalog* ${libdir}/*.sh"
 FILES_${PN}-doc += "${datadir}/gtk-doc"
+DEPENDS_${PN}-utils += "libc libm ${DEPENDS_HOST_OS} libxml2"
+RDEPENDS_${PN}-utils += "libc libm ${DEPENDS_HOST_OS} libxml2"
