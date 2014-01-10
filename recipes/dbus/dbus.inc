@@ -61,41 +61,15 @@ do_install_extra_files() {
 }
 
 RDEPENDS_${PN}-x11 = "${PN}"
-PROVIDES_${PN} = "dbus-1"
 RDEPENDS_${PN} += "libc ${DEPENDS_LIBC} libexpat libdbus"
 RDEPENDS_${PN}-x11 += "libc ${DEPENDS_LIBC}"
 
 PACKAGES =+ "${PN}-x11"
 
 inherit auto-package-libs
-AUTO_PACKAGE_LIBS = "dbus"
-AUTO_PACKAGE_LIBS_LIBDIR = "${sharedlibdir}:lib:-1"
-AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev_${PV}"
-FILES_${PN}-libdbus-dev = "${includedir}/dbus-1.0 ${libdir}/dbus-1.0/include"
-DEPENDS_${PN}-libdbus = "libc ${DEPENDS_LIBC}"
-
-FILES_${PN} = "\
-	${bindir}/dbus-daemon* \
-	${bindir}/dbus-uuidgen${HOST_EXEEXT} \
-	${bindir}/dbus-cleanup-sockets${HOST_EXEEXT} \
-	${bindir}/dbus-send${HOST_EXEEXT} \
-	${bindir}/dbus-monitor${HOST_EXEEXT} \
-	${libexecdir}/dbus* \
-	${sysconfdir} \
-	${datadir}/dbus-1/services \
-	${datadir}/dbus-1/system-services \
-"
-FILES_${PN}-x11 = "${bindir}/dbus-launch${HOST_EXEEXT}"
-FILES_${PN}-dev += "${libdir}/dbus-1.0/include ${bindir}/dbus-glib-tool ${libdir}/ ${sharedlibdir}/*.dll"
-
-#pkg_postinst_${PN}() {
-##!/bin/sh
-## can't do adduser stuff offline
-#if [ "x$D" != "x" ]; then
-#  exit 1
-#fi
-#chmod u+s /usr/libexec/dbus-daemon-launch-helper
-#}
+AUTO_PACKAGE_LIBS = "dbus-1"
+AUTO_PACKAGE_LIBS_DEV_DEPENDS += "libc libpthread librt ${PN}-dev"
+AUTO_PACKAGE_LIBS_RDEPENDS += "libc libpthread librt"
 
 RECIPE_FLAGS += "dbus_sysvinit_start dbus_sysvinit_stop"
 SYSVINIT_SCRIPT_dbus = "dbus-1"
@@ -106,3 +80,19 @@ inherit splashutils-progress
 RECIPE_FLAGS += "dbus_1_splashutils_progress dbus_1_splashutils_msg"
 SPLASHUTILS_INITSCRIPTS = "dbus_1"
 DEFAULT_USE_dbus_1_splashutils_msg = "\"Starting Dbus\""
+
+inherit auto-package-utils
+AUTO_PACKAGE_UTILS = "dbus-cleanup-sockets dbus-daemon dbus-launch \
+			dbus-monitor dbus-run-session dbus-send dbus-uuidgen"
+AUTO_PACKAGE_UTILS_DEPENDS += "libc"
+AUTO_PACKAGE_UTILS_RDEPENDS += "libc"
+DEPENDS_${PN}-dbus-daemon += "libexpat libpthread librt"
+RDEPENDS_${PN}-dbus-daemon += "libexpat libpthread librt"
+DEPENDS_${PN}-dbus-monitor += "libdbus-1"
+RDEPENDS_${PN}-dbus-monitor += "libdbus-1"
+DEPENDS_${PN}-dbus-run-session += "libdbus-1"
+RDEPENDS_${PN}-dbus-run-session += "libdbus-1"
+DEPENDS_${PN}-dbus-send += "libdbus-1"
+RDEPENDS_${PN}-dbus-send += "libdbus-1"
+DEPENDS_${PN}-dbus-uuidgen += "libdbus-1"
+RDEPENDS_${PN}-dbus-uuidgen += "libdbus-1"
