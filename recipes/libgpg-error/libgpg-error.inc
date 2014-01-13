@@ -11,7 +11,5 @@ do_install_append() {
 	rm -rf "${D}${datadir}/common-lisp/"
 }
 
-FILES_${PN}-dev += "${bindir}/gpg-error"
-
 inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "gpg-error"
