@@ -9,9 +9,7 @@ DEPENDS_${PN} += "libz liblzo2 libtasn1 libgcrypt libreadline"
 RDEPENDS_${PN} += "gnutls-extra liblzo2 libtasn1"
 
 require conf/fetch/gnu.conf
-
-SRC_URI = "${GNU_MIRROR}/gnutls/gnutls-${PV}.tar.bz2 \
-	   file://gets-not-defined-in-glibc-2.16.patch"
+SRC_URI = "${GNU_MIRROR}/gnutls/gnutls-${PV}.tar.bz2"
 
 EXTRA_OECONF="--with-included-opencdk --with-included-libcfg --disable-rpath \
               --with-libtasn1-prefix=${HOST_SYSROOT} \
