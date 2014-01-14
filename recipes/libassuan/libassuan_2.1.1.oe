@@ -1,0 +1,13 @@
+require libassuan.inc
+
+SRC_URI += "file://libassuan-add-pkgconfig-support.patch"
+
+LIBRARY_VERSION = "0"
+
+do_install[postfuncs] += "do_install_fix_path_error"
+do_install_fix_path_error() {
+	sed -i -e 's#\(gpg_error_libs=\"\).*\(-lgpg-error\"\)#\1\2#' \
+			${D}${bindir}/libassuan-config
+	sed -i -e 's#\(gpg_error_cflags=\"\).*\(\"\)#\1\2#' \
+			${D}${bindir}/libassuan-config
+}
