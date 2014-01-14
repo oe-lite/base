@@ -1,0 +1,9 @@
+require pth.inc
+
+LIBRARY_VERSION = "20"
+
+do_install[postfuncs] += "do_install_fix_path_error"
+do_install_fix_path_error() {
+	sed -i -e 's#\(.*output=\"\$output\)\( -I\$pth_includedir\"\)#\1\"#' \
+			${D}${bindir}/pth-config
+}
