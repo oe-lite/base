@@ -80,19 +80,9 @@ FILES_${PN}-sshd = "${sysconfdir}/init.d/sshd \
 FILES_${PN}-sshd-doc = "${mandir}/*/moduli.* ${mandir}/*/sshd_config.*"
 
 RDEPENDS_${PN} += "${AUTO_PACKAGE_UTILS_PACKAGES}"
-AUTO_PACKAGE_UTILS_RDEPENDS = "libc libgcc libdl libutil libz"
+AUTO_PACKAGE_UTILS_DEPENDS = "libc libgcc libdl libutil libz libcrypto libresolv libcrypt"
+AUTO_PACKAGE_UTILS_RDEPENDS = "libc libgcc libdl libutil libz libcrypto libresolv libcrypt"
 RDEPENDS_${PN}-sshd = "${PN}-ssh-keygen"
-
-RDEPENDS_${PN}-ssh-add           += "libcrypto"
-RDEPENDS_${PN}-ssh-agent         += "libcrypto"
-RDEPENDS_${PN}-ssh-keyscan       += "libcrypto"
-RDEPENDS_${PN}-ssh-keygen        += "libcrypto"
-RDEPENDS_${PN}-ssh-keysign       += "libcrypto"
-RDEPENDS_${PN}-scp               += "libcrypto"
-RDEPENDS_${PN}-ssh               += "libcrypto"
-RDEPENDS_${PN}-sshd              += "libcrypto"
-RDEPENDS_${PN}-sftp              += "libcrypto"
-RDEPENDS_${PN}-ssh-pkcs11-helper += "libcrypto"
 
 inherit sysvinit
 RECIPE_FLAGS = "sshd_sysvinit_start sshd_sysvinit_stop"
