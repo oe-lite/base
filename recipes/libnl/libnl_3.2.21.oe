@@ -1,6 +1,0 @@
-require ${PN}.inc
-
-LICENSE = "LGPLv2.1"
-
-SRC_URI += "file://fix-pc-file.patch"
-SRC_URI += "file://libnl-3.2.16-0001-can-provide-local-copy-of-linux-can-netlink.h.patch"
