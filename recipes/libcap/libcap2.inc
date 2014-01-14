@@ -18,8 +18,8 @@ EXTRA_OEMAKE = "PAM_CAP=no"
 
 do_install() {
 	oe_runmake DESTDIR="${D}" \
-		prefix="${prefix}" exec_prefix="${exec_prefix}" \
-		lib=`basename ${libdir}` \
+		sbindir="${sbindir}" libdir="${libdir}" \
+		mandir="${mandir}" incdir="${includedir}" \
 		CC='${CC}' CFLAGS='${CFLAGS}' LDFLAGS='${LDFLAGS}' \
 		BUILD_CC='${BUILD_CC}' BUILD_CFLAGS='${BUILD_CFLAGS}' \
 		AR='${AR}' RANLIB='${RANLIB}' \
