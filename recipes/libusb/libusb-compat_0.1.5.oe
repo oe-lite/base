@@ -17,3 +17,8 @@ DEPENDS_${PN} += "libusb-1.0 libpthread"
 
 LIBRARY_NAME = "libusb-0.1"
 LIBRARY_VERSION = "4"
+
+#To be removed in next base master release!
+PROVIDES_${PN} += "libusb0"
+PROVIDES_${PN}-dev += "libusb0-dev"
+PROVIDES_${PN}[qa] += "allow-missing-soname:libusb0"
