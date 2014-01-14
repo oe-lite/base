@@ -7,12 +7,7 @@ RECIPE_TYPES = "machine"
 
 inherit autotools
 
-SRC_URI = "http://www.tcpdump.org/release/tcpdump-${PV}.tar.gz \
-	file://tcpdump_configure_no_-O2.patch \
-	file://0001-minimal-IEEE802.15.4-allowed.patch \
-	file://ipv6-cross.patch \
-	file://configure.patch \
-"
+SRC_URI = "http://www.tcpdump.org/release/tcpdump-${PV}.tar.gz"
 
 DEPENDS = "libpcap"
 RDEPENDS_${PN} = "libpcap"
