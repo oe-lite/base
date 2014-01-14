@@ -36,6 +36,9 @@ SRC_URI += "\
 	file://busybox-ntpd \
 	file://busybox-httpd \
 	file://default.script \
+	file://busybox-ifplugd \
+	file://busybox-ifplugd.action \
+	file://busybox-ifplugd.conf \
 "
 
 PACKAGES:<USE_busybox_udhcpc = "${PN}-udhcpc-scripts "
