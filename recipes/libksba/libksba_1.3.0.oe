@@ -1,0 +1,13 @@
+require libksba.inc
+
+SRC_URI += "file://ksba-add-pkgconfig-support.patch"
+
+LIBRARY_VERSION = "8"
+
+do_install[postfuncs] += "do_install_fix_path_error"
+do_install_fix_path_error() {
+	sed -i -e 's#\(libs=\"-lksba\).*\( -lgpg-error\"\)#\1\2#' \
+			${D}${bindir}/ksba-config
+	sed -i -e 's#\(cflags=\"\).*\(\"\)#\1\2#' \
+			${D}${bindir}/ksba-config
+}
