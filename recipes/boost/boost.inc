@@ -118,89 +118,47 @@ do_install() {
         install
 }
 
-AUTO_PACKAGE_LIBS = "${BOOST_LIBS}"
-AUTO_PACKAGE_LIBS_LIBDIR = "${libdir}:libboost_"
-AUTO_PACKAGE_LIBS_PKGPREFIX = ""
-
-BOOST_LIBS += "date_time"
-
-BOOST_LIBS += "filesystem"
-
-BOOST_LIBS += "graph"
-
-BOOST_LIBS += "iostreams"
-
-BOOST_LIBS += "math"
-FILES_${PN}-math = "\
-    ${libdir}/libboost_math_*${SOLIBS}"
-FILES_${PN}-math-dev = "\
-    ${libdir}/libboost_math_*${SOLIBSDEV} \
-    ${libdir}/libboost_math_*.a"
-
-BOOST_LIBS += "program_options"
-
-BOOST_LIBS += "random"
+BOOST_LIBS = "\
+	chrono date_time filesystem graph iostreams math \
+	program_options random regex serialization signals system \
+	thread test wave"
+AUTO_PACKAGE_LIBS = "\
+	boost_chrono boost_date_time boost_filesystem boost_graph \
+	boost_iostreams boost_math_c99f boost_math_c99l boost_math_c99 \
+	boost_math_tr1f boost_math_tr1l boost_math_tr1 boost_prg_exec_monitor \
+	boost_program_options boost_random boost_regex boost_serialization \
+	boost_signals boost_system boost_thread boost_unit_test_framework \
+	boost_wave boost_wserialization"
 
 RECIPE_FLAGS += "boost_icu"
-BOOST_LIBS += "regex"
 ICU_BOOTSTRAP_OPTION = ""
 ICU_BOOTSTRAP_OPTION:USE_boost_icu = "--with-icu"
 BOOTSTRAP_OPTIONS += "${ICU_BOOTSTRAP_OPTION}"
 ICU_DEPENDS = ""
 ICU_DEPENDS:USE_boost_icu += "libicuuc libicui18n libicudata"
-DEPENDS += "${ICU_DEPENDS}"
-DEPENDS_${PN}-regex-dev = "${ICU_DEPENDS}"
 
-LIBBOST_COMMON_RDEPENDS = "librt libstdc++ libm libpthread libc libgcc"
-RDEPENDS_${PN}-regex = "${LIBBOST_COMMON_RDEPENDS} ${ICU_DEPENDS}"
-RDEPENDS_${PN}-iostreams = "${LIBBOST_COMMON_RDEPENDS} libz libbz2"
-RDEPENDS_${PN}-date-time = "${LIBBOST_COMMON_RDEPENDS}"
-RDEPENDS_${PN}-filesystems = "${LIBBOST_COMMON_RDEPENDS} boost-system"
-RDEPENDS_${PN}-graph = "${LIBBOST_COMMON_RDEPENDS} boost-regex"
-RDEPENDS_${PN}-math = "${LIBBOST_COMMON_RDEPENDS}"
-RDEPENDS_${PN}-program-options = "${LIBBOST_COMMON_RDEPENDS}"
-RDEPENDS_${PN}-random = "${LIBBOST_COMMON_RDEPENDS}"
-RDEPENDS_${PN}-serialization = "${LIBBOST_COMMON_RDEPENDS}"
-RDEPENDS_${PN}-signals = "${LIBBOST_COMMON_RDEPENDS}"
-RDEPENDS_${PN}-system = "${LIBBOST_COMMON_RDEPENDS}"
-RDEPENDS_${PN}-thread = "${LIBBOST_COMMON_RDEPENDS}"
-RDEPENDS_${PN}-wave = "${LIBBOST_COMMON_RDEPENDS} boost-date-time boost-thread boost-filesystem boost-system"
-RDEPENDS_${PN}-wserialization = "${LIBBOST_COMMON_RDEPENDS} boost-serialization"
+LIBBOOST_COMMON_RDEPENDS = "librt libstdc++ libm libpthread libc libgcc"
+AUTO_PACKAGE_LIBS_DEV_DEPENDS += "${LIBBOOST_COMMON_RDEPENDS}"
+AUTO_PACKAGE_LIBS_RDEPENDS += "${LIBBOOST_COMMON_RDEPENDS}"
 
-BOOST_LIBS += "serialization"
-FILES_${PN}-serialization = "\
-    ${libdir}/libboost_wserialization${SOLIBSDEV}"
-FILES_${PN}-serialization-dev = "\
-    ${libdir}/libboost_wserialization${SOLIBS} \
-    ${libdir}/libboost_wserialization.a"
-
-BOOST_LIBS += "signals"
-
-BOOST_LIBS += "system"
-
-BOOST_LIBS += "thread"
-
-BOOST_LIBS += "wave"
-
-BOOST_LIBS += "test"
-FILES_${PN}-test = "\
-    ${libdir}/libboost_prg_exec_monitor${SOLIBS} \
-    ${libdir}/libboost_test_exec_monitor${SOLIBS} \
-    ${libdir}/libboost_unit_test_framework${SOLIBS}"
-FILES_${PN}-test-dev = "\
-    ${libdir}/libboost_prg_exec_monitor${SOLIBSDEV} \
-    ${libdir}/libboost_prg_exec_monitor.a \
-    ${libdir}/libboost_test_exec_monitor${SOLIBSDEV} \
-    ${libdir}/libboost_test_exec_monitor.a \
-    ${libdir}/libboost_unit_test_framework${SOLIBSDEV} \
-    ${libdir}/libboost_unit_test_framework.a"
-
-# To enable python, do something like the above, and more....
-#BOOST_LIBS += "python"
-#DEPENDS += "python"
-#PYTHON_ROOT = "${STAGING_DIR_HOST}/${layout_prefix}"
-#PYTHON_VERSION = "2.5"
-#BOOTSTRAP_OPTIONS += "--with-python-root=${PYTHON_ROOT}"
-#BJAM_OPTIONS += "'-sPYTHON_VERSION=${PYTHON_VERSION}'"
+DEPENDS_${PN}-libboost-chrono += "libboost-system"
+RDEPENDS_${PN}-libboost-chrono += "libboost-system"
+DEPENDS_${PN}-libboost-filesystem += "libboost-system"
+RDEPENDS_${PN}-libboost-filesystem += "libboost-system"
+DEPENDS_${PN}-libboost-thread += "libboost-system"
+RDEPENDS_${PN}-libboost-thread += "libboost-system"
+DEPENDS_${PN}-libboost-graph += "libboost-regex"
+RDEPENDS_${PN}-libboost-graph += "libboost-regex"
+DEPENDS_${PN}-libboost-iostreams += "libbz2 libz"
+RDEPENDS_${PN}-libboost-iostreams += "libbz2 libz"
+DEPENDS_${PN}-libboost-wave += "libboost-chrono libboost-date-time \
+			libboost-filesystem libboost-system libboost-thread"
+RDEPENDS_${PN}-libboost-wave += "libboost-chrono libboost-date-time \
+			libboost-filesystem libboost-system libboost-thread"
+DEPENDS_${PN}-libboost-wserialization += "libboost-serialization"
+RDEPENDS_${PN}-libboost-wserialization += "libboost-serialization"
 
 BOOTSTRAP_OPTIONS += "--with-libraries=${@','.join('${BOOST_LIBS}'.split())}"
+
+#Ensure no libraries are placed in PN
+FILES_${PN} = ""
