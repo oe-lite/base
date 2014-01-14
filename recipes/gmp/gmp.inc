@@ -2,7 +2,7 @@ DESCRIPTION = "GNU multiprecision arithmetic library"
 HOMEPAGE = "http://www.swox.com/gmp/"
 
 RECIPE_TYPES = "machine native sdk"
-inherit autotools 
+inherit autotools library
 
 require conf/fetch/gnu.conf
 SRC_URI = "${GNU_MIRROR}/gmp/gmp-${PV}.tar.gz;name=gmp"
@@ -14,3 +14,5 @@ ARM_INSTRUCTION_SET = "arm"
 EXTRA_OECONF:>native = " --enable-static"
 
 acpaths = ""
+DEPENDS_${PN} += "libc"
+RDEPENDS_${PN} += "libc"
