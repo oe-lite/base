@@ -1,0 +1,22 @@
+--- /dev/null
++++ b/pth.pc
+@@ -0,0 +1,16 @@
++prefix=@prefix@
++exec_prefix=@exec_prefix@
++libdir=@libdir@
++includedir=@includedir@
++bindir=@bindir@
++mandir=@mandir@
++datadir=@datadir@
++acdir=@datadir@/aclocal
++
++Name: pth
++Description: GNU Portable Threads
++Requires:
++Version: @PTH_VERSION@
++Libs: -L${libdir} -lpth
++Libs.private: 
++Cflags: -I${includedir}
+-- 
+1.7.5.4
+
