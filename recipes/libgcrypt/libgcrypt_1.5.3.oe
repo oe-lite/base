@@ -4,3 +4,11 @@ require libgcrypt.inc
 LICENSE = "GPLv2+ & LGPLv2.1+"
 
 SRC_URI += "file://add-pkgconfig-support.patch"
+
+do_install[postfuncs] += "do_install_fix_gpg_error"
+do_install_fix_gpg_error() {
+       sed -i -e 's#\(gpg_error_libs=\"\).*\(-lgpg-error\"\)#\1\2#' \
+                       ${D}${bindir}/libgcrypt-config
+       sed -i -e 's#\(gpg_error_cflags=\"\).*\(\"\)#\1\2#' \
+                       ${D}${bindir}/libgcrypt-config
+}
