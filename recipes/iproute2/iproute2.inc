@@ -12,7 +12,7 @@ inherit autotools-autoreconf pkgconfig auto-package-utils
 SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/shemminger/iproute2.git;commit=${GIT_COMMIT}"
 S = "${SRCDIR}/iproute2"
 
-DEPENDS += "libdl libresolv libm libdb4 libnl-dev"
+DEPENDS += "libdl libresolv libm libdb4 libnl-3"
 
 do_compile[prefuncs] += "do_compile_add_libnl"
 do_compile_add_libnl () {
