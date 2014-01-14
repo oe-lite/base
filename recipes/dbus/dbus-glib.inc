@@ -35,3 +35,8 @@ AUTO_PACKAGE_LIBS = "dbus-glib-1"
 FILES_${PN}-libdbus-glib-1-dev = "${includedir}"
 DEPENDS_${PN}-libdbus-glib-1 = "libc ${DEPENDS_LIBC} libpcre libglib \
 	libgobject libgthread libffi libdbus-1 libgio"
+
+#To be removed in next base master release!
+PROVIDES_${PN}-libdbus-glib-1 += "libdbus-glib"
+PROVIDES_${PN}-libdbus-glib-1-dev += "libdbus-glib-dev"
+PROVIDES_${PN}-libdbus-glib-1[qa] += "allow-missing-soname:libdbus-glib"
