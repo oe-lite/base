@@ -1,0 +1,38 @@
+#!/bin/sh
+
+CFG=/etc/ifplugd/ifplugd.conf
+
+IFPLUGD=/usr/sbin/ifplugd
+test -x $IFPLUGD || exit 0
+
+[ -f $CFG ] && . $CFG
+
+[ "x$INTERFACES" = "xauto" ] && INTERFACES="`cat /proc/net/dev | awk '{ print $1 }' | egrep '^(eth|wlan)' | cut -d
+: -f1`"
+
+# See how we were called.
+case "$1" in
+  start)
+        echo -n "Starting ifplugd: "
+        for IF in $INTERFACES ; do
+            A="`eval echo \$\{ARGS_${IF}\}`"
+            [ -z "$A" ] && A="$ARGS"
+            $IFPLUGD -i $IF $A
+            echo -n " $IF"
+        done
+        echo
+        ;;
+  stop)
+        echo -n "Shutting down ifplugd: "
+        killall ifplugd
+        ;;
+  restart)
+        $0 stop $INTERFACES
+        $0 start $INTERFACES
+        ;;
+  *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+esac
+
+exit 0

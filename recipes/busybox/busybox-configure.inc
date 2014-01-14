@@ -862,3 +862,12 @@ BUSYBOX_SIMPLE_USE_FLAGS += "ubimkvol:util/"
 BUSYBOX_SIMPLE_USE_FLAGS += "ubirmvol:util/"
 BUSYBOX_SIMPLE_USE_FLAGS += "ubirsvol:util/"
 BUSYBOX_SIMPLE_USE_FLAGS += "ubiupdatevol:util/"
+
+# USE flag: enable ifplugd service
+BUSYBOX_SIMPLE_USE_FLAGS += "ifplugd:service/ifplugd"
+RECIPE_FLAGS += "busybox_ifplugd_sysvinit_start busybox_ifplugd_sysvinit_stop"
+DEFAULT_USE_busybox_ifplugd_sysvinit_start = "25"
+DEFAULT_USE_busybox_ifplugd_sysvinit_stop  = "20"
+RECIPE_FLAGS += "busybox_ifplugd_splashutils_progress busybox_ifplugd_splashutils_msg"
+SPLASHUTILS_INITSCRIPTS:>USE_busybox_ifplugd += " busybox_ifplugd"
+DEFAULT_USE_busybox_ifplugd_splashutils_msg = "\"Starting Busybox ifplugd\""

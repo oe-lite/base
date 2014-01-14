@@ -134,6 +134,13 @@ do_install () {
 	if grep "CONFIG_HTTPD=y" ${S}/.config; then
 		sysvinit_install_script ${SRCDIR}/busybox-httpd
 	fi
+
+	if grep "CONFIG_IFPLUGD=y" ${S}/.config; then
+		sysvinit_install_script ${SRCDIR}/busybox-ifplugd
+		install -d ${D}${sysconfdir}/ifplugd
+		install -m 0755 ${SRCDIR}/busybox-ifplugd.action ${D}${sysconfdir}/ifplugd/ifplugd.action
+		install -m 0644 ${SRCDIR}/busybox-ifplugd.conf ${D}${sysconfdir}/ifplugd/ifplugd.conf
+	fi
 }
 
 do_install[postfuncs] += "${BUSYBOX_INSTALL_POSTFUNCS}"
