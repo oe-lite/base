@@ -12,3 +12,5 @@ do_install_fix_gpg_error() {
        sed -i -e 's#\(gpg_error_cflags=\"\).*\(\"\)#\1\2#' \
                        ${D}${bindir}/libgcrypt-config
 }
+
+LIBRARY_VERSION = "11"
