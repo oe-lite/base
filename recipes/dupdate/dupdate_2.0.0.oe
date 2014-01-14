@@ -3,3 +3,16 @@ require dupdate.inc
 SRC_REV ?= "tag=v${PV}"
 
 SRC_URI:>USE_sysvinit += " file://splash_progress.patch"
+
+RECIPE_FLAGS += "dupdate_unpack_dir"
+DEFAULT_USE_dupdate_unpack_dir = "none"
+ADD_MOVE_ARG = ""
+ADD_MOVE_ARG:USE_dupdate_unpack_dir = "do_configure_unpack_dir"
+
+do_configure[postfuncs] += "do_configure_unpack_dir"
+do_configure_unpack_dir () {
+	if [ "${USE_dupdate_unpack_dir}" != "none" ]; then
+		sed -i -e 's/\(ARGS=".*\)\"/\1 -u ${USE_dupdate_unpack_dir}\"/' \
+			${S}/src/dupdate.sh
+	fi
+}
