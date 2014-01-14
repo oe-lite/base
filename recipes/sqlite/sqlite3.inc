@@ -48,7 +48,10 @@ export config_TARGET_LFLAGS = "${LDFLAGS}"
 inherit auto-package-utils auto-package-libs
 
 AUTO_PACKAGE_UTILS = "sqlite3"
+AUTO_PACKAGE_UTILS_DEPENDS = "libsqlite3 libpthread libc"
+AUTO_PACKAGE_UTILS_RDEPENDS = "libsqlite3 libpthread libc"
 AUTO_PACKAGE_LIBS = "sqlite3"
+AUTO_PACKAGE_LIBS_DEV_DEPENDS = "libpthread libc"
+AUTO_PACKAGE_LIBS_RDEPENDS = "libpthread libc"
 
 FILES_${PN}-libsqlite3-dev = "${includedir}"
-RDEPENDS_${PN}-sqlite3 += "libsqlite3"
