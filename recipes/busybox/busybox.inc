@@ -88,6 +88,7 @@ FILES_${PN}-udhcpc-scripts = "${datadir}/udhcpc ${sysconfdir}/udhcpc.d"
 
 RDEPENDS_${PN} = "netbase base-passwd base-files ${LIB_DEPENDS}"
 RDEPENDS_${PN}:>USE_busybox_udhcpc += " ${PN}-udhcpc-scripts"
+DEPENDS_${PN} += "libc"
 
 BUSYBOX_PROVIDES += "util/awk"
 PROVIDES_${PN} = "${BUSYBOX_PROVIDES}"
