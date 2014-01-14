@@ -1,0 +1,6 @@
+# -*- mode:python; -*-
+include dbus.inc
+
+SRC_URI += "file://tmpdir.patch"
+
+LIBRARY_VERSION = "3"
