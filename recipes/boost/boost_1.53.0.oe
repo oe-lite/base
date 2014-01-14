@@ -1,3 +1,0 @@
-include boost.inc
-
-BOOST_LIBS += "chrono"
