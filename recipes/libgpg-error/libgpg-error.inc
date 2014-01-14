@@ -13,3 +13,8 @@ do_install_append() {
 
 inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "gpg-error"
+
+DEPENDS_${PN} += "libc"
+RDEPENDS_${PN} += "libc"
+DEPENDS_${PN}-gpg-error += "libc libgpg-error"
+RDEPENDS_${PN}-gpg-error += "libc libgpg-error"

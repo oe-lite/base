@@ -1,0 +1,1 @@
+259f359cd1440b21840c3a78e852afd549c709b8  libgpg-error-1.12.tar.bz2
