@@ -85,3 +85,8 @@ RDEPENDS_${PN}-swat += "libc libcrypt libdl libresolv libtdb"
 FILES_${PN}-cifs = "${base_sbindir}/mount.cifs ${base_sbindir}/umount.cifs"
 FILES_${PN}-cifs-doc = "${mandir}/man8/mount.cifs.8 ${mandir}/man8/umount.cifs.8"
 FILES_${PN}-swat = "${sbindir}/swat ${datadir}/swat ${libdir}/*.msg"
+
+#To be removed in next base master release!
+PROVIDES_${PN}-cifs += "cifs"
+PROVIDES_${PN}-cifs-doc += "cifs-doc"
+PROVIDES_${PN}-swat += "swat"
