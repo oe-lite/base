@@ -4,7 +4,7 @@ LICENSE = "LGPL"
 
 inherit autotools-autoreconf pkgconfig gettext
 
-DEPENDS = "libxml2 libm libdbus libdbus-glib \
+DEPENDS = "libxml2 libm libdbus-1 libdbus-glib-1 \
            libgobject libglib libgthread libgmodule libgio \
            native:gobject-introspection-dev"
 
