@@ -9,7 +9,7 @@ LICENSE = "GPL MIT Artistic"
 # subject to the licenses of the libraries they use too - including
 # libpng libz, IJG, and libtiff licenses
 
-inherit c make auto-package-utils
+inherit c make auto-package-utils auto-package-libs
 
 DEPENDS = "${DEPENDS_LIBC} libxml2 libjpeg libpng12 tiff-dev"
 DEPENDS_LIBC = "libdl"
@@ -82,6 +82,10 @@ ${bindir}/ppmrainbow \
 ${bindir}/ppmshadow \
 "
 
+AUTO_PACKAGE_LIBS = "netpbm"
+AUTO_PACKAGE_LIBS_RDEPENDS = "libc libm"
+DEPENDS_${PN}-libnetpbm = "libc libm"
+
 AUTO_PACKAGE_UTILS = "\
 	411toppm anytopnm  gemtopnm giftopnm gouldtoppm hdifftopam hipstopgm hpcdtoppm \
 	icontopbm ilbmtoppm imgtoppm infotopam jbigtopnm jpeg2ktopam jpegtopnm leaftoppm \
@@ -125,7 +129,8 @@ AUTO_PACKAGE_UTILS = "\
 	eyuvtoppm fiascotopnm fitstopnm fstopgm g3topbm gemtopbm \
 "
 
-AUTO_PACKAGE_UTILS_RDEPENDS = "${PN}"
+AUTO_PACKAGE_UTILS_DEPENDS = "libnetpbm libc libm"
+AUTO_PACKAGE_UTILS_RDEPENDS = "libnetpbm libc libm"
 
 RDEPENDS_${PN}-pgmedge += "${PN}-pamedge"
 RDEPENDS_${PN}-pgmnorm += "${PN}-pnmnorm"
@@ -155,3 +160,20 @@ RDEPENDS_${PN}-tifftopnm += "libjpeg"
 RDEPENDS_${PN}-pamrgbatopng += "libpng12"
 RDEPENDS_${PN}-jpegtopnm += "libjpeg"
 RDEPENDS_${PN}-pamtotiff += "libjpeg"
+DEPENDS_${PN}-libjpegtopnm += "libjpeg"
+DEPENDS_${PN}-pamrgbatopng += "libpng12"
+DEPENDS_${PN}-pamtotiff += "libjpeg libz"
+RDEPENDS_${PN}-pamtotiff += "libz"
+DEPENDS_${PN}-pnmtojpeg += "libjpeg"
+DEPENDS_${PN}-pnmtopng += "libpng12"
+DEPENDS_${PN}-pnmtops += "libz"
+RDEPENDS_${PN}-pnmtops += "libz"
+DEPENDS_${PN}-pnmtotiffcmyk += "libjpeg libz"
+RDEPENDS_${PN}-pnmtotiffcmyk += "libz"
+DEPENDS_${PN}-ppmtompeg += "libjpeg"
+RDEPENDS_${PN}-ppmtompeg += "libjpeg"
+DEPENDS_${PN}-svgtopam += "libxml2"
+DEPENDS_${PN}-tifftopnm += "libjpeg libz"
+RDEPENDS_${PN}-tifftopnm += "libz"
+DEPENDS_${PN}-jpegtopnm += "libjpeg"
+DEPENDS_${PN}-pngtopnm += "libpng12"
