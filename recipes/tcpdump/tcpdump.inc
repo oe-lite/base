@@ -38,7 +38,7 @@ EXTRA_OECONF += "${EXTRA_OECONF_SMI}"
 DEPENDS_SMI = ""
 DEPENDS_SMI:USE_tcpdump_smi = "libsmi"
 DEPENDS += "${DEPENDS_SMI}"
-DEPENDS_${PN} += "${DEPENDS_SMI}"
+DEPENDS_${PN} += "${DEPENDS_SMI} libc libpcap"
 
 do_install[postfuncs] += "do_install_extra"
 do_install_extra () {
