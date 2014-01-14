@@ -96,3 +96,8 @@ DEPENDS_${PN}-dbus-send += "libdbus-1"
 RDEPENDS_${PN}-dbus-send += "libdbus-1"
 DEPENDS_${PN}-dbus-uuidgen += "libdbus-1"
 RDEPENDS_${PN}-dbus-uuidgen += "libdbus-1"
+
+#To be removed in next base master release!
+PROVIDES_${PN}-libdbus-1 += "libdbus"
+PROVIDES_${PN}-libdbus-1-dev += "libdbus-dev"
+PROVIDES_${PN}-libdbus-1[qa] += "allow-missing-soname:libdbus"
