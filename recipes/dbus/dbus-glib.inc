@@ -8,8 +8,8 @@ inherit autotools-autoreconf pkgconfig gettext
 
 SRC_URI = "http://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-${PV}.tar.gz"
 
-DEPENDS = "libexpat libintl ${DEPENDS_LIBC} libdbus \
-           libgobject libglib libgthread libgmodule"
+DEPENDS = "libexpat libintl ${DEPENDS_LIBC} libdbus-1 \
+	libgobject libglib libgthread libgmodule"
 DEPENDS_LIBC = "librt libpthread"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
 
@@ -26,11 +26,12 @@ EXTRA_OECONF_DBUS_BINDING_TOOL:native = ""
 FILES_${PN}-doc += "${datadir}/gtk-doc/html/dbus-glib"
 
 DEPENDS_${PN} = "libc ${DEPENDS_LIBC} libpcre libglib libgobject \
-	libgthread libffi libexpat libdbus libdbus-glib"
+	libgthread libffi libexpat libdbus-1 libdbus-glib-1"
+RDEPENDS_${PN} = "libc ${DEPENDS_LIBC} libpcre libglib libgobject \
+	libgthread libffi libexpat libdbus-1 libdbus-glib-1"
 
 inherit auto-package-libs
-AUTO_PACKAGE_LIBS = "dbus-glib"
-AUTO_PACKAGE_LIBS_LIBDIR = "${libdir}:lib:-1"
-FILES_${PN}-libdbus-glib-dev = "${includedir}"
-DEPENDS_${PN}-libdbus-glib = "libc ${DEPENDS_LIBC} libpcre libglib libgobject \
-	libgthread libffi libdbus"
+AUTO_PACKAGE_LIBS = "dbus-glib-1"
+FILES_${PN}-libdbus-glib-1-dev = "${includedir}"
+DEPENDS_${PN}-libdbus-glib-1 = "libc ${DEPENDS_LIBC} libpcre libglib \
+	libgobject libgthread libffi libdbus-1 libgio"
