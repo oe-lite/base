@@ -2,7 +2,7 @@ DESCRIPTION = "GNOME XML Parser library"
 
 RECIPE_TYPES = "machine native sdk"
 
-inherit autotools pkgconfig library binconfig
+inherit autotools make-vpath pkgconfig library binconfig
 
 SRC_URI = "ftp://xmlsoft.org/${PN}/${PN}-${PV}.tar.gz"
 

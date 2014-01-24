@@ -4,4 +4,12 @@ require libxml2.inc
 
 SRC_URI += "file://pthread_once_init_fix.patch"
 
+do_patch[postfuncs] += "${do_patch_libtool_bindir}"
+do_patch_libtool_bindir = ""
+do_patch_libtool_bindir:HOST_LIBC_mingw = "do_patch_libtool_bindir_func"
+do_patch_libtool_bindir_func() {
+	sed -e 's/\(WIN32_EXTRA_LDFLAGS="\)/\1-bindir \${sharedlibdir} /' \
+		-i ${S}/configure ${S}/configure.in
+}
+
 DEFAULT_PREFERENCE = "-1"
