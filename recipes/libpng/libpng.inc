@@ -2,7 +2,7 @@ DESCRIPTION = "PNG Library"
 HOMEPAGE = "http://www.libpng.org/"
 LICENSE = "libpng"
 
-inherit autotools pkgconfig library binconfig
+inherit autotools make-vpath pkgconfig library binconfig
 BINCONFIG_GLOB = "${bindir}/libpng-config"
 
 RECIPE_TYPES = "machine native sdk"

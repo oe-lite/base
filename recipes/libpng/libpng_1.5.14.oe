@@ -1,3 +1,5 @@
 require libpng15.inc
 
+SRC_URI:>HOST_LIBC_mingw += " file://libtool-bindir.patch"
+
 DEFAULT_PREFERENCE = "-1"
