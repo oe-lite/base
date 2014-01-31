@@ -5,6 +5,8 @@ DEPENDS = "native:flex native:bison"
 
 RECIPE_TYPES = "native sdk"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit c make
 
 SRC_URI = "git://www.jdl.com/software/dtc.git;protocol=git${SRCREV}"
