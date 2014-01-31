@@ -2,7 +2,7 @@ DESCRIPTION = "Very high-quality data compression program"
 
 RECIPE_TYPES = "machine native sdk"
 
-inherit autotools-autoreconf pkgconfig
+inherit autotools-autoreconf make-vpath pkgconfig
 
 SRC_URI = "http://www.bzip.org/${PV}/bzip2-${PV}.tar.gz"
 
