@@ -4,6 +4,8 @@ HOMEPAGE ?= "http://www.denx.de/wiki/U-Boot"
 
 RECIPE_TYPES = "native sdk"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit c make
 
 SRC_URI = "http://ftp.denx.de/pub/u-boot/u-boot-${PV}.tar.bz2"
