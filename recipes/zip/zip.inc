@@ -3,6 +3,8 @@ HOMEPAGE = "http://www.info-zip.org"
 
 RECIPE_TYPES = "machine native sdk"
 
+COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
+
 inherit c make auto-package-utils
 
 SRC_URI = "ftp://ftp.info-zip.org/pub/infozip/src/zip${@d.getVar('PV',1).replace('.', '')}.tgz"
