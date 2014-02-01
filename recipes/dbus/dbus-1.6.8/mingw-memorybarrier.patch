@@ -1,0 +1,39 @@
+From fbebc15ebcdfb94d7135b327ad7ee27a919db4e1 Mon Sep 17 00:00:00 2001
+From: Simon McVittie <simon.mcvittie@collabora.co.uk>
+Date: Mon, 13 Aug 2012 18:00:23 +0100
+Subject: [PATCH] Use InterlockedExchange to get a full memory barrier on
+ Windows
+
+See the bug for extensive discussion.
+
+Bug: https://bugs.freedesktop.org/show_bug.cgi?id=41423
+---
+ dbus/dbus-sysdeps-win.c |   14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/dbus/dbus-sysdeps-win.c b/dbus/dbus-sysdeps-win.c
+index 397520a..488077d 100644
+--- a/dbus/dbus-sysdeps-win.c
++++ b/dbus/dbus-sysdeps-win.c
+@@ -3121,8 +3121,18 @@ _dbus_atomic_dec (DBusAtomic *atomic)
+ dbus_int32_t
+ _dbus_atomic_get (DBusAtomic *atomic)
+ {
+-  /* this is what GLib does, hopefully it's right... */
+-  MemoryBarrier ();
++  /* In this situation, GLib issues a MemoryBarrier() and then returns
++   * atomic->value. However, mingw from mingw.org (not to be confused with
++   * mingw-w64 from mingw-w64.sf.net) does not have MemoryBarrier in its
++   * headers, so we have to get a memory barrier some other way.
++   *
++   * InterlockedIncrement is older, and is documented on MSDN to be a full
++   * memory barrier, so let's use that.
++   */
++  long dummy = 0;
++
++  InterlockedExchange (&dummy, 1);
++
+   return atomic->value;
+ }
+ 
+-- 

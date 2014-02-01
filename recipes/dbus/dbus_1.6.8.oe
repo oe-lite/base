@@ -1,6 +1,9 @@
 # -*- mode:python; -*-
 include dbus.inc
 
-#SRC_URI += "file://tmpdir.patch"
+SRC_URI:>HOST_LIBC_mingw = " file://dbus-iface-function-parameters.patch"
+SRC_URI:>HOST_LIBC_mingw += "file://mingw-memorybarrier.patch"
+SRC_URI:>HOST_LIBC_mingw += " file://libtool-bindir.patch"
+export sharedlibdir
 
 DEFAULT_PREFERENCE = "-1"
