@@ -3,3 +3,6 @@ require libiconv.inc
 LICENSE = "GPL-3.0 & LGPL-2.0"
 
 SRC_URI += "file://gets-undefined-in-C11.patch"
+
+SRC_URI:>HOST_LIBC_mingw = " file://libtool-bindir.patch"
+export sharedlibdir

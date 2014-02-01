@@ -1,0 +1,24 @@
+diff -urN -x '*~' libiconv-1.14~orig/build-aux/ltmain.sh libiconv-1.14/build-aux/ltmain.sh
+--- libiconv-1.14~orig/build-aux/ltmain.sh	2010-09-24 01:27:59.000000000 +0200
++++ libiconv-1.14/build-aux/ltmain.sh	2014-01-31 17:18:15.638563213 +0100
+@@ -5121,7 +5121,7 @@
+     new_inherited_linker_flags=
+ 
+     avoid_version=no
+-    bindir=
++    bindir=$sharedlibdir
+     dlfiles=
+     dlprefiles=
+     dlself=no
+diff -urN -x '*~' libiconv-1.14~orig/libcharset/build-aux/ltmain.sh libiconv-1.14/libcharset/build-aux/ltmain.sh
+--- libiconv-1.14~orig/libcharset/build-aux/ltmain.sh	2010-09-24 01:27:59.000000000 +0200
++++ libiconv-1.14/libcharset/build-aux/ltmain.sh	2014-01-31 17:18:33.862562835 +0100
+@@ -5121,7 +5121,7 @@
+     new_inherited_linker_flags=
+ 
+     avoid_version=no
+-    bindir=
++    bindir=$sharedlibdir
+     dlfiles=
+     dlprefiles=
+     dlself=no
