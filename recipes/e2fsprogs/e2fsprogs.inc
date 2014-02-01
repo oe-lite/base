@@ -4,6 +4,8 @@ HOMEPAGE = "http://e2fsprogs.sf.net"
 
 RECIPE_TYPES = "machine native sdk"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit autotools pkgconfig
 
 DEPENDS = "native:gettext ${DEPENDS_LIBC}"
