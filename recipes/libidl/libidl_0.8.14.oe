@@ -4,7 +4,7 @@ LICENSE = "LGPL"
 
 RECIPE_TYPES = "machine native sdk"
 
-inherit autotools-autoreconf pkgconfig binconfig
+inherit autotools pkgconfig binconfig
 
 DEPENDS = "native:flex native:bison libglib ${DEPENDS_NATIVE}"
 DEPENDS_NATIVE = "native:libidl"
@@ -16,3 +16,6 @@ S = "${SRCDIR}/libIDL-${PV}"
 
 SRC_URI += "file://config.site"
 SRC_HOST_SITEFILES = "${SRCDIR}/config.site"
+
+SRC_URI:>HOST_LIBC_mingw = " file://libtool-bindir.patch"
+export sharedlibdir
