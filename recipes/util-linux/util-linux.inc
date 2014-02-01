@@ -4,6 +4,8 @@ DESCRIPTION = "Util-linux is a suite of essential utilities for any \
 
 RECIPE_TYPES = "machine native sdk"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit autotools autotools-autoreconf
 
 require conf/fetch/kernelorg.conf
