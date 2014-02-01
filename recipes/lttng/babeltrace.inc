@@ -6,12 +6,14 @@ LICENSE = "MIT & GPLv2"
 
 RECIPE_TYPES = "machine sdk"
 
+COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
+
 inherit autotools-autoreconf pkgconfig make-vpath
 
 SRC_URI = "http://www.efficios.com/files/babeltrace/babeltrace-${PV}.tar.bz2"
 
-DEPENDS += "libuuid libpopt libgmodule ${DEPENDS_LIBC}"
-DEPENDS_LIBC = "librt"
+DEPENDS += "libpopt libgmodule ${DEPENDS_LIBC}"
+DEPENDS_LIBC = "librt libuuid"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
 RDEPENDS_${PN} += "libgmodule libpopt libuuid libpcre libpthread libc libglib libdl ${DEPENDS_LIBC}"
 
