@@ -24,6 +24,10 @@ EXTRA_OECONF = "--with-link-size=2 \
 	--enable-rebuild-chartables \
 	--enable-utf8"
 
+export EXTRA_LIBPCRECPP_LDFLAGS = '-bindir "${sharedlibdir}"'
+export EXTRA_LIBPCREPOSIX_LDFLAGS = '-bindir "${sharedlibdir}"'
+export EXTRA_LIBPCRE_LDFLAGS = '-bindir "${sharedlibdir}"'
+
 RECIPE_FLAGS += "pcre_utf8"
 EXTRA_OECONF_UTF8 = "--disable-utf8"
 EXTRA_OECONF_UTF8:USE_pcre_utf8 = "--enable-utf8"
