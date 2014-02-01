@@ -1,0 +1,12 @@
+diff -u libxml2-2.7.8~orig/ltmain.sh libxml2-2.7.8/ltmain.sh
+--- libxml2-2.7.8~orig/ltmain.sh	2010-11-04 18:28:10.000000000 +0100
++++ libxml2-2.7.8/ltmain.sh	2014-01-31 19:57:57.358364673 +0100
+@@ -4386,7 +4386,7 @@
+     new_inherited_linker_flags=
+ 
+     avoid_version=no
+-    bindir=
++    bindir=$sharedlibdir
+     dlfiles=
+     dlprefiles=
+     dlself=no
