@@ -2,3 +2,7 @@
 include dbus.inc
 
 SRC_URI += "file://tmpdir.patch"
+
+SRC_URI:>HOST_LIBC_mingw = " file://mingw-memorybarrier.patch"
+SRC_URI:>HOST_LIBC_mingw += " file://libtool-bindir.patch"
+export sharedlibdir

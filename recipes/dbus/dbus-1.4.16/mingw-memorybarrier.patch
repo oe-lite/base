@@ -1,0 +1,24 @@
+diff -urN -x '*.orig' dbus-1.4.16~orig/dbus/dbus-sysdeps-win.c dbus-1.4.16/dbus/dbus-sysdeps-win.c
+--- dbus-1.4.16~orig/dbus/dbus-sysdeps-win.c	2011-09-21 13:16:16.000000000 +0200
++++ dbus-1.4.16/dbus/dbus-sysdeps-win.c	2014-02-01 13:56:14.137024113 +0100
+@@ -3091,8 +3091,18 @@
+ dbus_int32_t
+ _dbus_atomic_get (DBusAtomic *atomic)
+ {
+-  /* this is what GLib does, hopefully it's right... */
+-  MemoryBarrier ();
++  /* In this situation, GLib issues a MemoryBarrier() and then returns
++   * atomic->value. However, mingw from mingw.org (not to be confused with
++   * mingw-w64 from mingw-w64.sf.net) does not have MemoryBarrier in its
++   * headers, so we have to get a memory barrier some other way.
++   *
++   * InterlockedIncrement is older, and is documented on MSDN to be a full
++   * memory barrier, so let's use that.
++   */
++  long dummy = 0;
++
++  InterlockedExchange (&dummy, 1);
++
+   return atomic->value;
+ }
+ 

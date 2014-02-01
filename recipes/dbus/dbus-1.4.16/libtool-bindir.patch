@@ -1,0 +1,11 @@
+--- dbus-1.4.16/ltmain.sh~orig	2014-02-01 13:49:43.737032203 +0100
++++ dbus-1.4.16/ltmain.sh	2014-02-01 13:49:55.289031963 +0100
+@@ -5121,7 +5121,7 @@
+     new_inherited_linker_flags=
+ 
+     avoid_version=no
+-    bindir=
++    bindir=$sharedlibdir
+     dlfiles=
+     dlprefiles=
+     dlself=no
