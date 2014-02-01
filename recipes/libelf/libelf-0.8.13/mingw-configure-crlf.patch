@@ -1,0 +1,86 @@
+diff -urN libelf-0.8.13~orig/configure libelf-0.8.13/configure
+--- libelf-0.8.13~orig/configure	2008-05-23 10:18:03.000000000 +0200
++++ libelf-0.8.13/configure	2014-01-31 15:16:41.478714353 +0100
+@@ -2046,12 +2046,12 @@
+ if eval "test \"`echo '$''{'libelf_cv_int64'+set}'`\" = set"; then
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+-  
+-  if test "$ac_cv_sizeof_long" = 8; then
++
++  if test `echo "$ac_cv_sizeof_long"|tr -d '\r'` = 8; then
+     libelf_cv_int64='long'
+-  elif test "$ac_cv_sizeof___int64" = 8; then
++  elif test `echo "$ac_cv_sizeof___int64"|tr -d '\r'` = 8; then
+     libelf_cv_int64='__int64'
+-  elif test "$ac_cv_sizeof_long_long" = 8; then
++  elif test `echo "$ac_cv_sizeof_long_long"|tr -d '\r'` = 8; then
+     libelf_cv_int64='long long'
+   else
+     libelf_cv_int64=no
+@@ -2078,9 +2078,9 @@
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   
+-  if test "$ac_cv_sizeof_int" = 4; then
++  if test `echo "$ac_cv_sizeof_int"|tr -d '\r'` = 4; then
+     libelf_cv_int32='int'
+-  elif test "$ac_cv_sizeof_long" = 4; then
++  elif test `echo "$ac_cv_sizeof_long"|tr -d '\r'` = 4; then
+     libelf_cv_int32='long'
+   else
+     libelf_cv_int32=no
+@@ -2107,9 +2107,9 @@
+   echo $ac_n "(cached) $ac_c" 1>&6
+ else
+   
+-  if test "$ac_cv_sizeof_short" = 2; then
++  if test `echo "$ac_cv_sizeof_short"|tr -d '\r'` = 2; then
+     libelf_cv_int16='short'
+-  elif test "$ac_cv_sizeof_int" = 2; then
++  elif test `echo "$ac_cv_sizeof_int"|tr -d '\r'` = 2; then
+     libelf_cv_int16='int'
+   else
+     libelf_cv_int16=no
+diff -urN libelf-0.8.13~orig/configure.in libelf-0.8.13/configure.in
+--- libelf-0.8.13~orig/configure.in	2008-05-23 10:17:56.000000000 +0200
++++ libelf-0.8.13/configure.in	2014-01-31 15:16:39.670714390 +0100
+@@ -217,11 +217,11 @@
+ fi
+ 
+ AC_CACHE_CHECK([for 64-bit integer], libelf_cv_int64, [
+-  if test "$ac_cv_sizeof_long" = 8; then
++  if test `echo "$ac_cv_sizeof_long"|tr -d '\r'` = 8; then
+     libelf_cv_int64='long'
+-  elif test "$ac_cv_sizeof___int64" = 8; then
++  elif test `echo "$ac_cv_sizeof___int64"|tr -d '\r'` = 8; then
+     libelf_cv_int64='__int64'
+-  elif test "$ac_cv_sizeof_long_long" = 8; then
++  elif test `echo "$ac_cv_sizeof_long_long"|tr -d '\r'` = 8; then
+     libelf_cv_int64='long long'
+   else
+     libelf_cv_int64=no
+@@ -234,9 +234,9 @@
+ fi
+ 
+ AC_CACHE_CHECK([for 32-bit integer], libelf_cv_int32, [
+-  if test "$ac_cv_sizeof_int" = 4; then
++  if test `echo "$ac_cv_sizeof_int"|tr -d '\r'` = 4; then
+     libelf_cv_int32='int'
+-  elif test "$ac_cv_sizeof_long" = 4; then
++  elif test `echo "$ac_cv_sizeof_long"|tr -d '\r'` = 4; then
+     libelf_cv_int32='long'
+   else
+     libelf_cv_int32=no
+@@ -249,9 +249,9 @@
+ fi
+ 
+ AC_CACHE_CHECK([for 16-bit integer], libelf_cv_int16, [
+-  if test "$ac_cv_sizeof_short" = 2; then
++  if test `echo "$ac_cv_sizeof_short"|tr -d '\r'` = 2; then
+     libelf_cv_int16='short'
+-  elif test "$ac_cv_sizeof_int" = 2; then
++  elif test `echo "$ac_cv_sizeof_int"|tr -d '\r'` = 2; then
+     libelf_cv_int16='int'
+   else
+     libelf_cv_int16=no
