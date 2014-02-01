@@ -1,12 +1,15 @@
 require lzma.inc
 
 SRC_URI += "file://liblzma.patch;striplevel=0"
+SRC_URI:>HOST_LIBC_mingw += " file://mingw.patch;striplevel=0"
+
+EXTRA_OEMAKE:>HOST_LIBC_mingw = " IS_MINGW=1"
 
 do_compile() {
-	oe_runmake -C C/Util/Lzma \
+	oe_runmake -C C/Util/Lzma -f makefile.gcc \
 		CC='${CC}' CXX='${CC}' CFLAGS='${CFLAGS} -D_7ZIP_ST' \
 		AR='${AR}' RANLIB='${RANLIB}'
-	oe_runmake -C CPP/7zip/Bundles/LzmaCon/ \
+	oe_runmake -C CPP/7zip/Bundles/LzmaCon/ -f makefile.gcc \
 		CXX='${CXX} ${CXXFLAGS}' CXX_C='${CC} ${CFLAGS}'
 }
 
