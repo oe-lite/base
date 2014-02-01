@@ -1,5 +1,7 @@
 require lzma.inc
 
+COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
+
 SRC_URI += "\
 	file://001-large_files.patch \
 	file://002-lzmp.patch \
