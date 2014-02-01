@@ -7,6 +7,9 @@ inherit library autotools
 
 SRC_URI = "http://www.mr511.de/software/${PN}-${PV}.tar.gz"
 
+SRC_URI:>HOST_LIBC_mingw = " file://100-fix-64-bit-detection.patch"
+SRC_URI:>HOST_LIBC_mingw += "file://mingw-configure-crlf.patch"
+
 EXTRA_OEMAKE_INSTALL += "instroot=${D}"
 
 EXTRA_OECONF:>TARGET_OS_darwin = "--disable-compat"
