@@ -4,7 +4,7 @@ HOMEPAGE = "http://www.gnu.org/software/gettext/gettext.html"
 
 RECIPE_TYPES = "machine native sdk"
 
-inherit c++ autotools-autoreconf library make-vpath
+inherit c++ autotools library make-vpath
 DEPENDS_AUTORECONF = ""
 
 require conf/fetch/gnu.conf
