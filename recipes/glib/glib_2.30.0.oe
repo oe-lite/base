@@ -13,3 +13,5 @@ do_patch[postfuncs] += "do_patch_extra_files"
 do_patch_extra_files() {
     install -m 0644 ${SRCDIR}/glibconfig-sysdefs.h .
 }
+
+COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
