@@ -1,7 +1,11 @@
 DESCRIPTION = "Free peer-reviewed portable C++ source libraries"
 HOMEPAGE = "http://www.boost.org/"
 LICENSE = "Boost Software License"
+
 RECIPE_TYPES = "machine native sdk"
+
+COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
+
 inherit c++ auto-package-libs
 
 require conf/fetch/sourceforge.conf
