@@ -37,6 +37,7 @@ EXTRA_OECONF = "--disable-debug \
 	--disable-xattr \
 	--disable-gtk-doc --disable-gtk-doc-html --disable-gtk-doc-pdf \
 	--disable-man \
+	--disable-modular-tests \
 "
 
 EXTRA_OEMAKE += "'CFLAGS=${CFLAGS}'"
