@@ -69,23 +69,23 @@ PACKAGES =+ "${PN}-x11"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "dbus"
-AUTO_PACKAGE_LIBS_LIBDIR = "${libdir}:lib:-1"
+AUTO_PACKAGE_LIBS_LIBDIR = "${sharedlibdir}:lib:-1"
 AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev_${PV}"
 FILES_${PN}-libdbus-dev = "${includedir}/dbus-1.0 ${libdir}/dbus-1.0/include"
 DEPENDS_${PN}-libdbus = "libc ${DEPENDS_LIBC}"
 
 FILES_${PN} = "\
 	${bindir}/dbus-daemon* \
-	${bindir}/dbus-uuidgen \
-	${bindir}/dbus-cleanup-sockets \
-	${bindir}/dbus-send \
-	${bindir}/dbus-monitor \
+	${bindir}/dbus-uuidgen${HOST_EXEEXT} \
+	${bindir}/dbus-cleanup-sockets${HOST_EXEEXT} \
+	${bindir}/dbus-send${HOST_EXEEXT} \
+	${bindir}/dbus-monitor${HOST_EXEEXT} \
 	${libexecdir}/dbus* \
 	${sysconfdir} \
 	${datadir}/dbus-1/services \
 	${datadir}/dbus-1/system-services \
 "
-FILES_${PN}-x11 = "${bindir}/dbus-launch"
+FILES_${PN}-x11 = "${bindir}/dbus-launch${HOST_EXEEXT}"
 FILES_${PN}-dev += "${libdir}/dbus-1.0/include ${bindir}/dbus-glib-tool ${libdir}/"
 
 #pkg_postinst_${PN}() {
