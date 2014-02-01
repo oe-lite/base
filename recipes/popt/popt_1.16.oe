@@ -9,4 +9,5 @@ SRC_URI += "file://197416.all.patch \
 
 SRC_URI:>HOST_LIBC_mingw = " file://0001-nl_langinfo.mingw32.patch \
 	file://get-w32-console-maxcols.mingw32.patch \
-	file://no-uid-stuff-on.mingw32.patch"
+	file://no-uid-stuff-on.mingw32.patch \
+	file://libtool-bindir.patch"
