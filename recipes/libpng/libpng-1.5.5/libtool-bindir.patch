@@ -1,0 +1,24 @@
+diff -urN libpng-1.5.5~orig/Makefile.am libpng-1.5.5/Makefile.am
+--- libpng-1.5.5~orig/Makefile.am	2011-09-02 02:15:50.000000000 +0200
++++ libpng-1.5.5/Makefile.am	2014-01-31 15:35:02.186691545 +0100
+@@ -41,7 +41,8 @@
+ libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_CPPFLAGS = @LIBPNG_DEFINES@
+ 
+ libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_LDFLAGS = -no-undefined -export-dynamic \
+-	-version-number @PNGLIB_MAJOR@@PNGLIB_MINOR@:@PNGLIB_RELEASE@:0
++	-version-number @PNGLIB_MAJOR@@PNGLIB_MINOR@:@PNGLIB_RELEASE@:0 \
++	-bindir "$(bindir)"
+ 
+ if HAVE_LD_VERSION_SCRIPT
+ #   Versioned symbols and restricted exports
+diff -urN libpng-1.5.5~orig/Makefile.in libpng-1.5.5/Makefile.in
+--- libpng-1.5.5~orig/Makefile.in	2011-09-22 15:40:32.000000000 +0200
++++ libpng-1.5.5/Makefile.in	2014-01-31 15:34:14.978692523 +0100
+@@ -334,6 +334,7 @@
+ libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_LDFLAGS = -no-undefined \
+ 	-export-dynamic -version-number \
+ 	@PNGLIB_MAJOR@@PNGLIB_MINOR@:@PNGLIB_RELEASE@:0 \
++	-bindir "$(bindir)" \
+ 	$(am__append_1) $(am__append_2) $(am__append_3)
+ @HAVE_LD_VERSION_SCRIPT_FALSE@libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_DEPENDENCIES = libpng.sym
+ @HAVE_LD_VERSION_SCRIPT_TRUE@libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@_la_DEPENDENCIES = libpng.vers
