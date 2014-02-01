@@ -4,6 +4,8 @@ and FISH."
 
 RECIPE_TYPES = "machine native sdk"
 
+COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
+
 inherit c++ autotools pkgconfig largefile
 
 DEPENDS = "libncurses libreadline"
