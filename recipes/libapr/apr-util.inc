@@ -3,16 +3,11 @@ HOMEPAGE = "apr.apache.org"
 
 inherit autotools-autoreconf pkgconfig library binconfig c
 
-SRC_URI = "http://apache.mirrors.spacedump.net/apr/apr-util-${PV}.tar.bz2 \
-	  file://configfix.patch\
-	  "
-LICENSE = "Apache-2.0"
+SRC_URI = "http://apache.mirrors.spacedump.net/apr/apr-util-${PV}.tar.bz2"
 
 DEPENDS += "libapr-dev libapr libexpat libdl libcrypt"
 DEPENDS_${PN} += "libapr libdl libexpat libcrypt"
 RDEPENDS_${PN} += "libapr libdl libexpat libcrypt"
-
-S = "${SRCDIR}/apr-util-${PV}"
 
 EXTRA_OECONF = "--with-apr=${HOST_SYSROOT}/usr/bin/apr-1-config\
 	        --without-odbc \
@@ -31,6 +26,8 @@ do_configure_apr() {
 	sed -i "s#apr_builders=#apr_builders=${HOST_SYSROOT}#" ${S}/build/rules.mk
 	sed -i "s#top_builddir=#top_builddir=${HOST_SYSROOT}#" ${S}/build/rules.mk
 }
+
+LIBRARY_NAME = "libaprutil"
 
 FILES_${PN}-dev += "${libdir}/aprutil.exp ${datadir}/build-1/*"
 
