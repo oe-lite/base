@@ -10,7 +10,7 @@ inherit autotools pkgconfig
 SRC_URI = "http://swupdate.openvpn.org/community/releases/openvpn-${PV}.tar.gz \
 	file://openvpn"
 
-DEPENDS = "libdl liblzo libssl libcrypto"
+DEPENDS = "libdl liblzo2 libssl libcrypto"
 
 CFLAGS += "-fno-inline"
 do_install[postfuncs] += "do_install_openvpn_extra"
