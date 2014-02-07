@@ -11,7 +11,8 @@ SRC_URI = "http://www.rsyslog.com/files/download/rsyslog/${PN}-${PV}.tar.gz \
           file://rsyslog.conf \
           file://rsyslog"
 
-inherit autotools-autoreconf sysvinit
+inherit autotools-autoreconf sysvinit pkgconfig
+
 RECIPE_FLAGS = "rsyslog_sysvinit_start rsyslog_logdir rsyslog_logfile"
 DEFAULT_USE_rsyslog_sysvinit_start = "20"
 DEFAULT_USE_rsyslog_logdir = "${localstatedir}/log"
