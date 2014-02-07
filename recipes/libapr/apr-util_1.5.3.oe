@@ -1,0 +1,5 @@
+require ${PN}.inc
+
+LICENSE = "Apache-2.0"
+
+SRC_URI += "file://configfix.patch"
