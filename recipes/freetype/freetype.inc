@@ -6,7 +6,7 @@ RECIPE_TYPES = "machine native"
 
 inherit library autotools pkgconfig binconfig
 
-DEPENDS = "libz bzip2 libpng"
+DEPENDS = "libz libpng"
 
 require conf/fetch/savannah.conf
 SRC_URI = "${SAVANNAH_MIRROR}/freetype/freetype-${PV}.tar.bz2"
@@ -30,3 +30,11 @@ FILES_${PN}-dev += "${bindir}"
 
 DEPENDS_${PN} += "libc libz libpng"
 RDEPENDS_${PN} += "libc libz libpng"
+
+RECIPE_FLAGS += "freetype_bzip2"
+DEPENDS:>USE_freetype_bzip2 = " libbz2"
+EXTRA_OECONF += "${EXTRA_OECONF_BZIP2}"
+EXTRA_OECONF_BZIP2 = "--without-bzip2"
+EXTRA_OECONF_BZIP2:USE_freetype_bzip2 = "--with-bzip2"
+DEPENDS_${PN}:>USE_freetype_bzip2 = " libbz2"
+RDEPENDS_${PN}:>USE_freetype_bzip2 = " libbz2"
