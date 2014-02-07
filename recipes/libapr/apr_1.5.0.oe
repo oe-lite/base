@@ -1,0 +1,6 @@
+require ${PN}.inc
+
+LICENSE = "Apache-2.0"
+
+SRC_URI += "file://configure_fixes.patch"
+SRC_URI += "file://apr_escape.patch"

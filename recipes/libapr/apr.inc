@@ -4,17 +4,11 @@ HOMEPAGE="apr.apache.org"
 inherit autotools-autoreconf pkgconfig library binconfig
 
 SRC_URI = "http://apache.mirrors.spacedump.net/apr/apr-${PV}.tar.bz2"
-SRC_URI += "file://configure_fixes.patch"
-SRC_URI += "file://apr_escape.patch"
 
-LICENSE = "Apache-2.0"
 DEPENDS += "libdl libpthread"
 DEPENDS_${PN} += "libc libgcc libdl libpthread"
 RDEPENDS_${PN} += "libc libgcc libdl libpthread"
 
-S = "${SRCDIR}/apr-${PV}"
-
 EXTRA_OECONF += "--disable-threads"
 
 FILES_${PN}-dev += "${libdir}/apr.exp ${datadir}/build-1/*"
-
