@@ -9,7 +9,7 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 inherit autotools pkgconfig
 
 DEPENDS = "native:gettext ${DEPENDS_LIBC}"
-DEPENDS_LIBC = "libpthread"
+DEPENDS_LIBC = "libpthread libc libgcc"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
 
 require conf/fetch/sourceforge.conf
@@ -21,6 +21,8 @@ EXTRA_OECONF = "--enable-elf-shlibs --enable-dynamic-e2fsck \
 # Use libblkid and libuuid from util-linux
 DEPENDS += "libblkid libuuid"
 EXTRA_OECONF += "--disable-libuuid --disable-libblkid"
+
+DEPENDS += "libc libpthread"
 
 do_compile[prefuncs] += "do_compile_pre"
 do_compile_pre () {
@@ -68,11 +70,20 @@ DEPENDS_${PN}-libcomerr-dev = "native:${PN}-libcomerr-dev-utils"
 RDEPENDS_${PN}-libcomerr-dev = "host:${PN}-libcomerr-dev-utils"
 RDEPENDS_${PN}-libcomerr += "libpthread"
 
+DEPENDS_${PN}-libe2p = "libc"
+RDEPENDS_${PN}-libe2p = "libc"
+
 FILES_${PN}-libe2p-dev = "${includedir}/e2p"
+
+DEPENDS_${PN}-libext2fs = "libc libgcc ${PN}-libcomerr"
+RDEPENDS_${PN}-libext2fs = "libc libgcc ${PN}-libcomerr"
 
 FILES_${PN}-libext2fs-dev = "${includedir}/ext2fs"
 PACKAGES =+ "${PN}-libext2fs-dev-doc"
 FILES_${PN}-libext2fs-dev-doc = "${infodir}/libext2fs*"
+
+DEPENDS_${PN}-libss = "libc ${PN}-libcomerr"
+RDEPENDS_${PN}-libss = "libc ${PN}-libcomerr"
 
 FILES_${PN}-libss-dev = "${includedir}/ss ${datadir}/ss"
 PACKAGES =+ "${PN}-libss-dev-utils ${PN}-libss-dev-utils-doc"
@@ -81,30 +92,41 @@ FILES_${PN}-libss-dev-utils-doc = "${mandir}/man?/mk_cmds.*"
 DEPENDS_${PN}-libss-dev = "native:${PN}-libss-dev-utils"
 RDEPENDS_${PN}-libss-dev = "host:${PN}-libss-dev-utils"
 
+DEPENDS_${PN}-libcomerr =  "libc libpthread"
+RDEPENDS_${PN}-libcomerr = "libc libpthread"
+
 inherit auto-package-utils
 
 FILES_${PN}-e2fsck = "${sbindir}/fsck.ext*"
 FILES_${PN}-e2fsck-doc = "${mandir}/man?/fsck.ext*.*"
 PROVIDES_${PN}-e2fsck = "e2fsck fsck fsck-ext2 fsck-ext3 fsck-ext4 \
 	${mandir}/man?/fsck.ext*.*"
+DEPENDS_${PN}-e2fsck = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p \
+	libblkid libuuid libgcc libc"
 RDEPENDS_${PN}-e2fsck = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p \
-	libblkid libuuid"
+	libblkid libuuid libgcc libc"
 
 FILES_${PN}-mke2fs = "${sbindir}/mkfs.ext* ${sysconfdir}/mke2fs.conf"
 FILES_${PN}-mke2fs-doc = "${mandir}/man?/mkfs.ext*.*"
 PROVIDES_${PN}-mke2fs = "mke2fs mkfs-ext2 mkfs-ext3 mkfs-ext4 \
 	${mandir}/man?/mkfs.ext*.*"
+DEPENDS_${PN}-mke2fs = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p \
+	libblkid libuuid libgcc libc"
 RDEPENDS_${PN}-mke2fs = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p \
-	libblkid libuuid"
+	libblkid libuuid libgcc libc"
 
 FILES_${PN}-tune2fs = "${sbindir}/e2label ${sbindir}/findfs \
 	${mandir}/man?/e2label.* ${mandir}/man?/findfs.*"
+DEPENDS_${PN}-tune2fs = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p \
+	libblkid libuuid libc"
 RDEPENDS_${PN}-tune2fs = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p \
-	libblkid libuuid"
+	libblkid libuuid libc"
 
-RDEPENDS_${PN}-resize2fs = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p"
+DEPENDS_${PN}-resize2fs = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p libc libgcc"
+RDEPENDS_${PN}-resize2fs = "${PN}-libext2fs ${PN}-libcomerr ${PN}-libe2p libc libgcc"
 
-RDEPENDS_${PN}-e2freefrag = "${PN}-libext2fs ${PN}-libcomerr"
+DEPENDS_${PN}-e2freefrag = "${PN}-libext2fs ${PN}-libcomerr libc"
+RDEPENDS_${PN}-e2freefrag = "${PN}-libext2fs ${PN}-libcomerr libc"
 
 FILES_${PN}-e2initrdhelper = "${libdir}/e2initrd_helper"
 RDEPENDS_${PN}-e2initrdhelper = "${PN}-libext2fs ${PN}-libcomerr \
@@ -113,3 +135,45 @@ RDEPENDS_${PN}-e2initrdhelper = "${PN}-libext2fs ${PN}-libcomerr \
 RDEPENDS_${PN}-e2initrdhelper = "${PN}-libcomerr ${PN}-libe2p"
 
 RDEPENDS_${PN}-e4defrag = "${PN}-libext2fs ${PN}-libcomerr"
+
+DEPENDS_${PN}-logsave = "libc"
+RDEPENDS_${PN}-logsave = "libc"
+
+DEPENDS_${PN}-dumpe2fs = "${PN}-libe2p ${PN}-libext2fs ${PN}-libcomerr \
+    libuuid libc"
+RDEPENDS_${PN}-dumpe2fs = "${PN}-libe2p ${PN}-libext2fs ${PN}-libcomerr \
+    libuuid libc"
+
+DEPENDS_${PN}-debugfs = "${PN}-libe2p ${PN}-libext2fs ${PN}-libcomerr ${PN}-libss \
+    libblkid libuuid libgcc libc"
+RDEPENDS_${PN}-debugfs = "${PN}-libe2p ${PN}-libext2fs ${PN}-libcomerr ${PN}-libss \
+    libblkid libuuid libgcc libc"
+
+DEPENDS_${PN}-badblocks = "${PN}-libe2p ${PN}-libext2fs ${PN}-libcomerr ${PN}-libss \
+    libblkid libuuid libgcc libc"
+RDEPENDS_${PN}-badblocks = "${PN}-libe2p ${PN}-libext2fs ${PN}-libcomerr ${PN}-libss \
+    libblkid libuuid libgcc libc"
+
+DEPENDS_${PN}-mklostfound = "libc"
+RDEPENDS_${PN}-mklostfound = "libc"
+
+DEPENDS_${PN}-filefrag = "libc libgcc"
+RDEPENDS_${PN}-filefrag = "libc libgcc"
+
+DEPENDS_${PN}-uuidd = "libc libuuid"
+RDEPENDS_${PN}-uuidd = "libc libuuid"
+
+DEPENDS_${PN}-e2image = "${PN}-libext2fs ${PN}-libcomerr libgcc libc"
+RDEPENDS_${PN}-e2image = "${PN}-libext2fs ${PN}-libcomerr libgcc libc"
+
+DEPENDS_${PN}-e4defrag = "${PN}-libext2fs ${PN}-libcomerr libgcc libc"
+RDEPENDS_${PN}-e4defrag = "${PN}-libext2fs ${PN}-libcomerr libgcc libc"
+
+DEPENDS_${PN}-e2undo = "${PN}-libext2fs ${PN}-libcomerr libc"
+RDEPENDS_${PN}-e2undo = "${PN}-libext2fs ${PN}-libcomerr libc"
+
+DEPENDS_${PN}-chattr = "${PN}-libe2p ${PN}-libcomerr libc"
+RDEPENDS_${PN}-chattr = "${PN}-libe2p ${PN}-libcomerr libc"
+
+DEPENDS_${PN}-lsattr = "${PN}-libe2p ${PN}-libcomerr libc"
+RDEPENDS_${PN}-lsattr = "${PN}-libe2p ${PN}-libcomerr libc"
