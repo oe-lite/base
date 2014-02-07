@@ -12,7 +12,7 @@ SRC_URI = "git://git.infradead.org/mtd-utils.git;protocol=git;tag=v${PV}"
 SRC_URI:>HOST_OS_darwin = " file://osx.patch"
 S = "${SRCDIR}/mtd-utils"
 
-DEPENDS = "libz liblzo libuuid libm"
+DEPENDS = "libz liblzo2 libuuid libm"
 
 do_configure () {
 	sed -i \
@@ -48,9 +48,9 @@ AUTO_PACKAGE_UTILS = "\
 
 FILES_mtd-utils-ubicrc32 = "${sbindir}/ubicrc32.pl"
 
-DEPENDS_${PN}-mkfs-jffs2 = "libz liblzo"
-RDEPENDS_${PN}-mkfs-jffs2 = "libz liblzo"
-RDEPENDS_${PN}-mkfs-ubifs = "libz liblzo libuuid libm"
+DEPENDS_${PN}-mkfs-jffs2 = "libz liblzo2"
+RDEPENDS_${PN}-mkfs-jffs2 = "libz liblzo2"
+RDEPENDS_${PN}-mkfs-ubifs = "libz liblzo2 libuuid libm"
 
 # The mtd-utils package is used to pull in all provided util features
 RDEPENDS_${PN} = "${AUTO_PACKAGE_UTILS_PROVIDES}"
