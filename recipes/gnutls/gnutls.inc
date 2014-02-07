@@ -4,9 +4,9 @@ BUGTRACKER = "https://savannah.gnu.org/support/?group=gnutls"
 
 inherit c++ autotools binconfig pkgconfig gettext
 
-DEPENDS += "libz liblzo libtasn1 libgcrypt libreadline"
-DEPENDS_${PN} += "libz liblzo libtasn1 libgcrypt libreadline"
-RDEPENDS_${PN} += "gnutls-extra liblzo libtasn1"
+DEPENDS += "libz liblzo2 libtasn1 libgcrypt libreadline"
+DEPENDS_${PN} += "libz liblzo2 libtasn1 libgcrypt libreadline"
+RDEPENDS_${PN} += "gnutls-extra liblzo2 libtasn1"
 
 require conf/fetch/gnu.conf
 
@@ -41,7 +41,7 @@ do_stage_fix_libstdc() {
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "gnutls gnutlsxx gnutls-openssl gnutls-extra"
 AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev"
-RDEPENDS_${PN}-libgnutls-extra += "libtasn1 liblzo"
+RDEPENDS_${PN}-libgnutls-extra += "libtasn1 liblzo2"
 RDEPENDS_${PN}-libgnutls += "libtasn1"
 
 inherit auto-package-utils
