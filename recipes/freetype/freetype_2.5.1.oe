@@ -1,1 +1,11 @@
 require freetype.inc
+
+RECIPE_FLAGS += "freetype_png"
+DEPENDS:>USE_freetype_png = " libpng"
+EXTRA_OECONF += "${EXTRA_OECONF_PNG}"
+EXTRA_OECONF_PNG = "--without-png"
+EXTRA_OECONF_PNG:USE_freetype_png = "--with-png"
+export LIBPNG_CFLAGS = " "
+export LIBPNG_DFLAGS = " "
+DEPENDS_${PN}:>USE_freetype_png = " libpng"
+RDEPENDS_${PN}:>USE_freetype_png = " libpng"
