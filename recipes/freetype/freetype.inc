@@ -6,19 +6,10 @@ RECIPE_TYPES = "machine native"
 
 inherit library autotools pkgconfig binconfig
 
-DEPENDS = "libz libpng"
+DEPENDS = "libz"
 
 require conf/fetch/savannah.conf
 SRC_URI = "${SAVANNAH_MIRROR}/freetype/freetype-${PV}.tar.bz2"
-
-RECIPE_FLAGS += "freetype_without_png"
-DEFAULT_USE_freetype_without_png = " "
-
-EXTRA_OECONF:>USE_freetype_without_png += " --without-png"
-
-# Following required for configure to accept libpng
-export LIBPNG_CFLAGS = " "
-export LIBPNG_DFLAGS = " "
 
 do_compile[postfuncs] += "do_compile_apinames"
 do_compile_apinames() {
@@ -28,8 +19,8 @@ do_compile_apinames() {
 FILES_${PN} = "${sharedlibdir}/lib*${SOLIBS}"
 FILES_${PN}-dev += "${bindir}"
 
-DEPENDS_${PN} += "libc libz libpng"
-RDEPENDS_${PN} += "libc libz libpng"
+DEPENDS_${PN} += "libc libz"
+RDEPENDS_${PN} += "libc libz"
 
 RECIPE_FLAGS += "freetype_bzip2"
 DEPENDS:>USE_freetype_bzip2 = " libbz2"
