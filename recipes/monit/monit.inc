@@ -1,5 +1,6 @@
 LICENSE = "AGPL-3.0"
 DEPENDS = "libssl libpthread libcrypto libdl libcrypt"
+DEPENDS_${PN} = "libssl libpthread libcrypto libc libcrypt"
 RDEPENDS_${PN} = "libssl libpthread libcrypto libc libcrypt"
 inherit sysvinit
 
