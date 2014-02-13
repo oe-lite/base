@@ -10,3 +10,5 @@ PARALLEL_MAKE = ""
 SRC_URI += "file://oe-ldflags.patch file://shared-libs.patch"
 export OE_LDFLAGS="${LDFLAGS}"
 SRC_URI += "file://no-librpath-rpath.patch"
+
+SRC_URI += "file://wincrypt.patch"
