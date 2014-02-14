@@ -1,3 +1,5 @@
 require icu.inc
 
 PARALLEL_MAKE = ""
+
+SRC_URI:>HOST_LIBC_mingw = " file://mingw-w64.patch;striplevel=2"

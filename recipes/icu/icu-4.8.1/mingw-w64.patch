@@ -1,0 +1,16 @@
+_mkdir and _rmdir are defined in direct.h in mingw-w64, so we need to include
+it.
+
+--- icu/source/tools/toolutil/toolutil.cpp~orig	2014-02-14 11:10:51.225956276 +0100
++++ icu/source/tools/toolutil/toolutil.cpp	2014-02-14 11:10:55.257956192 +0100
+@@ -41,6 +41,10 @@
+ #include <io.h>
+ #endif
+ 
++#ifdef __MINGW64_VERSION_MAJOR
++#include <direct.h>
++#endif
++
+ #include <errno.h>
+ 
+ #include "unicode/errorcode.h"
