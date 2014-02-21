@@ -19,7 +19,7 @@ case "$1" in
             chmod a-w $FTPDIR
             chmod u+w $FTPDIR/in
         fi
-        start-stop-daemon -m -p $PIDFILE -S -b  $DAEMON -- $ARGS
+        start-stop-daemon -m -p $PIDFILE -S -b -x $DAEMON -- $ARGS
         echo "done."
         ;;
     stop)
