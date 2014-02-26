@@ -1,0 +1,22 @@
+--- valgrind-3.9.0/configure.ac.orig	2014-02-25 14:52:54.215669523 +0100
++++ valgrind-3.9.0/configure.ac	2014-02-25 14:51:41.447671673 +0100
+@@ -195,6 +195,19 @@
+ 	ARCH_MAX="arm"
+ 	;;
+ 
++     arm)
++        case "${host_vendor}" in
++           cortexa*)
++              AC_MSG_RESULT([ok (${host_cpu}-${host_vendor})])
++              ARCH_MAX="arm"
++              ;;
++           *)
++              AC_MSG_RESULT([no (${host_cpu}-${host_vendor})])
++              AC_MSG_ERROR([Unsupported host architecture. Sorry])
++              ;;
++        esac
++        ;;
++
+      mips)
+         AC_MSG_RESULT([ok (${host_cpu})])
+         ARCH_MAX="mips32"
