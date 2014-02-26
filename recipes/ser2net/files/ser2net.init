@@ -1,0 +1,32 @@
+#! /bin/sh
+
+SERVICE=ser2net
+UTIL=/usr/sbin/$SERVICE
+
+test -f $UTIL || exit 0
+
+case "$1" in
+	start)
+		echo -n "Starting $SERVICE ..."
+  		start-stop-daemon --start --quiet --exec $UTIL
+		echo "."
+  		;;
+	stop)
+		echo -n "Stopping $SERVICE ..."
+  		start-stop-daemon --stop --quiet --exec $UTIL
+		echo "."
+  		;;
+	restart|force-reload)
+		echo -n "Restarting $SERVICE ..."
+  		start-stop-daemon --stop --quiet --exec $UTIL
+  		sleep 2
+  		start-stop-daemon --start --quiet --exec $UTIL
+		echo "done."
+  		;;
+	*)
+  		echo "Usage: /etc/init.d/$SERVICE {start|stop|restart|force-reload}"
+  		exit 1
+		;;
+esac
+
+exit 0
