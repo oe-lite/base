@@ -8,6 +8,11 @@ inherit c++ autotools
 
 DEPENDS = "host-cross:gtk-doc libz libffi"
 
+DEPENDS += "${DEPENDS_LIBELF}"
+DEPENDS_LIBELF = "libelf"
+DEPENDS_LIBELF:HOST_LIBC_mingw = ""
+EXTRA_OECONF:>HOST_LIBC_mingw = " --disable-libelf"
+
 DEPENDS += "${DEPENDS_NATIVE}"
 DEPENDS_NATIVE = "native:libglib native:libgthread native:libgmodule native:glib-utils"
 DEPENDS_NATIVE:native = ""
