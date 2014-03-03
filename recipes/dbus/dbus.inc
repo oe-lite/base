@@ -86,7 +86,7 @@ FILES_${PN} = "\
 	${datadir}/dbus-1/system-services \
 "
 FILES_${PN}-x11 = "${bindir}/dbus-launch${HOST_EXEEXT}"
-FILES_${PN}-dev += "${libdir}/dbus-1.0/include ${bindir}/dbus-glib-tool ${libdir}/"
+FILES_${PN}-dev += "${libdir}/dbus-1.0/include ${bindir}/dbus-glib-tool ${libdir}/ ${sharedlibdir}/*.dll"
 
 #pkg_postinst_${PN}() {
 ##!/bin/sh
