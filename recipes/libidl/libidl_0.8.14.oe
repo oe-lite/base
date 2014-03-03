@@ -19,3 +19,13 @@ SRC_HOST_SITEFILES = "${SRCDIR}/config.site"
 
 SRC_URI:>HOST_LIBC_mingw = " file://libtool-bindir.patch"
 export sharedlibdir
+
+do_patch[postfuncs] += "${do_patch_def_files}"
+do_patch_def_files = ""
+do_patch_def_files:HOST_LIBC_mingw = "do_patch_def_files_crlf"
+def do_patch_def_files_crlf(d):
+    os.chdir(d.get('S'))
+    with open('libIDL.def', 'r') as file:
+        content = file.read()
+    with open('libIDL.def', 'w') as file:
+        file.write(content.replace('\r\n', '\n'))
