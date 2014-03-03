@@ -5,7 +5,7 @@ LICENSE = "GPLv2+ AFLv2.1"
 
 RECIPE_TYPES = "machine native sdk"
 
-inherit autotools pkgconfig gettext sysvinit passwd
+inherit autotools pkgconfig gettext sysvinit passwd c++
 
 SRC_URI = "http://dbus.freedesktop.org/releases/dbus/dbus-${PV}.tar.gz"
 SRC_URI += "file://dbus-1.init"
