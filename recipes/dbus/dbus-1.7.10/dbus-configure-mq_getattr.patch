@@ -1,0 +1,87 @@
+diff -U 5 dbus~orig/configure dbus/configure
+--- dbus~orig/configure	2014-03-05 14:57:28.550768162 +0100
++++ dbus/configure	2014-03-05 14:57:28.549768148 +0100
+@@ -19741,10 +19741,67 @@
+   test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
+   THREAD_LIBS="$LIBS"
+ fi
+ 
+ 
++    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing mq_getattr" >&5
++$as_echo_n "checking for library containing mq_getattr... " >&6; }
++if ${ac_cv_search_mq_getattr+:} false; then :
++  $as_echo_n "(cached) " >&6
++else
++  ac_func_search_save_LIBS=$LIBS
++cat confdefs.h - <<_ACEOF >conftest.$ac_ext
++/* end confdefs.h.  */
++
++/* Override any GCC internal prototype to avoid an error.
++   Use char because int might match the return type of a GCC
++   builtin and then its argument prototype would still apply.  */
++#ifdef __cplusplus
++extern "C"
++#endif
++char mq_getattr ();
++int
++main ()
++{
++return mq_getattr ();
++  ;
++  return 0;
++}
++_ACEOF
++for ac_lib in '' rt; do
++  if test -z "$ac_lib"; then
++    ac_res="none required"
++  else
++    ac_res=-l$ac_lib
++    LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
++  fi
++  if ac_fn_c_try_link "$LINENO"; then :
++  ac_cv_search_mq_getattr=$ac_res
++fi
++rm -f core conftest.err conftest.$ac_objext \
++    conftest$ac_exeext
++  if ${ac_cv_search_mq_getattr+:} false; then :
++  break
++fi
++done
++if ${ac_cv_search_mq_getattr+:} false; then :
++
++else
++  ac_cv_search_mq_getattr=no
++fi
++rm conftest.$ac_ext
++LIBS=$ac_func_search_save_LIBS
++fi
++{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_search_mq_getattr" >&5
++$as_echo "$ac_cv_search_mq_getattr" >&6; }
++ac_res=$ac_cv_search_mq_getattr
++if test "$ac_res" != no; then :
++  test "$ac_res" = "none required" || LIBS="$ac_res $LIBS"
++  THREAD_LIBS="$LIBS"
++fi
++
++
+     if test "x$ac_cv_search_pthread_condattr_setclock" != xno; then :
+ 
+         { $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing clock_getres" >&5
+ $as_echo_n "checking for library containing clock_getres... " >&6; }
+ if ${ac_cv_search_clock_getres+:} false; then :
+diff -U 5 dbus~orig/configure.ac dbus/configure.ac
+--- dbus~orig/configure.ac	2014-03-05 14:57:28.549768148 +0100
++++ dbus/configure.ac	2014-03-05 14:57:28.549768148 +0100
+@@ -949,10 +949,12 @@
+     # is non-fatal if we don't find it.
+     AC_SEARCH_LIBS([pthread_condattr_setclock],
+         [pthread],
+         [THREAD_LIBS="$LIBS"])
+ 
++    AC_SEARCH_LIBS([mq_getattr], [rt], [THREAD_LIBS="$LIBS"])
++
+     AS_IF([test "x$ac_cv_search_pthread_condattr_setclock" != xno],
+       [
+         AC_SEARCH_LIBS([clock_getres], [rt], [THREAD_LIBS="$LIBS"])
+         AC_MSG_CHECKING([for CLOCK_MONOTONIC])
+         AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
