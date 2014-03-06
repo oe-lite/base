@@ -42,7 +42,9 @@ do_install_extra_files() {
 	install -m 755 "${S}/init.d" "${D}/etc/init.d/bind"
 }
 
-FILES_${PN}-dev += "${bindir}/isc-config.h"
+inherit binconfig
+BINCONFIG_FILES = "${bindir}/isc-config.sh"
+FILES_${PN}-dev += "${bindir}/isc-config.sh"
 DEPENDS_${PN}-dev = "libssl libcrypto ${DEPENDS_LIBC}"
 
 PACKAGES =+ "${PN}-utils "
