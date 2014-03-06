@@ -64,6 +64,8 @@ SRC_URI += "\
 	file://net-tools-1.60-interface_stack.patch;striplevel=0 \
 	file://net-tools-1.60-selinux.patch \
 	file://net-tools-1.60-netstat_stop_trim.patch \
+	file://net-tools-1.60-STRIP.patch \
+	file://net-tools-1.60-if_tr.patch \
 "
 
 TOPDIR[unexport] = "1"

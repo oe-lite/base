@@ -1,0 +1,11 @@
+--- net-tools-1.60/lib/tr.c~orig	2014-03-05 22:58:11.930892245 +0100
++++ net-tools-1.60/lib/tr.c	2014-03-05 22:58:23.486892235 +0100
+@@ -20,7 +20,7 @@
+ #include <sys/types.h>
+ #include <sys/socket.h>
+ #include <net/if_arp.h>
+-#include <linux/if_tr.h>
++#include <netinet/if_tr.h>
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <errno.h>
