@@ -1,0 +1,10 @@
+--- smartmontools-5.39.1/os_linux.cpp~orig	2014-03-06 08:50:44.654862605 +0100
++++ smartmontools-5.39.1/os_linux.cpp	2014-03-06 08:51:00.046862592 +0100
+@@ -57,6 +57,7 @@
+ #include <scsi/scsi_ioctl.h>
+ #include <scsi/sg.h>
+ #include <stdlib.h>
++#include <stddef.h>
+ #include <string.h>
+ #include <sys/ioctl.h>
+ #include <sys/stat.h>
