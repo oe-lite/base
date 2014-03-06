@@ -4,7 +4,7 @@ DESCRIPTION = "GLib is a general-purpose utility library, which provides many \
 	utilities, a main loop abstraction, and so on. It works on many \
 	UNIX-like platforms, Windows, OS/2 and BeOS."
 
-inherit c++ autotools
+inherit c++ autotools make-vpath
 
 DEPENDS = "host-cross:gtk-doc libz libffi"
 
