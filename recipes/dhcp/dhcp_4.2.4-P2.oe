@@ -10,4 +10,7 @@ DEPENDS += "bind-dev"
 EXTRA_OECONF += "--with-libbind=${TARGET_SYSROOT}${target_libdir}/.."
 EXTRA_OECONF += "LIBS=-lssl"
 
+# These are needed by bind, and dhcp doesn't handle this automatically
+EXTRA_OECONF += 'LIBS="-lssl -lcrypto"'
+
 DEFAULT_PREFERENCE = "-1"
