@@ -6,7 +6,7 @@ LICENSE = "GPL"
 require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/gsoap2/gSOAP/gsoap_${PV}.zip"
 
-inherit autotools-autoreconf
+inherit autotools-autoreconf c++
 
 S = "${SRCDIR}/gsoap-2.8"
 
