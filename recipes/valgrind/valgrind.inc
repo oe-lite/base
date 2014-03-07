@@ -11,3 +11,4 @@ SRC_URI = "http://www.valgrind.org/downloads/valgrind-${PV}.tar.bz2"
 EXTRA_OECONF = "--enable-tls"
 
 FILES_${PN}-dbg += "${libdir}/${PN}/*/.debug/*"
+FILES_${PN}-dev += "${libdir}/${PN}/*.a"
