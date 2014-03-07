@@ -4,7 +4,7 @@ HOMEPAGE = "http://valgrind.org/"
 inherit autotools-autoreconf auto-package-utils
 
 DEPENDS += "librt"
-RDEPENDS_${PN} += "librt target:gcc-sysroot-dbg"
+RDEPENDS_${PN} += "librt"
 
 DEPENDS_${PN}-cg-merge = "libc"
 RDEPENDS_${PN}-cg-merge = "libc"
