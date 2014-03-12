@@ -32,3 +32,6 @@ RECIPE_FLAGS += "dupdate_splashutils_progress dupdate_splashutils_msg"
 SPLASHUTILS_INITSCRIPTS = ""
 SPLASHUTILS_INITSCRIPTS:USE_sysvinit = "dupdate"
 DEFAULT_USE_dupdate_splashutils_msg = "\"Starting Dupdate Daemon\""
+
+DEPENDS_${PN} += "libc"
+RDEPENDS_${PN} += "libc"
