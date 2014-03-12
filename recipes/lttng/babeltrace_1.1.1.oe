@@ -2,3 +2,9 @@
 require ${PN}.inc
 
 LIBRARY_VERSION = "0"
+
+AUTO_PACKAGE_LIBS += "babeltrace-ctf-metadata"
+DEPENDS_${PN}-libbabeltrace-ctf-metadata += "libbabeltrace"
+RDEPENDS_${PN}-libbabeltrace-ctf-metadata += "libbabeltrace"
+DEPENDS_${PN} += "libbabeltrace-ctf-metadata"
+RDEPENDS_${PN} += "libbabeltrace-ctf-metadata"

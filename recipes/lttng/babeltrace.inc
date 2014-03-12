@@ -20,24 +20,21 @@ DEPENDS_LIBC:HOST_LIBC_mingw = ""
 DEPENDS_LIBUUID = "libuuid"
 DEPENDS_LIBUUID:HOST_LIBC_mingw = ""
 
-AUTO_PACKAGE_LIBS = "babeltrace babeltrace-ctf-metadata babeltrace-ctf-text \
-		babeltrace-ctf babeltrace-dummy"
+AUTO_PACKAGE_LIBS = "babeltrace babeltrace-ctf-text babeltrace-ctf \
+	babeltrace-dummy"
 AUTO_PACKAGE_LIBS_DEV_DEPENDS += "libc libdl libglib-2.0 libgmodule-2.0 libpcre \
 				libpopt libpthread"
 AUTO_PACKAGE_LIBS_RDEPENDS += "libc libdl libglib-2.0 libgmodule-2.0 libpcre \
 				libpopt libpthread"
 
-
 DEPENDS_${PN} += "libbabeltrace libbabeltrace-ctf \
-		libbabeltrace-ctf-metadata libbabeltrace-ctf-text \
+		libbabeltrace-ctf-text \
 		libbabeltrace-dummy libc libdl libglib-2.0 libgmodule-2.0 \
 		libpcre libpopt libpthread ${DEPENDS_LIBUUID}"
 RDEPENDS_${PN} += "libgmodule-2.0 libpopt ${DEPENDS_LIBUUID} libpcre libpthread libc \
 		libglib-2.0 libdl ${DEPENDS_LIBC} libbabeltrace libbabeltrace-ctf \
-		libbabeltrace-ctf-metadata libbabeltrace-ctf-text \
+	        libbabeltrace-ctf-text \
 		libbabeltrace-dummy"
-DEPENDS_${PN}-libbabeltrace-ctf-metadata += "libbabeltrace"
-RDEPENDS_${PN}-libbabeltrace-ctf-metadata += "libbabeltrace"
 DEPENDS_${PN}-libbabeltrace-ctf += "libbabeltrace ${DEPENDS_LIBUUID}"
 RDEPENDS_${PN}-libbabeltrace-ctf += "libbabeltrace ${DEPENDS_LIBUUID}"
 DEPENDS_${PN}-libbabeltrace-ctf-text += "libbabeltrace libbabeltrace-ctf ${DEPENDS_LIBUUID}"
