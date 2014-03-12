@@ -7,7 +7,8 @@ inherit make c
 
 DEPENDS = "kernel-dev native:flex native:bison libm"
 
-RDEPENDS_${PN} = "libm"
+DEPENDS_${PN} += "libc libm"
+RDEPENDS_${PN} += "libc libm"
 
 SRC_URI = "http://dl.lm-sensors.org/lm-sensors/releases/lm_sensors-${PV}.tar.bz2"
 S = "${SRCDIR}/lm_sensors-${PV}"
@@ -34,9 +35,20 @@ do_install() {
         mv ${D}/usr/man/ ${D}${mandir}
 }
 
-PACKAGES = "${PN}-dbg ${PN}-doc ${PN} ${PN}-dev ${PN}-locale"
+PACKAGES = "${PN}-dbg ${PN}-doc ${PN}-dev ${PN}-locale ${PN}-libsensors ${PN}"
 inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "fancontrol isadump isaset pwmconfig sensors-detect sensors sensors-conf-convert"
-RDEPENDS_${PN} += "${PN}-sensors"
+RDEPENDS_${PN} += "${AUTO_PACKAGE_UTILS_PACKAGES}"
 
-FILES_${PN} += "${libdir}/libsensors.so"
+PROVIDES_${PN}-libsensors += "libsensors"
+PROVIDES_${PN}-libsensors[qa] += "is-library"
+DEPENDS_${PN}-libsensors += "libc libm"
+RDEPENDS_${PN}-libsensors += "libc libm"
+
+DEPENDS_${PN}-sensors += "libc libsensors"
+RDEPENDS_${PN}-sensors += "libc libsensors"
+
+DEPENDS_${PN}-dev += "libsensors"
+
+FILES_${PN}-dev += "${libdir}/libsensors.so"
+FILES_${PN}-libsensors += "${libdir}/libsensors.so.*"
