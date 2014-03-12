@@ -34,3 +34,6 @@ AUTO_PACKAGE_UTILS_RDEPENDS = "${PN}"
 
 LIBRARY_NAME = "libcap"
 LIBRARY_VERSION = "2"
+
+DEPENDS_${PN} += "libc libattr"
+RDEPENDS_${PN} += "libc libattr"
