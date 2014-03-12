@@ -21,6 +21,8 @@ autotools_configure () {
 
 EXTRA_OECONF_PAM = " --disable-login --disable-su"
 
+LIBRARY_VERSION = "1"
+
 AUTO_PACKAGE_UTILS = "agetty blkid cal chrt col colcrt colrm \
 	column cytune dmesg fallocate fdisk findfs findmnt flock fsck \
 	fsck.cramfs fsck.minix getopt hexdump hwclock ionice ipcmk ipcrm ipcs \
