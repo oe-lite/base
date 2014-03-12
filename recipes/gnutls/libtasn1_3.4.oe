@@ -12,3 +12,5 @@ do_patch_nodocu(){
 	sed 's/ doc//' -i ${S}/Makefile.am
 	sed '/doc\//d' -i ${S}/configure.ac
 }
+
+LIBRARY_VERSION = "6"
