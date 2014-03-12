@@ -1,0 +1,7 @@
+require lmsensors.inc
+
+LICENCE = "LGPL"
+
+SRC_URI += "file://makefile_machine_fix.patch"
+
+export HOST_CPU
