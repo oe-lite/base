@@ -31,3 +31,6 @@ DEPENDS_${PN} += "libattr"
 
 AUTO_PACKAGE_UTILS = "capsh getcap getpcaps setcap"
 AUTO_PACKAGE_UTILS_RDEPENDS = "${PN}"
+
+LIBRARY_NAME = "libcap"
+LIBRARY_VERSION = "2"
