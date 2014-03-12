@@ -1,0 +1,11 @@
+--- libxml2-2.9.1/ltmain.sh~orig	2014-03-12 14:44:38.782412717 +0100
++++ libxml2-2.9.1/ltmain.sh	2014-03-12 14:44:48.238412709 +0100
+@@ -5133,7 +5133,7 @@
+     new_inherited_linker_flags=
+ 
+     avoid_version=no
+-    bindir=
++    bindir=$sharedlibdir
+     dlfiles=
+     dlprefiles=
+     dlself=no
