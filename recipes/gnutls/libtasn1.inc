@@ -9,3 +9,7 @@ inherit autotools-autoreconf binconfig package library
 
 inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "asn1Coding asn1Decoding asn1Parser"
+DEPENDS_${PN} += "libc"
+RDEPENDS_${PN} += "libc"
+AUTO_PACKAGE_UTILS_DEPENDS = "libc libtasn1"
+AUTO_PACKAGE_UTILS_RDEPENDS = "libc libtasn1"
