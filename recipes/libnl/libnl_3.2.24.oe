@@ -1,0 +1,8 @@
+require ${PN}.inc
+
+LICENSE = "LGPLv2.1"
+
+SRC_URI += "file://fix-pc-file.patch"
+
+LIBRARY_VERSION = "200"
+LIBRARY_VERSION_${PN}-libnl = "19"
