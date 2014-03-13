@@ -5,8 +5,6 @@ BUGTRACKER = "https://savannah.gnu.org/support/?group=gnutls"
 inherit c++ autotools binconfig pkgconfig gettext
 
 DEPENDS += "libz liblzo2 libtasn1 libgcrypt libreadline"
-DEPENDS_${PN} += "libz liblzo2 libtasn1 libgcrypt libreadline"
-RDEPENDS_${PN} += "gnutls-extra liblzo2 libtasn1"
 
 require conf/fetch/gnu.conf
 SRC_URI = "${GNU_MIRROR}/gnutls/gnutls-${PV}.tar.bz2"
@@ -39,9 +37,24 @@ do_stage_fix_libstdc() {
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "gnutls gnutlsxx gnutls-openssl gnutls-extra"
 AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev"
+DEPENDS_${PN}-dev = ""
 RDEPENDS_${PN}-libgnutls-extra += "libtasn1 liblzo2"
 RDEPENDS_${PN}-libgnutls += "libtasn1"
+DEPENDS_${PN}-libgnutls += "libc libz libtasn1 libgpg-error libgcrypt"
+RDEPENDS_${PN}-libgnutls += "libc libz libtasn1 libgpg-error libgcrypt"
+DEPENDS_${PN}-libgnutlsxx += "libgcc-s libc libm libstdc++  libgnutls"
+RDEPENDS_${PN}-libgnutlsxx += "libgcc-s libc libm libstdc++  libgnutls"
+DEPENDS_${PN}-libgnutls-openssl += "libc libtasn1 libgnutls"
+RDEPENDS_${PN}-libgnutls-openssl += "libc libtasn1 libgnutls"
+DEPENDS_${PN}-libgnutls-extra += "libc liblzo2 libgnutls libgpg-error libgcrypt"
+RDEPENDS_${PN}-libgnutls-extra += "libc liblzo2 libgnutls libgpg-error libgcrypt"
 
 inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "srptool certtool gnutls-serv psktool gnutls-cli \
 	gnutls-cli-debug"
+AUTO_PACKAGE_UTILS_DEPENDS += "libc libgnutls"
+AUTO_PACKAGE_UTILS_RDEPENDS += "libc libgnutls"
+DEPENDS_${PN}-gnutls-serv += "libgnutls-extra"
+RDEPENDS_${PN}-gnutls-serv += "libgnutls-extra"
+DEPENDS_${PN}-gnutls-cli += "libgnutls-extra"
+RDEPENDS_${PN}-gnutls-cli += "libgnutls-extra"
