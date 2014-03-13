@@ -7,6 +7,8 @@ LICENSE_${PN}-bin = "GPLv3+"
 LICENSE_${PN}-extra = "GPLv3+"
 LICENSE_${PN}-openssl = "GPLv3+"
 
+DEPENDS_LIBTASN1 = "libtasn1_2.13"
+
 SRC_URI += "file://gets-not-defined-in-glibc-2.16.patch"
 SRC_URI += "file://gnutls-openssl.patch"
 SRC_URI += "file://correct_rpl_gettimeofday_signature.patch"
