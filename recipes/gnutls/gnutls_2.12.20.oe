@@ -12,3 +12,8 @@ SRC_URI += "file://gnutls-openssl.patch"
 SRC_URI += "file://correct_rpl_gettimeofday_signature.patch"
 SRC_URI += "file://configure-fix.patch"
 SRC_URI += "file://fix-gettext-version.patch"
+
+LIBRARY_VERSION_${PN}-libgnutls = "26"
+LIBRARY_VERSION_${PN}-libgnutlsxx = "27"
+LIBRARY_VERSION_${PN}-libgnutls-openssl = "27"
+LIBRARY_VERSION_${PN}-libgnutls-extra = "26"
