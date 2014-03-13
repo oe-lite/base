@@ -11,7 +11,8 @@ DEPENDS += "libgmp"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "nettle hogweed"
-
+AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev"
+DEPENDS_${PN}-dev = ""
 DEPENDS_${PN}-libnettle += "libc libgcc"
 DEPENDS_${PN}-libhogweed += "libc libgmp libnettle"
 RDEPENDS_${PN}-libhogweed += "libc libgmp libnettle"
