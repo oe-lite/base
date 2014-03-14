@@ -7,7 +7,8 @@ inherit make c++ pkgconfig
 
 DEPENDS_LIBC = "libdl"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
-DEPENDS += "libdbus libgnutls libgnutls-extra libnl-3 libnl-genl-3 libnl-genl-3 ${DEPENDS_LIBC}"
+DEPENDS += "libdbus-1 libnl-3 libnl-genl-3 libnl-genl-3 libgnutls libgcrypt \
+	libgpg-error ${DEPENDS_LIBC}"
 
 SRC_URI = "http://hostap.epitest.fi/releases/wpa_supplicant-${PV}.tar.gz \
            file://defconfig-gnutls \
@@ -18,8 +19,6 @@ SRC_URI = "http://hostap.epitest.fi/releases/wpa_supplicant-${PV}.tar.gz \
 
 S = "${SRCDIR}/wpa_supplicant-${PV}/wpa_supplicant"
 
-RDEPENDS_${PN}-wpa-passphrase += "libgcrypt"
-RDEPENDS_${PN}-wpa-supplicant += "libgnutls libgnutls-extra libgcrypt libgpg-error libdbus libnl-3 libnl-genl-3"
 RDEPENDS_${PN} = "util/wpa-passphrase util/wpa-cli util/wpa-supplicant"
 
 RECIPE_FLAGS += "readline"
@@ -77,6 +76,12 @@ FILES_${PN} += "${datadir}/dbus-1/system-services/*"
 
 inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "wpa_passphrase wpa_cli wpa_supplicant"
+AUTO_PACKAGE_UTILS_DEPENDS += "libc"
+AUTO_PACKAGE_UTILS_RDEPENDS += "libc"
+DEPENDS_${PN}-wpa-passphrase += "libgcrypt"
+RDEPENDS_${PN}-wpa-passphrase += "libgcrypt"
+DEPENDS_${PN}-wpa-supplicant += "${DEPENDS_LIBC} libgnutls libgcrypt libgpg-error libdbus-1 libnl-3 libnl-genl-3"
+RDEPENDS_${PN}-wpa-supplicant += "${DEPENDS_LIBC} libgnutls libgcrypt libgpg-error libdbus-1 libnl-3 libnl-genl-3"
 
 PACKAGES =+  "${PN}-conf"
 FILES_${PN}-conf = "${sysconfdir}/wpa_supplicant.conf"
