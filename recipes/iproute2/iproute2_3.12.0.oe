@@ -1,0 +1,5 @@
+require iproute2.inc
+
+SRC_URI="https://www.kernel.org/pub/linux/utils/net/${PN}/${PN}-${PV}.tar.bz2"
+
+S="${SRCDIR}/${PN}-${PV}"
