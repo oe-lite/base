@@ -3,8 +3,9 @@ HOMEPAGE = "http://directory.fsf.org/project/libgcrypt/"
 
 inherit autotools-autoreconf binconfig pkgconfig library
 
-DEPENDS = "libgpg-error libcap2"
-DEPENDS_${PN} += "libgpg-error libcap2"
+DEPENDS = "libgpg-error libcap"
+DEPENDS_${PN} += "libgpg-error libc libcap"
+RDEPENDS_${PN} += "libgpg-error libc libcap"
 
 SRC_URI = "ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-${PV}.tar.gz"
 
@@ -26,3 +27,8 @@ FILES_${PN}-dev += "${bindir}/dumpsexp ${bindir}/hmac256"
 
 inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "dumpsexp hmac256"
+
+DEPENDS_${PN}-dumpsexp += "libc libcap"
+RDEPENDS_${PN}-dumpsexp += "libc libcap"
+DEPENDS_${PN}-hmac256 += "libc libcap"
+RDEPENDS_${PN}-hmac256 += "libc libcap"
