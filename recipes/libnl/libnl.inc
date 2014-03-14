@@ -31,8 +31,9 @@ AUTO_PACKAGE_UTILS_RDEPENDS += "libdl libm libnl-3 libnl-cli-3 libnl-cli-3 \
 			libnl-genl-3 libnl-nf-3 libnl-route-3 \
 			libpthread"
 
-AUTO_PACKAGE_LIBS_DEV_DEPENDS += "libc libm libpthread"
+AUTO_PACKAGE_LIBS_DEV_DEPENDS += "libc libm libpthread ${PN}-dev"
 AUTO_PACKAGE_LIBS_RDEPENDS += "libc libm libpthread"
+DEPENDS_${PN}-dev = ""
 DEPENDS_${PN}-libnl-nf-3 += "libnl-route-3 libnl-3"
 RDEPENDS_${PN}-libnl-nf-3 += "libnl-route-3 libnl-3"
 DEPENDS_${PN}-libnl-route-3 += "libnl-3"
@@ -47,3 +48,5 @@ DEPENDS_${PN} += "libc libm ${DEPENDS_LIBC} libnl-3 libnl-cli-3 \
 		libnl-genl-3 libnl-nf-3 libnl-route-3"
 RDEPENDS_${PN} += "libm libpthread libc libdl libnl-3 libnl-cli-3 libnl-genl-3 \
 		libnl-nf-3 libnl-route-3"
+FILES_${PN}-libnl-cli-3 += "${libdir}/libnl/cli/*/*.so"
+FILES_${PN}-libnl-cli-3-dev += "${libdir}/libnl/cli/*/*.a ${libdir}/libnl/cli/*/*.la"
