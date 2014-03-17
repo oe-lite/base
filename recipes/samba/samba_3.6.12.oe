@@ -11,3 +11,6 @@ SRC_URI += "file://config-h.patch"
 
 ## https://bugzilla.samba.org/show_bug.cgi?id=8410
 SRC_URI += "file://bug-8410-workaround.patch;striplevel=2"
+
+LIBRARY_VERSION = "0"
+LIBRARY_VERSION_${PN}-libtdb = "1"
