@@ -22,9 +22,31 @@ do_patch_m4symlinks () {
 	${S}/m4/introspection.m4
 }
 
-PACKAGES += " ${PN}-dtb ${PN}-gconfbackend ${PN}-dbusservices"
+PACKAGES += " ${PN}-dtb ${PN}-dbusservices"
 FILES_${PN}-doc += "${datadir}/gtk-doc"
 FILES_${PN}-dbusservices = "${datadir}/dbus-1"
 FILES_${PN}-dtb = "${datadir}/sgml"
-FILES_${PN}-gconfbackend = "${libdir}/GConf"
-FILES_${PN}-gconfbackend += "${libdir}/gio"
+
+inherit auto-package-libs
+AUTO_PACKAGE_LIBS = "gconf-2"
+LIBRARY_VERSION = "4"
+FILES_${PN}-libgconf-2 = "${libdir}/GConf ${libdir}/gio"
+PROVIDES_${PN}-libgconf-2 = "libgconfbackend-xml libgsettingsgconfbackend libgconfbackend-oldxml"
+CHRPATH_DIRS += "${libdir}/GConf/2 ${libdir}/gio/modules"
+FILES_gconf-libgconf-2[qa] += "allow-elf-libs-in-other-dirs"
+# Permit the missing self-reference to libgconf-2
+DEPENDS_${PN}-libgconf-2[qa] = "allow-missing-lib-depends"
+RDEPENDS_${PN}-libgconf-2[qa] = "allow-missing-lib-rdepends"
+
+DEPENDS_${PN} += "libc libdl libm libpthread libresolv librt libz \
+	libxml2 libpcre libdbus-1 libdbus-glib-1 libffi libgconf-2 \
+	libgio-2.0 libglib-2.0 libgmodule-2.0 libgobject-2.0 libgthread-2.0"
+RDEPENDS_${PN} += "libc libdl libm libpthread libresolv librt libz \
+	libxml2 libpcre libdbus-1 libdbus-glib-1 libffi libgconf-2 \
+	libgio-2.0 libglib-2.0 libgmodule-2.0 libgobject-2.0 libgthread-2.0"
+DEPENDS_${PN}-libgconf-2 += "libc libdl libm libpthread libresolv librt libz \
+	libxml2 libpcre libdbus-1 libdbus-glib-1 libffi \
+	libgio-2.0 libglib-2.0 libgmodule-2.0 libgobject-2.0 libgthread-2.0"
+RDEPENDS_${PN}-libgconf-2 += "libc libdl libm libpthread libresolv librt libz \
+	libxml2 libpcre libdbus-1 libdbus-glib-1 libffi \
+	libgio-2.0 libglib-2.0 libgmodule-2.0 libgobject-2.0 libgthread-2.0"
