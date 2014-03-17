@@ -37,8 +37,8 @@ FILES_${PN}-dbg += "${libdir}/vfs/.debug/*.so ${libdir}/charset/.debug/*.so \
                     ${libdir}/auth/.debug/*.so ${libdir}/security/.debug/*.so \
                     ${libdir}/idmap/.debug/*.so"
 
-DEPENDS_${PN} += "libcrypt libresolv libdl libtdb libtevent"
-RDEPENDS_${PN} += "libcrypt libresolv libdl libtdb libtevent"
+DEPENDS_${PN} += "libcrypt libresolv libdl libtdb"
+RDEPENDS_${PN} += "libcrypt libresolv libdl libtdb"
 
 SAMBAMMAP = "no"
 SAMBAMMAP_libc-glibc = "yes"
