@@ -38,6 +38,9 @@ FILES_gconf-libgconf-2[qa] += "allow-elf-libs-in-other-dirs"
 DEPENDS_${PN}-libgconf-2[qa] = "allow-missing-lib-depends"
 RDEPENDS_${PN}-libgconf-2[qa] = "allow-missing-lib-rdepends"
 
+# Backwards compatibility, remove in next major version
+PROVIDES_${PN}-libgconf-2 += "${PN}-gconfbackend"
+
 DEPENDS_${PN} += "libc libdl libm libpthread libresolv librt libz \
 	libxml2 libpcre libdbus-1 libdbus-glib-1 libffi libgconf-2 \
 	libgio-2.0 libglib-2.0 libgmodule-2.0 libgobject-2.0 libgthread-2.0"
