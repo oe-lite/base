@@ -1,3 +1,5 @@
 include boost.inc
 
+SRC_URI += "file://boost-1.55.0-atomic-check_lock_free_flag.patch"
+
 LIBRARY_VERSION = "1"
