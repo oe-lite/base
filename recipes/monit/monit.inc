@@ -15,6 +15,7 @@ RECIPE_FLAGS = "monit_sysvinit_start"
 DEFAULT_USE_monit_sysvinit_start = "99"
 
 inherit autotools-autoreconf
+AUTOTOOLS_DISTCLEAN = "0"
 
 # Workaround bug in monit config
 EXTRA_OECONF = "--with-ssl-lib-dir=${TARGET_SYSROOT}${libdir} --with-ssl-incl-dir=${TARGET_SYSROOT}${includedir}"
