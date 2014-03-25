@@ -3,13 +3,14 @@ HOMEPAGE = "https://github.com/json-c/json-c/wiki"
 SRC_URI = "https://s3.amazonaws.com/json-c_releases/releases/${PN}-${PV}.tar.gz"
 LICENSE = "MIT"
 
-inherit autotools-autoreconf auto-package-libs
+inherit autotools
+AUTOTOOLS_DISTCLEAN = "0"
 
 PARALLEL_MAKE = ""
 
+inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "json json-c"
 AUTO_PACKAGE_LIBS_RDEPENDS = "libc libgcc"
-
 AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev"
 
 DEPENDS_${PN}-libjson-c += "libc"
