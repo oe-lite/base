@@ -5,3 +5,5 @@ inherit autotools-autoreconf
 LICENSE = "LGPL-2.0"
 
 LIBRARY_VERSION = "1"
+
+DEFAULT_PREFERENCE = "-1"

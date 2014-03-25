@@ -3,3 +3,5 @@ require busybox.inc
 SRC_URI += "${SRC_URI_FIXES}/busybox-1.22.0-find.patch"
 SRC_URI += "${SRC_URI_FIXES}/busybox-1.22.0-grep.patch"
 SRC_URI += "${SRC_URI_FIXES}/busybox-1.22.0-ntpd.patch"
+
+DEFAULT_PREFERENCE = "-1"

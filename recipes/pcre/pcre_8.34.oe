@@ -8,3 +8,5 @@ SRC_URI += "file://fix-pcre-name-collision.patch"
 
 LIBRARY_VERSION = "0"
 LIBRARY_VERSION_${PN}-libpcre = "1"
+
+DEFAULT_PREFERENCE = "-1"

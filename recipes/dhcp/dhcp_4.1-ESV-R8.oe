@@ -8,3 +8,5 @@ SRC_URI += "file://nobash.patch"
 PACKAGES += "${PN}-examples"
 
 FILES_${PN}-examples = "${sysconfdir}/*.example"
+
+DEFAULT_PREFERENCE = "-1"

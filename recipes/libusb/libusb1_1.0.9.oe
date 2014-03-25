@@ -23,3 +23,5 @@ RDEPENDS_${PN} += "libpthread libc librt"
 #PROVIDES_${PN} += "libusb-${MAJOR_VERSION}.0 libusb-${MAJOR_VERSION}.0-0"
 LIBRARY_NAME = "libusb-1.0"
 LIBRARY_VERSION = "0"
+
+DEFAULT_PREFERENCE = "-1"

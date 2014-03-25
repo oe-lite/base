@@ -5,3 +5,5 @@ EXTRA_OECONF += "--without-xmldir"
 
 do_configure_extra_MAKEFILES = "fc-case/Makefile fc-glyphname/Makefile \
 	fc-lang/Makefile"
+
+DEFAULT_PREFERENCE = "-1"

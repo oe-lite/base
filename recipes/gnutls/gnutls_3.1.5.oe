@@ -27,3 +27,5 @@ RDEPENDS_${PN}-certtool += "libgmp libhogweed libnettle"
 
 LIBRARY_VERSION = "28"
 LIBRARY_VERSION_${PN}-libgnutls-openssl = "27"
+
+DEFAULT_PREFERENCE = "-1"

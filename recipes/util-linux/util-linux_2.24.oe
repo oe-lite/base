@@ -34,3 +34,5 @@ AUTO_PACKAGE_UTILS = "agetty blkid cal chrt col colcrt colrm \
 	ldattach readprofile rtcwake tunelp more mountpoint partx eject \
 	kill lslocks utmpdump wdctl chcpu raw resizepart sulogin"
 AUTO_PACKAGE_UTILS:>USE_ncurses = " cfdisk"
+
+DEFAULT_PREFERENCE = "-1"

@@ -16,3 +16,5 @@ do_configure_unpack_dir () {
 			${S}/src/dupdate.sh
 	fi
 }
+
+DEFAULT_PREFERENCE = "-1"

@@ -5,3 +5,5 @@ LICENSE = "BSD"
 
 SRC_URI += "file://hackOutUsrLib.patch"
 SRC_URI += "file://remove_addr_left.patch"
+
+DEFAULT_PREFERENCE = "-1"

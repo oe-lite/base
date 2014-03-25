@@ -1,3 +1,5 @@
 LICENSE = "GPL-3.0+"
 
 include nano.inc
+
+DEFAULT_PREFERENCE = "-1"

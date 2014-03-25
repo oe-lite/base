@@ -16,3 +16,5 @@ RDEPENDS_${PN} += "libnl-idiag-3"
 
 LIBRARY_VERSION = "200"
 LIBRARY_VERSION_${PN}-libnl = "19"
+
+DEFAULT_PREFERENCE = "-1"

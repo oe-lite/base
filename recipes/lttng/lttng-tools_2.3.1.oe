@@ -3,3 +3,5 @@ require ${PN}-split.inc
 COMPATIBLE_HOST_ARCHS = "i.86-.*-.*linux- x86_64-.*-.*linux- powerpc-.*-.*linux- powerpc64-.*-.*linux- arm-.*-.*linux-"
 
 LIBRARY_VERSION = "0"
+
+DEFAULT_PREFERENCE = "-1"

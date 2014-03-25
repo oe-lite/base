@@ -8,3 +8,5 @@ DEPENDS_${PN}-libbabeltrace-ctf-metadata += "libbabeltrace"
 RDEPENDS_${PN}-libbabeltrace-ctf-metadata += "libbabeltrace"
 DEPENDS_${PN} += "libbabeltrace-ctf-metadata"
 RDEPENDS_${PN} += "libbabeltrace-ctf-metadata"
+
+DEFAULT_PREFERENCE = "-1"

@@ -4,3 +4,5 @@ require lftp.inc
 
 DEPENDS += "libz"
 COMMON_DEPENDS += " libz"
+
+DEFAULT_PREFERENCE = "-1"

@@ -22,3 +22,5 @@ LIBRARY_VERSION = "4"
 PROVIDES_${PN} += "libusb0"
 PROVIDES_${PN}-dev += "libusb0-dev"
 PROVIDES_${PN}[qa] += "allow-missing-soname:libusb0"
+
+DEFAULT_PREFERENCE = "-1"

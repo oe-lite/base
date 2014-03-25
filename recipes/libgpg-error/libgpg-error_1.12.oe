@@ -5,3 +5,5 @@ LICENSE = "GPLv2+ & LGPLv2.1+"
 SRC_URI += "file://pkgconfig.patch"
 
 LIBRARY_VERSION = "0"
+
+DEFAULT_PREFERENCE = "-1"

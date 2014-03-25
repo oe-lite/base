@@ -14,3 +14,5 @@ do_patch_nodocu(){
 }
 
 LIBRARY_VERSION = "6"
+
+DEFAULT_PREFERENCE = "-1"

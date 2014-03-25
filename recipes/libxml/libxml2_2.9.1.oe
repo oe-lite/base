@@ -6,3 +6,5 @@ LIBRARY_VERSION = "2"
 
 SRC_URI:>HOST_LIBC_mingw = " file://libtool-bindir.patch"
 export sharedlibdir
+
+DEFAULT_PREFERENCE = "-1"

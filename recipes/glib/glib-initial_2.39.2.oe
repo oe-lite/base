@@ -13,3 +13,5 @@ do_patch_extra_files() {
 }
 
 LIBRARY_VERSION = "0"
+
+DEFAULT_PREFERENCE = "-1"

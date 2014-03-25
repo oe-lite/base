@@ -64,3 +64,5 @@ RDEPENDS_${PN}-swat += "libtevent"
 
 DEPENDS_${PN} += "libtevent"
 RDEPENDS_${PN} += "libtevent"
+
+DEFAULT_PREFERENCE = "-1"

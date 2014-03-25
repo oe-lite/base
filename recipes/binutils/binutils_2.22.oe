@@ -2,3 +2,5 @@
 LICENSE = "GPL-3.0"
 
 require binutils.inc
+
+DEFAULT_PREFERENCE = "-1"
