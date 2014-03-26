@@ -44,8 +44,8 @@ RDEPENDS_${PN} += "${PN}-ust-consumerd"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "ust ustctl ustconsumer ustfork ustinstr-malloc"
-AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev"
-AUTO_PACKAGE_LIBS_DEV_RDEPENDS = "${PN}-dev"
+AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev_${PV}"
+AUTO_PACKAGE_LIBS_DEV_RDEPENDS = "${PN}-dev_${PV}"
 FILES_${PN}-libust = "${libdir}/libust${SOLIBSDEV}"
 FILES_${PN}-libustfork = "${libdir}/libustfork${SOLIBSDEV}"
 FILES_${PN}-libustinstr-malloc = "${libdir}/libustinstr-malloc${SOLIBSDEV}"
