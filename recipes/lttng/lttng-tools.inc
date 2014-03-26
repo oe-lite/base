@@ -6,8 +6,8 @@ RECIPE_TYPES = "machine"
 
 DEPENDS += "libc libdl librt libpthread libuuid libpopt libuuid \
 	${DEPENDS_LTTNG}"
-DEPENDS_LTTNG ?= "liburcu liblttng-ust liblttng-ust-ctl liblttng-ust-fork \
-	liblttng-ust-libc-wrapper"
+DEPENDS_LTTNG ?= "liburcu-2 liblttng-ust-0 liblttng-ust-ctl-2 \
+	liblttng-ust-fork-0 liblttng-ust-libc-wrapper-0"
 
 inherit autotools-autoreconf make pkgconfig auto-package-libs
 
