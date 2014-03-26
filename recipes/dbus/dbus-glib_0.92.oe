@@ -8,3 +8,5 @@ SRC_URI += "file://no-examples.patch"
 SRC_URI += "file://libintl-libadd.patch"
 DEPENDS_${PN} += "libintl"
 DEPENDS_${PN}-libdbus-glib-1 += "libexpat libintl"
+
+LIBRARY_VERSION = "2"

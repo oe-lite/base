@@ -7,4 +7,6 @@ SRC_URI += "file://no-examples.patch"
 
 DEPENDS += "libgio"
 
+LIBRARY_VERSION = "2"
+
 DEFAULT_PREFERENCE = "-1"
