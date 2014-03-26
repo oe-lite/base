@@ -1,3 +1,7 @@
 require wpa-supplicant.inc
 
 LICENSE = "GPL-2.0 | BSD-3-Clause"
+
+DEPENDS += "libgnutls-extra"
+DEPENDS_${PN}-wpa-supplicant += "libgnutls-extra"
+RDEPENDS_${PN}-wpa-supplicant += "libgnutls-extra"
