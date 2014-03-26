@@ -19,29 +19,34 @@ RDEPENDS_${PN} += "${DEPENDS_LIBURCU}"
 AUTO_PACKAGE_LIBS += "lttng-ust-ctl lttng-ust-cyg-profile-fast \
 	lttng-ust-cyg-profile lttng-ust-fork lttng-ust-libc-wrapper \
 	lttng-ust lttng-ust-tracepoint"
-AUTO_PACKAGE_LIBS_DEV_DEPENDS += "libc libpthread ${PN}-dev ${DEPENDS_LIBURCU}"
+AUTO_PACKAGE_LIBS_DEV_DEPENDS += "libc libpthread ${PN}-dev_${PV} ${DEPENDS_LIBURCU}"
 AUTO_PACKAGE_LIBS_RDEPENDS += "libc libpthread ${DEPENDS_LIBURCU}"
 
 DEPENDS_${PN}-liblttng-ust-ctl += "librt"
 RDEPENDS_${PN}-liblttng-ust-ctl += "librt"
 
-DEPENDS_${PN}-liblttng-ust-cyg-profile-fast += "libdl liblttng-ust librt"
-RDEPENDS_${PN}-liblttng-ust-cyg-profile-fast += "libdl liblttng-ust librt"
+DEPENDS_${PN}-liblttng-ust-cyg-profile-fast += "libdl liblttng-ust-${LIBRARY_VERSION} librt"
+RDEPENDS_${PN}-liblttng-ust-cyg-profile-fast += "libdl liblttng-ust-${LIBRARY_VERSION} librt"
 
-DEPENDS_${PN}-liblttng-ust-cyg-profile += "libdl liblttng-ust \
-	liblttng-ust-tracepoint librt"
-RDEPENDS_${PN}-liblttng-ust-cyg-profile += "libdl liblttng-ust \
-	liblttng-ust-tracepoint librt"
+DEPENDS_${PN}-liblttng-ust-cyg-profile += "libdl liblttng-ust-${LIBRARY_VERSION} \
+	liblttng-ust-tracepoint-${LIBRARY_VERSION} librt"
+RDEPENDS_${PN}-liblttng-ust-cyg-profile += "libdl librt \
+	liblttng-ust-${LIBRARY_VERSION} \
+	liblttng-ust-tracepoint-${LIBRARY_VERSION}"
 
-DEPENDS_${PN}-liblttng-ust-fork += "libdl liblttng-ust \
-	liblttng-ust-tracepoint librt"
-RDEPENDS_${PN}-liblttng-ust-fork += "libdl liblttng-ust \
-	liblttng-ust-tracepoint librt"
+DEPENDS_${PN}-liblttng-ust-fork += "libdl librt \
+	liblttng-ust-${LIBRARY_VERSION} \
+	liblttng-ust-tracepoint-${LIBRARY_VERSION}"
+RDEPENDS_${PN}-liblttng-ust-fork += "libdl librt \
+	liblttng-ust-${LIBRARY_VERSION} \
+	liblttng-ust-tracepoint-${LIBRARY_VERSION}"
 
-DEPENDS_${PN}-liblttng-ust-libc-wrapper += "libdl liblttng-ust \
-	liblttng-ust-tracepoint librt"
-RDEPENDS_${PN}-liblttng-ust-libc-wrapper += "libdl liblttng-ust \
-	liblttng-ust-tracepoint librt"
+DEPENDS_${PN}-liblttng-ust-libc-wrapper += "libdl librt \
+	liblttng-ust-${LIBRARY_VERSION} \
+	liblttng-ust-tracepoint-${LIBRARY_VERSION}"
+RDEPENDS_${PN}-liblttng-ust-libc-wrapper += "libdl librt \
+	liblttng-ust-${LIBRARY_VERSION} \
+	liblttng-ust-tracepoint-${LIBRARY_VERSION}"
 
-DEPENDS_${PN}-liblttng-ust += "liblttng-ust-tracepoint librt"
-RDEPENDS_${PN}-liblttng-ust += "liblttng-ust-tracepoint librt"
+DEPENDS_${PN}-liblttng-ust += "librt liblttng-ust-tracepoint-${LIBRARY_VERSION}"
+RDEPENDS_${PN}-liblttng-ust += "librt liblttng-ust-tracepoint-${LIBRARY_VERSION}"
