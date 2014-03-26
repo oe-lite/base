@@ -1,3 +1,4 @@
+# -*- mode:python; -*-
 SUMMARY = "Linux Trace Toolkit Userspace Tracer 2.0"
 DESCRIPTION = "The LTTng UST 2.0 package contains the userspace tracer library to trace userspace codes."
 HOMEPAGE = "http://lttng.org/lttng2.0"
@@ -15,3 +16,7 @@ FILES_${PN} += "${libdir}/*.so"
 
 DEPENDS_${PN} = "${DEPENDS_LIBURCU}"
 RDEPENDS_${PN} = "${DEPENDS_LIBURCU}"
+
+# Also providing these libraries
+PROVIDES_${PN} += "liblttng-ust liblttng-ust-ctl liblttng-ust-fork \
+	liblttng-ust-tracepoint"

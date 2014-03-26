@@ -5,4 +5,6 @@ DEPENDS_LIBURCU = "liburcu0.7"
 
 COMPATIBLE_HOST_ARCHS = "i.86-.*-.*linux- x86_64-.*-.*linux- powerpc-.*-.*linux- powerpc64-.*-.*linux- arm-.*-.*linux-"
 
-DEFAULT_PREFERENCE = "-1"
+PROVIDES_${PN} += "liblttng-ust-libc-wrapper"
+
+DEFAULT_PREFERENCE = "-2"
