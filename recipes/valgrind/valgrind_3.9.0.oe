@@ -9,6 +9,4 @@ SRC_URI += "file://configure-arm-cortex.patch"
 AUTO_PACKAGE_UTILS = "callgrind_annotate callgrind_control cg_annotate \
                       cg_diff cg_merge ms_print valgrind-listener "
 
-RDEPENDS_${PN} += "ld-so-dbg"
-
 DEFAULT_PREFERENCE = "-1"
