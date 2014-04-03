@@ -55,6 +55,14 @@ do_install() {
     install -m 755 ${SRCDIR}/init ${D}${sysconfdir}/init.d/vsftpd
 }
 
+RECIPE_FLAGS += "ftp_home"
+DEFAULT_USE_ftp_home = "/home/ftp"
+do_install[postfuncs] += "do_install_set_ftp_home"
+do_install_set_ftp_home() {
+	sed -i -e "s|PLACEHOLDER_FTP_HOME|${USE_ftp_home}|" \
+		${D}${sysconfdir}/passwd.d/${PN}.1
+}
+
 RECIPE_FLAGS += "vsftpd_sysvinit_start vsftpd_sysvinit_stop"
 DEFAULT_USE_vsftpd_sysvinit_start	= "20"
 DEFAULT_USE_vsftpd_sysvinit_stop	= "20"
