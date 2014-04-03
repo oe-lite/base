@@ -40,10 +40,18 @@ do_install[postfuncs] =+ "do_install_extra_files"
 do_install_extra_files() {
     install -d ${D}/${sysconfdir}
     install -m 644 ${SRCDIR}/ntp.conf ${D}/${sysconfdir}
-    install -d ${D}/${sysconfdir}/network/if-up.d
-    install -m 755 ${SRCDIR}/ntpdate ${D}/${sysconfdir}/network/if-up.d
     install -d ${D}/${sysconfdir}/init.d
     install -m 755 ${SRCDIR}/ntpd ${D}/${sysconfdir}/init.d/ntpd
+}
+
+RECIPE_FLAGS += "ntpdate_ifup"
+DEFAULT_USE_ntpdate_ifup = "1"
+DO_INSTALL_NTPDATE = ""
+DO_INSTALL_NTPDATE:USE_ntpdate_ifup = "do_install_ntpdate"
+do_install[postfuncs] += "${DO_INSTALL_NTPDATE}"
+do_install_ntpdate () {
+    install -d ${D}/${sysconfdir}/network/if-up.d
+    install -m 755 ${SRCDIR}/ntpdate ${D}/${sysconfdir}/network/if-up.d
 }
 
 inherit sysvinit
