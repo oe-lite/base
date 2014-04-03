@@ -5,7 +5,7 @@ do_rstage[postfuncs] += "${OVERLAY_FILES_RSTAGE_POSTFUNC}"
 
 do_rstage_overlay_files[dirs] = "${RSTAGE_DIR}"
 do_rstage_overlay_files () {
-	for file in "$USE_overlay_files" ; do
+	for file in $USE_overlay_files ; do
 		if test -e ./$file ; then
 			mv ./$file ./$file.default
 			ln -sf `basename $file`.default ./$file
