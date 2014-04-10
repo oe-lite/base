@@ -16,3 +16,7 @@ RECIPE_TYPES = "machine native sdk"
 inherit library autotools
 
 SRC_URI = "ftp://sourceware.org/pub/libffi/${PN}-${PV}.tar.gz"
+
+COMMON_DEPENDS = "libc libgcc"
+DEPENDS_${PN} += "${COMMON_DEPENDS}"
+RDEPENDS_${PN} += "${COMMON_DEPENDS}"
