@@ -1,0 +1,12 @@
+diff openssl-1.0.1e/crypto/ossl_typ.h~orig openssl-1.0.1e/crypto/ossl_typ.h
+index ea9227f..8e1b3cf 100644
+--- openssl-1.0.1e/crypto/ossl_typ.h~orig
++++ openssl-1.0.1e/crypto/ossl_typ.h
+@@ -100,6 +100,7 @@ typedef struct ASN1_ITEM_st ASN1_ITEM;
+ typedef struct asn1_pctx_st ASN1_PCTX;
+ 
+ #ifdef OPENSSL_SYS_WIN32
++#include <windows.h>
+ #undef X509_NAME
+ #undef X509_EXTENSIONS
+ #undef X509_CERT_PAIR
