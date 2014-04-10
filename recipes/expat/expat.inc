@@ -11,8 +11,11 @@ SRC_URI = "${SOURCEFORGE_MIRROR}/expat/expat-${PV}.tar.gz"
 
 export LTCC = "${CC}"
 
-RDEPENDS_${PN} = "libexpat"
+DEPENDS_${PN} = "libc libgcc libexpat"
+RDEPENDS_${PN} = "libc libgcc libexpat"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "expat"
 FILES_${PN}-libexpat-dev += "${includedir}"
+AUTO_PACKAGE_LIBS_RDEPENDS = "libc libgcc"
+DEPENDS_${PN}-libexpat = "libc libgcc"
