@@ -1,0 +1,5 @@
+require ${PN}.inc
+
+inherit autotools-autoreconf
+
+LIBRARY_VERSION = "1"
