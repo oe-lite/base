@@ -1,0 +1,22 @@
+--- libffi-3.0.13/configure.orig	2013-12-19 11:35:04.442027429 +0100
++++ libffi-3.0.13/configure	2013-12-19 11:35:51.786026030 +0100
+@@ -2751,7 +2751,7 @@
+       { $as_echo "$as_me:${as_lineno-$LINENO}: result: ....exec $SHELL $srcdir/$0 \"--srcdir=$srcdir\" \"--enable-builddir=$ax_enable_builddir\" ${1+\"$@\"}" >&5
+ $as_echo "....exec $SHELL $srcdir/$0 \"--srcdir=$srcdir\" \"--enable-builddir=$ax_enable_builddir\" ${1+\"$@\"}" >&6; }
+       case "$0" in # restart
+-       /\\*) eval $SHELL "'$0'" "'--srcdir=$srcdir'" "'--enable-builddir=$ax_enable_builddir'" $ac_configure_args ;;
++       [/\\]*) eval $SHELL "'$0'" "'--srcdir=$srcdir'" "'--enable-builddir=$ax_enable_builddir'" $ac_configure_args ;;
+        *) eval $SHELL "'$srcdir/$0'" "'--srcdir=$srcdir'" "'--enable-builddir=$ax_enable_builddir'" $ac_configure_args ;;
+       esac ; exit $?
+     fi
+--- libffi-3.0.13/m4/ax_enable_builddir.m4.orig	2013-12-19 11:36:07.802025557 +0100
++++ libffi-3.0.13/m4/ax_enable_builddir.m4	2013-12-19 11:36:35.738024731 +0100
+@@ -121,7 +121,7 @@
+       test -f $srcdir/$cache_file  && mv $srcdir/$cache_file  .
+       AC_MSG_RESULT(....exec $SHELL $srcdir/[$]0 "--srcdir=$srcdir" "--enable-builddir=$SUB" ${1+"[$]@"})
+       case "[$]0" in # restart
+-       [/\\]*) eval $SHELL "'[$]0'" "'--srcdir=$srcdir'" "'--enable-builddir=$SUB'" $ac_configure_args ;;
++       [[/\\]]*) eval $SHELL "'[$]0'" "'--srcdir=$srcdir'" "'--enable-builddir=$SUB'" $ac_configure_args ;;
+        *) eval $SHELL "'$srcdir/[$]0'" "'--srcdir=$srcdir'" "'--enable-builddir=$SUB'" $ac_configure_args ;;
+       esac ; exit $?
+     fi
