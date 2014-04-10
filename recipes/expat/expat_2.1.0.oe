@@ -1,0 +1,5 @@
+LICENSE = "MIT"
+
+require expat.inc
+
+LIBRARY_VERSION = "1"
