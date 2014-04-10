@@ -1,7 +1,0 @@
-LICENSE = "MIT"
-
-require expat.inc
-
-SRC_URI += "file://autotools.patch"
-SRC_URI += "file://cdpath.patch"
-SRC_URI += "file://libtool-bindir.patch"
