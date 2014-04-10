@@ -1,4 +1,0 @@
-require ${PN}.inc
-
-inherit autotools-autoreconf
-SRC_URI += "file://configure-gettext.patch"
