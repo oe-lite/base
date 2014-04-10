@@ -19,6 +19,7 @@ SRC_URI:>USE_dropbear_allownopw = " file://allow-nopw.patch"
 COMMON_DEPS = "libz libcrypt libutil libcrypt libgcc"
 
 DEPENDS = "${COMMON_DEPS}"
+DEPENDS_${PN} = "libc ${COMMON_DEPS}"
 RDEPENDS_${PN} = "${COMMON_DEPS}"
 
 PROVIDES_${PN} = "util/ssh service/ssh util/scp"
