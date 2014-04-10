@@ -12,6 +12,9 @@ FILES_${PN}-wiper = "${sbindir}/wiper.sh"
 
 RDEPENDS_${PN}-wiper = "bash util/awk util/stat"
 
+DEPENDS_${PN} = "libc libgcc"
+RDEPENDS_${PN} = "libc libgcc"
+
 require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/hdparm/hdparm-${PV}.tar.gz "
 
