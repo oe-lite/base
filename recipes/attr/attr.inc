@@ -37,10 +37,16 @@ do_install() {
 	rm -rf ${D}${libexecdir}
 }
 
-inherit auto-package-libs
-AUTO_PACKAGE_LIBS = "attr"
-AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev_${PV}"
+inherit auto-package-utils
+AUTO_PACKAGE_UTILS = "attr getfattr setfattr"
+AUTO_PACKAGE_UTILS_RDEPENDS = "libattr"
 
-RDEPENDS_${PN} += "${PN}-libattr"
+DEPENDS_${PN}-attr += "libattr"
+DEPENDS_${PN}-getfattr += "libattr"
+DEPENDS_${PN}-setfattr += "libattr"
 
-FILES_${PN}-dev += "${libexecdir}"
+AUTO_PACKAGE_LIBS_RDEPENDS = "libc libattr"
+
+inherit library
+
+DEPENDS_${PN} += "libc"
