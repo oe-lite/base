@@ -8,7 +8,9 @@ RECIPE_TYPES = "native machine sdk"
 
 inherit autotools
 
-SRC_URI = "http://matt.ucc.asn.au/dropbear/releases/dropbear-${PV}.tar.gz"
+TARBALL_EXTENSION ?= "gz"
+
+SRC_URI = "http://matt.ucc.asn.au/dropbear/releases/dropbear-${PV}.tar.${TARBALL_EXTENSION}"
 SRC_URI += "file://fix-2kb-keys.patch file://init"
 
 RECIPE_FLAGS += "dropbear_allownopw"
