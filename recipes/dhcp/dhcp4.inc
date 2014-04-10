@@ -70,6 +70,8 @@ do_install_extra_files () {
 
 PACKAGES += "${PN}-server ${PN}-client ${PN}-relay ${PN}-omshell"
 
+COMMON_DEPENDS = "libdl libcrypto libdl libgcc libssl"
+
 FILES_${PN} = ""
 FILES_${PN}-server = "${sbindir}/dhcpd ${sysconfdir}/init.d/dhcp-server \
 	${sysconfdir}/default/dhcp-server ${sysconfdir}/dhcp/dhcpd.conf"
@@ -78,6 +80,13 @@ FILES_${PN}-relay = "${sbindir}/dhcrelay ${sysconfdir}/init.d/dhcp-relay \
 
 FILES_${PN}-client = "${base_sbindir}/dhclient ${base_sbindir}/dhclient-script \
 	${sysconfdir}/dhcp/dhclient.conf"
-RDEPENDS_${PN}-client = "sh"
+DEPENDS_${PN}-client = "${COMMON_DEPENDS}"
+RDEPENDS_${PN}-client = "sh ${COMMON_DEPENDS}"
+DEPENDS_${PN}-server = "libc ${COMMON_DEPENDS}"
+RDEPENDS_${PN}-server = "libc ${COMMON_DEPENDS}"
+DEPENDS_${PN}-relay = "libc ${COMMON_DEPENDS}"
+RDEPENDS_${PN}-relay = "libc ${COMMON_DEPENDS}"
+DEPENDS_${PN}-omshell = "libc ${COMMON_DEPENDS}"
+RDEPENDS_${PN}-omshell = "libc ${COMMON_DEPENDS}"
 
 FILES_${PN}-omshell = "${bindir}/omshell"
