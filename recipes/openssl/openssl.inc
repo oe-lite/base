@@ -123,6 +123,10 @@ FILES_${PN}-doc =+ "${libdir}/ssl/man"
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "crypto ssl"
 AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev_${PV}"
+inherit auto-package-utils
+AUTO_PACKAGE_UTILS = "openssl c_rehash"
+DEPENDS_${PN}-openssl += "libc libdl libcrypto libssl"
+RDEPENDS_${PN}-openssl += "libc libdl libcrypto libssl"
 DEPENDS_${PN}-dev = ""
 FILES_${PN}-libcrypto += " ${LIBCRYPTO_FILES}"  
 LIBCRYPTO_FILES = ""
