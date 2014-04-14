@@ -4,7 +4,7 @@ HOMEPAGE = "http://expat.sf.net/"
 
 RECIPE_TYPES = "machine native sdk"
 
-inherit autotools-autoreconf make-vpath
+inherit autotools make-vpath
 
 require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/expat/expat-${PV}.tar.gz"
