@@ -47,6 +47,9 @@ DEPENDS_${PN}-setfattr += "libattr"
 
 AUTO_PACKAGE_LIBS_RDEPENDS = "libc libattr"
 
-inherit library
+inherit auto-package-libs
+AUTO_PACKAGE_LIBS = "attr"
+AUTO_PACKAGE_LIBS_DEPENDS = "libc"
+AUTO_PACKAGE_LIBS_RDEPENDS = "libc"
 
 DEPENDS_${PN} += "libc"
