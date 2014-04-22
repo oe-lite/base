@@ -15,4 +15,7 @@ do_patch_extra_files() {
 SRC_URI:>HOST_LIBC_mingw = " file://libtool-bindir.patch"
 export sharedlibdir
 
+# This is only for mingw32, mingw-w64 has rand_s()
+SRC_URI:>HOST_LIBC_mingw += "file://mingw32-missing-rand_s.patch"
+
 LIBRARY_VERSION = "0"
