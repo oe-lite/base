@@ -67,11 +67,37 @@ SRC_URI += "\
 
 TOPDIR[unexport] = "1"
 
-PACKAGES =+ "${PN}-mii"
-FILES_${PN}-mii = "${base_sbindir}/mii-*"
-
 # The Makefile is lame, no parallel build
 PARALLEL_MAKE = ""
+
+inherit auto-package-utils
+AUTO_PACKAGE_UTILS = "\
+mii-diag \
+mii-tool \
+arp \
+ether-wake \
+ifconfig \
+ipmaddr \
+iptunnel \
+nameif \
+plipconfig \
+rarp \
+route \
+slattach \
+hostname \
+netstat \
+"
+AUTO_PACKAGE_UTILS_RDEPENDS = "libc libdl"
+
+FILES_${PN}-hostname = "\
+${base_bindir}/dnsdomainname \
+${base_bindir}/domainname \
+${base_bindir}/nisdomainname \
+${base_bindir}/ypdomainname \
+"
+RDEPENDS_${PN}-ifconfig += "libgcc"
+RDEPENDS_${PN}-netstat += "libgcc"
+RDEPENDS_${PN} += "${AUTO_PACKAGE_UTILS_PACKAGES}"
 
 # Copy config and source over to the source directory
 do_configure() {
