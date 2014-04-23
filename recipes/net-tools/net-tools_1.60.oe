@@ -121,7 +121,6 @@ do_compile() {
 }
 
 do_install() {
-    oe_runmake 'BASEDIR=${D}' -n install
     oe_runmake 'BASEDIR=${D}' install
 
     cp ${S}/mii-diag ${D}/${base_sbindir}/
