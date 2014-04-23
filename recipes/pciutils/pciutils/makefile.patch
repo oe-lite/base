@@ -1,0 +1,31 @@
+--- pciutils-3.2.1/Makefile.orig	2014-04-22 11:58:07.566961586 +0200
++++ pciutils-3.2.1/Makefile	2014-04-22 11:59:26.778963820 +0200
+@@ -29,13 +29,13 @@
+ ABI_VERSION=.3
+ 
+ # Installation directories
+-PREFIX=/usr/local
+-SBINDIR=$(PREFIX)/sbin
+-SHAREDIR=$(PREFIX)/share
++PREFIX=$(PREFIX)
++SBINDIR=$(SBINDIR)
++SHAREDIR=$(SHAREDIR)
+ IDSDIR=$(SHAREDIR)
+-MANDIR:=$(shell if [ -d $(PREFIX)/share/man ] ; then echo $(PREFIX)/share/man ; else echo $(PREFIX)/man ; fi)
+-INCDIR=$(PREFIX)/include
+-LIBDIR=$(PREFIX)/lib
++MANDIR:=$(MANDIR)
++INCDIR=$(INCDIR)
++LIBDIR=$(LIBDIR)
+ PKGCFDIR=$(LIBDIR)/pkgconfig
+ 
+ # Commands
+@@ -92,7 +92,7 @@
+ example.o: example.c $(PCIINC)
+ 
+ %: %.o
+-	$(CC) $(LDFLAGS) $(TARGET_ARCH) $^ $(LIB_LDLIBS) -o $@
++	$(CC) $(LDFLAGS) $(TARGET_ARCH) $^ $(LIB_LDLIBS) $(LDLIBS) -o $@
+ 
+ %.8 %.7: %.man
+ 	M=`echo $(DATE) | sed 's/-01-/-January-/;s/-02-/-February-/;s/-03-/-March-/;s/-04-/-April-/;s/-05-/-May-/;s/-06-/-June-/;s/-07-/-July-/;s/-08-/-August-/;s/-09-/-September-/;s/-10-/-October-/;s/-11-/-November-/;s/-12-/-December-/;s/\(.*\)-\(.*\)-\(.*\)/\3 \2 \1/'` ; sed <$< >$@ "s/@TODAY@/$$M/;s/@VERSION@/pciutils-$(VERSION)/;s#@IDSDIR@#$(IDSDIR)#"
