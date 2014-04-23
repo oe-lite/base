@@ -123,6 +123,6 @@ do_compile() {
 do_install() {
     oe_runmake 'BASEDIR=${D}' install
 
-    cp ${S}/mii-diag ${D}/${base_sbindir}/
-    cp ${S}/ether-wake ${D}/${base_sbindir}/
+    install -m 0755 ${S}/mii-diag ${D}/${base_sbindir}/
+    install -m 0755 ${S}/ether-wake ${D}/${base_sbindir}/
 }
