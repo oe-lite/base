@@ -65,9 +65,10 @@ EXTRA_OECONF_GETTEXT:native = "--disable-curses --with-included-gettext"
 EXTRA_OECONF_GETTEXT:HOST_OS_mingw32 = "--disable-curses --with-included-gettext"
 
 FILES_${PN} += "${libdir}/gettext ${datadir}/gettext"
-DEPENDS_${PN} = "libintl libgettextpo libgettextlib \
+COMMON_DEPENDS = "libintl libgettextpo libgettextlib \
     libiconv ${DEPENDS_LIBNCURSES} ${DEPENDS_LIBDL} libm"
-RDEPENDS_${PN} = "${DEPENDS_${PN}}"
+DEPENDS_${PN} = "${COMMON_DEPENDS}"
+RDEPENDS_${PN} = "${COMMON_DEPENDS}"
 
 inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "autopoint envsubst gettext gettextize gettext.sh \
