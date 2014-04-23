@@ -284,6 +284,19 @@ do_configure_busybox_udhcpc () {
 }
 BUSYBOX_SIMPLE_USE_FLAGS += "udhcpc_rfc3397::CONFIG_FEATURE_UDHCP_RFC3397"
 
+RECIPE_FLAGS += "busybox_udhcpc6"
+# USE flag: enable udhcpc6 client
+DEFAULT_USE_busybox_udhcpc6 = "0"
+BUSYBOX_PROVIDES:>USE_busybox_udhcpc6 = " busybox-udhcpc6 dhcp-client6"
+DO_CONFIGURE_PREFUNCS:>USE_busybox_udhcpc6 = " do_configure_busybox_udhcpc6"
+do_configure_busybox_udhcpc6 () {
+        sed -i -e 's/^# \(CONFIG_FEATURE_IPV6\) is not set/\1=y/' \
+               -e 's/^# \(CONFIG_FEATURE_PREFER_IPV4_ADDRESS\) is not set/\1=y/' \
+               -e 's/^# \(CONFIG_FEATURE_IFUPDOWN_IPV6\) is not set/\1=y/' \
+               -e 's/^# \(CONFIG_UDHCPC6\) is not set/\1=y/' \
+        .config
+}
+
 RECIPE_FLAGS += "busybox_udhcpd \
         busybox_udhcpd_sysvinit_start busybox_udhcpd_sysvinit_stop"
 # USE flag: enable udhcp server
