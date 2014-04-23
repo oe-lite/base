@@ -24,9 +24,6 @@ export EX_LIBS = "-lgcc -ldl"
 export AS = "${CC} -c"
 
 do_configure () {
-	cd util
-	perl perlpath.pl ${bindir}
-	cd ..
 	ln -sf apps/openssl.pod crypto/crypto.pod ssl/ssl.pod doc/
 
 	case "${HOST_OS}" in
