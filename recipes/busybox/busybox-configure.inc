@@ -886,3 +886,5 @@ SPLASHUTILS_INITSCRIPTS:>USE_busybox_ifplugd += " busybox_ifplugd"
 DEFAULT_USE_busybox_ifplugd_splashutils_msg = "\"Starting Busybox ifplugd\""
 
 BUSYBOX_SIMPLE_USE_FLAGS += "reset=1:util/"
+
+BUSYBOX_SIMPLE_USE_FLAGS += "powertop:util/"
