@@ -3,6 +3,8 @@
 # Copyright (C) 2004-2006, Advanced Micro Devices, Inc.  All Rights Reserved
 # Released under the MIT license (see packages/COPYING)
 
+DEFAULT_PREFERENCE = "-1"
+
 DESCRIPTION = "DOS FAT Filesystem Utilities"
 LICENSE = "GPLv3"
 

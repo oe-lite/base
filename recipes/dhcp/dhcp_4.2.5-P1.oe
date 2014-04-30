@@ -1,3 +1,5 @@
+DEFAULT_PREFERENCE = "-1"
+
 require dhcp4.inc
 
 SRC_URI = "ftp://ftp.isc.org/isc/dhcp/${PV}/dhcp-${PV}.tar.gz"

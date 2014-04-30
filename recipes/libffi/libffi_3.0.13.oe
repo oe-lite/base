@@ -1,4 +1,7 @@
 # -*- mode:python; -*-
+
+DEFAULT_PREFERENCE = "-1"
+
 require ${PN}.inc
 
 LICENSE = "MIT"

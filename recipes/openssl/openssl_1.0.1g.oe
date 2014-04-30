@@ -1,3 +1,5 @@
+DEFAULT_PREFERENCE = "-1"
+
 require openssl.inc
 
 SRC_URI += "file://engines-install-in-libdir-ssl.patch"

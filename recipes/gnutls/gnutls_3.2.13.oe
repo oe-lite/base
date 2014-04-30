@@ -1,3 +1,5 @@
+DEFAULT_PREFERENCE = "-1"
+
 require gnutls.inc
 
 DEPENDS += "libnettle libhogweed"
@@ -29,3 +31,5 @@ RDEPENDS_${PN}-certtool += "libgmp libhogweed libnettle"
 LIBRARY_VERSION = "28"
 LIBRARY_VERSION_${PN}-libgnutls-openssl = "27"
 LIBRARY_VERSION_${PN}-libgnutls-xssl = "0"
+
+DEFAULT_PREFERENCE = "-1"
