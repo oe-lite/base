@@ -46,30 +46,22 @@ do_install () {
 			${D}${datadir}/udhcpc/default.script
 	fi
 
-	if grep "CONFIG_INETD=y" ${S}/.config; then
-		install -m 0644 ${SRCDIR}/inetd.conf ${D}${sysconfdir}/
-	fi
-
 	if grep "CONFIG_TFTPD=y" ${S}/.config; then
 		if grep "CONFIG_INETD=y" ${S}/.config; then
-			inetd_conf="${D}${sysconfdir}/inetd.conf"
-		else
 			# put it where inetd class finds it, so it can be merged
 			# with inetd.conf when generating image
-			inetd_conf="${SRCDIR}/inetd.conf.d"
+			inetd_conf=${INETD_CONF_FILES}
+				echo "tftp dgram udp nowait root tftpd tftpd -c ${USE_busybox_tftpd_dir}" \
+				>> $inetd_conf
 		fi
-		echo "tftp dgram udp nowait root tftpd tftpd -c ${USE_busybox_tftpd_dir}" \
-			>> $inetd_conf
 		install -d ${D}${USE_busybox_tftpd_dir}
 	fi
 
 	if grep "CONFIG_FTPD=y" ${S}/.config; then
 		if grep "CONFIG_INETD=y" ${S}/.config; then
-			inetd_conf="${D}${sysconfdir}/inetd.conf"
-		else
 			# put it where inetd class finds it, so it can be merged
 			# with inetd.conf when generating image
-			inetd_conf="${SRCDIR}/inetd.conf.d"
+			inetd_conf=${INETD_CONF_FILES}
 		fi
 		echo "ftp stream tcp nowait root ftpd ftpd -w -S ${USE_busybox_ftpd_dir}" \
 			>> $inetd_conf
@@ -77,12 +69,10 @@ do_install () {
 	fi
 
 	if grep "CONFIG_TELNETD=y" ${S}/.config; then
-		if grep "CONFIG_TELNETD=y" ${S}/.config; then
-			inetd_conf="${D}${sysconfdir}/inetd.conf"
-		else
+		if grep "CONFIG_INETD=y" ${S}/.config; then
 			# put it where inetd class finds it, so it can be merged
 			# with inetd.conf when generating image
-			inetd_conf="${SRCDIR}/inetd.conf.d"
+			inetd_conf=${INETD_CONF_FILES}
 		fi
 		echo "telnet stream tcp nowait root telnetd telnetd" \
 			>> $inetd_conf
