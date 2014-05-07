@@ -80,13 +80,13 @@ FILES_${PN}-relay = "${sbindir}/dhcrelay ${sysconfdir}/init.d/dhcp-relay \
 
 FILES_${PN}-client = "${base_sbindir}/dhclient ${base_sbindir}/dhclient-script \
 	${sysconfdir}/dhcp/dhclient.conf"
-DEPENDS_${PN}-client = "${COMMON_DEPENDS}"
-RDEPENDS_${PN}-client = "sh ${COMMON_DEPENDS}"
-DEPENDS_${PN}-server = "libc ${COMMON_DEPENDS}"
-RDEPENDS_${PN}-server = "libc ${COMMON_DEPENDS}"
-DEPENDS_${PN}-relay = "libc ${COMMON_DEPENDS}"
-RDEPENDS_${PN}-relay = "libc ${COMMON_DEPENDS}"
-DEPENDS_${PN}-omshell = "libc ${COMMON_DEPENDS}"
-RDEPENDS_${PN}-omshell = "libc ${COMMON_DEPENDS}"
+DEPENDS_${PN}-client = "libc libdl"
+RDEPENDS_${PN}-client = "sh libc libdl"
+DEPENDS_${PN}-server = "libc libc libdl"
+RDEPENDS_${PN}-server = "libc libc libdl"
+DEPENDS_${PN}-relay = "libc libdl"
+RDEPENDS_${PN}-relay = "libc libdl"
+DEPENDS_${PN}-omshell = "libc libdl"
+RDEPENDS_${PN}-omshell = "libc libdl"
 
 FILES_${PN}-omshell = "${bindir}/omshell"
