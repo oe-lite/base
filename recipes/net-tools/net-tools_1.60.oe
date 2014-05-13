@@ -89,6 +89,11 @@ netstat \
 "
 AUTO_PACKAGE_UTILS_RDEPENDS = "libc libdl"
 
+# OE-lite/base 3.x backwards compatibility
+PACKAGES += "${PN}-mii"
+DEPENDS_${PN}-mii = "util/mii-diag util/mii-tool"
+RDEPENDS_${PN}-mii = "util/mii-diag util/mii-tool"
+
 FILES_${PN}-hostname = "\
 ${base_bindir}/dnsdomainname \
 ${base_bindir}/domainname \
