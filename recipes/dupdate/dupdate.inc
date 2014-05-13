@@ -11,13 +11,19 @@ S = "${SRCDIR}/dupdate"
 
 inherit autotools
 
-RECIPE_FLAGS += "dupdate_exefile"
+RECIPE_FLAGS += "dupdate_exefile dupdate_args"
 include conf/dupdate.conf
 DEFAULT_USE_dupdate_exefile ?= "run_update.sh"
+DEFAULT_USE_dupdate_args ?= "$DIR -x $EXEFILE -l"
 
 do_configure[postfuncs] =+ "do_configure_EXEFILE"
 do_configure_EXEFILE() {
     sed 's/^EXEFILE.*/EXEFILE="${USE_dupdate_exefile}"/' -i ${S}/src/dupdate.sh
+}
+
+do_configure[postfuncs] =+ "do_configure_ARGS"
+do_configure_ARGS() {
+    sed 's/^ARGS.*/ARGS="${USE_dupdate_args}"/' -i ${S}/src/dupdate.sh
 }
 
 INSTALL_SYSVINIT_POSTFUNC = ""
