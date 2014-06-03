@@ -29,7 +29,7 @@ EXTRA_OECONF_SELINUX = "--disable-selinux"
 EXTRA_OECONF_SELINUX:USE_cryptsetup_selinux = "--enable-selinux"
 
 AUTO_PACKAGE_UTILS = "cryptsetup veritysetup"
-AUTO_PACKAGE_UTILS_RDEPENDS += "libpopti libc"
+AUTO_PACKAGE_UTILS_RDEPENDS += "libpopt libc"
 
 AUTO_PACKAGE_LIBS = "${PN}"
 AUTO_PACKAGE_LIB_DEV_DEPENDS = "libuuid libdevmapper libgcrypt"
