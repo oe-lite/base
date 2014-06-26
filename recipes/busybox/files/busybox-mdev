@@ -63,6 +63,7 @@ mount -t devpts devpts /dev/pts -onoexec,nosuid,gid=$TTYGRP,mode=$TTYMODE
 
 # Make shm directory
 mkdir -m 755 -p /dev/shm
+mount -t tmpfs tmpfs /dev/shm -omode=0777
 
 # Make extraneous links
 ln -sf /proc/self/fd /dev/
