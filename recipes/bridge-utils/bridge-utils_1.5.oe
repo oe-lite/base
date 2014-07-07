@@ -1,0 +1,39 @@
+require ${PN}.inc
+
+SRC_URI += "http://www.linuxfromscratch.org/patches/blfs/svn/bridge-utils-1.5-linux_3.8_fix-1.patch"
+
+# From Debian wheezy
+SRC_URI += "file://debian-bridge-utils-1.5-6.patch"
+do_install[postfuncs] += "do_install_debian"
+do_install_debian() {
+	mkdir -p ${D}${libdir}/bridge-utils
+	install -m 755 debian/ifupdown.sh \
+		${D}${libdir}/bridge-utils/
+	install -m 755 debian/bridge-utils.sh \
+		${D}${libdir}/bridge-utils/
+	mkdir -p ${D}${sysconfdir}/network/if-pre-up.d
+	ln -s ${libdir}/bridge-utils/ifupdown.sh \
+		${D}${sysconfdir}/network/if-pre-up.d/bridge
+	mkdir -p ${D}${sysconfdir}/network/if-post-down.d
+	ln -s ${libdir}/bridge-utils/ifupdown.sh \
+		${D}${sysconfdir}/network/if-post-down.d/bridge
+	install -m 755 debian/bridge-network-interface.sh \
+		${D}${libdir}/bridge-utils/
+	mkdir -p ${D}${mandir}/man5
+	install -m 644 debian/bridge-utils-interfaces.5 \
+		${D}${mandir}/man5/
+	mkdir -p ${D}${sysconfdir}/default
+	install -m 644 debian/bridge-utils.default \
+		${D}${sysconfdir}/default/bridge-utils
+	mkdir -p ${D}${libdir}/udev
+	install -m 755 debian/bridge-utils.bridge-network-interface.udev \
+		${D}${libdir}/udev/bridge-utils
+}
+PACKAGES =+ "${PN}-interfaces ${PN}-udev ${PN}-scripts"
+FILES_${PN}-scripts = "${libdir}/bridge-utils.sh ${sysconfdir}/default \
+	${libdir}/bridge-utils/*.sh"
+FILES_${PN}-interfaces = "${sysconfdir}/network/*.d/bridge \
+	${libdir}/bridge-utils/ifupdown.sh"
+RDEPENDS_${PN}-interfaces = "util/brctl ${PN}-scripts"
+FILES_${PN}-udev = "${libdir}/udev"
+RDEPENDS_${PN}-udev = "util/brctl ${PN}-scripts"
