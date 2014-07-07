@@ -1,4 +1,0 @@
-require ${PN}.inc
-LICENSE = "MIT-X-style"
-
-LIBRARY_VERSION = "4"
