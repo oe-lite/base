@@ -215,6 +215,17 @@ DEFAULT_USE_busybox_hwclock_sysvinit_stop  = "15"
 RECIPE_FLAGS += "busybox_hwclock_splashutils_progress busybox_hwclock_splashutils_msg"
 SPLASHUTILS_INITSCRIPTS:>USE_busybox_hwclock += " busybox_hwclock"
 DEFAULT_USE_busybox_hwclock_splashutils_msg = "\"Starting Busybox HWclock\""
+RECIPE_FLAGS += "busybox_hwclock_utc"
+DO_CONFIGURE_PREFUNCS += " do_configure_busybox_hwclock_use_utc"
+do_configure_busybox_hwclock_use_utc () {
+	if [ -n "$USE_busybox_hwclock" ]; then
+		if [ -z "$USE_busybox_hwclock_utc" ]; then
+			sed -i -e 's/HWCLOCK_UTC//' ${SRCDIR}/busybox-hwclock
+		else
+			sed -i -e 's/HWCLOCK_UTC/\-\-utc/' ${SRCDIR}/busybox-hwclock
+		fi
+	fi
+}
 
 RECIPE_FLAGS += "busybox_hwclock_crontab"
 # USE flag: synchronize to rtc every hour using crond
