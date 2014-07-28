@@ -18,6 +18,8 @@
 #               partition! The workaround is to define TZ either
 #               in /etc/default/rcS, or in the proper place below.
 
+UTC="HWCLOCK_UTC"
+
 [ ! -x /sbin/hwclock ] && exit 0
 
 . /etc/default/rcS
@@ -35,9 +37,9 @@ case "$1" in
 		then
 			if [ -z "$TZ" ]
 			then
-	                   hwclock --hctosys
+	                   hwclock $UTC --hctosys
 			else
-			   TZ="$TZ" hwclock --hctosys
+			   TZ="$TZ" hwclock $UTC --hctosys
 			fi
 		fi
 
@@ -60,7 +62,7 @@ case "$1" in
 		fi
 		if [ "$HWCLOCKACCESS" != no ]
 		then
-			hwclock --systohc
+			hwclock $UTC --systohc
 		fi
 		if [ "$VERBOSE" != no ]
 		then
@@ -71,7 +73,7 @@ case "$1" in
 	show)
 		if [ "$HWCLOCKACCESS" != no ]
 		then
-			hwclock --show
+			hwclock $UTC --show
 		fi
 		;;
         *)
