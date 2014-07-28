@@ -393,8 +393,10 @@ CONFIG_FEATURE_TFTP_GET,\
 CONFIG_FEATURE_TFTP_PUT,\
 CONFIG_FEATURE_TFTP_BLOCKSIZE"
 # USE flag: tftp daemon root folder
-RECIPE_FLAGS += "busybox_tftpd_dir"
+RECIPE_FLAGS += "busybox_tftpd_dir busybox_tftpd_inetdcmd"
 DEFAULT_USE_busybox_tftpd_dir = "${servicedir}/tftp"
+DEFAULT_USE_busybox_tftpd_inetdcmd = "tftp dgram udp nowait root tftpd tftpd \
+					-c ${USE_busybox_tftpd_dir}"
 
 # USE flag: enable ftp server
 BUSYBOX_SIMPLE_USE_FLAGS += "ftpd:service/ftp:\

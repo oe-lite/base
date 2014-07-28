@@ -51,8 +51,7 @@ do_install () {
 			# put it where inetd class finds it, so it can be merged
 			# with inetd.conf when generating image
 			inetd_conf=${INETD_CONF_FILES}
-				echo "tftp dgram udp nowait root tftpd tftpd -c ${USE_busybox_tftpd_dir}" \
-				>> $inetd_conf
+			echo $USE_busybox_tftpd_inetdcmd >> $inetd_conf
 		fi
 		install -d ${D}${USE_busybox_tftpd_dir}
 	fi
