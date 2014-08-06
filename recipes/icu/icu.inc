@@ -55,7 +55,7 @@ inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "icudata icuuc icui18n icule iculx icutu icuio icutest"
 AUTO_PACKAGE_LIBS_LIBSUFFIXES:HOST_LIBC_mingw = ",${@''.join(d.get('PV').split('.')[:2])}"
 AUTO_PACKAGE_LIBS_LIBDIR:HOST_LIBC_mingw = "${libdir}::${AUTO_PACKAGE_LIBS_LIBSUFFIXES}"
-SOLIBS:HOST_OS_mingw32 = ".dll"
+SOLIBS:HOST_LIBC_mingw = ".dll"
 AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev_${PV}"
 FILES_${PN}-libicuuc:>HOST_LIBC_mingw = " ${libdir}/icudt*${SOLIBS}"
 FILES_${PN}-libicui18n:>HOST_LIBC_mingw = " ${libdir}/icuin*${SOLIBS}"
