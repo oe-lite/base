@@ -6,6 +6,11 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit c make
 
+PREMIRRORS += """
+http://.*/ http://fossies.org/linux/misc/
+http://.*/ http://pkgs.fedoraproject.org/repo/pkgs/vconfig/vlan.1.9.tar.gz/5f0c6060b33956fb16e11a15467dd394/
+"""
+
 SRC_URI = "http://www.candelatech.com/~greear/vlan/vlan.${PV}.tar.gz"
 SRC_URI += "file://vlan-up file://vlan-pre-up file://vlan-post-down"
 
