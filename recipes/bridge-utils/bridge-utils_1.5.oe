@@ -28,6 +28,15 @@ do_install_debian() {
 	mkdir -p ${D}${libdir}/udev
 	install -m 755 debian/bridge-utils.bridge-network-interface.udev \
 		${D}${libdir}/udev/bridge-utils
+
+	for f in ${D}${libdir}/bridge-utils/* ; do
+		if [ "${sbindir}" != "/sbin" ] ; then
+			sed -i -e 's%/sbin/brctl%${sbindir}/brctl%' $f
+		fi
+		if [ "${libdir}" != "/lib" ] ; then
+			sed -i -e 's%/lib/bridge-utils%${libdir}/bridge-utils%' $f
+		fi
+	done
 }
 PACKAGES =+ "${PN}-interfaces ${PN}-udev ${PN}-scripts"
 FILES_${PN}-scripts = "${libdir}/bridge-utils.sh ${sysconfdir}/default \
