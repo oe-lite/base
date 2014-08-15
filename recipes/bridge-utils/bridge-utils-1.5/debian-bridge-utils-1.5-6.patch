@@ -213,7 +213,7 @@ Reason: Bugfixes and new features added by the Debian project
 +      then
 +        MAXWAIT=$((2*(${IF_BRIDGE_FD%.*}+1)))
 +      else
-+        MAXWAIT=32
++        MAXWAIT=0
 +      fi
 +      /bin/echo -e "\nWaiting $MAXWAIT seconds for $IFACE to get ready."
 +      sleep $MAXWAIT
