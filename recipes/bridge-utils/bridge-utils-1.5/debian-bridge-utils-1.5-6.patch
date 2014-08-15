@@ -47,7 +47,7 @@ Reason: Bugfixes and new features added by the Debian project
  	
 --- bridge-utils-1.5.orig/debian/ifupdown.sh
 +++ bridge-utils-1.5/debian/ifupdown.sh
-@@ -0,0 +1,210 @@
+@@ -0,0 +1,212 @@
 +#!/bin/sh
 +
 +# You don't usually need to touch this file at all, the full configuration
@@ -124,7 +124,9 @@ Reason: Bugfixes and new features added by the Debian project
 +      then
 +        echo 1 > /proc/sys/net/ipv6/conf/$port/disable_ipv6
 +      fi
-+      brctl addif $IFACE $port && ifconfig $port 0.0.0.0 up
++      if [ -d /sys/class/net/$port ] ; then
++      	 brctl addif $IFACE $port && ifconfig $port 0.0.0.0 up
++      fi
 +    # We detach each port of the bridge
 +    elif [ "$MODE" = "stop" ] && [ -d /sys/class/net/$IFACE/brif/$port ];  then
 +      ifconfig $port down && brctl delif $IFACE $port && \
