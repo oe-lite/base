@@ -1,0 +1,26 @@
+DESCRIPTION = "his program is used to read/write from/to any location in memory."
+
+SECTION = "Memory util"
+
+LICENSE = "TI"
+
+SRC_URI += " file://mem_util.c"
+
+S= "${SRCDIR}"
+
+do_compile() {
+
+    ${CC} ${CFLAGS} ${LDFLAGS} mem_util.c -o mem_util
+
+}
+
+do_install(){
+
+    install -d ${D}${bindir}
+    install -m 0755 mem_util ${D}${bindir}
+
+}
+
+RDEPENDS_${PN} += "libc"
+
+inherit c
