@@ -47,7 +47,7 @@ Reason: Bugfixes and new features added by the Debian project
  	
 --- bridge-utils-1.5.orig/debian/ifupdown.sh
 +++ bridge-utils-1.5/debian/ifupdown.sh
-@@ -0,0 +1,212 @@
+@@ -0,0 +1,215 @@
 +#!/bin/sh
 +
 +# You don't usually need to touch this file at all, the full configuration
@@ -215,9 +215,12 @@ Reason: Bugfixes and new features added by the Debian project
 +      else
 +        MAXWAIT=0
 +      fi
-+      /bin/echo -e "\nWaiting $MAXWAIT seconds for $IFACE to get ready."
-+      sleep $MAXWAIT
-+      MAXWAIT=0
++      if [ "$MAXWAIT" != 0 ]
++      then
++        /bin/echo -e "\nWaiting $MAXWAIT seconds for $IFACE to get ready."
++        sleep $MAXWAIT
++        MAXWAIT=0
++      fi
 +    fi
 +  fi
 +
