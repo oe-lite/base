@@ -1,0 +1,11 @@
+--- dnsmasq-2.71/Makefile.orig	2014-09-09 22:19:14.705703992 +0200
++++ dnsmasq-2.71/Makefile	2014-09-09 22:21:03.441706034 +0200
+@@ -18,7 +18,7 @@
+ 
+ # Variables you may well want to override.
+ 
+-PREFIX        = /usr/local
++PREFIX        = /usr
+ BINDIR        = $(PREFIX)/sbin
+ MANDIR        = $(PREFIX)/share/man
+ LOCALEDIR     = $(PREFIX)/share/locale
