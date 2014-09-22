@@ -46,6 +46,10 @@ do_install () {
 			${D}${datadir}/udhcpc/default.script
 	fi
 
+	if grep "CONFIG_UDHCPD=y" ${S}/.config; then
+		sysvinit_install_script ${SRCDIR}/busybox-udhcpd
+	fi
+
 	if grep "CONFIG_TFTPD=y" ${S}/.config; then
 		if grep "CONFIG_INETD=y" ${S}/.config; then
 			# put it where inetd class finds it, so it can be merged

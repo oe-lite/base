@@ -319,8 +319,8 @@ RECIPE_FLAGS += "busybox_udhcpd \
         busybox_udhcpd_sysvinit_start busybox_udhcpd_sysvinit_stop"
 # USE flag: enable udhcp server
 DEFAULT_USE_busybox_udhcpd = "0"
-DEFAULT_USE_busybox_udhcpd_sysvinit_start = "0"
-DEFAULT_USE_busybox_udhcpd_sysvinit_stop  = "0"
+DEFAULT_USE_busybox_udhcpd_sysvinit_start = "90"
+DEFAULT_USE_busybox_udhcpd_sysvinit_stop  = "90"
 BUSYBOX_PROVIDES:>USE_busybox_udhcpd = " busybox-udhcpd dhcp-server"
 DO_CONFIGURE_PREFUNCS:>USE_busybox_udhcpd = " do_configure_busybox_udhcpd"
 do_configure_busybox_udhcpd () {
