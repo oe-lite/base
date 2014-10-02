@@ -1,0 +1,11 @@
+require openssl.inc
+
+# Parallel make is simply broken for now.
+PARALLEL_MAKE = ""
+
+# Fixup to get openssl to respect ${LDFLAGS}.  From OpenEmbedded, thanks :-)
+export OE_LDFLAGS="${LDFLAGS}"
+
+SRC_URI += "file://wincrypt.patch"
+
+LIBRARY_VERSION = "1"
