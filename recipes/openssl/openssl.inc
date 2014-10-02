@@ -6,6 +6,9 @@ LICENSE = "openssl"
 
 RECIPE_TYPES = "machine native sdk"
 
+#Remove last letter from openssl minor version
+FILESPATHPKG = "${PN}-${@'${PV}'[:-1]}:openssl"
+
 inherit c make pkgconfig
 
 SRC_URI = "http://www.openssl.org/source/openssl-${PV}.tar.gz"
@@ -116,6 +119,12 @@ FILES_${PN}-engines:HOST_OS_mingw32 = "${libdir}/ssl/engines/*.dll"
 FILES_${PN}-engines:HOST_KERNEL_darwin = "${libdir}/ssl/engines/*.dylib"
 FILES_${PN}-dbg =+ "${libdir}/ssl/engines/.debug"
 FILES_${PN}-doc =+ "${libdir}/ssl/man"
+
+SRC_URI += "file://engines-install-in-libdir-ssl.patch"
+SRC_URI += "file://mingw.patch"
+SRC_URI += "file://fix-pod-errors.patch"
+SRC_URI += "file://oe-ldflags.patch file://shared-libs.patch"
+SRC_URI += "file://no-librpath-rpath.patch"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "crypto ssl"
