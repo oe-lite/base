@@ -122,7 +122,6 @@ FILES_${PN}-doc =+ "${libdir}/ssl/man"
 
 SRC_URI += "file://engines-install-in-libdir-ssl.patch"
 SRC_URI += "file://mingw.patch"
-SRC_URI += "file://fix-pod-errors.patch"
 SRC_URI += "file://oe-ldflags.patch file://shared-libs.patch"
 SRC_URI += "file://no-librpath-rpath.patch"
 
