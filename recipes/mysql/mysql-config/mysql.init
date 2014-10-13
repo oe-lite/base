@@ -1,0 +1,45 @@
+#! /bin/sh
+#
+
+mysqld=/bin/mysqld
+piddir=/var/run/mysqld
+pidfile=$piddir/mysqld.pid
+logdir=/var/log/mysql
+
+[ -x "$mysqld" ]  || exit 0
+
+if [ ! -d $piddir ]; then
+	mkdir -p $piddir
+	chown mysql:mysql $piddir
+fi
+
+if [ ! -d "$logdir" ]; then
+	mkdir -p $logdir
+	chown mysql:mysql $logdir
+fi
+
+case "$1" in
+	start)
+		echo -n "Starting mysqld"
+		mysqld_safe --user mysql &
+		RETVAL=$?
+		echo "."
+		;;
+	stop)
+		echo -n "Stopping mysqld"
+		kill `cat $pidfile`
+		RETVAL=$?
+		echo "."
+		;;
+	restart)
+		$0 stop
+		sleep 3
+		$0 start
+		RETVAL=$?
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 1
+esac
+
+exit $RETVAL

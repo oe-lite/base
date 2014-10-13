@@ -1,0 +1,24 @@
+--- mysql-5.6.13/scripts/CMakeLists.txt.orig	2013-08-15 13:44:39.101218076 +0200
++++ mysql-5.6.13/scripts/CMakeLists.txt	2013-08-15 13:45:15.325217006 +0200
+@@ -14,10 +14,8 @@
+ # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+ 
+ # Build comp_sql - used for embedding SQL in C or C++ programs
+-IF(NOT CMAKE_CROSSCOMPILING)
+- ADD_EXECUTABLE(comp_sql comp_sql.c)
+- TARGET_LINK_LIBRARIES(comp_sql)
+-ENDIF()
++ADD_EXECUTABLE(comp_sql comp_sql.c)
++TARGET_LINK_LIBRARIES(comp_sql)
+ 
+ 
+ # Build mysql_fix_privilege_tables.sql (concatenate 2 sql scripts)
+@@ -47,7 +45,7 @@
+ ADD_CUSTOM_COMMAND(
+   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/mysql_fix_privilege_tables_sql.c
+   ${CAT_COMMAND}
+-  COMMAND comp_sql
++  COMMAND ./comp_sql
+   mysql_fix_privilege_tables
+   mysql_fix_privilege_tables.sql
+   mysql_fix_privilege_tables_sql.c

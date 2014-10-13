@@ -1,0 +1,50 @@
+DESCRIPTION = "mysql database - native tools"
+LICENSE = "GPL-2+"
+HOMEPAGE = "http://dev.mysql.com/"
+
+SRC_URI = "http://cdn.mysql.com/archives/mysql-5.6/mysql-${PV}.tar.gz"
+SRC_URI += " file://comp_err.patch "
+SRC_URI += " file://comp_sql.patch "
+SRC_URI += " file://gen_lex_hash.patch "
+SRC_URI += " file://gen_pfs_lex_token.patch "
+
+
+RECIPE_TYPES = "native"
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
+inherit cmake c++
+
+S = "${SRCDIR}/mysql-${PV}"
+
+DEPENDS = "libpthread libncurses librt libdl libstdc++"
+DEPENDS_${PN} += "libpthread libstdc++ librt"
+
+EXTRA_OE_CMAKE_CONF = " \
+    -DSTACK_DIRECTION=1 \
+    -DCMAKE_INSTALL_PREFIX=/ \
+"
+
+INSTALL_FILES = " \
+storage/perfschema/gen_pfs_lex_token \
+sql/gen_lex_hash \
+extra/comp_err \
+scripts/comp_sql \
+"
+
+#
+# Only build INSTALL_FILES used during machine build
+#
+do_compile() {
+    oe_runmake comp_err comp_sql gen_pfs_lex_token gen_lex_hash
+}
+
+do_install() {
+    install -d ${D}/${bindir}
+    for f in ${INSTALL_FILES}; do
+        install -m 0755 ${B}/$f ${D}${bindir}/$(basename $f)
+    done
+}
+
+PACKAGES = "${PN}"
+
+FILES_${PN} = "${bindir}"

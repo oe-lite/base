@@ -1,0 +1,11 @@
+--- mysql-5.6.13/storage/perfschema/CMakeLists.txt.orig	2013-08-15 14:14:57.161164358 +0200
++++ mysql-5.6.13/storage/perfschema/CMakeLists.txt	2013-08-15 14:15:56.277162612 +0200
+@@ -28,7 +28,7 @@
+ 
+ ADD_CUSTOM_COMMAND(
+   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/pfs_lex_token.h
+-  COMMAND gen_pfs_lex_token > pfs_lex_token.h
++  COMMAND ./gen_pfs_lex_token > pfs_lex_token.h
+   DEPENDS gen_pfs_lex_token
+ )
+ 

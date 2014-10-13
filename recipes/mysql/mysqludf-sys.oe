@@ -1,0 +1,30 @@
+DESCRIPTION = "MySQL UDFs that allows one to interact with the operating system"
+HOME_PAGE = "http://www.mysqludf.org/"
+LICENSE = "BSD style"
+
+SRC_URI = "https://github.com/mysqludf/lib_mysqludf_sys/archive/master.zip"
+SRC_URI += "file://makefile.patch"
+
+inherit c make
+
+S = "${SRCDIR}/lib_mysqludf_sys-master"
+
+DEPENDS += "mysql-dev"
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
+CFLAGS += "-I${STAGE_DIR}/machine/usr/include -fPIC"
+export LIBDIR = "${D}/${libdir}"
+
+
+do_install[postfuncs] += "do_install_libinst"
+do_install_libinst() {
+	install -d ${D}${libdir}/plugin
+	install -m 0644 ${S}/*.so ${D}${libdir}/plugin/
+	install -d ${D}${datadir}/mysql/udf
+	install -m 0644 ${S}/*.sql ${D}${datadir}/mysql/udf
+}
+
+FILES_${PN} += "${datadir}/mysql/udf/*"
+FILES_${PN} += "${libdir}/plugin/*"
+
+

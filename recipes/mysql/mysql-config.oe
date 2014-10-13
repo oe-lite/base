@@ -1,0 +1,36 @@
+DESCRIPTION = "Configuration of the mysql user and an empty mysql database"
+LICENSE = "MIT"
+
+inherit passwd sysvinit
+
+SRC_URI += "file://passwd file://group"
+SRC_URI += "file://my.cnf"
+SRC_URI += "file://mysql.init"
+
+RECIPE_FLAGS += "mysql-id"
+DEFAULT_USE_mysql-id = "100"
+
+do_configure[postfuncs] += "do_configure_fix_mysql"
+do_configure_fix_mysql() {
+	sed -i 's:PLACEHOLDER_MYSQL_SHARE_DIR:${datadir}/mysql:g' ${SRCDIR}/passwd
+	sed -i 's:PLACEHOLDER_MYSQL_ID:${USE_mysql-id}:g' ${SRCDIR}/passwd
+	sed -i 's:PLACEHOLDER_MYSQL_ID:${USE_mysql-id}:g' ${SRCDIR}/group
+	sed -i 's:PLACEHOLDER_MYSQL_SHARE_DIR:${datadir}/mysql:g' ${SRCDIR}/my.cnf
+}
+
+RECIPE_FLAGS += "mysql_sysvinit_start mysql_sysvinit_stop"
+SYSVINIT_SCRIPT_mysql = "mysql"
+DEFAULT_USE_mysql_sysvinit_start = "78"
+DEFAULT_USE_mysql_sysvinit_stop = "78"
+
+do_install[postfuncs] =+ "do_install_extra_files"
+do_install_extra_files() {
+	sysvinit_install_script ${SRCDIR}/mysql.init mysql
+	install -d ${D}${sysconfdir}/mysql
+	install -d ${D}${sysconfdir}/mysql/conf.d
+	install -m 0755 ${SRCDIR}/my.cnf ${D}${sysconfdir}/mysql
+	install -d ${D}/var/lib/mysql
+}
+
+PACKAGES =  "${PN}"
+
