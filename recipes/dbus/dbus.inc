@@ -1,7 +1,7 @@
 # -*- mode:python; -*-
 DESCRIPTION = "A message bus system for inter-process communication"
 HOMEPAGE = "http://dbus.freedesktop.org"
-LICENSE = "GPLv2+ AFLv2.1"
+LICENSE = "GPL-2.0+,AFL-2.1"
 
 RECIPE_TYPES = "machine native sdk"
 COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
