@@ -1,5 +1,5 @@
 DESCRIPTION = "Hostname script for the base system."
-LICENSE = "GPL-2.0"
+LICENSE = "MIT"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
