@@ -1,5 +1,5 @@
 DESCRIPTION = "can-utils"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0, BSD-3-Clause"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
