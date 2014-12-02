@@ -1,1 +1,1 @@
-e59ef29e9dea494e8eef7274e6f2336e2281eee9  sysstat-10.0.5.tar.gz
+8386be30020864727033e45d8fa74c5c4af23be7  sysstat-10.0.5.tar.bz2
