@@ -1,6 +1,6 @@
 DESCRIPTION = "gnupg - GNU privacy guard"
 HOMEPAGE = "http://www.gnupg.org/"
-LICENSE = "GPLv2"
+LICENSE = "GPL-3.0+, LGPL-3.0+"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
