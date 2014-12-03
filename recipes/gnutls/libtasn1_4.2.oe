@@ -1,8 +1,8 @@
 require ${PN}.inc
 
-LICENSE = "GPLv3+ & LGPLv2.1+"
-LICENSE_${PN}-bin = "GPLv3+"
-LICENSE_${PN} = "LGPLv2.1+"
+LICENSE = "GPL-3.0+ & LGPL-2.1+"
+LICENSE_${PN}-bin = "GPL-3.0+"
+LICENSE_${PN} = "LGPL-2.1+"
 
 SRC_URI += "file://libtasn1_fix_for_automake_1.12.patch"
 
