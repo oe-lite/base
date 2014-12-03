@@ -1,7 +1,7 @@
 DESCRIPTION = "hdparm is a Linux shell utility for viewing \
 and manipulating various IDE drive and driver parameters."
 SECTION = "console/utils"
-LICENSE = "BSD"
+LICENSE = "BSD-style"
 LICENSE_${PN}-wiper = "GPL-2.0"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
