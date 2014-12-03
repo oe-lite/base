@@ -1,5 +1,9 @@
 DESCRIPTION = "A general purpose cryptographic library based on the code from GnuPG"
 HOMEPAGE = "http://directory.fsf.org/project/libgcrypt/"
+BUGTRACKER = "https://bugs.g10code.com/gnupg/index"
+
+# helper program gcryptrnd and getrandom are under GPL, rest LGPL
+LICENSE = "GPL-2.0+ & LGPL-2.1+"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
