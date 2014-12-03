@@ -1,7 +1,7 @@
 # -*- mode:python; -*-
 DESCRIPTION = "Network Packet Capture Library"
 HOMEPAGE = "http://www.tcpdump.org/"
-LICENSE = "BSD"
+LICENSE = "Modified BSD-3-Clause"
 
 RECIPE_TYPES = "machine"
 COMPATIBLE_HOST_ARCHS = ".*linux"
