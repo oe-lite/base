@@ -1,4 +1,4 @@
-LICENSE = "MIT"
+LICENSE = "MIT-style"
 
 require libxml2.inc
 
