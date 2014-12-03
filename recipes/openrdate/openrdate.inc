@@ -3,7 +3,7 @@ HOMEPAGE = "http://sourceforge.net/projects/openrdate/"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
-LICENSE = "BSD"
+LICENSE = "BSD-style"
 
 require conf/fetch/sourceforge.conf
 
