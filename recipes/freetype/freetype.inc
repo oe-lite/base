@@ -1,6 +1,6 @@
 # -*- mode:python; -*-
 DESCRIPTION = "Freetype font rendering library"
-LICENSE = "freetype GPLv2"
+LICENSE = "freetype | GPLv-2.0+"
 
 RECIPE_TYPES = "machine native"
 
