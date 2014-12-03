@@ -1,7 +1,7 @@
 DESCRIPTION = "A small utility for examining and tuning the settings \
 of your ethernet-based network interfaces."
 HOMEPAGE = "http://www.kernel.org/pub/software/network/ethtool/"
-LICENSE = "GPL"
+LICENSE = "GPL-2.0"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
