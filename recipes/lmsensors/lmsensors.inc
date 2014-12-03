@@ -5,6 +5,9 @@ COMPATIBLE_MACHINES = ".*"
 
 inherit make c auto-package-libs
 
+LICENSE = "GPL-2.0+"
+LICENSE_${PN}-libsensors = "LGPL-2.1+"
+
 DEPENDS = "kernel-dev native:flex native:bison libm"
 
 DEPENDS_${PN} += "libc libm"
