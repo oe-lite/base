@@ -8,7 +8,7 @@ LICENSE = "LGPL-2.1+ & GPL-2.0"
 
 inherit autotools pkgconfig c++
 
-DEPENDS = "libpopt binutils-dev kernel-dev"
+DEPENDS = "libpopt libbfd librt libz kernel-dev"
 
 FILES_${PN} = "${bindir} ${libdir}/${PN}/lib*${SOLIBS} ${datadir}/${PN}"
 FILES_${PN}-dev += "${libdir}/${PN}/lib*${SOLIBSDEV} ${libdir}/${PN}/lib*.la"
@@ -18,15 +18,22 @@ SRC_URI += "file://opstart.patch"
 
 EXTRA_OECONF = "--with-kernel=${HOST_SYSROOT}${kernelsrcdir} --without-x"
 
+#NOTE: package-qa fails since a specific version of libbfd is needed
+# but oprofile can be build with different versions
+
 inherit auto-package-utils
-AUTO_PACKAGE_UTILS = "opannotate oparchive op-check-perfevents \
+AUTO_PACKAGE_UTILS = "ocount opannotate oparchive operf op-check-perfevents \
 	opcontrol opgprof ophelp opimport opjitconv opreport oprofiled"
 AUTO_PACKAGE_UTILS_DEPENDS = "libc"
 AUTO_PACKAGE_UTILS_RDEPENDS = "${PN} libc"
+DEPENDS_${PN}-ocount += "libbfd libgcc-s libm libpopt librt libstdc++"
+RDEPENDS_${PN}-ocount += "libbfd libgcc-s libm libpopt librt libstdc++"
 DEPENDS_${PN}-opannotate += "libbfd libgcc-s libm libpopt libstdc++"
 RDEPENDS_${PN}-opannotate += "libbfd libgcc-s libm libpopt libstdc++"
 DEPENDS_${PN}-oparchive += "libbfd libgcc-s libm libpopt libstdc++"
 RDEPENDS_${PN}-oparchive += "libbfd libgcc-s libm libpopt libstdc++"
+DEPENDS_${PN}-operf += "libbfd libgcc-s libm libpopt libstdc++"
+RDEPENDS_${PN}-operf += "libbfd libgcc-s libm libpopt libstdc++"
 DEPENDS_${PN}-op-check-perfevents += "libpopt"
 RDEPENDS_${PN}-op-check-perfevents += "libpopt"
 DEPENDS_${PN}-opgprof += "libbfd libgcc-s libm libpopt libstdc++"
