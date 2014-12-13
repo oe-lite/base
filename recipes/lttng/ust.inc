@@ -17,7 +17,7 @@ DEFAULT_USE_ust_sysvinit_stop		= "0"
 
 DEFAULT_USE_ust_basedir			= "/tmp/ust"
 
-UST_LIB_DEPENDS = "liburcu libpthread libdl librt"
+UST_LIB_DEPENDS = "liburcu liburcu-bp libpthread libdl librt"
 
 # Recipe build dependencies
 DEPENDS =+ "${UST_LIB_DEPENDS}"
@@ -44,15 +44,21 @@ RDEPENDS_${PN} += "${PN}-ust-consumerd"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "ust ustctl ustconsumer ustfork ustinstr-malloc"
+AUTO_PACKAGE_LIBS_DEPENDS += "${UST_LIB_DEPENDS}"
+AUTO_PACKAGE_LIBS_RDEPENDS += "${UST_LIB_DEPENDS}"
 AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev_${PV}"
 AUTO_PACKAGE_LIBS_DEV_RDEPENDS = "${PN}-dev_${PV}"
+DEPENDS_${PN}-libustfork += "libust"
+RDEPENDS_${PN}-libustfork += "libust"
 FILES_${PN}-libust = "${libdir}/libust${SOLIBSDEV}"
 FILES_${PN}-libustfork = "${libdir}/libustfork${SOLIBSDEV}"
 FILES_${PN}-libustinstr-malloc = "${libdir}/libustinstr-malloc${SOLIBSDEV}"
 
 inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "ustctl ust-consumerd usttrace"
-RDEPENDS_${PN}-ustctl = "libustctl liburcu libpthread libc"
-RDEPENDS_${PN}-ust-consumerd = "libustconsumer liburcu libpthread libc"
+AUTO_PACKAGE_UTILS_DEPENDS = "${UST_LIB_DEPENDS}"
+DEPENDS_${PN}-ustctl += "libustctl"
+RDEPENDS_${PN}-ustctl += "libustctl"
+DEPENDS_${PN}-ust-consumerd += "libustconsumer"
+RDEPENDS_${PN}-ust-consumerd += "libustconsumer"
 
-DEPENDS_${PN}-libust += "${UST_LIB_DEPENDS}"
