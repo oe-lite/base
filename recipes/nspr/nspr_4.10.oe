@@ -19,8 +19,13 @@ DEPENDS:>machine += " native:nspr-nsinstall"
 
 EXTRA_OECONF:>machine = ""
 
+#Nspr build system defaults to a 32bit build
+# which breaks on non multilib hosts
+BIT=""
+BIT:HOST_CPU_x86_64 = "--enable-64bit"
 EXTRA_OECONF += " \
 	--enable-mdupdate \
+	${BIT} \
 "
 
 S = "${SRCDIR}/${PN}-${PV}/${PN}"
