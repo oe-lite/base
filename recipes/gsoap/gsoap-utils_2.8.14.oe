@@ -4,6 +4,9 @@ RECIPE_TYPES = "native"
 
 DEPENDS = ""
 
+#avoid build linking to ssl libs
+EXTRA_OECONF += "--disable-ssl "
+
 EXTRA_OEMAKE = ""
 
 do_install () {
