@@ -1,5 +1,5 @@
 DESCRIPTION = "tslib is a plugin-based flexible touchscreen access library."
-HOMEPAGE = "http://tslib.berlios.de/"
+HOMEPAGE = "http://sourceforge.net/projects/tslib.berlios/"
 AUTHOR = "Russell King w/ plugins by Chris Larson et. al."
 LICENSE = "LGPLv2"
 
@@ -7,7 +7,8 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit c++ autotools-autoreconf pkgconfig library
 
-SRC_URI = "http://download.berlios.de/${PN}/${P}.tar.bz2"
+require conf/fetch/sourceforge.conf
+SRC_URI = "${SOURCEFORGE_MIRROR}/project/${PN}.berlios/${P}.tar.bz2"
 
 SRC_URI_EXTRA = "file://ts.conf file://tslib.sh"
 SRC_URI += "${SRC_URI_EXTRA}"
