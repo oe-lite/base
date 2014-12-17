@@ -46,6 +46,7 @@ EXTRA_OECONF += "\
 --with-included-libunistring \
 --with-included-libcroco \
 --without-emacs --without-git --without-cvs \
+--without-libcurses-prefix --without-libncurses-prefix --without-libtermcap-prexix --without-libxcurses-prefix \
 --with-included-glib \
 "
 
