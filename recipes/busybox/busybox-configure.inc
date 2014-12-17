@@ -244,7 +244,7 @@ BUSYBOX_CROND_ARGS = "${USE_busybox_crond_args}"
 BUSYBOX_CROND_ARGS[expand] = "3"
 DO_CONFIGURE_PREFUNCS:>USE_busybox_crond_args += " do_configure_busybox_crond_args"
 do_configure_busybox_crond_args () {
-        sed -i -e 's#^ARGS=".*"#ARGS="${USE_busybox_crond_args}"#' ${SRCDIR}/busybox-crond
+        sed -i -e 's#^ARGS=".*"#ARGS="$USE_busybox_crond_args"#' ${SRCDIR}/busybox-crond
 }
 
 RECIPE_FLAGS += "busybox_watchdog \
