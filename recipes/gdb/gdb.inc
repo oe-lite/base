@@ -1,6 +1,6 @@
 SUMMARY = "GNU debugger"
 HOMEPAGE = "http://www.gnu.org/software/gdb/"
-LICENSE = "GPLv2 & GPLv3 & LGPLv2 & LGPLv3"
+LICENSE = "GPL-2.0+ & GPL-3.0+ & LGPL-2.1+ & LGPL-3.0+"
 
 RECIPE_TYPES = "machine canadian-cross"
 
