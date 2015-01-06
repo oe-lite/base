@@ -3,4 +3,6 @@ LICENSE = "GPL-2.0+"
 
 require mtd-utils.inc
 
+SRC_URI:>HOST_OS_darwin = " file://osx.patch"
+
 AUTO_PACKAGE_UTILS += "jffs2reader"
