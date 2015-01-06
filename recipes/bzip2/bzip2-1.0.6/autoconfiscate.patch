@@ -6,7 +6,7 @@ diff -urN files/autogen.sh ./autogen.sh
 +mv CHANGES NEWS
 +touch AUTHORS
 +touch ChangeLog
-+libtoolize --force
++$LIBTOOLIZE --force
 +aclocal
 +automake --add-missing --gnu
 +autoconf
