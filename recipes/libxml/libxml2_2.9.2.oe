@@ -1,0 +1,11 @@
+LICENSE = "MIT"
+
+require libxml2.inc
+
+LIBRARY_VERSION = "2"
+
+SRC_URI:>HOST_LIBC_mingw = " file://libtool-bindir.patch"
+export sharedlibdir
+
+PACKAGES += "${PN}-cmake"
+FILES_${PN}-cmake = "${libdir}/cmake"
