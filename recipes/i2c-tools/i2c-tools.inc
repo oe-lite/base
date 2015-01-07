@@ -27,5 +27,8 @@ AUTO_PACKAGE_UTILS = "ddcmon decode-dimms decode-edid decode-vaio \
 	eeprog eeprom eepromer i2cdetect i2cdump i2cget i2cset \
 	i2c-stub-from-dump"
 
+AUTO_PACKAGE_UTILS_DEPENDS += "libc"
+AUTO_PACKAGE_UTILS_RDEPENDS += "libc"
+
 # The i2c-tools package is used to pull in all provided util features
 RDEPENDS_${PN} = "${AUTO_PACKAGE_UTILS_PROVIDES}"
