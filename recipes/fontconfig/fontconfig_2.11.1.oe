@@ -1,0 +1,9 @@
+require ${PN}.inc
+LICENSE = "BSD"
+
+EXTRA_OECONF += "--without-xmldir"
+
+do_configure_extra_MAKEFILES = "fc-case/Makefile fc-glyphname/Makefile \
+	fc-lang/Makefile"
+
+LIBRARY_VERSION = "1"
