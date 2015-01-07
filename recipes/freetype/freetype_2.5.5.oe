@@ -1,0 +1,23 @@
+require freetype.inc
+
+RECIPE_FLAGS += "freetype_png"
+DEPENDS:>USE_freetype_png = " libpng"
+EXTRA_OECONF += "${EXTRA_OECONF_PNG}"
+EXTRA_OECONF_PNG = "--without-png"
+EXTRA_OECONF_PNG:USE_freetype_png = "--with-png"
+export LIBPNG_CFLAGS = " "
+export LIBPNG_DFLAGS = " "
+DEPENDS_${PN}:>USE_freetype_png = " libpng"
+RDEPENDS_${PN}:>USE_freetype_png = " libpng"
+
+# Up to version 2.5.0, headers were placed in
+# $(includedir)/freetype2/freetype, so we make a symlink to allow legacy code
+# to build while doing fx. '#include <freetype/ftoutln.h>' This symlink should
+# be removed when backwards compatibility with older freetype versions are
+# dropped, ie. in OE-lite/base 4.x.
+do_install[postfuncs] += "do_install_backwards_compatibility_symlink"
+do_install_backwards_compatibility_symlink() {
+	ln -s . ${D}${includedir}/freetype2/freetype
+}
+
+LIBRARY_VERSION = "6"
