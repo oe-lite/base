@@ -1,3 +1,0 @@
-require libpcap.inc
-
-LIBRARY_VERSION = "1"
