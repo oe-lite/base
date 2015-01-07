@@ -1,0 +1,16 @@
+require ${PN}.inc
+
+LICENSE = "Apache-2.0"
+
+SRC_URI += "file://configure_fixes.patch"
+
+SRC_URI += "file://apr_escape.patch"
+AUTOTOOLS_DISTCLEAN = "0"
+
+LIBRARY_NAME = "libapr-1"
+LIBRARY_VERSION = "0"
+
+# To be removed in next base master release
+PROVIDES_${PN} += "libapr"
+PROVIDES_${PN}-dev += "libapr-dev"
+PROVIDES_${PN}[qa] += "allow-missing-soname:libapr"

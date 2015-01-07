@@ -5,7 +5,7 @@ COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
 
 inherit autotools-autoreconf pkgconfig library binconfig
 
-SRC_URI = "http://apache.mirrors.spacedump.net/apr/apr-${PV}.tar.bz2"
+SRC_URI = "https://archive.apache.org/dist/apr/apr-${PV}.tar.bz2"
 
 DEPENDS += "${DEPENDS_LIBC} libpthread"
 DEPENDS_LIBC = "libdl"
