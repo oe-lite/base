@@ -1,6 +1,0 @@
-require libgcrypt.inc
-
-# helper program gcryptrnd and getrandom are under GPL, rest LGPL
-LICENSE = "GPLv2+ & LGPLv2.1+"
-
-SRC_URI += "file://add-pkgconfig-support.patch"
