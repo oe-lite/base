@@ -1,0 +1,1 @@
+64c3e44843a44ffc4533aa89e41516f42bfefa76  lzo-2.08.tar.gz
