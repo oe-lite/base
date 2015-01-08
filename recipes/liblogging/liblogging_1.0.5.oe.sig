@@ -1,0 +1,1 @@
+e202bf9412747ecd384678e8b3024a4646d45c2f  liblogging-1.0.5.tar.gz
