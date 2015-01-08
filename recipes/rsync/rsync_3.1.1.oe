@@ -1,0 +1,12 @@
+DESCRIPTION = "rsync is an open source utility that provides fast incremental file transfer. "
+LICENSE = "GPL"
+
+SRC_URI = "http://rsync.samba.org/ftp/rsync/src/${PN}-${PV}.tar.gz"
+
+RECIPE_TYPES = "machine"
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
+inherit autotools
+
+DEPENDS_${PN} = "libc libgcc"
+RDEPENDS_${PN} = "libc libgcc"
