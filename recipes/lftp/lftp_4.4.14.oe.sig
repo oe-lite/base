@@ -1,1 +1,0 @@
-f34cfc0351f8e63a066cf8014ac32a52f5159434  lftp-4.4.14.tar.bz2
