@@ -1,0 +1,115 @@
+--- gnutls-3.2.13/extra/gnutls_openssl.c.orig	2014-04-10 07:40:41.555442287 +0200
++++ gnutls-3.2.13/extra/gnutls_openssl.c	2014-04-10 07:43:49.223447580 +0200
+@@ -240,11 +240,16 @@
+ 	ssl->rfd = (gnutls_transport_ptr_t) - 1;
+ 	ssl->wfd = (gnutls_transport_ptr_t) - 1;
+ 
++        ssl->ssl_peek_buffer = NULL;
++        ssl->ssl_peek_buffer_size = ssl->ssl_peek_avail = 0;
++
+ 	return ssl;
+ }
+ 
+ void SSL_free(SSL * ssl)
+ {
++        if (ssl->ssl_peek_buffer)
++                free(ssl->ssl_peek_buffer);
+ 	gnutls_certificate_free_credentials(ssl->gnutls_cred);
+ 	gnutls_deinit(ssl->gnutls_state);
+ 	free(ssl);
+@@ -266,6 +271,7 @@
+ {
+ 	gnutls_transport_set_ptr(ssl->gnutls_state,
+ 				 GNUTLS_INT_TO_POINTER(fd));
++        ssl->rfd = ssl->wfd = fd;
+ 	return 1;
+ }
+ 
+@@ -291,6 +297,16 @@
+ 	return 1;
+ }
+ 
++int SSL_get_rfd(SSL *ssl)
++{
++        return ssl->rfd;
++}
++
++int SSL_get_wfd(SSL *ssl)
++{
++        return ssl->wfd;
++}
++
+ void SSL_set_bio(SSL * ssl, BIO * rbio, BIO * wbio)
+ {
+ 	gnutls_transport_set_ptr2(ssl->gnutls_state, rbio->fd, wbio->fd);
+@@ -303,6 +319,8 @@
+ 
+ int SSL_pending(SSL * ssl)
+ {
++        if (ssl->ssl_peek_avail)
++                return ssl->ssl_peek_avail;
+ 	return gnutls_record_check_pending(ssl->gnutls_state);
+ }
+ 
+@@ -437,10 +455,49 @@
+ 	return 1;
+ }
+ 
++int SSL_peek(SSL *ssl, void *buf, int len)
++{
++	if (len > ssl->ssl_peek_buffer_size) {
++		ssl->ssl_peek_buffer = realloc (ssl->ssl_peek_buffer, len);
++		ssl->ssl_peek_buffer_size = len;
++	}
++
++	if (ssl->ssl_peek_avail == 0) {
++
++		int ret;
++
++		ret = gnutls_record_recv(ssl->gnutls_state, ssl->ssl_peek_buffer, len);
++		ssl->last_error = ret;
++
++		if (ret > 0)
++			ssl->ssl_peek_avail += ret;
++	}
++
++	if (len > ssl->ssl_peek_avail)
++		len = ssl->ssl_peek_avail;
++
++	memcpy (buf, ssl->ssl_peek_buffer, len);
++
++	return len;
++}
++
+ int SSL_read(SSL * ssl, void *buf, int len)
+ {
+ 	int ret;
+ 
++	if (ssl->ssl_peek_avail) {
++		int n = (ssl->ssl_peek_avail > len) ? len : ssl->ssl_peek_avail;
++
++		memcpy (buf, ssl->ssl_peek_buffer, n);
++
++		if (ssl->ssl_peek_avail > n)
++			memmove (ssl->ssl_peek_buffer, ssl->ssl_peek_buffer + n, ssl->ssl_peek_avail - n);
++
++		ssl->ssl_peek_avail -= n;
++
++		return n;
++	}
++
+ 	ret = gnutls_record_recv(ssl->gnutls_state, buf, len);
+ 	ssl->last_error = ret;
+ 
+--- gnutls-3.2.13/extra/includes/gnutls/openssl.h.orig	2014-04-10 07:44:52.315449360 +0200
++++ gnutls-3.2.13/extra/includes/gnutls/openssl.h	2014-04-10 07:45:15.343450010 +0200
+@@ -154,6 +154,9 @@
+ 
+ 		gnutls_transport_ptr_t rfd;
+ 		gnutls_transport_ptr_t wfd;
++		char *ssl_peek_buffer;
++		size_t ssl_peek_buffer_size;
++		size_t ssl_peek_avail;
+ 	};
+ 
+ #define rbio gnutls_state
