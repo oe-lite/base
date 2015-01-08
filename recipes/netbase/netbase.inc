@@ -13,7 +13,8 @@ SYSVINIT_SCRIPT_netbase			= "networking"
 DEFAULT_USE_netbase_auto_if		= "lo"
 
 require conf/fetch/debian.conf
-SRC_URI = "${DEBIAN_MIRROR}/main/n/netbase/netbase_${PV}.tar.gz"
+NETBASE_TAR_EXT ?= ".tar.gz"
+SRC_URI = "${DEBIAN_MIRROR}/main/n/netbase/netbase_${PV}${NETBASE_TAR_EXT}"
 
 SRC_URI += "file://init"
 SRC_URI += "file://hosts"
