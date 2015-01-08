@@ -3,7 +3,7 @@ HOMEPAGE = "http://www.lm-sensors.org/"
 
 COMPATIBLE_MACHINES = ".*"
 
-inherit make c
+inherit make c auto-package-libs
 
 DEPENDS = "kernel-dev native:flex native:bison libm"
 
@@ -35,20 +35,18 @@ do_install() {
         mv ${D}/usr/man/ ${D}${mandir}
 }
 
-PACKAGES = "${PN}-dbg ${PN}-doc ${PN}-dev ${PN}-locale ${PN}-libsensors ${PN}"
 inherit auto-package-utils
-AUTO_PACKAGE_UTILS = "fancontrol isadump isaset pwmconfig sensors-detect sensors sensors-conf-convert"
+AUTO_PACKAGE_UTILS = "\
+	fancontrol isadump isaset pwmconfig sensors-detect \
+	sensors sensors-conf-convert"
 RDEPENDS_${PN} += "${AUTO_PACKAGE_UTILS_PACKAGES}"
 
-PROVIDES_${PN}-libsensors += "libsensors"
-PROVIDES_${PN}-libsensors[qa] += "is-library"
+AUTO_PACKAGE_LIBS = "sensors"
 DEPENDS_${PN}-libsensors += "libc libm"
 RDEPENDS_${PN}-libsensors += "libc libm"
 
 DEPENDS_${PN}-sensors += "libc libsensors"
 RDEPENDS_${PN}-sensors += "libc libsensors"
 
-DEPENDS_${PN}-dev += "libsensors"
-
 FILES_${PN}-dev += "${libdir}/libsensors.so"
-FILES_${PN}-libsensors += "${libdir}/libsensors.so.*"
+FILES_${PN} += "${sysconfdir}"
