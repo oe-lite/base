@@ -1,9 +1,0 @@
-require ${PN}.inc
-
-SRC_URI += "file://fix_missing_librt.patch"
-
-DEPENDS_${PN} += "librt"
-RDEPENDS_${PN} += "librt"
-
-LIBRARY_NAME = "libusb-1.0"
-LIBRARY_VERSION = "0"
