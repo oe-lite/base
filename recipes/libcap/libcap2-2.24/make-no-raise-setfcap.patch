@@ -1,0 +1,11 @@
+--- libcap-2.22/Make.Rules~orig	2011-09-29 19:40:17.001271936 +0200
++++ libcap-2.22/Make.Rules	2011-09-29 19:41:55.461271935 +0200
+@@ -78,7 +78,7 @@
+ #
+ #    make RAISE_SETFCAP=no install
+ #
+-RAISE_SETFCAP := $(LIBATTR)
++RAISE_SETFCAP ?= $(LIBATTR)
+ 
+ # Global cleanup stuff
+ 
