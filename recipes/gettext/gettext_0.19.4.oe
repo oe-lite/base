@@ -1,0 +1,5 @@
+LICENSE = "GPL-3.0+ & LGPL-2.1+"
+
+require gettext.inc
+
+export sharedlibdir
