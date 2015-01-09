@@ -80,8 +80,10 @@ inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "wpa_passphrase wpa_cli wpa_supplicant"
 AUTO_PACKAGE_UTILS_DEPENDS += "libc"
 AUTO_PACKAGE_UTILS_RDEPENDS += "libc"
-DEPENDS_${PN}-wpa-passphrase += "libgcrypt"
-RDEPENDS_${PN}-wpa-passphrase += "libgcrypt"
+DEPENDS_${PN}-wpa-passphrase += "libgcrypt librt"
+RDEPENDS_${PN}-wpa-passphrase += "libgcrypt librt"
+DEPENDS_${PN}-wpa-cli += "librt"
+RDEPENDS_${PN}-wpa-cli += "librt"
 DEPENDS_${PN}-wpa-supplicant += "${DEPENDS_LIBC} libgnutls libgcrypt libgpg-error libdbus-1 libnl-3 libnl-genl-3"
 RDEPENDS_${PN}-wpa-supplicant += "${DEPENDS_LIBC} libgnutls libgcrypt libgpg-error libdbus-1 libnl-3 libnl-genl-3"
 
