@@ -21,7 +21,8 @@ EXTRA_OECONF = "--with-apr=${HOST_SYSROOT}${bindir}/apr-1-config \
 do_configure[postfuncs] = "do_configure_apr"
 
 do_configure_apr() {
-	sed -e "s#apr_builddir=#apr_builddir=${HOST_SYSROOT}#" \
+	sed -e "s#\(--sysroot=\).* .*#\1${HOST_SYSROOT}#" \
+	    -e "s#apr_builddir=#apr_builddir=${HOST_SYSROOT}#" \
 	    -e "s#apr_builders=#apr_builders=${HOST_SYSROOT}#" \
 	    -e "s#top_builddir=#top_builddir=${HOST_SYSROOT}#" \
 	    -i ${B}/build/rules.mk
