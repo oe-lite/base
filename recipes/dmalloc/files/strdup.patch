@@ -1,0 +1,17 @@
+--- dmalloc-5.5.2/dmalloc.h.3.orig	2015-01-21 09:46:01.038926264 +0100
++++ dmalloc-5.5.2/dmalloc.h.3	2015-01-21 09:46:32.070927369 +0100
+@@ -405,6 +405,7 @@
+  *
+  * string -> String we are duplicating.
+  */
++#undef strdup
+ extern
+ char	*strdup(const char *string);
+ #endif /* ifndef DMALLOC_STRDUP_MACRO */
+@@ -480,5 +480,6 @@
+  *
+  * len -> Length of the string to duplicate.
+  */
++#undef strndup
+ extern
+ char	*strndup(const char *string, const DMALLOC_SIZE len);
