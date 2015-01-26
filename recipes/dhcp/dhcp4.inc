@@ -64,6 +64,8 @@ do_install_extra_files () {
 	mv ${D}${sbindir}/dhclient ${D}${base_sbindir}/
 	install -m 0755 ${S}/client/scripts/linux \
 		${D}${base_sbindir}/dhclient-script
+
+    install -d ${D}${localstatedir}/lib/dhcp
 }
 
 PACKAGES += "${PN}-server ${PN}-client ${PN}-relay ${PN}-omshell ${PN}-server-config ${PN}-client-config"
