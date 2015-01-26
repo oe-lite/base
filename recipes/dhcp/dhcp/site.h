@@ -19,3 +19,5 @@
 /* local */
 #define _PATH_DHCPD_CONF     "/etc/dhcp/dhcpd.conf"
 #define _PATH_DHCLIENT_CONF  "/etc/dhcp/dhclient.conf"
+
+#define DHCLIENT_DEFAULT_PREFIX_LEN 64
