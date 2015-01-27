@@ -14,7 +14,7 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit autotools-autoreconf pkgconfig
 
-SRC_URI = "ftp://ftp.isc.org/isc/dhcp/dhcp-${PV}.tar.gz"
+SRC_URI = "ftp://ftp.isc.org/isc/dhcp/${PV}/dhcp-${PV}.tar.gz"
 
 SRC_URI += "${SRC_URI_EXTRA}"
 SRC_URI_EXTRA += "file://site.h"
