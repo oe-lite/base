@@ -100,3 +100,8 @@ SYSVINIT_SCRIPT_dhcp-server ="dhcp-server"
 DEFAULT_USE_dhcp-server_sysvinit_start = "0"
 DEFAULT_USE_dhcp-server-sysvinit_stop = "0"
 
+RECIPE_FLAGS += "bind_openssl"
+DEFAULT_USE_bind_openssl = "1"
+EXTRA_OECONF += "${EXTRA_OECONF_OPENSSL}"
+EXTRA_OECONF_OPENSSL += ""
+EXTRA_OECONF_OPENSSL:USE_bind_openssl = 'LIBS="-lssl -lcrypto"'
