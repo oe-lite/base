@@ -10,6 +10,8 @@ inherit autotools pkgconfig c++
 
 DEPENDS = "libpopt libbfd librt libz kernel-dev"
 
+COMPATIBLE_MACHINES = ".*"
+
 FILES_${PN} = "${bindir} ${libdir}/${PN}/lib*${SOLIBS} ${datadir}/${PN}"
 FILES_${PN}-dev += "${libdir}/${PN}/lib*${SOLIBSDEV} ${libdir}/${PN}/lib*.la"
 FILES_${PN}-staticdev += "${libdir}/${PN}/lib*.a"
