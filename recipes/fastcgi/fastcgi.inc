@@ -1,6 +1,6 @@
 DESCRIPTION = "Fast CGI backend (web server to CGI handler) library"
 
-inherit autotools pkgconfig auto-package-utils auto-package-libs
+inherit autotools c++ pkgconfig auto-package-utils auto-package-libs
 
 SRC_URI = "http://www.fastcgi.com/dist/fcgi-${PV}.tar.gz"
 S= "${SRCDIR}/fcgi-${PV}"
