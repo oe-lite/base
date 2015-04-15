@@ -2,7 +2,7 @@ DESCRIPTION = "can-utils"
 LICENSE = "GPLv2"
 
 inherit autotools
-SRC_URI = "git://gitorious.org/linux-can/can-utils.git;${SRC_REV}"
+SRC_URI = "git://github.com/linux-can/can-utils.git;protocol=http;${SRC_REV}"
 SRC_REV = "commit=df769772076020ab437a989ca1ba46b534b756d3"
 S = "${SRCDIR}/can-utils"
 
