@@ -1,1 +1,3 @@
 require smartmontools.inc
+
+SRC_URI += "file://os-linux-stddef.patch"

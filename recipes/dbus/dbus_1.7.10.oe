@@ -3,6 +3,9 @@ include dbus.inc
 
 SRC_URI += "file://tmpdir.patch"
 
+inherit autotools-autoreconf
+SRC_URI += "file://dbus-configure-mq_getattr.patch"
+
 SRC_URI:>HOST_LIBC_mingw = " file://libtool-bindir.patch"
 export sharedlibdir
 

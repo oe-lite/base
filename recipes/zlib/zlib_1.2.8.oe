@@ -1,9 +1,0 @@
-require zlib.inc
-SRC_URI = "http://www.zlib.net/zlib-${PV}.tar.gz"
-
-# Parallel build bug seen in zlib-1.2.5, although seemingly very rare.
-# Produced on "Intel(R) Core(TM) i7 CPU Q 740 @ 1.73GHz" with -j16
-# gcc -shared -Wl,-soname,libz.so.1,--version-script,zlib.map -isystem /data/home/oe-lite/mikrofyn/tmp/work/native/x86_64-unknown-linux-gnu/zlib-native-1.2.5-r0/stage/native/include -O3 -U_FORTIFY_SOURCE -fPIC -D_LARGEFILE64_SOURCE=1 -o libz.so.1.2.5 adler32.lo compress.lo crc32.lo deflate.lo gzclose.lo gzlib.lo gzread.lo gzwrite.lo infback.lo inffast.lo inflate.lo inftrees.lo trees.lo uncompr.lo zutil.lo  -lc -Wl,-O1 -Wl,-z -Wl,origin -Wl,--hash-style=gnu -Wl,-rpath,/data/home/oe-lite/mikrofyn/tmp/work/native/x86_64-unknown-linux-gnu/zlib-native-1.2.5-r0/stage/native/lib -L/data/home/oe-lite/mikrofyn/tmp/work/native/x86_64-unknown-linux-gnu/zlib-native-1.2.5-r0/stage/native/lib -L. libz.a
-# gcc: libz.a: No such file or directory
-# make: *** [libz.so.1.2.5] Error 1
-PARALLEL_MAKE = ""

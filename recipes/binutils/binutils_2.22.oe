@@ -1,4 +1,0 @@
-# -*- mode:python; -*-
-LICENSE = "GPL-3.0"
-
-require binutils.inc
