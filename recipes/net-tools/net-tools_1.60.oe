@@ -13,7 +13,8 @@ inherit c make
 #
 #
 
-SRC_URI = "http://download.berlios.de/${PN}/${PN}-${PV}.tar.bz2"
+require conf/fetch/sourceforge.conf
+SRC_URI = "${SOURCEFORGE_MIRROR}/project/${PN}.berlios/${P}.tar.bz2"
 
 SRC_URI += "\
 	file://net-tools-${PV}-config.h \

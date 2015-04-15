@@ -215,6 +215,17 @@ DEFAULT_USE_busybox_hwclock_sysvinit_stop  = "15"
 RECIPE_FLAGS += "busybox_hwclock_splashutils_progress busybox_hwclock_splashutils_msg"
 SPLASHUTILS_INITSCRIPTS:>USE_busybox_hwclock += " busybox_hwclock"
 DEFAULT_USE_busybox_hwclock_splashutils_msg = "\"Starting Busybox HWclock\""
+RECIPE_FLAGS += "busybox_hwclock_utc"
+DO_CONFIGURE_PREFUNCS += " do_configure_busybox_hwclock_use_utc"
+do_configure_busybox_hwclock_use_utc () {
+	if [ -n "$USE_busybox_hwclock" ]; then
+		if [ -z "$USE_busybox_hwclock_utc" ]; then
+			sed -i -e 's/HWCLOCK_UTC//' ${SRCDIR}/busybox-hwclock
+		else
+			sed -i -e 's/HWCLOCK_UTC/\-\-utc/' ${SRCDIR}/busybox-hwclock
+		fi
+	fi
+}
 
 RECIPE_FLAGS += "busybox_hwclock_crontab"
 # USE flag: synchronize to rtc every hour using crond
@@ -239,6 +250,13 @@ do_configure_busybox_cron () {
 RECIPE_FLAGS += "busybox_crond_splashutils_progress busybox_crond_splashutils_msg"
 SPLASHUTILS_INITSCRIPTS:>USE_busybox_cron += " busybox_crond"
 DEFAULT_USE_busybox_crond_splashutils_msg = "\"Starting Busybox crond\""
+RECIPE_FLAGS += "busybox_crond_args"
+BUSYBOX_CROND_ARGS = "${USE_busybox_crond_args}"
+BUSYBOX_CROND_ARGS[expand] = "3"
+DO_CONFIGURE_PREFUNCS:>USE_busybox_crond_args += " do_configure_busybox_crond_args"
+do_configure_busybox_crond_args () {
+        sed -i -e 's#^ARGS=".*"#ARGS="$USE_busybox_crond_args"#' ${SRCDIR}/busybox-crond
+}
 
 RECIPE_FLAGS += "busybox_watchdog \
         busybox_watchdog_sysvinit_start busybox_watchdog_sysvinit_stop \
@@ -301,8 +319,8 @@ RECIPE_FLAGS += "busybox_udhcpd \
         busybox_udhcpd_sysvinit_start busybox_udhcpd_sysvinit_stop"
 # USE flag: enable udhcp server
 DEFAULT_USE_busybox_udhcpd = "0"
-DEFAULT_USE_busybox_udhcpd_sysvinit_start = "0"
-DEFAULT_USE_busybox_udhcpd_sysvinit_stop  = "0"
+DEFAULT_USE_busybox_udhcpd_sysvinit_start = "90"
+DEFAULT_USE_busybox_udhcpd_sysvinit_stop  = "90"
 BUSYBOX_PROVIDES:>USE_busybox_udhcpd = " busybox-udhcpd dhcp-server"
 DO_CONFIGURE_PREFUNCS:>USE_busybox_udhcpd = " do_configure_busybox_udhcpd"
 do_configure_busybox_udhcpd () {
@@ -386,8 +404,10 @@ CONFIG_FEATURE_TFTP_GET,\
 CONFIG_FEATURE_TFTP_PUT,\
 CONFIG_FEATURE_TFTP_BLOCKSIZE"
 # USE flag: tftp daemon root folder
-RECIPE_FLAGS += "busybox_tftpd_dir"
+RECIPE_FLAGS += "busybox_tftpd_dir busybox_tftpd_inetdcmd"
 DEFAULT_USE_busybox_tftpd_dir = "${servicedir}/tftp"
+DEFAULT_USE_busybox_tftpd_inetdcmd = "tftp dgram udp nowait root tftpd tftpd \
+					-c ${USE_busybox_tftpd_dir}"
 
 # USE flag: enable ftp server
 BUSYBOX_SIMPLE_USE_FLAGS += "ftpd:service/ftp:\

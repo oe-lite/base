@@ -1,16 +1,10 @@
 require openssl.inc
 
-SRC_URI += "file://engines-install-in-libdir-ssl.patch"
-SRC_URI += "file://mingw.patch"
-SRC_URI += "file://fix-pod-errors.patch"
-
 # Parallel make is simply broken for now.
 PARALLEL_MAKE = ""
 
 # Fixup to get openssl to respect ${LDFLAGS}.  From OpenEmbedded, thanks :-)
-SRC_URI += "file://oe-ldflags.patch file://shared-libs.patch"
 export OE_LDFLAGS="${LDFLAGS}"
-SRC_URI += "file://no-librpath-rpath.patch"
 
 SRC_URI += "file://wincrypt.patch"
 

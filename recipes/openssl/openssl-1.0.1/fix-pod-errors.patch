@@ -7,7 +7,7 @@ Author: Peter Michael Green <plugwash@raspbian.org>
 Bug-Debian: http://bugs.debian.org/723954
 Bug: http://rt.openssl.org/Ticket/Display.html?id=3146&user=guest&pass=guest
 
-Index: openssl-1.0.1g/doc/apps/smime.pod
+Index: openssl-1.0.1/doc/apps/smime.pod
 ===================================================================
 --- openssl-1.0.1g.orig/doc/apps/smime.pod	2014-04-07 23:21:03.985184135 +0200
 +++ openssl-1.0.1g/doc/apps/smime.pod	2014-04-07 23:21:03.985184135 +0200
@@ -274,10 +274,10 @@ Index: openssl-1.0.1g/doc/ssl/SSL_CTX_load_verify_locations.pod
  
  The operation succeeded.
  
-Index: openssl-1.0.1g/doc/ssl/SSL_set_fd.pod
+Index: openssl-1.0.1i/doc/ssl/SSL_set_fd.pod
 ===================================================================
---- openssl-1.0.1g.orig/doc/ssl/SSL_set_fd.pod	2014-04-07 23:21:03.985184135 +0200
-+++ openssl-1.0.1g/doc/ssl/SSL_set_fd.pod	2014-04-07 23:21:03.985184135 +0200
+--- openssl-1.0.1i.orig/doc/ssl/SSL_set_fd.pod	2014-04-07 23:21:03.985184135 +0200
++++ openssl-1.0.1i/doc/ssl/SSL_set_fd.pod	2014-04-07 23:21:03.985184135 +0200
 @@ -35,11 +35,11 @@
  
  =over 4

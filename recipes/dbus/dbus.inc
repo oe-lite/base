@@ -57,7 +57,7 @@ do_install_extra_files() {
 		install -m 0755 bus/.libs/dbus-daemon-launch-helper \
 			${D}${libexecdir}/
 	fi
-        install -m 0755 -d /var/run/dbus
+        install -m 0755 -d ${D}${localstatedir}/run/dbus
 }
 
 RDEPENDS_${PN}-x11 = "${PN}"

@@ -43,8 +43,8 @@ EXTRA_OEMAKE_INSTALL = "install-lib"
 
 inherit library
 LIBRARY_NAME = "libpci"
-DEPENDS_${PN} = "libc libz libresolv"
-RDEPENDS_${PN} = "libc libz libresolv"
+DEPENDS_${PN} += "libc libz libresolv"
+RDEPENDS_${PN} += "libc libz libresolv"
 
 inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "lspci setpci update-pciids"

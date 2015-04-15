@@ -1,0 +1,23 @@
+SUMMARY = "Power usage tool"
+DESCRIPTION = "Linux tool to diagnose issues with power consumption and power management."
+HOMEPAGE = "http://01.org/powertop/"
+BUGTRACKER = "http://bugzilla.lesswatts.org/"
+LICENSE = "GPL-2.0"
+
+POWERTOP_COMMON_DEPENDS = "libncurses libnl-3 libnl-genl-3 libnl-nf-3 \
+	libnl-nf-3 libnl-route-3 libpci libpthread libstdc++ libm"
+DEPENDS = "${POWERTOP_COMMON_DEPENDS} libpci-dev"
+
+inherit autotools-autoreconf gettext pkgconfig c++
+
+SRC_URI = "https://github.com/fenrus75/powertop/archive/v${PV}.tar.gz"
+
+# we do not want libncursesw if we can
+do_configure[prefuncs] += "do_configure_ncurses_fixup"
+do_configure_ncurses_fixup() {
+    # configure.ac checks for delwin() in "ncursesw ncurses" so let's drop first one
+    sed -i -e "s/ncursesw//g" ${S}/configure.ac
+}
+
+DEPENDS_${PN} += "${POWERTOP_COMMON_DEPENDS} libgcc-s libc"
+RDEPENDS_${PN} += "${POWERTOP_COMMON_DEPENDS} libgcc-s libc"

@@ -21,3 +21,10 @@ DEPENDS_${PN} = "libc libgcc"
 RDEPENDS_${PN} = "libc libgcc"
 DEPENDS_${PN}-curl = "libc libcurl"
 RDEPENDS_${PN}-curl = "libc libcurl"
+
+RECIPE_FLAGS += "curl_ssl"
+DEPENDS:>USE_curl_ssl = " libssl libcrypto"
+DEPENDS_${PN}:>USE_curl_ssl = " libssl libcrypto"
+RDEPENDS_${PN}:>USE_curl_ssl = " libssl libcrypto"
+
+EXTRA_OECONF:>USE_curl_ssl += " --with-ssl"

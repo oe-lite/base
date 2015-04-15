@@ -1,1 +1,3 @@
 require wget.inc
+
+SRC_URI += "file://remove-gets.patch"

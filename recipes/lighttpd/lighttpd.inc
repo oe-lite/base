@@ -81,10 +81,11 @@ DEPENDS_SSL:USE_lighttpd_ssl = "libssl libcrypto"
 DEPENDS += "${DEPENDS_SSL}"
 RDEPENDS_${PN} += "${DEPENDS_SSL}"
 
+RECIPE_FLAGS += "lighttpd_sysvinit_start"
 DEFAULT_USE_lighttpd_sysvinit_start = "70"
 DEFAULT_USE_lighttpd_sysvinit_stop = "0"
 SYSVINIT_SCRIPT_lighttpd = "lighttpd"
-do_install[postfuncs] += " do_install_lighttpd_extra"
+do_install[postfuncs] =+ " do_install_lighttpd_extra"
 do_install_lighttpd_extra() {
     install -d ${D}${sysconfdir}/init.d \
 	${D}/www/logs ${D}/www/pages/dav ${D}/www/var
@@ -93,7 +94,11 @@ do_install_lighttpd_extra() {
     install -m 0644 ${SRCDIR}/index.html ${D}/www/pages/
 }
 
-FILES_${PN} += "${sysconfdir} /www"
+PACKAGES =+ "${PN}-conf"
+FILES_${PN} += "${sysconfdir}"
 FILES_${PN} += "${libdir}/mod_*"
+FILES_${PN} += "/www"
+FILES_${PN}-conf = "${sysconfdir}/lighttpd.conf"
+FILES_${PN}-conf += "/www/pages/index.html"
 
 RDEPENDS_${PN} += "libc libgcc libdl libm"
