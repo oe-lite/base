@@ -4,6 +4,8 @@ HOMEPAGE = "http://01.org/powertop/"
 BUGTRACKER = "http://bugzilla.lesswatts.org/"
 LICENSE = "GPL-2.0"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 POWERTOP_COMMON_DEPENDS = "libncurses libnl-3 libnl-genl-3 libnl-nf-3 \
 	libnl-nf-3 libnl-route-3 libpci libpthread libstdc++ libm"
 DEPENDS = "${POWERTOP_COMMON_DEPENDS} libpci-dev"
