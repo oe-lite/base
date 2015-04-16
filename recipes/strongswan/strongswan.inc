@@ -3,6 +3,8 @@ Linux operating system."
 HOMEPAGE = "http://www.strongswan.org"
 LICENSE = "GPLv2"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 SRC_URI = "http://download.strongswan.org/strongswan-${PV}.tar.bz2"
 
 DEPENDS = "libdl libm libpthread librt libcrypto libssl libgmp"
