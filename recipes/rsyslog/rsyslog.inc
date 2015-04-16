@@ -2,6 +2,8 @@ DESCRIPTION = "Rsyslog is an enhanced multi-threaded syslogd"
 HOMEPAGE = "http://www.rsyslog.com/"
 LICENSE = "GPL-3.0"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 DEPENDS_LIBC = "libdl libpthread librt"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
 DEPENDS = "libz libuuid ${DEPENDS_LIBC}"
