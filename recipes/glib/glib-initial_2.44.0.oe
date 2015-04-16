@@ -1,0 +1,6 @@
+# -*- mode:python; -*-
+LICENSE = "LGPL-2.0+"
+
+require ${PN}.inc
+
+LIBRARY_VERSION = "0"

@@ -41,7 +41,9 @@ inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "girepository"
 AUTO_PACKAGE_LIBS_LIBDIR = "${libdir}:lib:-1.0"
 FILES_${PN}-libgirepository = "${libdir}/girepository-1.0"
-FILES_${PN}-libgirepository-dev = "${includedir}/${PN}-1.0 ${datadir}/gir-1.0"
+FILES_${PN}-libgirepository-dev = "${includedir}/${PN}-1.0 ${datadir}/gir-1.0 \
+	${datadir}/aclocal/introspection.m4 \
+	${libdir}/pkgconfig/gobject-introspection*.pc"
 DEPENDS_${PN}-libgirepository = "libffi libz \
 	libc libdl libpthread libresolv librt \
 	libgio libglib libgmodule libgobject libgthread"

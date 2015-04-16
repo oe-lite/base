@@ -14,6 +14,13 @@ EXTRA_OEMAKE_INSTALL += "instroot=${D}"
 
 EXTRA_OECONF:>HOST_KERNEL_darwin = "--disable-compat"
 
+EXTRA_OECONF += "--enable-elf64"
+
+EXTRA_OECONF:>machine		= ""
+EXTRA_OECONF:>sdk		= ""
+SRC_HOST_SITEFILES = "${SRCDIR}/config.host"
+SRC_URI:>HOST_BINFMT_elf = " file://config.host"
+
 FILES_${PN}-locale += "${libdir}/locale"
 
 # OE-lite/core now also provides libelf, so let's use that, except for darwin
