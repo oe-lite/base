@@ -4,8 +4,8 @@ inherit c make auto-package-utils
 
 SRC_URI = "http://www.lua.org/ftp/lua-${PV}.tar.gz"
 
-DEPENDS += "libm ${DEPENDS_LIBC} libreadline libncurses"
-DEPENDS_LIBC = "libdl"
+DEPENDS += "libm ${DEPENDS_LIBC} libreadline"
+DEPENDS_LIBC = "libdl libncurses"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
 
 do_compile () {
@@ -25,6 +25,6 @@ do_install_fix_mandir () {
 
 AUTO_PACKAGE_UTILS = "lua luac"
 
-RDEPENDS_LUA = "libm ${DEPENDS_LIBC} libreadline libncurses libc"
+RDEPENDS_LUA = "libm ${DEPENDS_LIBC} libreadline libc"
 RDEPENDS_${PN}-lua = "${RDEPENDS_LUA}"
 RDEPENDS_${PN}-luac = "${RDEPENDS_LUA}"
