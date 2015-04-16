@@ -1,3 +1,5 @@
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit cmake sysvinit
 
 RECIPE_FLAGS += "hiawatha_sysvinit_start hiawatha_sysvinit_stop"
