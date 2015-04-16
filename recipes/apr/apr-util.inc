@@ -5,9 +5,11 @@ inherit autotools make-vpath pkgconfig library binconfig c
 
 SRC_URI = "http://apache.mirrors.spacedump.net/apr/apr-util-${PV}.tar.bz2"
 
-DEPENDS += "libdl libapr-1 libexpat libcrypt"
-DEPENDS_${PN} += "libdl libapr-1 libexpat libcrypt"
-RDEPENDS_${PN} += "libdl libapr-1 libexpat libcrypt"
+DEPENDS += "libapr-1 libexpat ${DEPENDS_LIBC}"
+DEPENDS_LIBC = "libdl libcrypt"
+DEPENDS_LIBC:HOST_LIBC_mingw = ""
+DEPENDS_${PN} += "libapr-1 libexpat ${DEPENDS_LIBC}"
+RDEPENDS_${PN} += "libapr-1 libexpat ${DEPENDS_LIBC}"
 
 EXTRA_OECONF = "--with-apr=${HOST_SYSROOT}${bindir}/apr-1-config \
 	--with-expat=${HOST_SYSROOT}${libdir}/.. \
