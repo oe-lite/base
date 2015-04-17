@@ -1,6 +1,8 @@
 SUMMARY="Basic networking tools"
 LICENSE="GPL"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit c make
 
 #
