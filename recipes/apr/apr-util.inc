@@ -1,6 +1,8 @@
 DESCRIPTION = "software libraries providing a predictable and consistent interface to underlying platform-specific implementations"
 HOMEPAGE = "apr.apache.org"
 
+COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
+
 inherit autotools make-vpath pkgconfig library binconfig c
 
 SRC_URI = "http://apache.mirrors.spacedump.net/apr/apr-util-${PV}.tar.bz2"
