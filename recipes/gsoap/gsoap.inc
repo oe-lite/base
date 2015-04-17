@@ -3,6 +3,8 @@ for the development of SOAP Web Services and clients."
 SECTION = "devel"
 LICENSE = "GPL"
 
+COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
+
 require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/gsoap2/gSOAP/gsoap_${PV}.zip"
 
