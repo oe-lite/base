@@ -1,6 +1,8 @@
 DESCRIPTION = "Date and time setting software implementing RFC 868 and RFC 2030 protocols"
 HOMEPAGE = "http://sourceforge.net/projects/openrdate/"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 LICENSE = "BSD"
 
 require conf/fetch/sourceforge.conf
