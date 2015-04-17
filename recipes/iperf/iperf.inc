@@ -3,6 +3,8 @@ DESCRIPTION = "Iperf is a tool to measure maximum TCP bandwidth, allowing the tu
 HOMEPAGE = "http://iperf.fr/"
 LICENSE = "iperf"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit autotools c++
 require conf/fetch/sourceforge.conf
 
