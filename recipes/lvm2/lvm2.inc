@@ -1,5 +1,7 @@
 DESCRIPTION = "LVM2 refers to the userspace toolset that provide logical volume management facilities on linux"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 SRC_URI = "ftp://sources.redhat.com/pub/${PN}/LVM2.${PV}.tgz"
 S = "${SRCDIR}/LVM2.${PV}"
 
