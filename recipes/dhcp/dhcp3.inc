@@ -5,6 +5,7 @@ easier to administer devices."
 HOMEPAGE = "http://www.isc.org/"
 
 RECIPE_TYPES = "machine"
+COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit c make
 
