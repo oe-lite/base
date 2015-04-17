@@ -2,6 +2,8 @@ DESCRIPTION = "The Nettle package contains the low-level cryptographic \
 	library that is designed to fit easily in many contexts"
 LICENSE = "LGPL-2.1+"
 
+COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
+
 require conf/fetch/gnu.conf
 SRC_URI = "${GNU_MIRROR}/${PN}/${PN}-${PV}.tar.gz"
 
