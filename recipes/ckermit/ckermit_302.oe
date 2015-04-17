@@ -6,6 +6,8 @@ of communication tasks."
 LICENSE = "BSD-3-Clause*"
 HOMEPAGE = "http://www.columbia.edu/kermit/"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit c make
 
 SRC_URI = "ftp://kermit.columbia.edu/kermit/archives/cku${PV}.tar.gz"
