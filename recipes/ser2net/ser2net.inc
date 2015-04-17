@@ -2,6 +2,8 @@ DESCRIPTION = "Serial port to network proxy"
 HOMEPAGE = "http://sourceforge.net/projects/ser2net/"
 LICENSE = "GPLv2"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit autotools-autoreconf auto-package-utils
 
 require conf/fetch/sourceforge.conf
