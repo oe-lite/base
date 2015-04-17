@@ -3,6 +3,7 @@ HOMEPAGE = "http://sourcefrog.net/projects/natsort/"
 LICENSE = "Zlib"
 
 RECIPE_TYPES = "machine"
+COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
 
 inherit c
 
