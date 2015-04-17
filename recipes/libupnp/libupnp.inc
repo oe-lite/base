@@ -1,5 +1,7 @@
 inherit autotools library 
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 include conf/fetch/sourceforge.conf
 
 DEPENDS = "libpthread"
