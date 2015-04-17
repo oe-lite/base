@@ -4,6 +4,7 @@ HOMEPAGE = "http://dbus.freedesktop.org"
 LICENSE = "GPLv2+ AFLv2.1"
 
 RECIPE_TYPES = "machine native sdk"
+COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
 
 inherit autotools make-vpath pkgconfig gettext sysvinit passwd c++
 

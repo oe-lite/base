@@ -3,6 +3,7 @@ DESCRIPTION = "GLib bindings for the dbus message bus system"
 HOMEPAGE = "http://www.freedesktop.org/Software/dbus"
 
 RECIPE_TYPES = "machine native"
+COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
 
 inherit autotools-autoreconf pkgconfig gettext
 
