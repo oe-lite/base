@@ -2,6 +2,7 @@ DESCRIPTION = "802.1q vlan support program"
 HOMEPAGE = "http://www.candelatech.com/~greear/vlan.html"
 
 RECIPE_TYPES = "machine"
+COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit c make
 
