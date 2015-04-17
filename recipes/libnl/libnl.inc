@@ -1,6 +1,8 @@
 DESCRIPTION = "A library for applications dealing with netlink sockets"
 HOMEPAGE = "http://www.infradead.org/~tgr/libnl/"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 SRC_URI = "http://www.infradead.org/~tgr/${PN}/files/${PN}-${PV}.tar.gz"
 
 inherit autotools-autoreconf pkgconfig
