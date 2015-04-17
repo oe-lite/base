@@ -1,6 +1,8 @@
 DESCRIPTION = "Update daemon watching a dir for firmware updates"
 LICENSE = "GPLv2"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit sysvinit
 RECIPE_FLAGS += "dupdate_sysvinit_start dupdate_sysvinit_stop"
 DEFAULT_USE_dupdate_sysvinit_start = "60"
