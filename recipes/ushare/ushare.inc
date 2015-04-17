@@ -1,5 +1,7 @@
 inherit make c pkgconfig sysvinit
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 RECIPE_FLAGS = "ushare_sysvinit_start ushare_sysvinit_stop"
 DEFAULT_USE_ushare_sysvinit_start	= "70"
 DEFAULT_USE_ushare_sysvinit_stop	= "0"
