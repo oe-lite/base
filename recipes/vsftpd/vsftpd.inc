@@ -1,6 +1,8 @@
 # -*- mode:python; -*-
 DESCRIPTION = "Secure ftp daemon"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit c make sysvinit passwd
 
 SRC_URI = "https://security.appspot.com/downloads/vsftpd-${PV}.tar.gz"
