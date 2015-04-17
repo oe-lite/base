@@ -8,6 +8,7 @@ HOMEPAGE = "https://developer.mozilla.org/docs/NSPR"
 LICENSE = "MPL"
 
 RECIPE_TYPES = "machine native"
+COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
 
 SRC_URI = "ftp://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v4.10/src/${PN}-${PV}.tar.gz"
 SRC_URI:>machine += " file://nsinstall.patch"
