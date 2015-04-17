@@ -1,3 +1,5 @@
 require ${PN}.inc
 
+COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
+
 LIBRARY_VERSION = "10"
