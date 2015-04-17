@@ -1,5 +1,7 @@
 DESCRIPTION = "Set of i2c tools for linux"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit autotools auto-package-utils
 
 SRC_URI = "http://dl.lm-sensors.org/i2c-tools/releases/i2c-tools-${PV}.tar.bz2"
