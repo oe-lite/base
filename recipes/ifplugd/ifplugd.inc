@@ -5,6 +5,7 @@ DESCRIPTION = "ifplugd is a Linux daemon which will automatically configure \
 HOMEPAGE = "http://0pointer.de/lennart/projects/ifplugd/"
 
 RECIPE_TYPES = "machine"
+COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit c++ autotools pkgconfig sysvinit
 
