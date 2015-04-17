@@ -2,6 +2,8 @@ DESCRIPTION = "System Utilities Based on Sysfs"
 HOMEPAGE = "http://linux-diag.sourceforge.net/Sysfsutils.html"
 LICENSE = "GPLv2"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit autotools
 
 require conf/fetch/sourceforge.conf
