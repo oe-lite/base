@@ -2,6 +2,8 @@ DESCRIPTION = "The sysstat utilities are a collection of performance monitoring 
 HOMEPAGE = "http://pagesperso-orange.fr/sebastien.godard/"
 LICENSE = "GPL"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 SRC_URI = "http://pagesperso-orange.fr/sebastien.godard/sysstat-${PV}.tar.bz2"
 
 inherit autotools
