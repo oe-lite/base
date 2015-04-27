@@ -1,0 +1,51 @@
+Source: Written by Esben Haabendal <esben@haabendal.dk>
+Upstream: No
+Reason: Fix broken ifdef statements for PLATFORM_WINDOWS builds
+
+--- luacheia5-5.0.1a5/src/luacheia/luacheia_wrapper.c~orig	2015-04-17 14:45:25.470387867 +0200
++++ luacheia5-5.0.1a5/src/luacheia/luacheia_wrapper.c	2015-04-17 14:45:48.227924889 +0200
+@@ -368,7 +368,7 @@
+ {
+ 	int	result = 0;
+ 	char* luacheia5_default_path = NULL;
+-#if PLATFORM_WINDOWS
++#ifdef PLATFORM_WINDOWS
+ 	/* Construct a string containing this executable's path. */
+ 	char*	current_path = NULL;
+ 	const char* last_slash;
+@@ -393,7 +393,7 @@
+ 		char* path_separator = NULL;
+ 		const char*	existing_path = getenv(LUACHEIA5_PATH);
+ 
+-#if PLATFORM_WINDOWS
++#ifdef PLATFORM_WINDOWS
+ 		/* On Windows, use the directory this .exe is contained in, plus /luacheia5. */
+ 		luacheia5_default_path = concat(current_path, "/luacheia5");
+ 		path_separator = ";";
+@@ -458,7 +458,7 @@
+ 			/* Null interpreter, so use our platform-specific
+ 			 * defaults. */
+ 
+-#if PLATFORM_WINDOWS
++#ifdef PLATFORM_WINDOWS
+ 			lua_exe = concat(current_path, "/lua5.exe");
+ 			free_lua_exe = 1;
+ #else /* not PLATFORM_WINDOWS */
+@@ -470,7 +470,7 @@
+ 
+ 		/* Invoke the interpreter. */
+ 		{
+-#if PLATFORM_WINDOWS
++#ifdef PLATFORM_WINDOWS
+ 			windows_exec(lua_exe, argc, argv);
+ #else /* not PLATFORM_WINDOWS */
+ 			int result = execv(lua_exe, argv);
+@@ -488,7 +488,7 @@
+ 		}
+ 	}
+ 
+-#if PLATFORM_WINDOWS
++#ifdef PLATFORM_WINDOWS
+ 	/* Clean up */
+ 	free(current_path);
+ #endif /* PLATFORM_WINDOWS */

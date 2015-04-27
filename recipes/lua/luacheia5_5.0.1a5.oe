@@ -3,3 +3,6 @@ require luacheia5-common.inc
 RECIPE_TYPES = "machine"
 
 DEPENDS += "native:luacheia5-utils"
+
+SRC_URI:>HOST_LIBC_mingw = " file://ifdef-platform-windows.patch"
+SRC_URI:>HOST_LIBC_mingw += "file://struct-timezone.patch"
