@@ -8,8 +8,12 @@ DEPENDS += "libm ${DEPENDS_LIBC} libreadline"
 DEPENDS_LIBC = "libdl libncurses"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
 
+PLAT = "linux"
+PLAT:HOST_LIBC_mingw = "mingw"
+PLAT:HOST_KERNEL_darwin = "macosx"
+
 do_compile () {
-	cd src && make linux CC="${CC}" AR="${AR} rcu"
+	cd src && make ${PLAT} CC="${CC}" AR="${AR} rcu"
 }
 
 do_install[prefuncs] += "do_install_fix_dirs"
@@ -17,6 +21,7 @@ do_install_fix_dirs () {
 	sed -i -e 's/\(INSTALL_TOP= \).*/\1\$\{DESTDIR\}\/usr/' ${S}/Makefile
 }
 
+EXTRA_OEMAKE_INSTALL += "EXEEXT=${HOST_EXEEXT}"
 do_install[postfuncs] += "do_install_fix_mandir"
 do_install_fix_mandir () {
 	mkdir -p ${D}${mandir}
