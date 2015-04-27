@@ -4,6 +4,8 @@ LICENSE = "GPL-2.0 & GPL-2.0+ & BSD-3-Clause & GFDL-1.2"
 
 COMPATIBLE_HOST_ARCHS = "i.86-.*-.*linux- x86_64-.*-.*linux- powerpc-.*-.*linux- powerpc64-.*-.*linux- arm-cortexa.*-linux- mips-.*-.*linux-"
 
+SRC_URI += "http://www.linuxfromscratch.org/patches/blfs/svn/valgrind-3.10.1-glibc_2.21-1.patch"
+
 SRC_URI += "file://configure-arm-cortex.patch"
 
 # WARNING: we are hardcoding kernel version 3.0 with this patch, which is
