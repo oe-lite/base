@@ -4,6 +4,7 @@ DESCRIPTION = "Libcap is a library for getting and setting POSIX.1e \
 LICENSE = "GPL,BSD"
 
 RECIPE_TYPES = "machine"
+COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit make c library auto-package-utils
 

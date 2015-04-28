@@ -3,6 +3,7 @@ DESCRIPTION = "Commands for Manipulating Filesystem Extended Attributes"
 LICENSE = "GPLv2+"
 
 RECIPE_TYPES = "machine native"
+COMPATIBLE_HOST_ARCHS = ".*linux"
 
 require conf/fetch/savannah.conf
 SRC_URI = "${SAVANNAH_MIRROR}/attr/attr-${PV}.src.tar.gz"

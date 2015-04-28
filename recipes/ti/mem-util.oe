@@ -4,6 +4,8 @@ SECTION = "Memory util"
 
 LICENSE = "TI"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 SRC_URI += " file://mem_util.c"
 
 S= "${SRCDIR}"

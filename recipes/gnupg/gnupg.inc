@@ -2,6 +2,8 @@ DESCRIPTION = "gnupg - GNU privacy guard"
 HOMEPAGE = "http://www.gnupg.org/"
 LICENSE = "GPLv2"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit autotools gettext
 
 DEPENDS = "zlib bzip2"

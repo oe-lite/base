@@ -1,5 +1,7 @@
 DESCRIPTION = "A library for configuring and customizing font access."
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit autotools pkgconfig c++ library
 
 DEPENDS = "libexpat libfreetype libz"

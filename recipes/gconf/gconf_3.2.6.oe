@@ -2,6 +2,8 @@
 DESCRIPTION = "GNOME configuration database system"
 LICENSE = "LGPL"
 
+COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
+
 inherit autotools pkgconfig gettext
 
 DEPENDS = "libxml2 libm libdbus-1 libdbus-glib-1 \

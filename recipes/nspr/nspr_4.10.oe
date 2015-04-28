@@ -8,13 +8,16 @@ HOMEPAGE = "https://developer.mozilla.org/docs/NSPR"
 LICENSE = "MPL"
 
 RECIPE_TYPES = "machine native"
+COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
 
 SRC_URI = "ftp://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v4.10/src/${PN}-${PV}.tar.gz"
 SRC_URI:>machine += " file://nsinstall.patch"
 
 inherit pkgconfig autotools auto-package-libs auto-package-utils
 
-DEPENDS += "libstdc++ libdl librt libpthread "
+DEPENDS += "libstdc++ libpthread ${DEPENDS_LIBC}"
+DEPENDS_LIBC = "libdl librt"
+DEPENDS_LIBC:HOST_LIBC_mingw = ""
 DEPENDS:>machine += " native:nspr-nsinstall"
 
 EXTRA_OECONF:>machine = ""

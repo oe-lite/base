@@ -1,6 +1,8 @@
 DESCRIPTION = "A general purpose cryptographic library based on the code from GnuPG"
 HOMEPAGE = "http://directory.fsf.org/project/libgcrypt/"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit autotools-autoreconf binconfig pkgconfig library
 
 DEPENDS = "libgpg-error libcap"

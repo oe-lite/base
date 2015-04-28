@@ -2,6 +2,8 @@ DESCRIPTION = "A Modbus library for Linux, Mac OS X, FreeBSD, QNX and Win32"
 HOMEPAGE = "http://www.libmodbus.org/"
 LICENSE = "LGPL"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit autotools-autoreconf pkgconfig library
 
 LIBMODBUS_TEST_APPS="\

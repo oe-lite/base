@@ -2,6 +2,8 @@ DESCRIPTION = "GNU Transport Layer Security Library"
 HOMEPAGE = "http://www.gnu.org/software/gnutls/"
 BUGTRACKER = "https://savannah.gnu.org/support/?group=gnutls"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit c++ autotools make-vpath binconfig pkgconfig gettext
 
 DEPENDS += "libz liblzo2 ${DEPENDS_LIBTASN1} libgcrypt libreadline"

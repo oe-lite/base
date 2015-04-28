@@ -3,6 +3,8 @@ HOMEPAGE = "http://www.gnupg.org/related_software/libassuan/"
 BUGTRACKER = "https://bugs.g10code.com/gnupg/index"
 LICENSE = "GPLv3 & LGPLv2.1+"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit autotools-autoreconf pkgconfig library auto-package-utils binconfig
 
 DEPENDS = "libgpg-error"

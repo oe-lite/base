@@ -5,6 +5,8 @@ HOMEPAGE = "http://www.nano-editor.org/"
 
 inherit autotools-autoreconf gettext
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 DEPENDS = "libncurses"
 
 PV_MAJOR = "${@bb.data.getVar('PV',d,1).split('.')[0]}"

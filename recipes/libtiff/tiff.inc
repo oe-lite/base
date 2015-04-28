@@ -17,3 +17,6 @@ FILES_${PN}-staticdev = "${libdir}/libtiffxx.a"
 FILES_${PN}-dbg += "${libdir}/.debug/libtiffxx.so*"
 FILES_${PN}-utils = "${bindir}/*"
 FILES_${PN}-utils-dbg += "${bindir}/.debug/"
+
+LIBTOOL_HOST_SCRIPTS:HOST_LIBC_mingw = "libtool"
+LIBTOOL_HOST_SCRIPT_FIXUP:HOST_LIBC_mingw = "1"

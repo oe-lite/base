@@ -1,6 +1,7 @@
 DESCRIPTION = "allows users to run programs with the security privileges of another user"
 
 RECIPE_TYPES = "machine"
+COMPATIBLE_HOST_ARCHS = ".*linux"
 
 SRC_URI = "http://www.sudo.ws/sudo/dist/${PN}-${PV}.tar.gz"
 

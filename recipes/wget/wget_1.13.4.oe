@@ -1,3 +1,5 @@
 require wget.inc
 
+COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
+
 SRC_URI += "file://remove-gets.patch"

@@ -2,6 +2,8 @@ DESCRIPTION = "Tools for the Linux Standard Wireless Extension Subsystem"
 HOMEPAGE = "http://www.hpl.hp.com/personal/Jean_Tourrilhes/Linux/Tools.html"
 LICENSE = "GPLv2 & (LGPLv2.1 | MPL-1.1 | BSD)"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit make c
 
 DEPENDS += "libm"

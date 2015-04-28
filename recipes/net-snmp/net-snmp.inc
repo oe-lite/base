@@ -2,6 +2,8 @@ DESCRIPTION = "Various tools relating to the Simple Network Management Protocol"
 HOMEPAGE = "http://www.net-snmp.org/"
 LICENSE = "BSD"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 DEPENDS = "openssl"
 
 inherit autotools-autoreconf sysvinit siteinfo

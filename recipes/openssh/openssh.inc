@@ -11,6 +11,7 @@ HOMEPAGE = "http://www.openssh.org/"
 LICENSE = "BSD"
 
 RECIPE_TYPES = "machine"
+COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit autotools passwd
 

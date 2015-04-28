@@ -5,6 +5,7 @@ DESCRIPTION = "The Network Time Protocol (NTP) is used to synchronize the time \
 HOMEPAGE = "http://www.ntp.org/"
 
 RECIPE_TYPES = "machine"
+COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit autotools-autoreconf make-vpath
 

@@ -1,0 +1,14 @@
+Source: Written by Esben Haabendal <esben@haabendal.dk>
+Upstream: No
+Reason: Fix compatibility issue with mingw include headers
+
+--- luacheia5-5.0.1a5/src/modules/fs/gusu.h~orig	2015-04-17 14:50:39.222017087 +0200
++++ luacheia5-5.0.1a5/src/modules/fs/gusu.h	2015-04-17 14:50:53.033362098 +0200
+@@ -89,7 +89,6 @@
+  * emulated with _ftime()
+  * currently the time timezone is ignored
+  */
+-struct timezone {};
+ extern int gusu_gettimeofday(struct timeval *tv, struct timezone *tz);
+ 
+ /*

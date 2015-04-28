@@ -3,6 +3,9 @@ and manipulating various IDE drive and driver parameters."
 SECTION = "console/utils"
 LICENSE = "BSD"
 LICENSE_${PN}-wiper = "GPL-2.0"
+
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit c make
 
 PACKAGES =+ "${PN}-wiper"

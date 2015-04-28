@@ -4,6 +4,7 @@ HOMEPAGE = "http://www.tcpdump.org/"
 LICENSE = "BSD"
 
 RECIPE_TYPES = "machine"
+COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit autotools siteinfo library binconfig
 

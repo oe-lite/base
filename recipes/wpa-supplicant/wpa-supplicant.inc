@@ -3,6 +3,8 @@ HOMEPAGE = "http://hostap.epitest.fi/wpa_supplicant/"
 BUGTRACKER = "http://hostap.epitest.fi/bugz/"
 require wpa-supplicant-configure.inc
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit make c++ pkgconfig
 
 DEPENDS_LIBC = "libdl"

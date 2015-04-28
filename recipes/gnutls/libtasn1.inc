@@ -1,6 +1,8 @@
 DESCRIPTION = "Library for ASN.1 and DER manipulation"
 HOMEPAGE = "http://www.gnu.org/software/libtasn1/"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 require conf/fetch/gnu.conf
 
 SRC_URI = "${GNU_MIRROR}/libtasn1/libtasn1-${PV}.tar.gz"

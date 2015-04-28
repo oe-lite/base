@@ -4,6 +4,7 @@ HOMEPAGE = "http://www.tcpdump.org/"
 LICENSE = "BSD-4-Clause*"
 
 RECIPE_TYPES = "machine"
+COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit autotools
 

@@ -10,6 +10,7 @@ LICENSE = "ISC"
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
 RECIPE_TYPES = "machine"
+COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit autotools-autoreconf pkgconfig
 

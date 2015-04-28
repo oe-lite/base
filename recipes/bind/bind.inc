@@ -2,6 +2,8 @@ DESCRIPTION = "ISC Internet Domain Name Server"
 HOMEPAGE = "http://www.isc.org/sw/bind/"
 LICENSE = "ISC"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit autotools sysvinit
 
 DEPENDS = "libssl libcrypto ${DEPENDS_LIBC}"

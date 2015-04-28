@@ -2,6 +2,8 @@ SUMMARY = "GNU Portable Threads library"
 HOMEPAGE = "http://www.gnu.org/software/pth/"
 LICENSE = "GPLv2+"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit autotools pkgconfig library auto-package-utils binconfig
 
 require conf/fetch/gnu.conf

@@ -3,6 +3,7 @@ HOMEPAGE = "http://www.libssh2.org/"
 LICENSE = "BSD-3-Clause"
 
 RECIPE_TYPES = "machine"
+COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit library autotools
 

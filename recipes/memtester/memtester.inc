@@ -1,5 +1,7 @@
 DESCRIPTION = "Utility to test for faulty memory subsystem"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit c make
 
 SRC_URI = "http://pyropus.ca/software/memtester/old-versions/memtester-${PV}.tar.gz"
