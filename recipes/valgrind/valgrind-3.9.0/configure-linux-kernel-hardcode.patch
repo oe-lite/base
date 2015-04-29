@@ -1,0 +1,26 @@
+Source: Written by Esben Haabendal <esben@haabendal.dk>
+Upstream: No
+Reason: Hardcode (Linux) kernel version to avoid contamination from host OS
+
+--- valgrind-3.9.0/configure~orig	2015-04-28 08:32:29.556205696 +0200
++++ valgrind-3.9.0/configure	2015-04-28 08:34:45.977481641 +0200
+@@ -5502,7 +5502,7 @@
+         { $as_echo "$as_me:${as_lineno-$LINENO}: checking for the kernel version" >&5
+ $as_echo_n "checking for the kernel version... " >&6; }
+ 
+-        kernel=`uname -r`
++        kernel=3.0
+ 
+         case "${kernel}" in
+              2.6.*|3.*)
+--- valgrind-3.9.0/configure.ac~orig	2015-04-28 08:32:34.835337361 +0200
++++ valgrind-3.9.0/configure.ac	2015-04-28 08:34:50.472585481 +0200
+@@ -273,7 +273,7 @@
+         # Ok, this is linux. Check the kernel version
+         AC_MSG_CHECKING([for the kernel version])
+ 
+-        kernel=`uname -r`
++        kernel=3.0
+ 
+         case "${kernel}" in
+              2.6.*|3.*) 
