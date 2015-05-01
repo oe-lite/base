@@ -9,7 +9,7 @@ DEPENDS += "libc libdl librt libpthread libuuid libpopt libuuid \
 DEPENDS_LTTNG ?= "liburcu-2 liblttng-ust-0 liblttng-ust-ctl-2 \
 	liblttng-ust-fork-0 liblttng-ust-libc-wrapper-0"
 
-inherit autotools-autoreconf make pkgconfig auto-package-libs
+inherit autotools-autoreconf make pkgconfig
 
 SRC_URI = "http://lttng.org/files/lttng-tools/lttng-tools-${PV}.tar.bz2"
 
@@ -29,6 +29,7 @@ DEPENDS_${PN}-liblttng-ctl = "libc librt libpthread libuuid libpopt \
 RDEPENDS_${PN}-liblttng-ctl = "libc librt libpthread libuuid libpopt \
 	liburcu-common liburcu"
 
+inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "lttng lttng-consumerd lttng-sessiond lttng-relayd"
 AUTO_PACKAGE_UTILS_DEPENDS += "libc libuuid liburcu liburcu-common"
 AUTO_PACKAGE_UTILS_RDEPENDS += "liburcu libuuid liburcu-common"

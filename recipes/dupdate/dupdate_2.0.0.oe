@@ -16,3 +16,7 @@ do_configure_unpack_dir () {
 			${S}/src/dupdate.sh
 	fi
 }
+
+PACKAGES =+ "${PN}-simple-cmp"
+FILES_${PN}-simple-cmp = "${bindir}/simple_cmp"
+RDEPENDS_${PN} += "${PN}-simple-cmp"

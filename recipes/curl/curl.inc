@@ -13,8 +13,36 @@ SRC_URI = "http://curl.haxx.se/download/${PN}-${PV}.tar.gz"
 
 RECIPE_TYPES = "machine native"
 
-inherit autotools library pkgconfig auto-package-utils
+inherit autotools pkgconfig binconfig library auto-package-utils largefile
 
+EXTRA_OECONF = "--disable-rtsp --disable-telnet --disable-pop3 --disable-imap --disable-smtp --disable-gopher --disable-sspi --disable-tls-srp --disable-dict"
+
+RECIPE_FLAGS += "curl_ipv6"
+EXTRA_OECONF += "${EXTRA_OECONF_IPV6}"
+EXTRA_OECONF_IPV6 = "--disable-ipv6"
+EXTRA_OECONF_IPV6:USE_curl_ipv6 = "--enable-ipv6"
+
+RECIPE_FLAGS += "curl_ssl"
+DEPENDS:>USE_curl_ssl = " libssl libcrypto"
+EXTRA_OECONF:>USE_curl_ssl = " --with-ssl"
+
+RECIPE_FLAGS += "curl_ldap"
+DEPENDS:>USE_curl_ldap = " libldap"
+EXTRA_OECONF += "${EXTRA_OECONF_LDAP}"
+EXTRA_OECONF_LDAP = "--disable-ldap"
+EXTRA_OECONF_LDAP:USE_curl_ldap = "--enable-ldap"
+
+RECIPE_FLAGS += "curl_idn"
+DEPENDS:>USE_curl_idn = " libidn"
+EXTRA_OECONF += "${EXTRA_OECONF_IDN}"
+EXTRA_OECONF_IDN = "--disable-idn"
+EXTRA_OECONF_IDN:USE_curl_idn = "--enable-idn"
+
+RECIPE_FLAGS += "curl_ssh"
+DEPENDS:>USE_curl_ssh = " libssh2"
+EXTRA_OECONF += "${EXTRA_OECONF_SSH}"
+EXTRA_OECONF_SSH = "--disable-ssh"
+EXTRA_OECONF_IDN:USE_curl_idn = "--with-libssh2"
 AUTO_PACKAGE_UTILS = "curl curl-config"
 
 DEPENDS_${PN} = "libc libgcc"

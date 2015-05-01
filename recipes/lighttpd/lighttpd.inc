@@ -101,4 +101,8 @@ FILES_${PN} += "/www"
 FILES_${PN}-conf = "${sysconfdir}/lighttpd.conf"
 FILES_${PN}-conf += "/www/pages/index.html"
 
+PACKAGES =+ "${PN}-config"
+FILES_${PN}-config = "${sysconfdir}/lighttpd.conf"
+RDEPENDS_${PN} += "${PN}-config"
+
 RDEPENDS_${PN} += "libc libgcc libdl libm"
