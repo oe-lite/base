@@ -3,3 +3,5 @@ require wget.inc
 COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
 
 SRC_URI += "file://remove-gets.patch"
+SRC_URI += "file://0001-Fix-the-check-for-lex-program.patch"
+SRC_URI += "file://0001-Fix-itemx-issue-when-building-doc.patch"
