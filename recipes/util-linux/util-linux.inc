@@ -6,7 +6,7 @@ RECIPE_TYPES = "machine native sdk"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
-inherit autotools autotools-autoreconf
+inherit autotools autotools-autoreconf gettext
 
 require conf/fetch/kernelorg.conf
 MA = "${@bb.data.getVar('PV', d, 1).split('.')[0]}"
