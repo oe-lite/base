@@ -1,0 +1,110 @@
+#!/bin/sh -e
+
+DAEMON=/usr/sbin/openvpn
+ETCDIR=/etc/openvpn
+PIDDIR=/var/run
+
+test -x $DAEMON || exit 1
+test -d $ETCDIR || exit 1
+
+start_vpn () {
+    local cfgfile name pidfile
+    cfgfile="$1"
+    name="${cfgfile%%.conf}"
+    pidfile="$PIDDIR/openvpn.$name.pid"
+    modprobe tun >/dev/null 2>&1 || true
+    echo -n " "
+    $DAEMON --daemon --writepid "$pidfile" \
+	    --config "$ETCDIR/$cfgfile" --cd $ETCDIR \
+	|| echo -n "ERROR:"
+    echo -n "$name"
+}
+
+stop_vpn () {
+    local pidfile name pid
+    pidfile="$1"
+    name=`basename $pidfile | cut -c9-`
+    name=${name%%.pid}
+    pid=`cat "$pidfile"`
+    kill $pid || true
+    rm $pidfile
+    echo -n " $name"
+}
+
+reload_vpn () {
+    local pidfile name pid
+    pidfile="$1"
+    name=`basename $pidfile | cut -c9-`
+    name=${name%%.pid}
+    pid=`cat "$pidfile"`
+    kill -HUP $pid || true
+    echo -n " $name"
+}
+
+case "$1" in
+
+    start)
+	echo -n "Starting OpenVPN:"
+	if test -z "$2" ; then
+	    for cfgfile in `cd $ETCDIR;ls *.conf 2>/dev/null` ; do
+		start_vpn "$cfgfile"
+	    done
+	else
+	    name="$2"
+	    if test -e "$ETCDIR/$name.conf" ; then
+		start_vpn "$name.conf"
+	    else
+		echo -n " unknown VPN: $name"
+	    fi
+	fi
+	echo "."
+	;;
+
+    stop)
+	echo -n "Stopping OpenVPN:"
+	if test -z "$2" ; then
+	    for pidfile in `ls $PIDDIR/openvpn.*.pid 2>/dev/null` ; do
+		stop_vpn "$pidfile"
+	    done
+	else
+	    name="$2"
+	    pidfile="$PIDDIR/openvpn.$name.pid"
+	    if test -e "$pidfile" ; then
+		stop_vpn "$pidfile"
+	    else
+		echo -n " unknown VPN: $name"
+	    fi
+	fi
+	echo "."
+	;;
+
+    reload)
+	echo -n "Reloading OpenVPN:"
+	if test -z "$2" ; then
+	    for pidfile in `ls $PIDDIR/openvpn.*.pid 2>/dev/null` ; do
+		reload_vpn "$pidfile"
+	    done
+	else
+	    name="$2"
+	    pidfile="$PIDDIR/openvpn.$name.pid"
+	    if test -e "$pidfile" ; then
+		reload_vpn "$pidfile"
+	    else
+		echo -n " unknown VPN: $name"
+	    fi
+	fi
+	echo "."
+	;;
+
+    restart)
+	$0 stop "$2"
+	sleep 1
+	$0 start "$2"
+	;;
+
+    *)
+	echo "Usage: $0 {start|stop|reload|restart)" >&2
+	exit 1
+	;;
+
+esac
