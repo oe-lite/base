@@ -48,6 +48,16 @@ EXTRA_OECONF = "--disable-introspection \
 
 AVAHI_GTK ?= "--disable-gtk --disable-gtk3"
 
+RECIPE_FLAGS += "avahi-daemon_sysvinit_start avahi-daemon_sysvinit_stop"
+SYSVINIT_SCRIPT_avahi-daemon = "avahi-daemon"
+DEFAULT_USE_avahi-daemon_sysvinit_start = "26"
+DEFAULT_USE_avahi-daemon_sysvinit_stop = "26"
+
+do_install[postfuncs] =+ "do_install_extra_files"
+do_install_extra_files() {
+        sysvinit_install_script ${SRCDIR}/avahi-${PV}/initscript/debian/avahi-daemon avahi-daemon
+}
+
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "avahi-common avahi-core avahi-client avahi-glib avahi-gobject"
 
