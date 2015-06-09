@@ -1,0 +1,40 @@
+#!/bin/sh
+
+if [ -r /usr/sbin/mdnsd ]; then
+    DAEMON=/usr/sbin/mdnsd
+fi
+
+test -r $DAEMON || exit 0
+
+killmdnsd() {
+	kill -TERM `cat /var/run/mdnsd.pid`
+}
+START=
+STOP=killmdnsd
+
+case "$1" in
+    start)
+	echo -n "Starting Apple Darwin Multicast DNS / DNS Service Discovery daemon:"
+	echo -n " mdnsd"
+        $START $DAEMON
+	echo "."
+	;;
+    stop)
+        echo -n "Stopping Apple Darwin Multicast DNS / DNS Service Discovery daemon:"
+        echo -n " mdnsd" ; $STOP $DAEMON
+        echo "."
+	;;
+    reload|restart|force-reload)
+	echo -n "Restarting Apple Darwin Multicast DNS / DNS Service Discovery daemon:"
+	$STOP $DAEMON
+	sleep 1
+	$START $DAEMON
+	echo -n " mdnsd"
+	;;
+    *)
+	echo "Usage: /etc/init.d/mDNS {start|stop|reload|restart}"
+	exit 1
+	;;
+esac
+
+exit 0

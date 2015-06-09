@@ -4,11 +4,22 @@ HOMEPAGE = "http://developer.apple.com/networking/bonjour/"
 #RPROVIDES_${PN} += "libdns_sd.so"
 RECIPE_TYPES = "machine"
 
-inherit c make
+inherit c make sysvinit
 
 SRC_URI = "http://opensource.apple.com/tarballs/mDNSResponder/mDNSResponder-${PV}.tar.gz \
            file://build.patch \
+	   file://mDNS \
 "
+
+RECIPE_FLAGS += "mdns_sysvinit_start mdns_sysvinit_stop"
+SYSVINIT_SCRIPT_mdns = "mDNS"
+DEFAULT_USE_mdns_sysvinit_start = "26"
+DEFAULT_USE_mdns_sysvinit_stop = "26"
+
+do_install[postfuncs] =+ "do_install_extra_files"
+do_install_extra_files() {
+        sysvinit_install_script ${SRCDIR}/mDNS mDNS
+}
 
 PARALLEL_MAKE = ""
 
