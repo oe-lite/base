@@ -22,3 +22,6 @@ do_install_openvpn_extra () {
 }
 
 RDEPENDS_${PN} = "libc libgcc ${DEPENDS}"
+
+FILES_${PN}-dev += "${libdir}/openvpn/plugins/*.la"
+FILES_${PN}-dbg += "${libdir}/openvpn/plugins/.debug"
