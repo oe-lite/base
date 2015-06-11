@@ -11,7 +11,7 @@ LICENSE = "GPL MIT Artistic"
 
 inherit c make auto-package-utils auto-package-libs
 
-DEPENDS = "${DEPENDS_LIBC} libxml2 libjpeg libpng12 tiff-dev"
+DEPENDS = "${DEPENDS_LIBC} libxml2 libjpeg libpng12 tiff-dev native:flex"
 DEPENDS_LIBC = "libdl"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
 
