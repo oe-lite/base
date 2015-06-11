@@ -5,7 +5,7 @@ LICENSE = "GPLv2.1+"
 RECIPE_TYPES = "machine"
 
 DEPENDS += "libc libdl librt libpthread libuuid libpopt libuuid \
-	${DEPENDS_LTTNG}"
+	${DEPENDS_LTTNG} native:bison"
 DEPENDS_LTTNG ?= "liburcu-2 liblttng-ust-0 liblttng-ust-ctl-2 \
 	liblttng-ust-fork-0 liblttng-ust-libc-wrapper-0"
 
