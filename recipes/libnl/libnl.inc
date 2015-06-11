@@ -7,7 +7,7 @@ SRC_URI = "http://www.infradead.org/~tgr/${PN}/files/${PN}-${PV}.tar.gz"
 
 inherit autotools-autoreconf pkgconfig
 
-DEPENDS += "libm ${DEPENDS_LIBC}"
+DEPENDS += "libm ${DEPENDS_LIBC} native:bison native:flex"
 DEPENDS_LIBC = "libpthread libdl"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
 
