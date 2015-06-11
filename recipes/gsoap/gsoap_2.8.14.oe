@@ -1,6 +1,6 @@
 require gsoap.inc
 
-DEPENDS = "native:gsoap-utils libstdc++ libssl libcrypto libz ${DEPENDS_LIBC}"
+DEPENDS = "native:gsoap-utils native:bison native:flex libstdc++ libssl libcrypto libz ${DEPENDS_LIBC}"
 DEPENDS_LIBC = "libdl"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
 

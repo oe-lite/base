@@ -2,7 +2,7 @@ require gsoap.inc
 
 RECIPE_TYPES = "native"
 
-DEPENDS = ""
+DEPENDS = "native:flex native:bison"
 
 #avoid build linking to ssl libs
 EXTRA_OECONF += "--disable-ssl "
