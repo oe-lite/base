@@ -7,7 +7,7 @@ inherit autotools-autoreconf gettext
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
-DEPENDS = "libncurses"
+DEPENDS = "libncurses native:texinfo"
 
 PV_MAJOR = "${@bb.data.getVar('PV',d,1).split('.')[0]}"
 PV_MINOR = "${@bb.data.getVar('PV',d,1).split('.')[1]}"
