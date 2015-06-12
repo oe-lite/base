@@ -1,0 +1,16 @@
+require ${PN}.inc
+
+LICENSE = "GPL-2.0 & GPL-2.0+ & BSD-3-Clause & GFDL-1.2"
+
+COMPATIBLE_HOST_ARCHS = "i.86-.*-.*linux- x86_64-.*-.*linux- powerpc-.*-.*linux- powerpc64-.*-.*linux- arm-cortexa.*-linux- mips-.*-.*linux-"
+
+SRC_URI += "file://configure-arm-cortex.patch"
+
+# WARNING: we are hardcoding kernel version 3.0 with this patch, which is
+# currently safe for anything 2.6 or newer, but this needs to be revisited
+# when upgrading to newer valgrind version (see patched section in
+# configure.ac)
+SRC_URI += "file://configure-linux-kernel-hardcode.patch"
+
+AUTO_PACKAGE_UTILS = "callgrind_annotate callgrind_control cg_annotate \
+                      cg_diff cg_merge ms_print valgrind-listener "
