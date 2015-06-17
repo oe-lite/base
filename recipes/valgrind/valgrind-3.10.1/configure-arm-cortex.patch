@@ -1,0 +1,46 @@
+--- valgrind-3.9.0/configure.ac.orig	2014-02-25 14:52:54.215669523 +0100
++++ valgrind-3.9.0/configure.ac	2014-02-25 14:51:41.447671673 +0100
+@@ -195,6 +195,19 @@
+ 	ARCH_MAX="arm"
+ 	;;
+ 
++     arm)
++        case "${host_vendor}" in
++           cortexa*)
++              AC_MSG_RESULT([ok (${host_cpu}-${host_vendor})])
++              ARCH_MAX="arm"
++              ;;
++           *)
++              AC_MSG_RESULT([no (${host_cpu}-${host_vendor})])
++              AC_MSG_ERROR([Unsupported host architecture. Sorry])
++              ;;
++        esac
++        ;;
++
+      mips)
+         AC_MSG_RESULT([ok (${host_cpu})])
+         ARCH_MAX="mips32"
+--- valgrind-3.10.1/configure~orig    2015-04-27 13:18:10.889444444 +0000
++++ valgrind-3.10.1/configure 2015-04-27 13:17:50.482895342 +0000
+@@ -5444,6 +5461,21 @@
+        ARCH_MAX="arm64"
+        ;;
+ 
++     arm)
++        case "${host_vendor}" in
++           cortexa*)
++              { $as_echo "$as_me:${as_lineno-$LINENO}: result: ok (${host_cpu}-${host_vendor})" >&5
++$as_echo "ok (${host_cpu}-${host_vendor})" >&6; }
++              ARCH_MAX="arm"
++              ;;
++           *)
++              { $as_echo "$as_me:${as_lineno-$LINENO}: result: no (${host_cpu}-${host_vendor})" >&5
++$as_echo "no (${host_cpu}-${host_vendor})" >&6; }
++              as_fn_error $? "Unsupported host architecture. Sorry" "$LINENO" 5
++              ;;
++        esac
++        ;;
++
+      mips)
+         { $as_echo "$as_me:${as_lineno-$LINENO}: result: ok (${host_cpu})" >&5
+ $as_echo "ok (${host_cpu})" >&6; }
