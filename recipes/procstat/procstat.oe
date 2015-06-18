@@ -1,0 +1,21 @@
+DESCRIPTION = "Displays linux /proc/pid/stat in human-readable format"
+HOMEPAGE = "http://brokestream.com/procstat.html"
+LICENSE = "Zlib"
+
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
+SRC_URI = "http://brokestream.com/procstat.c"
+S = "${SRCDIR}"
+
+inherit c
+
+do_compile() {
+	${CC} ${CFLAGS} procstat.c -o procstat
+}
+
+do_install() {
+	mkdir -p ${D}${bindir}
+	install -m 755 ${S}/procstat ${D}${bindir}/
+}
+
+PACKAGES = "${PN}-dbg ${PN}"
