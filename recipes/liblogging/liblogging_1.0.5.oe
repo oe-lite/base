@@ -5,7 +5,7 @@ SRC_URI += "http://download.rsyslog.com/liblogging/liblogging-1.0.5.tar.gz"
 
 inherit autotools library auto-package-utils
 
-EXTRA_OECONF += "--disable-journal"
+EXTRA_OECONF += "--disable-journal --disable-man-pages"
 
 LIBRARY_NAME = "liblogging-stdlog"
 LIBRARY_VERSION = "0"
