@@ -9,7 +9,7 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit c make
 
-SRC_URI = "git://www.jdl.com/software/dtc.git;protocol=git${SRCREV}"
+SRC_URI = "git://git.kernel.org/pub/scm/utils/dtc/dtc.git${SRCREV}"
 
 S = "${SRCDIR}/dtc"
 
