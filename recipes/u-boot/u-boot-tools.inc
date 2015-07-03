@@ -72,3 +72,6 @@ AUTO_PACKAGE_UTILS = "${U_BOOT_TOOLS}"
 PACKAGES =+ "${PN}-env"
 FILES_${PN}-env = "${bindir}/fw_*env"
 PROVIDES_${PN}-env = "util/fw_printenv util/fw_setenv"
+
+DEPENDS_${PN}-mkimage += "dtc"
+RDEPENDS_${PN}-mkimage += "dtc"
