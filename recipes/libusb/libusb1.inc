@@ -1,6 +1,6 @@
 DESCRIPTION = "library to provide userspace access to USB devices"
 HOMEPAGE = "http://libusb.sf.net"
-LICENSE = "LGPLv2.1"
+LICENSE = "LGPL-2.1+"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
