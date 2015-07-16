@@ -37,9 +37,10 @@ do_install_append() {
 }
 
 inherit auto-package-utils
-AUTO_PACKAGE_UTILS = "gpg-error"
+AUTO_PACKAGE_UTILS = "gpg-error gpg-error-config"
+PROVIDES_${PN}-gpg-error-config = "libgpg-error-config"
 
 DEPENDS_${PN} += "libc"
 RDEPENDS_${PN} += "libc"
 DEPENDS_${PN}-gpg-error += "libc libgpg-error"
-RDEPENDS_${PN}-gpg-error += "libc libgpg-error"
+RDEPENDS_${PN}-gpg-error += "libc libgpg-error gpg-error-config"
