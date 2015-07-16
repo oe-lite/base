@@ -49,6 +49,11 @@ do_install () {
 
 	if grep "CONFIG_UDHCPD=y" ${S}/.config; then
 		sysvinit_install_script ${SRCDIR}/busybox-udhcpd
+        install -d ${D}${localstatedir}/lib/udhcpd/
+        install -m 0644 /dev/null \
+            ${D}${localstatedir}/lib/udhcpd/udhcpd.leases
+        install -m 0644 ${S}/examples/udhcp/udhcpd.conf \
+            ${D}${sysconfdir}/udhcpd.conf
 	fi
 
 	if grep "CONFIG_TFTPD=y" ${S}/.config; then
