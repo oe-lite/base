@@ -975,6 +975,9 @@ BUSYBOX_SIMPLE_USE_FLAGS += "feature_show_threads"
 
 BUSYBOX_SIMPLE_USE_FLAGS += "df_fancy::CONFIG_FEATURE_DF_FANCY"
 
+# USE flag: enable dnsd utility
+BUSYBOX_SIMPLE_USE_FLAGS += "dnsd:util/"
+
 RECIPE_FLAGS += "busybox_inittab_login"
 #
 # USE_busybox_inittab_login

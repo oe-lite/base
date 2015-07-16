@@ -135,6 +135,11 @@ do_install () {
 		install -m 0755 ${SRCDIR}/busybox-ifplugd.action ${D}${sysconfdir}/ifplugd/ifplugd.action
 		install -m 0644 ${SRCDIR}/busybox-ifplugd.conf ${D}${sysconfdir}/ifplugd/ifplugd.conf
 	fi
+
+    if grep "CONFIG_DNSD=y" ${S}/.config; then
+        sysvinit_install_script ${SRCDIR}/busybox-dnsd
+        install -m 0644 ${S}/examples/dnsd.conf ${D}${sysconfdir}/dnsd.conf
+    fi
 }
 
 do_install[postfuncs] += "${BUSYBOX_INSTALL_POSTFUNCS}"
