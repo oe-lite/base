@@ -108,7 +108,7 @@ do_compile() {
     ./bjam -d2 ${BJAM_OPTIONS} \
     --prefix=${prefix} --exec-prefix=${exec_prefix} \
     --libdir=${libdir} --includedir=${includedir} \
-    --debug-configuration
+    --debug-configuration ${PARALLEL_MAKE}
 }
 
 do_install() {
