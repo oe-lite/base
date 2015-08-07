@@ -1,0 +1,66 @@
+DESCRIPTION = "Free software CANopen framework \
+\
+CanFestival focuses on providing an ANSI-C platform independent CANOpen(R) \
+stack that can be built as master or slave nodes on PCs, Real-time IPCs, \
+and Microcontrollers."
+
+LICENSE = "LGPL-2.1"
+
+HOMEPAGE="http://www.canfestival.org/"
+
+COMPATIBLE_HOST_ARCHS = "arm-.*-.*linux-"
+
+inherit make
+SRC_REV = "8bfe0ac00cdb"
+SRC_URI = "http://dev.automforge.net/CanFestival-3/archive/${SRC_REV}.tar.gz \
+	file://0001-install-pkgconfig-module-for-canfestival.patch \
+	file://0002-allow-to-set-python-interpreter.patch"
+
+S = "${SRCDIR}/CanFestival-3-${SRC_REV}"
+
+#hardcode python2 until we figure out a proper way to handle python
+PYMAJOR="2"
+DEPENDS += "native:python${PYMAJOR} libc libpthread librt libdl"
+RDEPENDS += "libc libpthread librt libdl"
+
+do_configure() {
+	${S}/configure \
+		--target=unix \
+		--arch=arm \
+		--timers=unix \
+		--cc="${HOST_ARCH}-gcc" \
+		--cxx="${HOST_ARCH}-g++" \
+		--ld="${HOST_ARCH}-gcc" \
+		--prefix=/usr \
+		--can=socket
+}
+
+do_compile() {
+	oe_runmake -C ${S} all \
+		PYTHON=/usr/bin/python${PYMAJOR}
+}
+
+do_install () {
+	oe_runmake -C ${S}/src install \
+		PYTHON=python${PYMAJOR} \
+		DESTDIR=${D}
+	oe_runmake -C ${S}/drivers install \
+		PYTHON=python${PYMAJOR} \
+		DESTDIR=${D}
+	oe_runmake -C ${S}/examples install \
+		PYTHON=python${PYMAJOR} \
+		DESTDIR=${D}
+}
+
+DEPENDS_${PN} += "libc libdl libpthread librt"
+RDEPENDS_${PN} += "libc libdl libpthread librt"
+
+PROVIDES_${PN} += "libcanfestival-can-socket"
+#Packageqa depends on versioned so files this package does not create this
+#Dump from packagaqa:
+#Package canfestival PROVIDES: canfestival libcanfestival-can-socket
+#ERROR: missing library PROVIDES: libcanfestival-can-socket
+PROVIDES_${PN}[qa] += "allow-missing-provides:libcanfestival-can-socket"
+
+FILES_${PN} = "${libdir}/libcanfestival_can_socket.so ${bindir}/*"
+FILES_${PN}-dev = "${includedir}/canfestival ${libdir}/libcanfestival.a ${libdir}/libcanfestival_unix.a ${libdir}/pkgconfig/canfestival.pc"
