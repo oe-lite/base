@@ -9,10 +9,18 @@ DEFAULT_USE_dupdate_unpack_dir = "none"
 ADD_MOVE_ARG = ""
 ADD_MOVE_ARG:USE_dupdate_unpack_dir = "do_configure_unpack_dir"
 
+RECIPE_FLAGS += "dupdate_watch_dir"
+DEFAULT_USE_dupdate_watch_dir = "none"
+
 do_configure[postfuncs] += "do_configure_unpack_dir"
 do_configure_unpack_dir () {
 	if [ "${USE_dupdate_unpack_dir}" != "none" ]; then
-		sed -i -e 's/\(ARGS=".*\)\"/\1 -u ${USE_dupdate_unpack_dir}\"/' \
+		sed -i -e 's!\(ARGS=".*\)\"!\1 -u ${USE_dupdate_unpack_dir}\"!' \
+			${S}/src/dupdate.sh
+	fi
+
+	if [ "${USE_dupdate_watch_dir}" != "none" ]; then
+		sed -i -e 's!\(^DIR=\"\)\(.*\)\(\"$\)!\1${USE_dupdate_watch_dir}\3!' \
 			${S}/src/dupdate.sh
 	fi
 }
