@@ -374,6 +374,15 @@ RECIPE_FLAGS += "busybox_ntpd_splashutils_progress busybox_ntpd_splashutils_msg"
 SPLASHUTILS_INITSCRIPTS:>USE_busybox_ntpd += " busybox_ntpd"
 DEFAULT_USE_busybox_ntpd_splashutils_msg = "\"Starting Busybox ntpd\""
 
+# USE flag:
+RECIPE_FLAGS += "busybox_rcdefault_verbose"
+BUSYBOX_RCDEFAULT_VERBOSE_CONFIGURATION = "very"
+BUSYBOX_RCDEFAULT_VERBOSE_CONFIGURATION:USE_busybox_rcdefault_verbose = "${USE_busybox_rcdefault_verbose}"
+DO_CONFIGURE_PREFUNCS:>USE_busybox_rcdefault_verbose = " do_configure_busybox_rcdefault_verbose"
+do_configure_busybox_rcdefault_verbose () {
+	sed -i -e 's/^VERBOSE=.*$/VERBOSE=${BUSYBOX_RCDEFAULT_VERBOSE_CONFIGURATION}/' ${SRCDIR}/rcS-default
+}
+
 # USE flag: enable httpd server
 BUSYBOX_SIMPLE_USE_FLAGS += "httpd:service/http"
 # FIXME: add do_configure stuff for busybox httpd, but it really
