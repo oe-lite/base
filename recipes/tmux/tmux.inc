@@ -6,6 +6,8 @@ inherit autotools
 
 RECIPE_FLAGS += "root_tmux_conf"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 TMUXCONF_INSTALL ?= ""
 TMUX_FILES ?= ""
 TMUXCONF_INSTALL:>USE_root_tmux_conf = "do_install_tmux_conf"
