@@ -22,6 +22,9 @@ CFLAGS += "-DDO_UNIX -D_GNU_SOURCE"
 RECIPE_FLAGS += "netperf_ipv6"
 CFLAGS:>USE_netperf_ipv6 = " -DDO_IPV6"
 
+inherit largefile
+DEFAULT_USE_largefile = "1"
+
 RECIPE_FLAGS += "netperf_histogram"
 EXTRA_OECONF:>USE_netperf_histogram = " --enable-histogram"
 
