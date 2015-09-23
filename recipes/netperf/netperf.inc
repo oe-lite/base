@@ -22,6 +22,21 @@ CFLAGS += "-DDO_UNIX -D_GNU_SOURCE"
 RECIPE_FLAGS += "netperf_ipv6"
 CFLAGS:>USE_netperf_ipv6 = " -DDO_IPV6"
 
+inherit largefile
+DEFAULT_USE_largefile = "1"
+
+RECIPE_FLAGS += "netperf_histogram"
+EXTRA_OECONF:>USE_netperf_histogram = " --enable-histogram"
+
+RECIPE_FLAGS += "netperf_intervals"
+EXTRA_OECONF:>USE_netperf_intervals = " --enable-intervals"
+
+RECIPE_FLAGS += "netperf_spin"
+EXTRA_OECONF:>USE_netperf_spin = " --enable-spin"
+
+RECIPE_FLAGS += "netperf_burst"
+EXTRA_OECONF:>USE_netperf_burst = " --enable-burst"
+
 do_install() {
         install -d ${D}${sbindir} ${D}${bindir} ${D}${sysconfdir}/init.d
         install -m 4755 src/netperf ${D}${bindir}
