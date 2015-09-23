@@ -692,7 +692,7 @@ BUSYBOX_SIMPLE_USE_FLAGS += "mount=1:util/"
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_mount_nfs"
 
 # USE flag: enable feature_mount_loop
-BUSYBOX_SIMPLE_USE_FLAGS += "feature_mount_loop::\
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_mount_loop=1::\
 CONFIG_FEATURE_MOUNT_LOOP,\
 CONFIG_FEATURE_MOUNT_LOOP_CREATE,\
 "
