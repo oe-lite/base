@@ -1,0 +1,1 @@
+83c12f1ae89534d487d0713fba651498b792341a  libmodbus-3.1.2.tar.gz
