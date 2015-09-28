@@ -24,5 +24,5 @@ FILES_${PN}-dbg += "${libdir}/ipsec/.debug ${libdir}/ipsec/plugins/.debug \
 FILES_${PN} += "${libdir}/ipsec"
 DEPENDS_${PN} += "libc libdl libm libpthread librt libgmp libcrypto"
 DEPENDS_${PN}[qa] += "allow-missing-lib-depends"
-RDEPENDS_${PN} = "libc libdl libm libpthread librt libgmcp libcrypto"
+RDEPENDS_${PN} = "libc libdl libm libpthread librt libgmp libcrypto"
 RDEPENDS_${PN}[qa] += "allow-missing-lib-rdepends"
