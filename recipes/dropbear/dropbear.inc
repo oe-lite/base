@@ -95,6 +95,16 @@ RECIPE_FLAGS += "dropbear_sysvinit_start dropbear_sysvinit_stop"
 DEFAULT_USE_dropbear_sysvinit_start	= "25"
 DEFAULT_USE_dropbear_sysvinit_stop	= "0"
 
+# Set this flag to configure dropbear to reject root-logins
+RECIPE_FLAGS += "dropbear_no_root_login"
+DEFAULT_USE_dropbear_no_root_login = ""
+DROPBEAR_NO_ROOT_LOGIN = ""
+DROPBEAR_NO_ROOT_LOGIN:USE_dropbear_no_root_login = "do_install_no_root_login"
+do_install[prefuncs] += "${DROPBEAR_NO_ROOT_LOGIN}"
+do_install_no_root_login() {
+    sed -Ei 's/^(DROPBEAR_EXTRA_ARGS)="?([^"]+?)"?/\1="-w -g \2"/' ${SRCDIR}/init
+}
+
 inherit splashutils-progress
 RECIPE_FLAGS += "dropbear_splashutils_progress dropbear_splashutils_msg"
 SPLASHUTILS_INITSCRIPTS = "dropbear"
