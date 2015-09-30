@@ -29,9 +29,13 @@ do_install_snmp_scripts () {
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "netsnmpagent netsnmphelpers netsnmpmibs netsnmp netsnmptrapd"
 
-AUTO_PACKAGE_LIBS_RDEPENDS += "libc"
+AUTO_PACKAGE_LIBS_DEPENDS += "libc libcrypto"
+AUTO_PACKAGE_LIBS_RDEPENDS += "libc libcrypto"
+DEPENDS_${PN}-libnetsnmpagent += "libnetsnmp"
 RDEPENDS_${PN}-libnetsnmpagent += "libnetsnmp"
+DEPENDS_${PN}-libnetsnmpmibs += "libnetsnmpagent libgcc libnetsnmp"
 RDEPENDS_${PN}-libnetsnmpmibs += "libnetsnmpagent libgcc libnetsnmp"
+DEPENDS_${PN}-libnetsnmptrapd += "libnetsnmpagent libgcc libnetsnmp libnetsnmpmibs"
 RDEPENDS_${PN}-libnetsnmptrapd += "libnetsnmpagent libgcc libnetsnmp libnetsnmpmibs"
 
 inherit auto-package-utils
@@ -43,12 +47,17 @@ AUTO_PACKAGE_UTILS = "\
  snmpusm snmpvacm snmpwalk tkmib snmptest snmptranslate \
  traptoemail mib2c mib2c-update net-snmp-config"
 
-AUTO_PACKAGE_UTILS_RDEPENDS += "libnetsnmp libc"
+AUTO_PACKAGE_UTILS_DEPENDS += "libnetsnmp libc libcrypto"
+AUTO_PACKAGE_UTILS_RDEPENDS += "libnetsnmp libc libcrypto"
+DEPENDS_${PN}-snmpinform += "${PN}-snmptrap"
 RDEPENDS_${PN}-snmpinform += "${PN}-snmptrap"
+DEPENDS_${PN}-agentxtrap += "libnetsnmpmibs libnetsnmpagent"
 RDEPENDS_${PN}-agentxtrap += "libnetsnmpmibs libnetsnmpagent"
 
 PACKAGES =+ "${PN}-mibs ${PN}-client ${PN}-server"
+DEPENDS_${PN}-server += "libnetsnmptrapd libnetsnmpmibs libnetsnmpagent libnetsnmp"
 RDEPENDS_${PN}-server += "libnetsnmptrapd libnetsnmpmibs libnetsnmpagent libnetsnmp"
+DEPENDS_${PN}-client += "${AUTO_PACKAGE_UTILS_PROVIDES}"
 RDEPENDS_${PN}-client += "${AUTO_PACKAGE_UTILS_PROVIDES}"
 
 FILES_${PN}-mibs = "${datadir}/snmp/mibs"
