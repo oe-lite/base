@@ -12,17 +12,28 @@ DEPENDS = "libdl libm libpthread librt libcrypto libssl libgmp"
 EXTRA_OECONF = "--disable-curl --disable-soup --disable-ldap --enable-gmp \
 	--disable-mysql --disable-sqlite --enable-openssl"
 
+EXTRA_OECONF += "--with-ipseclibdir=${libdir} \
+       --with-plugindir=${libdir}/ipsec/plugins \
+       --with-imcvdir=${libdir}/ipsec/imcvs \
+"
+
 inherit autotools
 
+inherit auto-package-libs
+AUTO_PACKAGE_LIBS = "strongswan hydra charon"
+LIBRARY_VERSION = "0"
+DEPENDS_${PN}-libstrongswan = "libc libdl libpthread"
+RDEPENDS_${PN}-libstrongswan = "libc libdl libpthread"
+DEPENDS_${PN}-libhydra = "libc libstrongswan"
+RDEPENDS_${PN}-libhydra = "libc libstrongswan"
+DEPENDS_${PN}-libcharon = "libc libdl libm libpthread libstrongswan libhydra"
+RDEPENDS_${PN}-libcharon = "libc libdl libm libpthread libstrongswan libhydra"
+
 PACKAGEQA_HOST_BINDIRS += "${bindir}/ipsec"
-FILES_${PN}-dev += "${libdir}/ipsec/*.a \
-		    ${libdir}/ipsec/*.la \
-		    ${libdir}/ipsec/plugins/*.a \
-		    ${libdir}/ipsec/plugins/*.la"
-FILES_${PN}-dbg += "${libdir}/ipsec/.debug ${libdir}/ipsec/plugins/.debug \
-		${libexecdir}/ipsec/.debug"
+FILES_${PN}-dev += "${libdir}/ipsec/plugins/*.a ${libdir}/ipsec/plugins/*.la"
+FILES_${PN}-dbg += "${libdir}/ipsec/plugins/.debug ${libexecdir}/ipsec/.debug"
 FILES_${PN} += "${libdir}/ipsec"
-DEPENDS_${PN} += "libc libdl libm libpthread librt libgmp libcrypto"
-DEPENDS_${PN}[qa] += "allow-missing-lib-depends"
-RDEPENDS_${PN} = "libc libdl libm libpthread librt libgmcp libcrypto"
-RDEPENDS_${PN}[qa] += "allow-missing-lib-rdepends"
+DEPENDS_${PN} += "libc libdl libm libpthread librt libgmp libcrypto \
+	libstrongswan libhydra libcharon"
+RDEPENDS_${PN} = "libc libdl libm libpthread librt libgmp libcrypto \
+	libstrongswan libhydra libcharon"
