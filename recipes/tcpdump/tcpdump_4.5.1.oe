@@ -1,5 +1,0 @@
-require ${PN}.inc
-
-SRC_URI += "file://ipv6-cross.patch \
-	file://configure.patch \
-"
