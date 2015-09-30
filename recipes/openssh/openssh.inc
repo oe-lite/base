@@ -85,7 +85,29 @@ AUTO_PACKAGE_UTILS_DEPENDS = "libc libgcc libdl libutil libz libcrypto libresolv
 AUTO_PACKAGE_UTILS_RDEPENDS = "libc libgcc libdl libutil libz libcrypto libresolv libcrypt"
 RDEPENDS_${PN}-sshd = "${PN}-ssh-keygen"
 
+RDEPENDS_${PN}-ssh-add           += "libcrypto libresolv libcrypt"
+RDEPENDS_${PN}-ssh-agent         += "libcrypto libresolv libcrypt"
+RDEPENDS_${PN}-ssh-keyscan       += "libcrypto libresolv libcrypt"
+RDEPENDS_${PN}-ssh-keygen        += "libcrypto libresolv libcrypt"
+RDEPENDS_${PN}-ssh-keysign       += "libcrypto libresolv libcrypt"
+RDEPENDS_${PN}-scp               += "libcrypto libresolv libcrypt"
+RDEPENDS_${PN}-ssh               += "libcrypto libresolv libcrypt"
+RDEPENDS_${PN}-sshd              += "libcrypto libresolv libcrypt"
+RDEPENDS_${PN}-sftp              += "libcrypto libresolv libcrypt"
+RDEPENDS_${PN}-ssh-pkcs11-helper += "libcrypto libresolv libcrypt"
+
+DEPENDS_${PN}-ssh-add           += "libc libcrypt libcrypto libdl libresolv libutil libz"
+DEPENDS_${PN}-ssh-agent         += "libc libcrypt libcrypto libdl libresolv libutil libz"
+DEPENDS_${PN}-ssh-keyscan       += "libc libcrypt libcrypto libdl libresolv libutil libz"
+DEPENDS_${PN}-ssh-keygen        += "libc libcrypt libcrypto libdl libresolv libutil libz"
+DEPENDS_${PN}-scp               += "libc libcrypt libcrypto libdl libresolv libutil libz"
+DEPENDS_${PN}-ssh               += "libc libcrypt libcrypto libdl libresolv libutil libz"
+DEPENDS_${PN}-sshd              += "libc libcrypt libcrypto libdl libresolv libutil libz"
+DEPENDS_${PN}-sftp              += "libc libcrypt libcrypto libdl libresolv libutil libz"
+
 inherit sysvinit
 RECIPE_FLAGS = "sshd_sysvinit_start sshd_sysvinit_stop"
 DEFAULT_USE_sshd_sysvinit_start = "25"
 DEFAULT_USE_sshd_sysvinit_stop = "0"
+
+PACKAGEQA_TARGET_BINDIRS += "${target_libexecdir}"
