@@ -10,5 +10,5 @@ S = "${SRCDIR}/${PN}-${PV}"
 
 inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "smartd smartctl"
-AUTO_PACKAGE_UTILS_DEPENDS = "libc libgcc_s libm libstdc++"
-AUTO_PACKAGE_UTILS_RDEPENDS = "libc libgcc_s libm libstdc++"
+AUTO_PACKAGE_UTILS_DEPENDS = "libc libm libstdc++"
+AUTO_PACKAGE_UTILS_RDEPENDS = "libc libm libstdc++"
