@@ -19,3 +19,5 @@ do_install[postfuncs] += "do_install_backwards_compatibility_symlink"
 do_install_backwards_compatibility_symlink() {
 	ln -s . ${D}${includedir}/freetype2/freetype
 }
+
+LIBRARY_VERSION = "6"
