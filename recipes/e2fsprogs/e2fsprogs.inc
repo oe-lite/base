@@ -122,11 +122,11 @@ DEPENDS_${PN}-tune2fs = "libext2fs libcom-err libe2p \
 RDEPENDS_${PN}-tune2fs = "libext2fs libcom-err libe2p \
 	libblkid libuuid libc"
 
-DEPENDS_${PN}-resize2fs = "libext2fs libcom-err libe2p libc libgcc"
-RDEPENDS_${PN}-resize2fs = "libext2fs libcom-err libe2p libc libgcc"
+DEPENDS_${PN}-resize2fs = "libext2fs libcom-err libe2p libc libgcc libblkid"
+RDEPENDS_${PN}-resize2fs = "libext2fs libcom-err libe2p libc libgcc libblkid"
 
-DEPENDS_${PN}-e2freefrag = "libext2fs libcom-err libc"
-RDEPENDS_${PN}-e2freefrag = "libext2fs libcom-err libc"
+DEPENDS_${PN}-e2freefrag = "libext2fs libcom-err libc libblkid"
+RDEPENDS_${PN}-e2freefrag = "libext2fs libcom-err libc libblkid"
 
 FILES_${PN}-e2initrdhelper = "${libdir}/e2initrd_helper"
 RDEPENDS_${PN}-e2initrdhelper = "libext2fs libcom-err \
@@ -136,13 +136,13 @@ RDEPENDS_${PN}-e2initrdhelper = "libcom-err libe2p"
 
 RDEPENDS_${PN}-e4defrag = "libext2fs libcom-err"
 
-DEPENDS_${PN}-logsave = "libc"
-RDEPENDS_${PN}-logsave = "libc"
+DEPENDS_${PN}-logsave = "libc libblkid"
+RDEPENDS_${PN}-logsave = "libc libblkid"
 
 DEPENDS_${PN}-dumpe2fs = "libe2p libext2fs libcom-err \
-    libuuid libc"
+    libuuid libc libblkid"
 RDEPENDS_${PN}-dumpe2fs = "libe2p libext2fs libcom-err \
-    libuuid libc"
+    libuuid libc libblkid"
 
 DEPENDS_${PN}-debugfs = "libe2p libext2fs libcom-err libss \
     libblkid libuuid libgcc libc"
@@ -154,26 +154,26 @@ DEPENDS_${PN}-badblocks = "libe2p libext2fs libcom-err libss \
 RDEPENDS_${PN}-badblocks = "libe2p libext2fs libcom-err libss \
     libblkid libuuid libgcc libc"
 
-DEPENDS_${PN}-mklostfound = "libc"
-RDEPENDS_${PN}-mklostfound = "libc"
+DEPENDS_${PN}-mklostfound = "libc libblkid"
+RDEPENDS_${PN}-mklostfound = "libc libblkid"
 
-DEPENDS_${PN}-filefrag = "libc libgcc"
-RDEPENDS_${PN}-filefrag = "libc libgcc"
+DEPENDS_${PN}-filefrag = "libc libgcc libblkid"
+RDEPENDS_${PN}-filefrag = "libc libgcc libblkid"
 
-DEPENDS_${PN}-uuidd = "libc libuuid"
-RDEPENDS_${PN}-uuidd = "libc libuuid"
+DEPENDS_${PN}-uuidd = "libc libuuid libblkid"
+RDEPENDS_${PN}-uuidd = "libc libuuid libblkid"
 
-DEPENDS_${PN}-e2image = "libext2fs libcom-err libgcc libc"
-RDEPENDS_${PN}-e2image = "libext2fs libcom-err libgcc libc"
+DEPENDS_${PN}-e2image = "libext2fs libcom-err libgcc libc libblkid"
+RDEPENDS_${PN}-e2image = "libext2fs libcom-err libgcc libc libblkid"
 
-DEPENDS_${PN}-e4defrag = "libext2fs libcom-err libgcc libc"
-RDEPENDS_${PN}-e4defrag = "libext2fs libcom-err libgcc libc"
+DEPENDS_${PN}-e4defrag = "libext2fs libcom-err libgcc libc libblkid"
+RDEPENDS_${PN}-e4defrag = "libext2fs libcom-err libgcc libc libblkid"
 
-DEPENDS_${PN}-e2undo = "libext2fs libcom-err libc"
-RDEPENDS_${PN}-e2undo = "libext2fs libcom-err libc"
+DEPENDS_${PN}-e2undo = "libext2fs libcom-err libc libblkid"
+RDEPENDS_${PN}-e2undo = "libext2fs libcom-err libc libblkid"
 
-DEPENDS_${PN}-chattr = "libe2p libcom-err libc"
-RDEPENDS_${PN}-chattr = "libe2p libcom-err libc"
+DEPENDS_${PN}-chattr = "libe2p libcom-err libc libblkid"
+RDEPENDS_${PN}-chattr = "libe2p libcom-err libc libblkid"
 
-DEPENDS_${PN}-lsattr = "libe2p libcom-err libc"
-RDEPENDS_${PN}-lsattr = "libe2p libcom-err libc"
+DEPENDS_${PN}-lsattr = "libe2p libcom-err libc libblkid"
+RDEPENDS_${PN}-lsattr = "libe2p libcom-err libc libblkid"
