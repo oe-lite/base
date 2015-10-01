@@ -13,4 +13,8 @@ do_install_fix_gpg_error() {
                        ${D}${bindir}/libgcrypt-config
 }
 
-LIBRARY_VERSION = "11"
+LIBRARY_VERSION = "20"
+
+AUTO_PACKAGE_UTILS += "mpicalc"
+DEPENDS_${PN}-mpicalc += "libc libcap libgcrypt libgpg-error"
+RDEPENDS_${PN}-mpicalc += "libc libcap libgcrypt libgpg-error"
