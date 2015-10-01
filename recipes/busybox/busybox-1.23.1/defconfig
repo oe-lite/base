@@ -169,11 +169,13 @@ CONFIG_DATE=y
 # CONFIG_FEATURE_DATE_ISOFMT is not set
 # CONFIG_FEATURE_DATE_NANO is not set
 # CONFIG_FEATURE_DATE_COMPAT is not set
+# CONFIG_SHUF is not set
 CONFIG_TEST=y
 # CONFIG_FEATURE_TEST_64 is not set
 # CONFIG_TR is not set
 # CONFIG_FEATURE_TR_CLASSES is not set
 # CONFIG_FEATURE_TR_EQUIV is not set
+# CONFIG_UNLINK is not set
 # CONFIG_BASE64 is not set
 # CONFIG_CAL is not set
 # CONFIG_CATV is not set
@@ -509,6 +511,7 @@ CONFIG_DEFAULT_DEPMOD_FILE="modules.dep"
 # Linux System Utilities
 #
 # CONFIG_BLOCKDEV is not set
+# CONFIG_FATATTR is not set
 # CONFIG_REV is not set
 # CONFIG_ACPID is not set
 # CONFIG_FEATURE_ACPID_COMPAT is not set
