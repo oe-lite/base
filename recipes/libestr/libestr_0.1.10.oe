@@ -7,3 +7,5 @@ inherit autotools-autoreconf library
 
 DEPENDS_${PN} += "libc libgcc"
 RDEPENDS_${PN} += "libc libgcc"
+
+LIBRARY_VERSION = "0"
