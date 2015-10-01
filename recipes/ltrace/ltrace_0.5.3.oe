@@ -1,0 +1,21 @@
+require ${PN}.inc
+
+SRC_URI = "\
+  http://snapshot.debian.org/archive/debian/20090801T192339Z/pool/main/l/ltrace/ltrace_${PV}.orig.tar.gz;name=archive \
+  http://snapshot.debian.org/archive/debian/20090801T192339Z/pool/main/l/ltrace/ltrace_${PV}-2.diff.gz;name=patch;unpack=false; \
+  file://add-sysdep.patch \
+  file://ltrace-compile.patch \
+  file://ltrace-mips-remove-CP.patch \
+  file://ltrace-mips.patch \
+  file://ltrace-ppc.patch \
+  file://ltrace-fix-sysdep_h-dependency.patch \
+"
+
+do_patch[prefuncs] += "do_patch_diff"
+do_patch_diff () {
+    pwd
+    cd ${S}
+    gunzip ../ltrace_${PV}-2.diff
+    patch -p1 < ../ltrace_${PV}-2.diff
+    cd -
+}
