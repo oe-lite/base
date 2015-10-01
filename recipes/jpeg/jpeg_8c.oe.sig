@@ -1,1 +1,0 @@
-f0a3b88ac4db19667798bee971537eeed552bce9  jpegsrc.v8c.tar.gz

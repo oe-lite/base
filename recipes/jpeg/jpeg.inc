@@ -11,4 +11,10 @@ EXTRA_OECONF = "--enable-static --enable-shared"
 CFLAGS += "-D_REENTRANT"
 
 PACKAGES =+ "${PN}-tools "
+
+DEPENDS_${PN} += "libc"
+RDEPENDS_${PN} += "libc"
+DEPENDS_${PN}-tools += "libjpeg libc"
+RDEPENDS_${PN}-tools += "libjpeg libc"
+
 FILES_${PN}-tools = "${bindir}/*"
