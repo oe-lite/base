@@ -62,8 +62,9 @@ do_install_extra_files() {
 }
 
 RDEPENDS_${PN}-x11 = "${PN}"
-RDEPENDS_${PN} += "libc ${DEPENDS_LIBC} libexpat libdbus"
+RDEPENDS_${PN} += "libc ${DEPENDS_LIBC} libexpat libdbus util/dbus-uuidgen"
 RDEPENDS_${PN}-x11 += "libc ${DEPENDS_LIBC}"
+DEPENDS_${PN} = "libc ${DEPENDS_LIBC} libexpat"
 
 PACKAGES =+ "${PN}-x11"
 
@@ -83,12 +84,10 @@ SPLASHUTILS_INITSCRIPTS = "dbus_1"
 DEFAULT_USE_dbus_1_splashutils_msg = "\"Starting Dbus\""
 
 inherit auto-package-utils
-AUTO_PACKAGE_UTILS = "dbus-cleanup-sockets dbus-daemon dbus-launch \
+AUTO_PACKAGE_UTILS = "dbus-cleanup-sockets dbus-launch \
 			dbus-monitor dbus-run-session dbus-send dbus-uuidgen"
 AUTO_PACKAGE_UTILS_DEPENDS += "libc"
 AUTO_PACKAGE_UTILS_RDEPENDS += "libc"
-DEPENDS_${PN}-dbus-daemon += "libexpat libpthread librt"
-RDEPENDS_${PN}-dbus-daemon += "libexpat libpthread librt"
 DEPENDS_${PN}-dbus-monitor += "libdbus-1"
 RDEPENDS_${PN}-dbus-monitor += "libdbus-1"
 DEPENDS_${PN}-dbus-run-session += "libdbus-1"
