@@ -1,3 +1,5 @@
 LICENSE = "GPL-2.0+"
 
 require lzo.inc
+
+LIBRARY_VERSION="2"
