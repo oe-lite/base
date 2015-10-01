@@ -1,12 +1,14 @@
---- apr-1.5.0/Makefile.in.orig	2014-01-02 11:02:17.168267653 +0100
-+++ apr-1.5.0/Makefile.in	2014-01-02 11:02:39.700267063 +0100
-@@ -133,8 +133,8 @@
+--- apr-1.5.1/Makefile.in.orig	2015-01-07 10:02:40.039814185 +0100
++++ apr-1.5.1/Makefile.in	2015-01-07 10:02:53.051813996 +0100
+@@ -137,9 +137,9 @@
  tools/gen_test_char@EXEEXT@: $(OBJECTS_gen_test_char)
  	$(LINK_PROG) $(OBJECTS_gen_test_char) $(ALL_LIBS)
  
 -include/private/apr_escape_test_char.h: tools/gen_test_char@EXEEXT@
+-	$(APR_MKDIR) include/private
 -	tools/gen_test_char@EXEEXT@ > $@
 +#include/private/apr_escape_test_char.h: tools/gen_test_char@EXEEXT@
++#	$(APR_MKDIR) include/private
 +#	tools/gen_test_char@EXEEXT@ > $@
  
  LINK_PROG = $(LIBTOOL) $(LTFLAGS) --mode=link $(COMPILE) $(LT_LDFLAGS) \

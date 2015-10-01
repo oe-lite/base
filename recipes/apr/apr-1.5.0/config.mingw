@@ -1,2 +1,0 @@
-apr_cv_mutex_robust_shared=no
-ac_cv_sizeof_struct_iovec=0
