@@ -1,0 +1,91 @@
+DESCRIPTION = "mysql database"
+LICENSE = "GPL-2+"
+HOMEPAGE = "http://dev.mysql.com/"
+
+SRC_URI = "http://cdn.mysql.com/archives/${PN}-5.6/${PN}-${PV}.tar.gz"
+SRC_URI += " file://srv_buff_size.patch"
+
+RECIPE_TYPES = "machine"
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
+inherit cmake c++ pkgconfig
+
+#PARALLEL_MAKE = ""
+
+DEPENDS = "libpthread libncurses libdl "
+DEPENDS += " native:mysql-tools "
+DEPENDS_${PN} += "libpthread libstdc++ libm \
+		libgcc libdl libncurses"
+RDEPENDS_${PN} += "libpthread libstdc++ libm \
+		libgcc libdl ncurses-libncurses \
+		mysql-config"
+
+MYSQL_SHARE_DIR="${datadir}/mysql"
+
+EXTRA_OE_CMAKE_CONF = " 				\
+	-DCMAKE_INSTALL_PREFIX=/			\
+	-DSTACK_DIRECTION=1 				\
+	-DCMAKE_BUILD_TYPE=Release 			\
+	-DINSTALL_MYSQLSHAREDIR=${MYSQL_SHARE_DIR} 	\
+	-DINSTALL_MYSQLTESTDIR=${MYSQL_SHARE_DIR}/test	\
+	-DINSTALL_SCRIPTDIR=${bindir}			\
+	-DINSTALL_SQLBENCHDIR=${MYSQL_SHARE_DIR}/bench	\
+	-DINSTALL_DOCREADMEDIR=${MYSQL_SHARE_DIR}/doc	\
+	-DINSTALL_DOCDIR=${MYSQL_SHARE_DIR}/doc		\
+	-DINSTALL_INFODIR=${MYSQL_SHARE_DIR}/doc	\
+	-DINSTALL_MANDIR=${mandir}			\
+	-DINSTALL_PLUGINDIR=${sharedlibdir}/plugin	\
+	-DINSTALL_SUPPORTFILESDIR=${MYSQL_SHARE_DIR}	\
+	-DINSTALL_MYSQLDATADIR=${MYSQL_SHARE_DIR}	\
+	-DINSTALL_INCLUDEDIR=${includedir}		\
+	-DINSTALL_SHAREDIR:STRING=${datadir}		\
+	.. \
+"
+
+B = "${S}/builddir"
+#
+# Seems to always have to start do_configure from clean dir - so
+# use 'builddir"
+#
+do_configure[prefuncs] = "do_configure_builddir"
+do_configure_builddir() {
+	if [ -e ${B} ]; then
+		rm -rf ${B}
+	fi
+	mkdir ${B}
+}
+
+#
+# By some reason one make file has a depend om comp_sql which
+# is not being build while crosscompiling
+# Lets remove that dependency
+do_configure[postfuncs] = "do_configure_rm_dependency"
+do_configure_rm_dependency() {
+	sed -i '/scripts\/comp_sql/d' \
+		${B}/scripts/CMakeFiles/GenFixPrivs.dir/build.make
+}
+
+#
+# installation of db.opt seems to be hardcoded
+#
+do_install[postfuncs] = "do_install_fix_db_opt"
+do_install_fix_db_opt() {
+	mv ${D}/data ${D}${MYSQL_SHARE_DIR}
+}
+
+FILES_${PN} += "${sharedlibdir}/plugin/*.so"
+FILES_${PN} += "${sharedlibdir}/plugin/*.ini"
+FILES_${PN}-dbg += "${sharedlibdir}/plugin/.debug/*"
+
+FILES_${PN}-doc += "${MYSQL_SHARE_DIR}/doc"
+
+PACKAGES =+ " ${PN}-misc "
+FILES_${PN}-misc = "${MYSQL_SHARE_DIR}/*"
+
+PACKAGES =+ " ${PN}-sql-bench "
+FILES_${PN}-sql-bench = "${MYSQL_SHARE_DIR}/bench"
+
+PACKAGES =+ " ${PN}-mysql-test "
+FILES_${PN}-mysql-test = "${MYSQL_SHARE_DIR}/test"
+
+RDEPENDS_${PN} += "${PN}-misc"

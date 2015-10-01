@@ -1,0 +1,8 @@
+--- lib_mysqludf_sys-master/Makefile.org	2013-09-10 14:27:05.406191211 +0200
++++ lib_mysqludf_sys-master/Makefile	2013-09-10 14:27:28.046190542 +0200
+@@ -1,4 +1,2 @@
+-LIBDIR=/usr/lib
+-
+ install:
+-	gcc -Wall -I/usr/include/mysql -I. -shared lib_mysqludf_sys.c -o $(LIBDIR)/lib_mysqludf_sys.so
++	$(CC) -Wall $(CFLAGS) -shared lib_mysqludf_sys.c -o lib_mysqludf_sys.so
