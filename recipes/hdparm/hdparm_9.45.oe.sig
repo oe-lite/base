@@ -1,0 +1,1 @@
+232855a97df0a28ddeeff9325814517668877f6c  hdparm-9.45.tar.gz
