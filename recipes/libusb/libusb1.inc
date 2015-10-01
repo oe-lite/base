@@ -8,7 +8,6 @@ inherit autotools library
 
 require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/libusb/libusb-${PV}.tar.bz2;name=tar"
-SRC_URI += "file://fix_missing_librt.patch"
 
 S = "${SRCDIR}/libusb-${PV}"
 
@@ -16,10 +15,5 @@ DEPENDS = "libpthread"
 
 EXTRA_OECONF = "--disable-build-docs"
 
-DEPENDS_${PN} += "libpthread libc librt"
-RDEPENDS_${PN} += "libpthread libc librt"
-
-#MAJOR_VERSION = "${@'${PV}'.split('.')[0]}"
-#PROVIDES_${PN} += "libusb-${MAJOR_VERSION}.0 libusb-${MAJOR_VERSION}.0-0"
-LIBRARY_NAME = "libusb-1.0"
-LIBRARY_VERSION = "0"
+DEPENDS_${PN} += "libpthread libc"
+RDEPENDS_${PN} += "libpthread libc"
