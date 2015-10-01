@@ -2,12 +2,9 @@ require gnupg.inc
 
 inherit pkgconfig binconfig
 
-DEPENDS += "libreadline libgpg-error libgcrypt ${DEPENDS_LIBC} \
-	libassuan libassuan-libassuan-config \
-	libksba libksba-ksba-config \
-	libpth pth-pth-config"
-DEPENDS_LIBC = "libdl"
-DEPENDS_LIBC:HOST_LIBC_mingw = ""
+DEPENDS += "readline libgpg-error-dev libgcrypt-dev libassuan-dev libassuan \
+	libgcrypt libksba libksba-dev libpth libpth-dev libdl \
+	libassuan-libassuan-config pth-pth-config libksba-ksba-config"
 
 EXTRA_OECONF += "--with-readline \
 	--with-ksba-prefix=${HOST_SYSROOT}/usr/ \
