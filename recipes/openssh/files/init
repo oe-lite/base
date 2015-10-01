@@ -40,6 +40,10 @@ check_keys() {
 		echo "  generating ssh DSA key..."
 		ssh-keygen -q -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa
 	fi
+	if [ ! -f /etc/ssh/ssh_host_ecdsa_key ]; then
+		echo "  generating ssh ECDSA key..."
+		ssh-keygen -q -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa
+	fi
 }
 
 export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
