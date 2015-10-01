@@ -32,6 +32,12 @@ SYSVINI_SCRIPT_bind = "bind"
 DEFAULT_USE_bind_sysvinit_start= "20"
 DEFAULT_USE_bind_sysvinit_stop = "20"
 
+RECIPE_FLAGS += "bind_openssl"
+DEFAULT_USE_bind_openssl = "1"
+EXTRA_OECONF += "${EXTRA_OECONF_OPENSSL}"
+EXTRA_OECONF_OPENSSL = " --without-openssl"
+EXTRA_OECONF_OPENSSL:USE_bind_openssl = ""
+
 # last verified with bind-9.7.2-P3
 PARALLEL_MAKE = ""
 
