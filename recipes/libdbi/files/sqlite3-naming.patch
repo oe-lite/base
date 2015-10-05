@@ -1,0 +1,11 @@
+--- libdbi-drivers-0.9.0/configure.old	2015-10-05 19:24:56.075124034 +0200
++++ libdbi-drivers-0.9.0/configure	2015-10-05 19:25:10.735190286 +0200
+@@ -12528,7 +12528,7 @@
+ fi
+ 		SQLITE3_LDFLAGS=""
+ 	else
+-		SQLITE3_LIBS=-lsqlite
++		SQLITE3_LIBS=-lsqlite3
+ 		SQLITE3_LDFLAGS=-L$ac_sqlite3_libdir
+ 	fi
+ 
