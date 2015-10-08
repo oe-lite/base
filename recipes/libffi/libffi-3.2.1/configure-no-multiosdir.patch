@@ -1,0 +1,38 @@
+--- libffi-3.2.1/configure.orig	2015-10-08 15:32:01.390373446 +0200
++++ libffi-3.2.1/configure	2015-10-08 15:32:29.833767696 +0200
+@@ -18725,11 +18725,11 @@
+     toolexecdir="${libdir}"/gcc-lib/'$(target_alias)'
+     toolexeclibdir="${libdir}"
+   fi
+-  multi_os_directory=`$CC $CFLAGS -print-multi-os-directory`
+-  case $multi_os_directory in
+-    .) ;; # Avoid trailing /.
+-    ../*) toolexeclibdir=$toolexeclibdir/$multi_os_directory ;;
+-  esac
++  #multi_os_directory=`$CC $CFLAGS -print-multi-os-directory`
++  #case $multi_os_directory in
++  #  .) ;; # Avoid trailing /.
++  #  ../*) toolexeclibdir=$toolexeclibdir/$multi_os_directory ;;
++  #esac
+ 
+ else
+   toolexeclibdir="${libdir}"
+--- libffi-3.2.1/configure.ac.orig	2015-10-08 15:32:11.750395634 +0200
++++ libffi-3.2.1/configure.ac	2015-10-08 15:32:46.013802348 +0200
+@@ -601,11 +601,11 @@
+     toolexecdir="${libdir}"/gcc-lib/'$(target_alias)'
+     toolexeclibdir="${libdir}"
+   fi
+-  multi_os_directory=`$CC $CFLAGS -print-multi-os-directory`
+-  case $multi_os_directory in
+-    .) ;; # Avoid trailing /.
+-    ../*) toolexeclibdir=$toolexeclibdir/$multi_os_directory ;;
+-  esac
++  #multi_os_directory=`$CC $CFLAGS -print-multi-os-directory`
++  #case $multi_os_directory in
++  #  .) ;; # Avoid trailing /.
++  #  ../*) toolexeclibdir=$toolexeclibdir/$multi_os_directory ;;
++  #esac
+   AC_SUBST(toolexecdir)
+ else
+   toolexeclibdir="${libdir}"
