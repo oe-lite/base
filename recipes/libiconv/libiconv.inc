@@ -25,3 +25,19 @@ AUTO_PACKAGE_UTILS = "iconv"
 PROVIDES_${PN}-iconv = "${PN}-tools"
 
 FILE_PRIORITY_${PN}-dev = "0 ${includedir}/iconv.h:1"
+
+LIBRARY_VERSION = "2"
+DEPENDS_${PN} += "libc"
+RDEPENDS_${PN} += "libc"
+
+LIBRARY_VERSION_${PN}-libcharset = "1"
+DEPENDS_${PN}-libcharset = "libc"
+RDEPENDS_${PN}-libcharset = "libc"
+
+DEPENDS_${PN}-iconv = "libc libiconv"
+RDEPENDS_${PN}-iconv = "libc libiconv"
+
+PROVIDES_${PN}-preload = "libiconv-preload"
+PROVIDES_${PN}-preload[qa] = "allow-missing-provides"
+DEPENDS_${PN}-preload = "libc"
+RDEPENDS_${PN}-preload = "libc"
