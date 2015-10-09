@@ -3,7 +3,7 @@ DESCRIPTION = "The Device Tree Compiler is a tool used to manipulate the Open-Fi
 LICENSE = "GPLv2 | BSD"
 DEPENDS = "native:flex native:bison"
 
-RECIPE_TYPES = "native sdk"
+RECIPE_TYPES = "native sdk machine"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
