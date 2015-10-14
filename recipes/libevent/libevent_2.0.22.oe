@@ -1,0 +1,7 @@
+require libevent.inc
+
+PV_MAJOR = "2.0"
+PV_MINOR = "22"
+PV = "${PV_MAJOR}.${PV_MINOR}"
+
+# vim: set syntax=bitbake :
