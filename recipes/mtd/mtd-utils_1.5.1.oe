@@ -1,7 +1,0 @@
-# -*- mode:python; -*-
-LICENSE = "GPL-2.0+"
-
-require mtd-utils.inc
-
-AUTO_PACKAGE_UTILS += "flash_otp_lock flash_otp_write \
-		jffs2reader ubiblock"
