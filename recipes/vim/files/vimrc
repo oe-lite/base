@@ -1,0 +1,55 @@
+set nocp
+set history=700
+set so=7
+
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+set ruler
+set cmdheight=2
+
+set hid
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
+
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+
+set lazyredraw
+
+set magic
+
+set showmatch
+set mat=2
+
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+syntax enable
+
+set encoding=utf8
+set ffs=unix,dos,mac
+
+set nobackup
+set nowb
+set noswapfile
+
+set noexpandtab
+
+set shiftwidth=8
+set softtabstop=8
+set tabstop=8
+
+set ai
+set si
+set nowrap
+
+set laststatus=2
+
+let g:netrw_liststyle=3
+
