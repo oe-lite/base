@@ -1,6 +1,8 @@
 DESCRIPTION = "An easy to use logging library"
 LICENSE = "BSD-2-Clause"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 SRC_URI += "http://download.rsyslog.com/liblogging/liblogging-1.0.5.tar.gz"
 
 inherit autotools library auto-package-utils
