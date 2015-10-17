@@ -10,6 +10,8 @@ HOMEPAGE = "http://avahi.org"
 
 RECIPE_TYPES = "machine"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 LICENSE = "GPLv2+ & LGPLv2.1+"
 
 DEPENDS = "libc libgcc libexpat libcap libdaemon libdbus-1 libglib-2.0 libgobject-2.0"
@@ -30,7 +32,8 @@ SRC_URI = "http://avahi.org/download/avahi-${PV}.tar.gz \
           file://passwd file://group \
           "
 
-inherit autotools pkgconfig gettext c++ c sysvinit passwd
+inherit autotools-autoreconf pkgconfig gettext c++ c sysvinit passwd
+DEPENDS += "native:glib-utils"
 
 EXTRA_OECONF = "--disable-introspection \
              --with-avahi-priv-access-group=adm \
