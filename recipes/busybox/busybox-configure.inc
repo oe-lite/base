@@ -765,7 +765,9 @@ BUSYBOX_SIMPLE_USE_FLAGS += "printenv:util/"
 BUSYBOX_SIMPLE_USE_FLAGS += "printf:util/"
 
 # USE flag: enable readlink utility
-BUSYBOX_SIMPLE_USE_FLAGS += "readlink:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "readlink:util/:\
+CONFIG_READLINK,\
+CONFIG_FEATURE_READLINK_FOLLOW"
 
 # USE flag: enable readpath utility
 BUSYBOX_SIMPLE_USE_FLAGS += "readpath:util/"
