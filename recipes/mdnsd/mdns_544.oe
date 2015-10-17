@@ -4,6 +4,8 @@ HOMEPAGE = "http://developer.apple.com/networking/bonjour/"
 #RPROVIDES_${PN} += "libdns_sd.so"
 RECIPE_TYPES = "machine"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 inherit c make sysvinit
 
 SRC_URI = "http://opensource.apple.com/tarballs/mDNSResponder/mDNSResponder-${PV}.tar.gz \
