@@ -1,0 +1,21 @@
+DESCRIPTION = "An easy to use logging library"
+LICENSE = "BSD-2-Clause"
+
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
+SRC_URI += "http://download.rsyslog.com/liblogging/liblogging-1.0.5.tar.gz"
+
+inherit autotools library auto-package-utils
+
+EXTRA_OECONF += "--disable-journal --disable-man-pages"
+
+LIBRARY_NAME = "liblogging-stdlog"
+LIBRARY_VERSION = "0"
+
+DEPENDS_${PN} += "libc"
+RDEPENDS_${PN} += "libc"
+
+AUTO_PACKAGE_UTILS = "stdlogctl"
+
+AUTO_PACKAGE_UTILS_DEPENDS += "libc liblogging-stdlog"
+AUTO_PACKAGE_UTILS_RDEPENDS += "libc liblogging-stdlog"
