@@ -18,6 +18,8 @@ DEPENDS = "libc libz librt native:gettext"
 DEPENDS:>HOST_LIBC_glibc = " libutil libcrypt libtermcap"
 DEPENDS:>HOST_LIBC_uclibc = " libutil libcrypt libtermcap"
 
+DEPENDS += "native:gettext-autopoint"
+
 EXTRA_OECONF = "\
 --disable-rpath \
 --disable-makeinstall-chown --disable-use-tty-group \
