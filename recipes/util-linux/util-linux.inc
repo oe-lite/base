@@ -11,11 +11,14 @@ inherit autotools autotools-autoreconf gettext
 require conf/fetch/kernelorg.conf
 MA = "${@bb.data.getVar('PV', d, 1).split('.')[0]}"
 MI = "${@bb.data.getVar('PV', d, 1).split('-')[0].split('.')[1]}"
-SRC_URI = "${KERNELORG_MIRROR}/linux/utils/${PN}/v${MA}.${MI}/${P}.tar.bz2"
+UTIL_LINUX_EXTENTION ?= ".tar.bz2"
+SRC_URI = "${KERNELORG_MIRROR}/linux/utils/${PN}/v${MA}.${MI}/${P}${UTIL_LINUX_EXTENTION}"
 
-DEPENDS = "libc libz librt"
+DEPENDS = "libc libz librt native:gettext"
 DEPENDS:>HOST_LIBC_glibc = " libutil libcrypt libtermcap"
 DEPENDS:>HOST_LIBC_uclibc = " libutil libcrypt libtermcap"
+
+DEPENDS += "native:gettext-autopoint"
 
 EXTRA_OECONF = "\
 --disable-rpath \
