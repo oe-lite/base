@@ -1,18 +1,22 @@
 #!/bin/sh
 
+# The busybox watchdog applet creates and removes
+# /var/run/watchdog.pid.
+#
+# It is removed explicitly in stop to be certain
+# it is gone.
+
 PIDFILE=/var/run/watchdog.pid
 WATCHDOG=/dev/watchdog
 
 case "$1" in
     start)
 	splash_progress PLACEHOLDER
-	[ -f $PIDFILE ] \
-	    && kill `cat $PIDFILE`
+	[ -f $PIDFILE ] && kill `cat $PIDFILE`
 	watchdog -t 1 -F $WATCHDOG &
-	echo $! > $PIDFILE
         ;;
     stop)
 	kill `cat $PIDFILE`
-	rm $PIDFILE
+	rm -f $PIDFILE
 	;;
 esac
