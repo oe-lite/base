@@ -1,0 +1,7 @@
+require rsyslog.inc
+
+EXTRA_OECONF += "--disable-generate-man-pages"
+
+DEPENDS += "libuuid libgcrypt libestr libjson-c liblogging-stdlog"
+DEPENDS_${PN} += "libuuid libestr libjson-c liblogging-stdlog"
+RDEPENDS_${PN} += "libuuid libestr libjson-c liblogging-stdlog"

@@ -1,5 +1,0 @@
-require rsyslog.inc
-
-DEPENDS += "libuuid libgcrypt libestr libjson-c"
-DEPENDS_${PN} += "libuuid libestr libjson-c"
-RDEPENDS_${PN} += "libuuid libestr libjson-c"

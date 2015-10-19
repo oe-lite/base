@@ -16,8 +16,6 @@ SRC_URI = "http://www.rsyslog.com/files/download/rsyslog/${PN}-${PV}.tar.gz \
 
 inherit autotools-autoreconf sysvinit pkgconfig
 
-EXTRA_OECONF += "--enable-cached-man-pages"
-
 RECIPE_FLAGS = "rsyslog_sysvinit_start rsyslog_logdir rsyslog_logfile"
 DEFAULT_USE_rsyslog_sysvinit_start = "20"
 DEFAULT_USE_rsyslog_logdir = "${localstatedir}/log"
