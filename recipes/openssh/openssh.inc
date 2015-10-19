@@ -54,6 +54,14 @@ do_configure_sftp_server () {
     echo SFTP_LIBS=`grep ^LIBS= ${S}/Makefile | cut -b6- | sed 's/-lcrypto//'` >> ${S}/Makefile
 }
 
+HOST_KEY_TYPES ?= "rsa dsa ecdsa ed25519"
+
+do_configure[postfuncs] += "do_configure_host_key_generation"
+do_configure_host_key_generation() {
+    sed -e 's/\(HOST_KEY_TYPES\)=.*/\1="${HOST_KEY_TYPES}"/' \
+        -i ${SRCDIR}/init
+}
+
 do_compile[postfuncs] += "do_compile_install_config_files"
 do_compile_install_config_files () {
 	install -m 0644 ${SRCDIR}/sshd_config ${S}/
