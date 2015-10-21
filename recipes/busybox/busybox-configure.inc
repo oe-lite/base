@@ -654,7 +654,7 @@ BUSYBOX_SIMPLE_USE_FLAGS += "feature_preserve_hardlinks"
 BUSYBOX_SIMPLE_USE_FLAGS += "chvt:util/"
 
 # USE flag: enable clear utility
-BUSYBOX_SIMPLE_USE_FLAGS += "clear:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "clear=1:util/"
 
 # USE flag: enable deallocvt utility
 BUSYBOX_SIMPLE_USE_FLAGS += "deallocvt:util/"
