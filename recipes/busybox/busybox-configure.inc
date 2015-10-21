@@ -565,10 +565,15 @@ CONFIG_FEATURE_TAR_SEAMLESS_GZ,\
 CONFIG_FEATURE_TAR_AUTODETECT"
 
 # USE flag: enable bzip2 utility
-BUSYBOX_SIMPLE_USE_FLAGS += "bzip2:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "bzip2:util/:\
+CONFIG_BZIP2,\
+CONFIG_FEATURE_TAR_SEAMLESS_BZ2"
 
 # USE flag: enable bunzip2 utility
-BUSYBOX_SIMPLE_USE_FLAGS += "bunzip2:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "bunzip2:util/:\
+CONFIG_BUNZIP2,\
+CONFIG_FEATURE_TAR_SEAMLESS_BZ2,\
+CONFIG_FEATURE_TAR_AUTODETECT"
 
 # USE flag: enable tar oldgnu compatibility
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_tar_oldgnu_compatibility"
