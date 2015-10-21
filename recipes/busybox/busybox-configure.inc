@@ -668,7 +668,7 @@ BUSYBOX_SIMPLE_USE_FLAGS += "grep=1:util/"
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_grep_egrep_alias=1"
 
 # USE flag: enable feature grep fgrep alias
-BUSYBOX_SIMPLE_USE_FLAGS += "feature_grep_fgrep_alias"
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_grep_fgrep_alias=1"
 
 # USE flag: enable feature grep context
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_grep_context"
