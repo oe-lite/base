@@ -5,7 +5,7 @@ RECIPE_TYPES = "machine native"
 
 DEPENDS_LIBC = "librt"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
-DEPENDS = "${DEPENDS_LIBC}"
+DEPENDS = "${DEPENDS_LIBC} native:flex"
 
 inherit autotools gettext
 
