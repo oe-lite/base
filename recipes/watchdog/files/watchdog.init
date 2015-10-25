@@ -1,0 +1,74 @@
+#! /bin/sh
+#
+# chkconfig: - 27 46 
+# description: A software watchdog
+#
+# rc file author: Marc Merlin <marcsoft@merlins.org>
+#                 Henning P. Schmiedehausen <hps@tanstaafl.de>
+
+[ -x /usr/sbin/watchdog -a -e /etc/watchdog.conf ] || exit 0
+
+VERBOSE="no"
+if [ -f /etc/sysconfig/watchdog ]; then
+. /etc/sysconfig/watchdog
+fi
+
+RETVAL=0
+prog=watchdog
+pidfile=/var/run/watchdog.pid
+lockfile=/var/lock/watchdog
+
+start() {
+	echo -n "Starting $prog: "
+	if [ -n "`pidof $prog`" ]; then
+		echo "$prog: already running"
+		return 1
+	fi
+	if [ "$VERBOSE" = "yes" ]; then
+		/usr/sbin/${prog} -v
+	else
+		/usr/sbin/${prog}
+	fi
+	RETVAL=$?
+	[ $RETVAL -eq 0 ] && touch $lockfile
+	[ $RETVAL -eq 0 ] && echo "$prog started"
+	[ $RETVAL -ne 0 ] && echo "$prog failure"
+	return $RETVAL
+}
+
+stop() {
+	echo -n "Stopping $prog: "
+# We are forcing it to _only_ use -TERM as killproc could use
+# -KILL which would result in BMC timer not being set properly 
+# and reboot the box.
+	killall -9 $prog
+	RETVAL=$?
+	[ $RETVAL -eq 0 ] && rm -f $lockfile $pidfile && echo "$prog stopped" 
+	return $RETVAL
+}
+
+restart() {
+	stop
+	sleep 6
+	start
+}
+
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	reload|restart)
+		restart
+		;;
+	condrestart)
+		if [ -f $lockfile ]; then
+			restart
+		fi
+		;;
+	*)
+		echo $"Usage: $0 {start|stop|restart|condrestart}"
+		exit 1
+esac
