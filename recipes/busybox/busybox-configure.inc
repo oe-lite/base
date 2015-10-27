@@ -553,14 +553,27 @@ BUSYBOX_SIMPLE_USE_FLAGS += "traceroute:util/"
 # USE flag: enable cttyhack utility
 BUSYBOX_SIMPLE_USE_FLAGS += "cttyhack:util/"
 
+# USE flag: enable gzip utility
+BUSYBOX_SIMPLE_USE_FLAGS += "gzip=1:util/:\
+CONFIG_GZIP,\
+CONFIG_FEATURE_TAR_SEAMLESS_GZ"
+
 # USE flag: enable gunzip utility
-BUSYBOX_SIMPLE_USE_FLAGS += "gunzip:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "gunzip=1:util/:\
+CONFIG_GUNZIP,\
+CONFIG_FEATURE_TAR_SEAMLESS_GZ,\
+CONFIG_FEATURE_TAR_AUTODETECT"
 
 # USE flag: enable bzip2 utility
-BUSYBOX_SIMPLE_USE_FLAGS += "bzip2:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "bzip2:util/:\
+CONFIG_BZIP2,\
+CONFIG_FEATURE_TAR_SEAMLESS_BZ2"
 
 # USE flag: enable bunzip2 utility
-BUSYBOX_SIMPLE_USE_FLAGS += "bunzip2:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "bunzip2:util/:\
+CONFIG_BUNZIP2,\
+CONFIG_FEATURE_TAR_SEAMLESS_BZ2,\
+CONFIG_FEATURE_TAR_AUTODETECT"
 
 # USE flag: enable tar oldgnu compatibility
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_tar_oldgnu_compatibility"
@@ -641,7 +654,7 @@ BUSYBOX_SIMPLE_USE_FLAGS += "feature_preserve_hardlinks"
 BUSYBOX_SIMPLE_USE_FLAGS += "chvt:util/"
 
 # USE flag: enable clear utility
-BUSYBOX_SIMPLE_USE_FLAGS += "clear:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "clear=1:util/"
 
 # USE flag: enable deallocvt utility
 BUSYBOX_SIMPLE_USE_FLAGS += "deallocvt:util/"
@@ -668,7 +681,7 @@ BUSYBOX_SIMPLE_USE_FLAGS += "grep=1:util/"
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_grep_egrep_alias=1"
 
 # USE flag: enable feature grep fgrep alias
-BUSYBOX_SIMPLE_USE_FLAGS += "feature_grep_fgrep_alias"
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_grep_fgrep_alias=1"
 
 # USE flag: enable feature grep context
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_grep_context"
