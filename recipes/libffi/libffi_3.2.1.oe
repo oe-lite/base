@@ -1,0 +1,6 @@
+# -*- mode:python; -*-
+require ${PN}.inc
+
+LICENSE = "MIT"
+
+LIBRARY_VERSION = "6"
