@@ -283,9 +283,11 @@ SPLASHUTILS_INITSCRIPTS:>USE_busybox_watchdog += " busybox_watchdog"
 DEFAULT_USE_busybox_watchdog_splashutils_msg = "\"Starting Busybox watchdog\""
 
 RECIPE_FLAGS += "busybox_udhcpc \
+                 busybox_udhcpc_ifupdown_cmd_options \
 "
 # USE flag: enable udhcp client
 DEFAULT_USE_busybox_udhcpc = "1"
+DEFAULT_USE_busybox_udhcpc_ifupdown_cmd_options ="-R -n"
 # USE flag: enable RFC3397 support
 DEFAULT_USE_busybox_udhcpc_rfc3397 = "1"
 BUSYBOX_PROVIDES:>USE_busybox_udhcpc = " busybox-udhcpc dhcp-client"
@@ -296,7 +298,7 @@ do_configure_busybox_udhcpc () {
                -e 's/^\(CONFIG_UDHCPC_DEBUG\)=.*/\1=1/' \
                -e 's|^\(CONFIG_UDHCPC_DEFAULT_SCRIPT\)=.*|\1="${datadir}/udhcpc/default.script"|' \
                -e 's/^\(CONFIG_UDHCPC_SLACK_FOR_BUGGY_SERVERS\)=.*/\1=924/' \
-               -e 's|^\(CONFIG_IFUPDOWN_UDHCPC_CMD_OPTIONS\)=.*|\1="-R -n"|' \
+               -e 's|^\(CONFIG_IFUPDOWN_UDHCPC_CMD_OPTIONS\)=.*|\1="${USE_busybox_udhcpc_ifupdown_cmd_options}"|' \
                -e 's/^\(CONFIG_FEATURE_IFUPDOWN_EXTERNAL_DHCP\)=y/\1=n/' \
         .config
 }
