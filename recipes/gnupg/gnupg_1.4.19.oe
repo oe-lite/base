@@ -1,0 +1,6 @@
+require gnupg.inc
+
+DEPENDS += "readline"
+EXTRA_OECONF += "--with-readline"
+
+EXTRA_OECONF += "ac_cv_sys_symbol_underscore=no --without-libusb"

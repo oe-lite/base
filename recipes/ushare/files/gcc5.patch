@@ -1,0 +1,21 @@
+--- ushare-1.1a/src/ushare.h	2007-12-09 13:03:36.000000000 +0000
++++ ushare-1.1a.mod/src/ushare.h	2015-10-27 12:08:27.715802655 +0000
+@@ -127,6 +127,6 @@
+   struct service_t *service;
+ };
+ 
+-inline void display_headers (void);
++void display_headers (void);
+ 
+ #endif /* _USHARE_H_ */
+--- ushare-1.1a/src/trace.h	2007-12-09 13:03:36.000000000 +0000
++++ ushare-1.1a.mod/src/trace.h	2015-10-27 12:07:54.582731637 +0000
+@@ -29,7 +29,7 @@
+ 
+ void print_log (log_level level, const char *format, ...)
+   __attribute__ ((format (printf, 2, 3)));
+-inline void start_log (void);
++void start_log (void);
+ 
+ /* log_info
+  * Normal print, to replace printf

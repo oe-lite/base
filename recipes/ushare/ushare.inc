@@ -12,6 +12,7 @@ RDEPENDS_${PN} = "libupnp"
 
 SRC_URI = "http://ushare.geexbox.org/releases/ushare-${PV}.tar.bz2"
 SRC_URI += "file://init-script.patch"
+SRC_URI += "file://gcc5.patch"
 
 #ushare is old. autotools class does not work with this old configure script,
 #so we do it manually
