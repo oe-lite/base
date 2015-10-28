@@ -1,7 +1,7 @@
 # -*- mode:python; -*-
 DESCRIPTION = "BusyBox: The Swiss Army Knife of Embedded Linux"
 HOMEPAGE = "http://www.busybox.net"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0+"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 

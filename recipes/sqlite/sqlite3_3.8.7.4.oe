@@ -1,4 +1,4 @@
-LICENSE = "custom"
+LICENSE = "Public Domain"
 
 require sqlite3.inc
 

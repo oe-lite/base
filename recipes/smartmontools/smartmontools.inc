@@ -1,5 +1,5 @@
 DESCRIPTION = "Control and monitor storage systems using S.M.A.R.T."
-LICENSE = "GPL"
+LICENSE = "GPL-2.0+"
 
 inherit c c++ autotools
 

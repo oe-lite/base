@@ -1,5 +1,5 @@
 SUMMARY="Basic networking tools"
-LICENSE="GPL"
+LICENSE="GPL-2.0+"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 

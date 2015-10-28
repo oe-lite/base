@@ -1,6 +1,6 @@
 DESCRIPTION = "Rsyslog is an enhanced multi-threaded syslogd"
 HOMEPAGE = "http://www.rsyslog.com/"
-LICENSE = "GPL-3.0"
+LICENSE = "GPL-3.0+,Apache-2.0-style,LGPL-3.0+"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 

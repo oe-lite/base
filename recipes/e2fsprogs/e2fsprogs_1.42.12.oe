@@ -1,4 +1,4 @@
-LICENSE = "GPL-2.0 & LGPL-2.0 & MIT & BSD-3-Clause*"
+LICENSE = "GPL-2.0+, LGPL-2.1+, MIT-style, BSD-style"
 
 require e2fsprogs.inc
 

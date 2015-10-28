@@ -1,7 +1,7 @@
 # -*- mode:python; -*-
 DESCRIPTION = "Libcap is a library for getting and setting POSIX.1e \
 	(formerly POSIX 6) draft 15 capabilities."
-LICENSE = "GPL,BSD"
+LICENSE = "GPL-2.0+,BSD-3-Clause"
 
 RECIPE_TYPES = "machine"
 COMPATIBLE_HOST_ARCHS = ".*linux"

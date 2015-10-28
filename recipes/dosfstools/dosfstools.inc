@@ -4,7 +4,7 @@
 # Released under the MIT license (see packages/COPYING)
 
 DESCRIPTION = "DOS FAT Filesystem Utilities"
-LICENSE = "GPLv3"
+LICENSE = "GPL-3.0+"
 
 RECIPE_TYPES = "machine native sdk"
 COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"

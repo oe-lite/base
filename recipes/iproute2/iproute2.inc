@@ -3,7 +3,7 @@ DESCRIPTION = "Iproute2 is a collection of utilities for controlling \
 TCP / IP networking and traffic control in Linux.  Of the utilities ip \
 and tc are the most important.  ip controls IPv4 and IPv6 \
 configuration and tc stands for traffic control."
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0+"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 

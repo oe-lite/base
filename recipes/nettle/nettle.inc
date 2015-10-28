@@ -1,6 +1,8 @@
 DESCRIPTION = "The Nettle package contains the low-level cryptographic \
 	library that is designed to fit easily in many contexts"
-LICENSE = "LGPL-2.1+"
+LICENSE = "GPL-2.0+"
+LICENSE_${PN}-libnettle = "LGPL-2.1+"
+LICENSE_${PN}-libhogweed = "LGPL-2.1+"
 
 COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
 

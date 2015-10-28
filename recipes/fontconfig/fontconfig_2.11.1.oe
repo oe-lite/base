@@ -1,5 +1,5 @@
 require ${PN}.inc
-LICENSE = "BSD"
+LICENSE = "MIT-style"
 
 EXTRA_OECONF += "--without-xmldir"
 

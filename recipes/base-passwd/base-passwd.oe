@@ -1,5 +1,5 @@
 DESCRIPTION = "OE-lite Linux minimal base passwd/group files"
-LICENSE = "GPL"
+LICENSE = "MIT"
 
 SRC_URI = "file://passwd file://group"
 S = "${SRCDIR}"

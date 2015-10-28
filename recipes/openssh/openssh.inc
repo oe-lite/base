@@ -8,7 +8,7 @@ DESCRIPTION = "Secure rlogin/rsh/rcp/telnet replacement (OpenSSH) Ssh \
 	and rcp, and can be used to provide applications with a secure \
 	communication channel."
 HOMEPAGE = "http://www.openssh.org/"
-LICENSE = "BSD"
+LICENSE = "BSD-style"
 
 RECIPE_TYPES = "machine"
 COMPATIBLE_HOST_ARCHS = ".*linux"

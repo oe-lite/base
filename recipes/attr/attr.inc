@@ -1,6 +1,6 @@
 # -*- mode:python; -*-
 DESCRIPTION = "Commands for Manipulating Filesystem Extended Attributes"
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0+,LGPL-2.1"
 
 RECIPE_TYPES = "machine native"
 COMPATIBLE_HOST_ARCHS = ".*linux"
