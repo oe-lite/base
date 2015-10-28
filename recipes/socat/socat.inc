@@ -7,6 +7,8 @@ RECIPE_TYPES = "machine"
 
 SRC_URI = "http://www.dest-unreach.org/socat/download/socat-${PV}.tar.bz2"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 AUTO_PACKAGE_UTILS = "socat filan procan"
 
 DEPENDS_${PN}-socat = "libc"
