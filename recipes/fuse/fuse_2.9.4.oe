@@ -1,0 +1,8 @@
+require fuse.inc
+
+SRC_URI += "file://dont-run-updaterc.d-on-host.patch"
+
+EXTRA_OECONF += " --disable-kernel-module --enable-example"
+
+FILES_${PN} += "${libdir}/libfuse.so"
+FILES_${PN} += "${libdir}/libulockmgr.so"
