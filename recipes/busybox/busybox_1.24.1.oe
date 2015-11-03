@@ -1,0 +1,3 @@
+require busybox.inc
+
+SRC_URI += "file://busybox-1.24.1-unzip.patch"
