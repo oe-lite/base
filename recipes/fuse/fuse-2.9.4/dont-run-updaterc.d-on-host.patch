@@ -1,0 +1,47 @@
+diff -urN fuse-2.9.4~orig/util/Makefile.am fuse-2.9.4/util/Makefile.am
+--- fuse-2.9.4~orig/util/Makefile.am	2014-07-04 14:20:34.000000000 +0200
++++ fuse-2.9.4/util/Makefile.am	2015-11-02 15:42:18.256788026 +0100
+@@ -39,10 +39,6 @@
+ 	$(INSTALL_PROGRAM) $(builddir)/mount.fuse $(DESTDIR)$(MOUNT_FUSE_PATH)/mount.fuse
+ 	$(MKDIR_P) $(DESTDIR)$(INIT_D_PATH)
+ 	$(INSTALL_SCRIPT) $(srcdir)/init_script $(DESTDIR)$(INIT_D_PATH)/fuse
+-	@if test -x /usr/sbin/update-rc.d; then \
+-		echo "/usr/sbin/update-rc.d fuse start 34 S . start 41 0 6 . || true"; \
+-		/usr/sbin/update-rc.d fuse start 34 S . start 41 0 6 . || true; \
+-	fi
+ 
+ install-data-local:
+ 	$(MKDIR_P) $(DESTDIR)$(UDEV_RULES_PATH)
+@@ -52,7 +48,3 @@
+ 	rm -f $(DESTDIR)$(MOUNT_FUSE_PATH)/mount.fuse
+ 	rm -f $(DESTDIR)$(UDEV_RULES_PATH)/99-fuse.rules
+ 	rm -f $(DESTDIR)$(INIT_D_PATH)/fuse
+-	@if test -x /usr/sbin/update-rc.d; then \
+-		echo "/usr/sbin/update-rc.d fuse remove || true"; \
+-		/usr/sbin/update-rc.d fuse remove || true; \
+-	fi
+diff -urN fuse-2.9.4~orig/util/Makefile.in fuse-2.9.4/util/Makefile.in
+--- fuse-2.9.4~orig/util/Makefile.in	2015-05-22 11:16:32.000000000 +0200
++++ fuse-2.9.4/util/Makefile.in	2015-11-02 15:42:50.844789639 +0100
+@@ -734,10 +734,6 @@
+ 	$(INSTALL_PROGRAM) $(builddir)/mount.fuse $(DESTDIR)$(MOUNT_FUSE_PATH)/mount.fuse
+ 	$(MKDIR_P) $(DESTDIR)$(INIT_D_PATH)
+ 	$(INSTALL_SCRIPT) $(srcdir)/init_script $(DESTDIR)$(INIT_D_PATH)/fuse
+-	@if test -x /usr/sbin/update-rc.d; then \
+-		echo "/usr/sbin/update-rc.d fuse start 34 S . start 41 0 6 . || true"; \
+-		/usr/sbin/update-rc.d fuse start 34 S . start 41 0 6 . || true; \
+-	fi
+ 
+ install-data-local:
+ 	$(MKDIR_P) $(DESTDIR)$(UDEV_RULES_PATH)
+@@ -747,10 +743,6 @@
+ 	rm -f $(DESTDIR)$(MOUNT_FUSE_PATH)/mount.fuse
+ 	rm -f $(DESTDIR)$(UDEV_RULES_PATH)/99-fuse.rules
+ 	rm -f $(DESTDIR)$(INIT_D_PATH)/fuse
+-	@if test -x /usr/sbin/update-rc.d; then \
+-		echo "/usr/sbin/update-rc.d fuse remove || true"; \
+-		/usr/sbin/update-rc.d fuse remove || true; \
+-	fi
+ 
+ # Tell versions [3.59,3.63) of GNU make to not export all variables.
+ # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -1,7 +1,6 @@
 require fuse.inc
 
-SRC_URI += "file://not-run-updaterc.d-on-host.patch"
-SRC_URI += "file://fusermount-clone-gnu-source.patch"
+SRC_URI += "file://dont-run-updaterc.d-on-host.patch"
 
 EXTRA_OECONF += " --disable-kernel-module --enable-example"
 
