@@ -1,0 +1,6 @@
+# -*- mode:python; -*-
+require ${PN}.inc
+
+LICENSE = "BSD"
+
+SRC_URI += "file://hackOutUsrLib.patch"
