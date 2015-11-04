@@ -1,6 +1,8 @@
 #! /bin/sh
 set -e
 
+HOST_KEY_TYPES=""
+
 # /etc/init.d/ssh: start and stop the OpenBSD "secure shell" daemon
 
 test -x /usr/sbin/sshd || exit 0
@@ -32,18 +34,14 @@ check_config() {
 
 check_keys() {
 	# create keys if necessary
-	if [ ! -f /etc/ssh/ssh_host_rsa_key ]; then
-		echo "  generating ssh RSA key..."
-		ssh-keygen -q -f /etc/ssh/ssh_host_rsa_key -N '' -t rsa
-	fi
-	if [ ! -f /etc/ssh/ssh_host_dsa_key ]; then
-		echo "  generating ssh DSA key..."
-		ssh-keygen -q -f /etc/ssh/ssh_host_dsa_key -N '' -t dsa
-	fi
-	if [ ! -f /etc/ssh/ssh_host_ecdsa_key ]; then
-		echo "  generating ssh ECDSA key..."
-		ssh-keygen -q -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa
-	fi
+	for keytype in $HOST_KEY_TYPES ; do
+		keyfile="/etc/ssh/ssh_host_"$keytype"_key"
+		if [ ! -f "$keyfile" ]; then
+			echo "  generating ssh $keytype key..."
+			ssh-keygen -q -f "$keyfile" -N '' -t rsa
+			sync
+		fi
+	done
 }
 
 export PATH="${PATH:+$PATH:}/usr/sbin:/sbin"
