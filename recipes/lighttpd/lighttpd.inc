@@ -22,7 +22,6 @@ EXTRA_OECONF = " \
 	--without-ldap \
 	--without-attr \
 	--without-valgrind \
-	--without-openssl \
 	--without-kerberos5 \
 	--without-fam \
 	--without-webdav-props \
