@@ -14,5 +14,7 @@ SRC_URI += "file://configure-arm-cortex.patch"
 # configure.ac)
 SRC_URI += "file://configure-linux-kernel-hardcode.patch"
 
+SRC_URI += "file://0001-Add-glibc-2.22-support.patch"
+
 AUTO_PACKAGE_UTILS = "callgrind_annotate callgrind_control cg_annotate \
                       cg_diff cg_merge ms_print valgrind-listener "
