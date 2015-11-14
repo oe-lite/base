@@ -1,17 +1,24 @@
 DESCRIPTION = "Bonjour, also known as zero-configuration networking, enables automatic discovery of computers, devices, and services on IP networks."
 HOMEPAGE = "http://developer.apple.com/networking/bonjour/"
 
-#RPROVIDES_${PN} += "libdns_sd.so"
 RECIPE_TYPES = "machine"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit c make sysvinit
 
+inherit auto-package-libs
+AUTO_PACKAGE_LIBS = "dns_sd nss_mdns"
+
+inherit auto-package-utils
+AUTO_PACKAGE_UTILS = "mdnsd"
+
 SRC_URI = "http://opensource.apple.com/tarballs/mDNSResponder/mDNSResponder-${PV}.tar.gz \
            file://build.patch \
 	   file://mDNS \
 "
+DEPENDS_${PN}-mdnsd += "libc"
+RDEPENDS_${PN}-mdnsd += "libc"
 
 RECIPE_FLAGS += "mdns_sysvinit_start mdns_sysvinit_stop"
 SYSVINIT_SCRIPT_mdns = "mDNS"
@@ -75,18 +82,10 @@ pkg_prerm_${PN} () {
         -i $D/etc/nsswitch.conf
 }
 
-FILES_${PN} += "${libdir}/libdns_sd.so.1 \
-                ${bindir}/dns-sd \
-                ${libdir}/libnss_mdns-0.2.so \
-                ${sysconfdir}/nss_mdns.conf"
-RDEPENDS_${PN} += "libc"
-DEPENDS_${PN} += "libc"
-
-FILES_${PN}-dev += "${libdir}/libdns_sd.so \
-                    ${includedir}/dns_sd.h "
-
-FILES_${PN}-man += "${mandir}/man8/mdnsd.8 \
-                    ${mandir}/man5/nss_mdns.conf.5 \
-                    ${mandir}/man8/libnss_mdns.8"
-
-PACKAGES = "${PN} ${PN}-dev ${PN}-man ${PN}-dbg"
+# The .so and .so.1 files do not contain version information (e.g. libtool not
+# used). This confuses packages rdepend and linked with this lib if the .so
+# file is not there.
+FILES_${PN}-libnss-mdns += "${libdir}/libnss_mdns-0.2.so ${sysconfdir}/nss_mdns.conf"
+FILES_${PN}-libdns-sd-dev = "${includedir}/dns_sd.h"
+FILES_${PN}-libdns-sd += "${libdir}/libdns_sd.so"
+RDEPENDS_${PN} += "${PN}-mdnsd ${PN}-libdns-sd"
