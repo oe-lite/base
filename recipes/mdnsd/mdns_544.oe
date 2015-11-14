@@ -39,8 +39,7 @@ do_install () {
     install -m 0755 mDNSPosix/build/prod/mdnsd ${D}${sbindir}
 
     install -d ${D}${libdir}
-    cp mDNSPosix/build/prod/libdns_sd.so ${D}${libdir}/libdns_sd.so.1
-    chmod 0644 ${D}${libdir}/libdns_sd.so.1
+    install -m 0644  mDNSPosix/build/prod/libdns_sd.so ${D}${libdir}/libdns_sd.so.1
     ln -s libdns_sd.so.1 ${D}${libdir}/libdns_sd.so
 
     install -d ${D}${includedir}
@@ -51,7 +50,7 @@ do_install () {
 
 
     install -d ${D}${libdir}
-#    oe_libinstall -C mDNSPosix/build/prod -so libnss_mdns-0.2 ${D}${libdir}
+    install -m 0644 mDNSPosix/build/prod/libnss_mdns-0.2.so ${D}${libdir}/libnss_mdns-0.2.so
     ln -s libnss_mdns-0.2.so ${D}${libdir}/libnss_mdns.so.2
 
     install -d ${D}${sysconfdir}
@@ -80,6 +79,8 @@ FILES_${PN} += "${libdir}/libdns_sd.so.1 \
                 ${bindir}/dns-sd \
                 ${libdir}/libnss_mdns-0.2.so \
                 ${sysconfdir}/nss_mdns.conf"
+RDEPENDS_${PN} += "libc"
+DEPENDS_${PN} += "libc"
 
 FILES_${PN}-dev += "${libdir}/libdns_sd.so \
                     ${includedir}/dns_sd.h "
