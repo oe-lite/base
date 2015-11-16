@@ -4,6 +4,8 @@ HOMEPAGE = "http://www.remotesensing.org/libtiff/"
 
 RECIPE_TYPES = "machine native"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 SRC_URI = "ftp://ftp.remotesensing.org/pub/libtiff/tiff-${PV}.tar.gz"
 
 inherit autotools c++
