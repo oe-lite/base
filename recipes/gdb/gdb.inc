@@ -8,7 +8,6 @@ GDB_DEPENDS = "host:libc host:libm ${DEPENDS_HOST_OS} host:libexpat host:libread
 DEPENDS_HOST_OS = "host:libdl host:libpthread"
 DEPENDS_HOST_OS:HOST_LIBC_mingw = ""
 DEPENDS = "${GDB_DEPENDS}"
-RDEPENDS_${PN} = "${GDB_DEPENDS}"
 
 inherit autotools auto-package-utils
 
@@ -46,3 +45,4 @@ PACKAGES =+ "${PN}-python ${PN}-syscalls ${PN}-system-gdbinit"
 FILES_${PN}-python = "${datadir}/gdb/python/"
 FILES_${PN}-syscalls = "${datadir}/gdb/syscalls/"
 FILES_${PN}-system-gdbinit = "${datadir}/gdb/system-gdbinit/"
+RDEPENDS_${PN} += "${PN}-gdb"
