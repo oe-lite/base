@@ -1,0 +1,30 @@
+From 243de7f3e62e2d22fae1be08b5e28d5afef5f040 Mon Sep 17 00:00:00 2001
+From: Pierre Moreau <dev@pmoreau.org>
+Date: Sat, 15 Aug 2015 15:51:05 +0200
+Subject: [PATCH] Add glibc 2.22 "support"
+
+---
+ configure.ac | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/configure.ac b/configure.ac
+index f59954c..d827a59 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -1025,6 +1025,13 @@ case "${GLIBC_VERSION}" in
+ 	DEFAULT_SUPP="glibc-2.34567-NPTL-helgrind.supp ${DEFAULT_SUPP}"
+ 	DEFAULT_SUPP="glibc-2.X-drd.supp ${DEFAULT_SUPP}"
+ 	;;
++     2.22)
++	AC_MSG_RESULT(2.22 family)
++	AC_DEFINE([GLIBC_2_22], 1, [Define to 1 if you're using glibc 2.22.x])
++	DEFAULT_SUPP="glibc-2.X.supp ${DEFAULT_SUPP}"
++	DEFAULT_SUPP="glibc-2.34567-NPTL-helgrind.supp ${DEFAULT_SUPP}"
++	DEFAULT_SUPP="glibc-2.X-drd.supp ${DEFAULT_SUPP}"
++	;;
+      darwin)
+ 	AC_MSG_RESULT(Darwin)
+ 	AC_DEFINE([DARWIN_LIBC], 1, [Define to 1 if you're using Darwin])
+-- 
+2.6.2
+
