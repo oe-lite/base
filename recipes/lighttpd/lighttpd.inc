@@ -11,7 +11,7 @@ inherit autotools pkgconfig gettext sysvinit make
 
 DEPENDS = "libdl libm"
 
-SRC_URI =  "http://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-${PV}.tar.bz2"
+SRC_URI =  "http://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-${PV}.tar.xz"
 SRC_URI += "file://lighttpd.conf"
 SRC_URI += "file://index.html"
 SRC_URI += "file://lighttpd"
@@ -22,7 +22,6 @@ EXTRA_OECONF = " \
 	--without-ldap \
 	--without-attr \
 	--without-valgrind \
-	--without-openssl \
 	--without-kerberos5 \
 	--without-fam \
 	--without-webdav-props \
