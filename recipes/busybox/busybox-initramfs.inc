@@ -21,6 +21,7 @@ RECIPE_USE_busybox_feature_ifupdown_ip_builtin	= "1"
 # busybox recipe. When building os-initramfs, just RDEPEND on
 # busybox-os-initramfs, and assume that it has the desired features.
 BUSYBOX_PROVIDES = ""
+PROVIDES_${PN}-udhcpd-config = ""
 
 FILESPATHPKG = "${P}:${PN}:busybox-${PV}:busybox:files"
 
