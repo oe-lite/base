@@ -73,6 +73,11 @@ do_compile_binfmt_flat_fixup() {
 
 require busybox-install.inc
 
+PACKAGES:<USE_busybox_udhcpd = "${PN}-udhcpd-config "
+PROVIDES_${PN}-udhcpd-config = " udhcpd-config"
+FILES_${PN}-udhcpd-config = "${sysconfdir}/udhcpd.conf "
+RDEPENDS_${PN}:>USE_busybox_udhcpd += " udhcpd-config"
+
 RDEPENDS_${PN}:>USE_busybox_init = " ${PN}-sysinit"
 PACKAGES:<USE_busybox_init = "${PN}-sysinit "
 FILES_${PN}-sysinit:USE_busybox_init = "${sysconfdir}/init.d/rcS \
