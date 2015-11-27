@@ -1,0 +1,16 @@
+include boost.inc
+
+DEPENDS_${PN}-libboost-random += "libboost-system"
+RDEPENDS_${PN}-libboost-random += "libboost-system"
+
+# 1.59 adds timer
+BOOST_LIBS += " timer"
+AUTO_PACKAGE_LIBS += " boost_timer"
+
+# Deps from doing (cross compiler prefix-)ld libboost_timer.so 
+DEPENDS_${PN}-libboost-timer += "libboost-chrono libboost-system"
+RDEPENDS_${PN}-libboost-timer += "libboost-chrono libboost-system"
+
+PROVIDES_${PN}-libboost-timer += "libtimer"
+PROVIDES_${PN}-libboost-timer-dev += "libtimer-dev"
+PROVIDES_${PN}-libboost-timer[qa] += "allow-missing-soname:libtimer"
