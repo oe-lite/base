@@ -37,3 +37,14 @@ DEPENDS_${PN} += "libc libdl libm libpthread librt libgmp libcrypto \
 	libstrongswan libhydra libcharon"
 RDEPENDS_${PN} = "libc libdl libm libpthread librt libgmp libcrypto \
 	libstrongswan libhydra libcharon"
+
+do_install[postfuncs] =+ "do_install_extra_files"
+do_install_extra_files() {
+	sysvinit_install_script ${D}/usr/sbin/ipsec ipsec
+}
+
+inherit sysvinit
+RECIPE_FLAGS += "strongswan_sysvinit_start strongswan_sysvinit_stop"
+SYSVINIT_SCRIPT_strongswan = "ipsec"
+DEFAULT_USE_strongswan_sysvinit_start = "0"
+DEFAULT_USE_strongswan_sysvinit_stop  = "0"
