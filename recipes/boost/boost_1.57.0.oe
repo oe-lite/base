@@ -1,4 +1,0 @@
-include boost.inc
-
-DEPENDS_${PN}-libboost-random += "libboost-system"
-RDEPENDS_${PN}-libboost-random += "libboost-system"
