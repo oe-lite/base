@@ -108,6 +108,7 @@ static void add_new_directory(char *name, char *path,
 {
 	mkdir(path, mode);
 	chown(path, uid, gid);
+	chmod(path, mode);
 //	printf("Directory: %s %s  UID: %ld  GID %ld  MODE: %ld\n", path, name, uid, gid, mode);
 }
 
