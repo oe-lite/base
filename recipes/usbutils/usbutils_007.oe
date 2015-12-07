@@ -25,6 +25,8 @@ do_install_rm_usbids() {
 }
 
 PACKAGES =+ "${PN}-update"
+PACKAGES =+ "${PN}-lsusb-py"
+FILES_${PN}-lsusb-py += "${bindir}/*.py"
 
 FILES_${PN} += "${datadir}/usb*"
 FILES_${PN}-update = "${sbindir}/update-usbids.sh"
