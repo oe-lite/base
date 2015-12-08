@@ -117,7 +117,7 @@ DEPENDS_${PN}-sshd              += "libc libcrypt libcrypto libdl libresolv libu
 DEPENDS_${PN}-sftp              += "libc libcrypt libcrypto libdl libresolv libutil libz"
 
 inherit sysvinit
-RECIPE_FLAGS = "sshd_sysvinit_start sshd_sysvinit_stop"
+RECIPE_FLAGS += "sshd_sysvinit_start sshd_sysvinit_stop"
 DEFAULT_USE_sshd_sysvinit_start = "25"
 DEFAULT_USE_sshd_sysvinit_stop = "0"
 
