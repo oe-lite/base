@@ -37,6 +37,7 @@ EXTRA_OECONF = "--disable-suid-ssh --with-ssl \
 	--with-privsep-path=/var/run/sshd \
 	--sysconfdir=${sysconfdir}/ssh \
 	--with-md5-passwords \
+	--without-shadow \
 	--with-xauth=${bindir}/xauth"
 
 EXTRA_OEMAKE = "'STRIP_OPT='"
