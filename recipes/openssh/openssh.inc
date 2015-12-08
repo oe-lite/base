@@ -82,7 +82,10 @@ FILES_${PN}-ssh-doc = "${mandir}/*/ssh_config.* ${mandir}/*/slogin.*"
 FILES_${PN}-sshd = "${sysconfdir}/init.d/sshd \
 	${sysconfdir}/rcS.d/* \
 	${sysconfdir}/ssh/moduli \
+	${sysconfdir}/rcS.d \
+	${passwddir} ${groupdir} \
 	${localstatedir}/run/sshd"
+
 FILES_${PN}-sshd-doc = "${mandir}/*/moduli.* ${mandir}/*/sshd_config.*"
 FILES_${PN}-ssh-config = "${sysconfdir}/ssh/ssh_config"
 FILES_${PN}-sshd-config = "${sysconfdir}/ssh/sshd_config"
