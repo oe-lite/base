@@ -106,6 +106,8 @@ CONFIG_START_STOP_DAEMON,\
 CONFIG_FEATURE_START_STOP_DAEMON_FANCY,\
 CONFIG_FEATURE_START_STOP_DAEMON_LONG_OPTIONS"
 
+BUSYBOX_SIMPLE_USE_FLAGS += "blockdev:util/"
+
 BUSYBOX_SIMPLE_USE_FLAGS += "mdev=1:mdev:\
 CONFIG_MDEV,\
 CONFIG_FEATURE_MDEV_CONF,\
@@ -600,6 +602,9 @@ BUSYBOX_SIMPLE_USE_FLAGS += "feature_date_compat"
 
 # USE flag: enable tr utility
 BUSYBOX_SIMPLE_USE_FLAGS += "tr:util/"
+
+# USE flag: enable cksum utility
+BUSYBOX_SIMPLE_USE_FLAGS += "cksum:util/"
 
 # USE flag: enable install utility
 BUSYBOX_SIMPLE_USE_FLAGS += "install:util/"
