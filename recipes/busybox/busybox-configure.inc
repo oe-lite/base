@@ -1009,6 +1009,15 @@ BUSYBOX_SIMPLE_USE_FLAGS += "ubirmvol:util/"
 BUSYBOX_SIMPLE_USE_FLAGS += "ubirsvol:util/"
 BUSYBOX_SIMPLE_USE_FLAGS += "ubiupdatevol:util/"
 
+# USE flag: enable feature IPv6
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_ipv6"
+
+# USE flag: enable ping6 utility
+BUSYBOX_SIMPLE_USE_FLAGS += "ping6:util/"
+
+# USE flag: enable feature IPv6 in ifup and ifdown
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_ifupdown_ipv6"
+
 # USE flag: enable ifplugd service
 BUSYBOX_SIMPLE_USE_FLAGS += "ifplugd:service/ifplugd"
 RECIPE_FLAGS += "busybox_ifplugd_sysvinit_start busybox_ifplugd_sysvinit_stop"
