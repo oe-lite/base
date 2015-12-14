@@ -56,38 +56,45 @@ do_install_extra_files () {
 	install -m 0644 ${SRCDIR}/default-server \
 		${D}${sysconfdir}/default/dhcp-server
 
-	rm -f ${D}${sysconfdir}/dhclient.conf
-	rm -f ${D}${sysconfdir}/dhcpd.conf
-	install -m 0644 ${SRCDIR}/dhclient.conf \
-		${D}${sysconfdir}/dhcp/dhclient.conf
-	install -m 0644 ${SRCDIR}/dhcpd.conf \
-		${D}${sysconfdir}/dhcp/dhcpd.conf
-
+	mv ${D}${sysconfdir}/dhcpd.conf.example \
+	   	${D}${sysconfdir}/dhcp/dhcpd.conf.example
+	mv ${D}${sysconfdir}/dhclient.conf.example \
+	   	${D}${sysconfdir}/dhcp/dhclient.conf.example
 	install -d ${D}${base_sbindir}/
 	mv ${D}${sbindir}/dhclient ${D}${base_sbindir}/
 	install -m 0755 ${S}/client/scripts/linux \
 		${D}${base_sbindir}/dhclient-script
 }
 
-PACKAGES += "${PN}-server ${PN}-client ${PN}-relay ${PN}-omshell"
+PACKAGES += "${PN}-server ${PN}-client ${PN}-relay ${PN}-omshell ${PN}-server-config ${PN}-client-config"
 
 COMMON_DEPENDS = "libdl libcrypto libdl libgcc libssl"
 
 FILES_${PN} = ""
 FILES_${PN}-server = "${sbindir}/dhcpd ${sysconfdir}/init.d/dhcp-server \
-	${sysconfdir}/default/dhcp-server ${sysconfdir}/dhcp/dhcpd.conf"
+	${sysconfdir}/rcS.d/S*dhcp-server"
+# Note that ISC does only provide a .example file, which does not work by default,
+# hence it is kept as an example file
+FILES_${PN}-server-config = "${sysconfdir}/default/dhcp-server \
+	${sysconfdir}/dhcp/dhcpd.conf.example"
 FILES_${PN}-relay = "${sbindir}/dhcrelay ${sysconfdir}/init.d/dhcp-relay \
 	${sysconfdir}/default/dhcp-relay"
-
-FILES_${PN}-client = "${base_sbindir}/dhclient ${base_sbindir}/dhclient-script \
-	${sysconfdir}/dhcp/dhclient.conf"
+FILES_${PN}-client = "${base_sbindir}/dhclient ${base_sbindir}/dhclient-script"
+FILES_${PN}-client-config = "${sysconfdir}/dhcp/dhclient.conf.example"
 DEPENDS_${PN}-client = "libc libdl"
-RDEPENDS_${PN}-client = "sh libc libdl"
+RDEPENDS_${PN}-client = "sh libc libdl ${PN}-client-config"
 DEPENDS_${PN}-server = "libc libc libdl"
-RDEPENDS_${PN}-server = "libc libc libdl"
+RDEPENDS_${PN}-server = "libc libc libdl ${PN}-server-config"
 DEPENDS_${PN}-relay = "libc libdl"
 RDEPENDS_${PN}-relay = "libc libdl"
 DEPENDS_${PN}-omshell = "libc libdl"
 RDEPENDS_${PN}-omshell = "libc libdl"
 
 FILES_${PN}-omshell = "${bindir}/omshell"
+
+inherit sysvinit
+RECIPE_FLAGS += "dhcp-server_sysvinit_start dhcp-server-sysvinit_stop"
+SYSVINIT_SCRIPT_dhcp-server ="dhcp-server"
+DEFAULT_USE_dhcp-server_sysvinit_start = "0"
+DEFAULT_USE_dhcp-server-sysvinit_stop = "0"
+
