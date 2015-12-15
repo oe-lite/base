@@ -147,7 +147,8 @@ RECIPE_FLAGS += "busybox_syslogd \
         busybox_syslogd_ipc busybox_syslogd_ipc_bufsize \
         busybox_syslogd_remote busybox_syslogd_remote_host \
         busybox_syslogd_rotate \
-        busybox_syslogd_rotate_size busybox_syslogd_rotate_n"
+        busybox_syslogd_rotate_size busybox_syslogd_rotate_n \
+        busybox_syslogd_log_level"
 # USE flag: enable syslogd daemon
 DEFAULT_USE_busybox_syslogd = "1"
 DEFAULT_USE_busybox_syslogd_sysvinit_start = "21"
@@ -168,6 +169,9 @@ DEFAULT_USE_busybox_syslogd_rotate = "0"
 DEFAULT_USE_busybox_syslogd_rotate_size = "200"
 # USE flag: number of rotated logfiles to keep
 DEFAULT_USE_busybox_syslogd_rotate_n = "1"
+# USE flag: syslogd log lovel
+DEFAULT_USE_busybox_syslogd_log_level = "8"
+
 BUSYBOX_PROVIDES:>USE_busybox_syslogd = " busybox-syslogd syslogd"
 DO_CONFIGURE_PREFUNCS:>USE_busybox_syslogd = " do_configure_busybox_syslogd"
 do_configure_busybox_syslogd () {
@@ -175,6 +179,7 @@ do_configure_busybox_syslogd () {
                -e 's/^# \(CONFIG_FEATURE_SYSLOGD_DUP\) is not set/\1=y/' \
         .config
         sed -i -e 's|^\(FILE\)=.*|\1="${USE_busybox_syslogd_file}"|' ${SRCDIR}/busybox-syslogd
+        sed -i -e 's/^#\(LOG_LEVEL\)=.*/\1="-l ${USE_busybox_syslogd_log_level}"/' ${SRCDIR}/busybox-syslogd
 }
 DO_CONFIGURE_PREFUNCS:>USE_busybox_syslogd_ipc = " do_configure_busybox_syslogd_ipc"
 do_configure_busybox_syslogd_ipc () {
