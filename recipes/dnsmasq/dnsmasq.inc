@@ -18,7 +18,15 @@ do_install_dnsmasq_extra() {
         install -d 755 ${D}${bindir} ${D}${sysconfdir}/init.d
 
         install -m 755 ${SRCDIR}/dnsmasq ${D}${sysconfdir}/init.d
+
         install -m 755 ${S}/dnsmasq.conf.example ${D}${sysconfdir}/
+        install -m 755 ${S}/dnsmasq.conf.example ${D}${sysconfdir}/dnsmasq.conf
 }
 
+PACKAGES =+ "${PN}-config"
+
 FILES_${PN} += " ${sysconfdir} ${bindir}"
+FILES_${PN}-config = "${sysconfdir}/dnsmasq.conf"
+
+RDEPENDS_${PN} += "${PN}-config"
+
