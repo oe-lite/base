@@ -80,13 +80,18 @@ inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "ssh-add ssh-agent ssh-keyscan ssh-keygen ssh-keysign \
 	scp ssh sshd sftp sftp-server ssh-pkcs11-helper"
 
+PACKAGES =+ "${PN}-ssh-config ${PN}-sshd-config"
+
 ALLOW_EMPTY_${PN} = "1"
-FILES_${PN}-ssh = "${sysconfdir}/ssh/ssh_config ${bindir}/slogin"
+FILES_${PN}-ssh = "${bindir}/slogin"
 FILES_${PN}-ssh-doc = "${mandir}/*/ssh_config.* ${mandir}/*/slogin.*"
 FILES_${PN}-sshd = "${sysconfdir}/init.d/sshd \
-	${sysconfdir}/ssh/moduli ${sysconfdir}/ssh/sshd_config \
+	${sysconfdir}/rcS.d/* \
+	${sysconfdir}/ssh/moduli \
 	${localstatedir}/run/sshd"
 FILES_${PN}-sshd-doc = "${mandir}/*/moduli.* ${mandir}/*/sshd_config.*"
+FILES_${PN}-ssh-config = "${sysconfdir}/ssh/ssh_config"
+FILES_${PN}-sshd-config = "${sysconfdir}/ssh/sshd_config"
 
 RDEPENDS_${PN} += "${AUTO_PACKAGE_UTILS_PACKAGES}"
 AUTO_PACKAGE_UTILS_DEPENDS = "libc libgcc libdl libutil libz libcrypto libresolv libcrypt"
@@ -99,8 +104,8 @@ RDEPENDS_${PN}-ssh-keyscan       += "libcrypto libresolv libcrypt"
 RDEPENDS_${PN}-ssh-keygen        += "libcrypto libresolv libcrypt"
 RDEPENDS_${PN}-ssh-keysign       += "libcrypto libresolv libcrypt"
 RDEPENDS_${PN}-scp               += "libcrypto libresolv libcrypt"
-RDEPENDS_${PN}-ssh               += "libcrypto libresolv libcrypt"
-RDEPENDS_${PN}-sshd              += "libcrypto libresolv libcrypt"
+RDEPENDS_${PN}-ssh               += "libcrypto libresolv libcrypt ${PN}-ssh-config"
+RDEPENDS_${PN}-sshd              += "libcrypto libresolv libcrypt ${PN}-sshd-config"
 RDEPENDS_${PN}-sftp              += "libcrypto libresolv libcrypt"
 RDEPENDS_${PN}-ssh-pkcs11-helper += "libcrypto libresolv libcrypt"
 
