@@ -2,6 +2,8 @@ DESCRIPTION = "dnsmasq"
 HOMEPAGE = "http://www.thekelleys.org.uk/dnsmasq/doc.html"
 LICENSE = "GPL-3"
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 SRC_URI = "http://www.thekelleys.org.uk/${PN}/${PN}-${PV}.tar.gz"
 SRC_URI += "file://dnsmasq"
 SRC_URI += "file://makefile.patch"
