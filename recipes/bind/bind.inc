@@ -9,6 +9,7 @@ inherit autotools sysvinit
 DEPENDS = "libssl libcrypto ${DEPENDS_LIBC}"
 DEPENDS_LIBC = "libdl"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
+RDEPENDS = "${PN}-config"
 
 SRC_URI = "ftp://ftp.isc.org/isc/bind9/${PV}/${PN}-${PV}.tar.gz"
 
@@ -55,5 +56,9 @@ BINCONFIG_FILES = "${bindir}/isc-config.sh"
 FILES_${PN}-dev += "${bindir}/isc-config.sh"
 DEPENDS_${PN}-dev = "libssl libcrypto ${DEPENDS_LIBC}"
 
-PACKAGES =+ "${PN}-utils "
+# The named configuration file includes named.conf.local,
+# hence to make machine/project specific configuration provide
+# a named.conf.local and override the "-config" package
+FILES_${PN}-config = "${sysconfdir}/bind/named.conf.local"
+PACKAGES =+ "${PN}-utils ${PN}-config"
 FILES_${PN}-utils = "${bindir}/host ${bindir}/dig ${bindir}/nslookup"
