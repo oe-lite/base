@@ -11,6 +11,8 @@ inherit autotools
 TARBALL_EXTENSION ?= "gz"
 
 SRC_URI = "http://matt.ucc.asn.au/dropbear/releases/dropbear-${PV}.tar.${TARBALL_EXTENSION}"
+MIRRORS =. """http://matt.ucc.asn.au/dropbear/releases/ https://dropbear.nl/mirror/releases/
+"""
 SRC_URI += "file://fix-2kb-keys.patch file://init"
 
 RECIPE_FLAGS += "dropbear_allownopw"
