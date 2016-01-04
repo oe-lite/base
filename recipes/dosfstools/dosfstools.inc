@@ -9,8 +9,7 @@ LICENSE = "GPL-3.0+"
 RECIPE_TYPES = "machine native sdk"
 COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
 
-SRC_URI = "http://www.daniel-baumann.ch/files/software/dosfstools/dosfstools-${PV}.tar.gz"
-
+SRC_URI = "https://github.com/${PN}/${PN}/releases/download/v${PV}/${P}.tar.xz"
 inherit c make
 
 # output of getconf LFS_CFLAGS
