@@ -630,6 +630,7 @@ BUSYBOX_SIMPLE_USE_FLAGS += "feature_ls_color_is_default"
 
 # USE flag: enable sort utility
 BUSYBOX_SIMPLE_USE_FLAGS += "sort:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_sort_big"
 
 # USE flag: enable feature fancy tail
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_fancy_tail"
@@ -679,6 +680,12 @@ BUSYBOX_SIMPLE_USE_FLAGS += "feature_vi_set"
 # USE flag: enable grep utility
 BUSYBOX_SIMPLE_USE_FLAGS += "grep=1:util/"
 
+# USE flag: enable awk utility
+BUSYBOX_SIMPLE_USE_FLAGS += "awk:util/"
+
+# USE flag: enable diff utility
+BUSYBOX_SIMPLE_USE_FLAGS += "diff:util/"
+
 # USE flag: enable feature grep egrep alias
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_grep_egrep_alias=1"
 
@@ -712,6 +719,24 @@ BUSYBOX_SIMPLE_USE_FLAGS += "feature_securetty"
 # USE flag: enable mount util
 BUSYBOX_SIMPLE_USE_FLAGS += "mount=1:util/"
 
+# USE flag: enable beep util
+BUSYBOX_SIMPLE_USE_FLAGS += "beep:util/"
+
+RECIPE_FLAGS += "busybox_feature_beep_length_ms busybox_feature_beep_freq"
+DO_CONFIGURE_PREFUNCS:>USE_busybox_feature_beep_length_ms = " do_configure_busybox_feature_beep_length_ms"
+USE_busybox_feature_beep_length_ms[defaultval] = "0"
+do_configure_busybox_feature_beep_length_ms () {
+    sed -i -e 's/\(CONFIG_FEATURE_BEEP_LENGTH_MS\)=.*/\1="${USE_busybox_feature_beep_length_ms}"/' \
+         .config
+}
+
+DO_CONFIGURE_PREFUNCS:>USE_busybox_feature_beep_freq = " do_configure_busybox_feature_beep_freq"
+USE_busybox_feature_beep_freq[defaultval] = "0"
+do_configure_busybox_feature_beep_freq () {
+    sed -i -e 's/\(CONFIG_FEATURE_BEEP_FREQ\)=.*/\1="${USE_busybox_feature_beep_freq}"/' \
+         .config
+}
+
 # USE flag: enable feature_mount nfs
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_mount_nfs"
 
@@ -726,6 +751,15 @@ BUSYBOX_SIMPLE_USE_FLAGS += "mkfs_vfat:util/"
 
 # USE flag: enable chroot utility
 BUSYBOX_SIMPLE_USE_FLAGS += "chroot:util/"
+
+# USE flag: enable chattr utility
+BUSYBOX_SIMPLE_USE_FLAGS += "chattr:util/"
+
+# USE flag: enable lsattr utility
+BUSYBOX_SIMPLE_USE_FLAGS += "lsattr:util/"
+
+# USE flag: enable hd utility
+BUSYBOX_SIMPLE_USE_FLAGS += "hd:util/"
 
 # USE flag: enable pivot root utility
 BUSYBOX_SIMPLE_USE_FLAGS += "pivot_root:util/"
@@ -744,6 +778,8 @@ BUSYBOX_SIMPLE_USE_FLAGS += "sfdisk:util/"
 
 # USE flag: enable pidof
 BUSYBOX_SIMPLE_USE_FLAGS += "pidof:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_pidof_single"
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_pidof_omit"
 
 BUSYBOX_SIMPLE_USE_FLAGS += "stat:util/:\
 CONFIG_STAT,\
@@ -770,9 +806,6 @@ CONFIG_FEATURE_VOLUMEID_SYSV,\
 CONFIG_FEATURE_VOLUMEID_OCFS2,\
 CONFIG_FEATURE_VOLUMEID_LINUXRAID"
 
-# USE flag: enable pidof utility
-BUSYBOX_SIMPLE_USE_FLAGS += "pidof:util/"
-
 # USE flag: enable printenv utility
 BUSYBOX_SIMPLE_USE_FLAGS += "printenv:util/"
 
@@ -789,6 +822,12 @@ BUSYBOX_SIMPLE_USE_FLAGS += "readpath:util/"
 
 # USE flag: enable ip utility
 BUSYBOX_SIMPLE_USE_FLAGS += "ip=1:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_ip_address=1"
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_ip_link=1"
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_ip_route=1"
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_ip_tunnel"
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_ip_rule"
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_ip_short_forms"
 
 # USE flag: enable feature ifupdown ip buildin
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_ifupdown_ip_builtin=1"
@@ -843,6 +882,8 @@ BUSYBOX_SIMPLE_USE_FLAGS += "feature_wget_statusbar"
 
 # USE flag: enable feature wget authentication
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_wget_authentication"
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_wget_long_options"
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_wget_timeout"
 
 # USE flag: enable renice utility
 BUSYBOX_SIMPLE_USE_FLAGS += "renice:util/"
@@ -859,6 +900,15 @@ BUSYBOX_SIMPLE_USE_FLAGS += "wall:util/"
 # USE flag: enable cmp utility
 BUSYBOX_SIMPLE_USE_FLAGS += "cmp:util/"
 
+# USE flag: enable lspci utility
+BUSYBOX_SIMPLE_USE_FLAGS += "lspci:util/"
+
+# USE flag: enable lsusb utility
+BUSYBOX_SIMPLE_USE_FLAGS += "lsusb:util/"
+
+# USE flag: enable hexdump utility
+BUSYBOX_SIMPLE_USE_FLAGS += "hexdump:util/"
+
 # USE flag: enable flashcp utility
 BUSYBOX_SIMPLE_USE_FLAGS += "flashcp:util/"
 
@@ -871,11 +921,36 @@ BUSYBOX_SIMPLE_USE_FLAGS += "flash_unlock:util/"
 # USE flag: enable flash_eraseall utility
 BUSYBOX_SIMPLE_USE_FLAGS += "flash_eraseall:util/"
 
+# USE flag: enable dumpkmap utility
+BUSYBOX_SIMPLE_USE_FLAGS += "dumpkmap:util/"
+
+# USE flag: enable kbd mode
+BUSYBOX_SIMPLE_USE_FLAGS += "kbd_mode"
+
+# USE flag: enable loadkmap util
+BUSYBOX_SIMPLE_USE_FLAGS += "loadkmap:util/"
+
+# USE flag: enable setkeycodes util
+BUSYBOX_SIMPLE_USE_FLAGS += "setkeycodes:util/"
+
+# USE flag: enable showkey util
+BUSYBOX_SIMPLE_USE_FLAGS += "showkey:util/"
+
 # USE flag: enable ftpget utility
 BUSYBOX_SIMPLE_USE_FLAGS += "ftpget:util/"
 
 # USE flag: enable ftpput utility
 BUSYBOX_SIMPLE_USE_FLAGS += "ftpput:util/"
+
+# USE flag: enable pstree utility
+BUSYBOX_SIMPLE_USE_FLAGS += "pstree:util/"
+
+# USE flag: enable watch utility
+BUSYBOX_SIMPLE_USE_FLAGS += "watch:util/"
+
+# USE flag: enable tr features
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_tr_classes"
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_tr_equiv"
 
 # USE flag: enable >2GB file support
 BUSYBOX_SIMPLE_USE_FLAGS += "lfs"
@@ -883,8 +958,11 @@ BUSYBOX_SIMPLE_USE_FLAGS += "lfs"
 # USE flag: enable less utility
 BUSYBOX_SIMPLE_USE_FLAGS += "less=1:util/"
 
-# USE flag: enable less_regexp utility
-BUSYBOX_SIMPLE_USE_FLAGS += "less_regexp:util/"
+# USE flag: enable feature less_regexp
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_less_regexp"
+
+# USE flag: enable feature less_winch
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_less_winch"
 
 # USE flag: enable brctl utility
 BUSYBOX_SIMPLE_USE_FLAGS += "brctl:util/:\
