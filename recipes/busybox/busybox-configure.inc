@@ -70,14 +70,6 @@ do_configure_busybox_init () {
                -e 's/^# \(CONFIG_FEATURE_INIT_SCTTY\) is not set/\1=y/' \
                -e 's/^# \(CONFIG_FEATURE_INIT_SYSLOG\) is not set/\1=y/' \
                -e 's/^# \(CONFIG_FEATURE_EXTRA_QUIET\) is not set/\1=y/' \
-               -e 's/^\(CONFIG_FEATURE_CALL_TELINIT\)=y/\1=n/' \
-               -e 's/^# \(CONFIG_SVLOGD\) is not set/\1=y/' \
-               -e 's/^# \(CONFIG_CHPST\) is not set/\1=y/' \
-               -e 's/^# \(CONFIG_SETUIDGID\) is not set/\1=y/' \
-               -e 's/^# \(CONFIG_ENVUIDGID\) is not set/\1=y/' \
-               -e 's/^# \(CONFIG_ENVDIR\) is not set/\1=y/' \
-               -e 's/^# \(CONFIG_SOFTLIMIT\) is not set/\1=y/' \
-               -e 's|^# \(CONFIG_SV_DEFAULT_SERVICE_DIR\)=.*|\1="${runitservicedir}"|' \
         .config
 }
 
