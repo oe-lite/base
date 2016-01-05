@@ -1,0 +1,20 @@
+#!/bin/execlineb -P
+
+# Check for request to enable debug messages
+importas -D 1 VERBOSITY INIT_VERBOSITY
+
+ifthenelse { test -e /var/rc/compiled }
+{
+  ifelse -X { s6-rc-db -c /var/rc/compiled check }
+  { if { test $VERBOSITY -ge 2 } s6-echo "/var/rc/compiled is OK" }
+  s6-init-update -v $VERBOSITY
+}
+{ s6-init-update -v $VERBOSITY }
+
+foreground { if { test $VERBOSITY -ge 2 }
+  s6-echo -- "Initializing s6-rc system" }
+if { s6-rc-init -c /var/rc/compiled /run/service }
+
+foreground { if { test $VERBOSITY -ge 2 }
+  s6-echo -- "Starting default services" }
+s6-rc -v $VERBOSITY -u change default

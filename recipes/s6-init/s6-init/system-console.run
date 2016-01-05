@@ -1,0 +1,3 @@
+#!/bin/execlineb -P
+
+/sbin/getty 115200 /dev/console

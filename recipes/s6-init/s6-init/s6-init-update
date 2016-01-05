@@ -1,0 +1,21 @@
+#!/bin/execlineb
+
+elgetopt lv:
+importas -D 0 LIVE_UPDATE ELGETOPT_l
+importas -D 1 VERBOSITY ELGETOPT_v
+
+foreground { if { test $VERBOSITY -ge 2 }
+  s6-echo "Compiling /var/rc/compiled" }
+if { rm -rf /var/rc/compiled.new }
+if { s6-rc-compile -v $VERBOSITY /var/rc/compiled.new /etc/rc }
+if { s6-rc-db -c /var/rc/compiled.new check }
+if { rm -rf /var/rc/compiled }
+if { mv /var/rc/compiled.new /var/rc/compiled }
+foreground { if { test $VERBOSITY -ge 1 }
+  s6-echo "Compiled s6-rc services to /var/rc/compiled" }
+if -t { test $LIVE_UPDATE = 1 }
+foreground { if { test $VERBOSITY -ge 2 }
+  s6-echo "Live upgrading to /var/rc/compiled" }
+if { s6-rc-update -v $VERBOSITY /var/rc/compiled }
+if { test $VERBOSITY -ge 1 }
+s6-echo "Live updated to newly compiled /var/rc/compiled"

@@ -1,0 +1,179 @@
+DESCRIPTION = "Init system (PID 1) using s6 and s6-rc"
+
+inherit s6rc
+COMPATIBLE_IF_FLAGS = "s6rc"
+
+SRC_URI = "file://init.stage1 file://init.stage2 file://init.stage2_finish \
+	file://init.stage3"
+
+RDEPENDS_${PN} += "s6"
+
+SRC_URI += "file://SIGHUP file://SIGINT file://SIGQUIT file://SIGTERM \
+	file://SIGUSR1 file://SIGUSR2 file://crash file://finish"
+
+FIRST_SERVICES = "svscan-log"
+SRC_URI += "file://svscan-log.run"
+
+S6RC_BUNDLE_SERVICES += "default shutdown"
+RECIPE_FLAGS += "default_s6rc_bundle shutdown_s6rc_bundle"
+DEFAULT_USE_default_s6rc_bundle = "system-watchdog"
+
+S6RC_LONGRUN_SERVICES += "system-console"
+SRC_URI += "file://system-console.run"
+RECIPE_FLAGS += "system_console_s6rc_dependencies"
+DEFAULT_USE_system_console_s6rc_dependencies = "\
+	hostname init-coldplug init-sysctl init-urandom \
+	mount-proc mount-tmp mount-cgroups mount-all \
+	syslogd klogd"
+
+S6RC_LONGRUN_SERVICES += "system-watchdog"
+SRC_URI += "file://system-watchdog.run"
+RECIPE_FLAGS += "system_watchdog_s6rc_dependencies"
+DEFAULT_USE_system_watchdog_s6rc_dependencies = "system-console net-auto"
+RECIPE_FLAGS += "system_watchdog_device"
+DEFAULT_USE_system_watchdog_device = "/dev/watchdog"
+do_configure[postfuncs] += "do_configure_system_watchdog"
+do_configure_system_watchdog() {
+	sed -e 's|/dev/watchdog|${USE_system_watchdog_device}|' \
+	    -i ${SRCDIR}/system-watchdog.run
+}
+
+S6RC_ONESHOT_SERVICES += "hostname"
+RECIPE_FLAGS += "hostname_s6rc_timeout_up"
+SRC_URI += "file://hostname.up"
+
+S6RC_LONGRUN_SERVICES += "devd devd-log"
+RECIPE_FLAGS += "devd_s6rc_dependencies"
+DEFAULT_USE_devd_s6rc_dependencies = "init-devtmpfs mount-sys"
+SRC_URI += "file://devd.run file://devd.pipeline-name \
+	file://devd.producer-for file://devd-log.run \
+	file://devd-log.consumer-for"
+
+S6RC_ONESHOT_SERVICES += "init-coldplug"
+RECIPE_FLAGS += "init_coldplug_s6rc_dependencies"
+DEFAULT_USE_init_coldplug_s6rc_dependencies = "init-devtmpfs mount-sys devd"
+RECIPE_FLAGS += "init_coldplug_s6rc_timeout_up"
+SRC_URI += "file://init-coldplug.up"
+
+S6RC_ONESHOT_SERVICES += "init-runtmpfs"
+RECIPE_FLAGS += "init_runtmpfs_s6rc_dependencies"
+RECIPE_FLAGS += "init_runtmpfs_s6rc_timeout_up"
+SRC_URI += "file://init-runtmpfs.up"
+
+S6RC_ONESHOT_SERVICES += "init-devtmpfs"
+RECIPE_FLAGS += "init_devtmpfs_s6rc_dependencies"
+DEFAULT_USE_init_devtmpfs_s6rc_dependencies = "init-runtmpfs"
+RECIPE_FLAGS += "init_devtmpfs_s6rc_timeout_up"
+SRC_URI += "file://init-devtmpfs.up"
+
+S6RC_ONESHOT_SERVICES += "init-sysctl"
+RECIPE_FLAGS += "init_sysctl_s6rc_dependencies"
+DEFAULT_USE_init_sysctl_s6rc_dependencies = "mount-proc"
+RECIPE_FLAGS += "init_sysctl_s6rc_timeout_up"
+SRC_URI += "file://init-sysctl.up"
+
+S6RC_ONESHOT_SERVICES += "init-urandom"
+RECIPE_FLAGS += "init_urandom_s6rc_dependencies"
+RECIPE_FLAGS += "init_urandom_s6rc_timeout_up"
+SRC_URI += "file://init-urandom.up"
+
+S6RC_ONESHOT_SERVICES += "mount-proc"
+RECIPE_FLAGS += "mount_proc_s6rc_dependencies"
+RECIPE_FLAGS += "mount_proc_s6rc_timeout_up"
+SRC_URI += "file://mount-proc.up file://mount-proc.down"
+
+S6RC_ONESHOT_SERVICES += "mount-sys"
+RECIPE_FLAGS += "mount_sys_s6rc_dependencies"
+RECIPE_FLAGS += "mount_sys_s6rc_timeout_up"
+SRC_URI += "file://mount-sys.up file://mount-sys.down"
+
+S6RC_ONESHOT_SERVICES += "mount-tmp"
+RECIPE_FLAGS += "mount_tmp_s6rc_dependencies"
+RECIPE_FLAGS += "mount_tmp_s6rc_timeout_up"
+SRC_URI += "file://mount-tmp.up file://mount-tmp.down"
+
+S6RC_ONESHOT_SERVICES += "mount-cgroups"
+RECIPE_FLAGS += "mount_cgroups_s6rc_dependencies"
+DEFAULT_USE_mount_cgroups_s6rc_dependencies = "mount-sys mount-proc"
+RECIPE_FLAGS += "mount_cgroups_s6rc_timeout_up"
+SRC_URI += "file://mount-cgroups.up"
+
+S6RC_ONESHOT_SERVICES += "mount-all"
+RECIPE_FLAGS += "mount_all_s6rc_dependencies"
+DEFAULT_USE_mount_all_s6rc_dependencies = "init-coldplug"
+RECIPE_FLAGS += "mount_all_s6rc_timeout_up"
+SRC_URI += "file://mount-all.up"
+
+S6RC_ONESHOT_SERVICES += "net-auto"
+RECIPE_FLAGS += "net_auto_s6rc_dependencies"
+DEFAULT_USE_net_auto_s6rc_dependencies = "hostname init-sysctl"
+RECIPE_FLAGS += "net_auto_s6rc_timeout_up"
+DEFAULT_USE_net_auto_s6rc_timeout_up = "30000"
+SRC_URI += "file://net-auto.up file://net-auto.down"
+
+S6RC_LONGRUN_SERVICES += "klogd-srv klogd-log"
+RECIPE_FLAGS += "klogd_srv_s6rc_dependencies"
+DEFAULT_USE_klogd_srv_s6rc_dependencies = "mount-proc"
+SRC_URI += "file://klogd-srv.run \
+	file://klogd-srv.pipeline-name file://klogd-srv.producer-for \
+	file://klogd-log.run file://klogd-log.consumer-for"
+
+S6RC_LONGRUN_SERVICES += "syslogd-srv syslogd-log"
+RECIPE_FLAGS += "syslogd_srv_s6rc_dependencies"
+DEFAULT_USE_syslogd_srv_s6rc_dependencies = "init-devtmpfs"
+SRC_URI += "file://syslogd-srv.run \
+	file://syslogd-srv.pipeline-name file://syslogd-srv.producer-for \
+	file://syslogd-srv.notification-fd \
+	file://syslogd-log.run file://syslogd-log.consumer-for"
+
+RECIPE_FLAGS += "hostname"
+do_configure[postfuncs] += "do_configure_hostname"
+do_configure_hostname() {
+	sed -i -e 's/HOSTNAME/${USE_hostname}/' ${SRCDIR}/hostname.up
+}
+
+SRC_URI += "file://s6-init-update"
+
+do_install() {
+	mkdir -p ${D}${base_sbindir} \
+		 ${D}${sysconfdir}/service \
+		 ${D}${sysconfdir}/service/.s6-svscan \
+		 ${D}${sysconfdir}/env \
+		 ${D}${localstatedir}/rc \
+		 ${D}/run
+
+	install -m 0755 ${SRCDIR}/init.stage1 ${D}${base_sbindir}/init
+	install -m 0755 ${SRCDIR}/init.stage2 ${D}${sysconfdir}/rc.init
+	install -m 0755 ${SRCDIR}/init.stage2_finish ${D}${sysconfdir}/rc.tini
+	install -m 0755 ${SRCDIR}/init.stage3 ${D}${sysconfdir}/rc.shutdown
+	install -m 755 ${SRCDIR}/s6-init-update ${D}${base_sbindir}/
+
+	for script in SIGHUP SIGINT SIGQUIT SIGTERM SIGUSR1 SIGUSR2 \
+		crash finish
+	do
+		install -m 755 ${SRCDIR}/$script \
+			${D}${sysconfdir}/service/.s6-svscan/
+	done
+
+	# Install pure s6 service directories
+	for sv in ${FIRST_SERVICES}
+	do
+		mkdir -p ${D}${sysconfdir}/service/$sv
+		install -m 755 ${SRCDIR}/$sv.run \
+			${D}${sysconfdir}/service/$sv/run
+	done
+}
+
+SRC_URI += "file://devtable.txt"
+inherit makedevs
+MAKEDEVS_FILES = "${SRCDIR}/devtable.txt"
+
+FILES_${PN} = "${base_sbindir} ${sysconfdir} ${localstatedir} /run"
+RDEPENDS_${PN} += "execline s6 s6-rc s6-portable-utils s6-linux-utils"
+
+PACKAGES = "${PN}-stage1 ${PN}-stage2 ${PN}-stage2-finish ${PN}-stage3 ${PN}"
+RDEPENDS_${PN} += "${PN}-stage1 ${PN}-stage2 ${PN}-stage2-finish ${PN}-stage3"
+FILES_${PN}-stage1 = "${base_sbindir}/init"
+FILES_${PN}-stage2 = "${sysconfdir}/rc.init"
+FILES_${PN}-stage2-finish = "${sysconfdir}/rc.tini"
+FILES_${PN}-stage3 = "${sysconfdir}/rc.shutdown"
