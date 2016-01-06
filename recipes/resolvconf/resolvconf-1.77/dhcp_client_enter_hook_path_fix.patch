@@ -1,0 +1,40 @@
+--- resolvconf-1.77/etc/dhcp/dhclient-enter-hooks.d/resolvconf.org	2016-01-08 11:10:03.888615318 +0100
++++ resolvconf-1.77/etc/dhcp/dhclient-enter-hooks.d/resolvconf	2016-01-08 11:11:53.567830163 +0100
+@@ -14,7 +14,7 @@
+ #   (D) = master script downs interface
+ #   (-) = master script does nothing with this
+ 
+-if [ -x /sbin/resolvconf ] ; then
++if [ -x /usr/sbin/resolvconf ] ; then
+ 	# For safety, first undefine the nasty default make_resolv_conf()
+ 	make_resolv_conf() { : ; }
+ 	case "$reason" in
+@@ -37,7 +37,7 @@
+ 				R="${R}nameserver $N
+ "
+ 			done
+-			[ ! "$interface" ] || echo -n "$R" | /sbin/resolvconf -a "${interface}.dhclient"
++			[ ! "$interface" ] || echo -n "$R" | /usr/sbin/resolvconf -a "${interface}.dhclient"
+ 		}
+ 		;;
+ 	  BOUND6|RENEW6|REBIND6)
+@@ -66,16 +66,16 @@
+ 				R="${R}nameserver $N$ZONE_ID
+ "
+ 			done
+-			[ ! "$interface" ] || echo -n "$R" | /sbin/resolvconf -a "${interface}.ip6.dhclient"
++			[ ! "$interface" ] || echo -n "$R" | /usr/sbin/resolvconf -a "${interface}.ip6.dhclient"
+ 		}
+ 		;;
+ 	  EXPIRE|FAIL|RELEASE|STOP)
+ 		# Delete resolv.conf info 
+-		[ ! "$interface" ] || /sbin/resolvconf -d "${interface}.dhclient"
++		[ ! "$interface" ] || /usr/sbin/resolvconf -d "${interface}.dhclient"
+ 		;;
+ 	  EXPIRE6|RELEASE6|STOP6)
+ 		# Delete resolv.conf info 
+-		[ ! "$interface" ] || /sbin/resolvconf -d "${interface}.ip6.dhclient"
++		[ ! "$interface" ] || /usr/sbin/resolvconf -d "${interface}.ip6.dhclient"
+ 		;;
+ 	esac
+ fi

@@ -1,0 +1,10 @@
+require resolvconf.inc
+
+SRC_URI_EXTRA +=  "file://dhcp_client_enter_hook_path_fix.patch \
+                   file://libc_script_path_fix.patch \
+                   file://resolvconf_bin_path_fix.patch \
+                   file://resolvconf_if_down_path_fix.patch \
+                   file://resolvconf_if_up_path_fix.patch \
+                   file://resolvconf_init.patch \
+                   file://resolvconf_list_records_busybox.patch \
+"

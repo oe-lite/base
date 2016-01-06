@@ -1,0 +1,18 @@
+--- resolvconf-1.77/debian/resolvconf.000resolvconf.if-up.org	2016-01-08 11:32:39.243261980 +0100
++++ resolvconf-1.77/debian/resolvconf.000resolvconf.if-up	2016-01-08 11:33:14.531029815 +0100
+@@ -5,7 +5,7 @@
+ # This file is part of the resolvconf package.
+ #
+ 
+-[ -x /sbin/resolvconf ] || exit 0
++[ -x /usr/sbin/resolvconf ] || exit 0
+ 
+ case "$ADDRFAM" in
+   inet|inet6) : ;;
+@@ -43,5 +43,5 @@
+ done
+ IFS="$STANDARD_IFS"
+ 
+-echo -n "$R" | /sbin/resolvconf -a "${IFACE}.${ADDRFAM}" || :
++echo -n "$R" | /usr/sbin/resolvconf -a "${IFACE}.${ADDRFAM}" || :
+ 

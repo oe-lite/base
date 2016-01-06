@@ -1,0 +1,20 @@
+--- resolvconf-1.77/bin/resolvconf.org	2016-01-08 11:05:32.650595175 +0100
++++ resolvconf-1.77/bin/resolvconf	2016-01-08 13:33:18.426588447 +0100
+@@ -7,7 +7,7 @@
+ 
+ echo_usage() { echo "Usage: resolvconf (-d IFACE|-a IFACE|-u|--enable-updates|--disable-updates|--updates-are-enabled)" ; }
+ 
+-PATH=/sbin:/bin
++PATH=/sbin:/bin:/usr/bin:/usr/sbin
+ MYNAME="${0##*/}"
+ # Note that /etc/resolvconf/run may be (and generally is) a symlink
+ RUN_DIR=/etc/resolvconf/run
+@@ -57,7 +57,7 @@
+ update_and_exit()
+ {
+ 	rm -f "$POSTPONED_UPDATE_FLAGFILE"
+-	exec run-parts ${1:+--arg="$1"} ${2:+--arg="$2"} /etc/resolvconf/update.d
++	exec run-parts ${1:+-a="$1"} ${2:+-a="$2"} /etc/resolvconf/update.d
+ }
+ 
+ # Handle commands that don't require normalized_stdin()
