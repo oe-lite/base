@@ -18,6 +18,7 @@ do_compile_prepend() {
 
 	case ${TARGET_ARCH} in
 	  arm-*)	      TUPLE=arm-unknown-linux-gnueabi ;;
+	  aarch64-*)	      TUPLE=aarch64-unknown-linux-gnu ;;
 	  i586-*|i686-*)  TUPLE=i686-pc-linux-gnu ;;
 	  x86_64-*)     TUPLE=x86_64-pc-linux-gnu ;;
 	  powerpc-*)	TUPLE=powerpc-unknown-linux-gnu ;;
