@@ -78,11 +78,14 @@ AUTO_PACKAGE_UTILS = "ntpd ntpdate ntp-wait ntp-keygen sntp ntpq ntpdc \
 RDEPENDS_${PN}-ntpd = "libm"
 RDEPENDS_${PN}-sntp = "libm"
 
-FILES_${PN}-ntpd = "${sysconfdir}/ntp.conf \
-    ${sysconfdir}/init.d/ntpd ${sysconfdir}/rc?.d/???ntpd"
+PACKAGES =+ "${PN}-config ${PN}-init"
+
+FILES_${PN}-config = "${sysconfdir}/ntp.conf"
+
+FILES_${PN}-init = "${sysconfdir}/init.d/ntpd ${sysconfdir}/rc?.d/???ntpd"
 
 FILES_${PN}-ntpdate = "${sysconfdir}/network/if-up.d/ntpdate"
 
 # ntp originally includes tickadj. It's split off for inclusion in
 # small firmware images on platforms with wonky clocks (e.g. OpenSlug)
-RDEPENDS_${PN}-ntpd = "${PN}-tickadj"
+RDEPENDS_${PN}-ntpd = "${PN}-tickadj ${PN}-config ${PN}-init"
