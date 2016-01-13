@@ -7,7 +7,7 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 
 RECIPE_TYPES = "machine sdk"
 
-inherit autotools pkgconfig gettext sysvinit make
+inherit autotools pkgconfig gettext sysvinit make passwd
 
 DEPENDS = "libdl libm"
 
@@ -15,6 +15,7 @@ SRC_URI =  "http://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-${PV}.
 SRC_URI += "file://lighttpd.conf"
 SRC_URI += "file://index.html"
 SRC_URI += "file://lighttpd"
+SRC_URI += "file://passwd file://group"
 
 EXTRA_OECONF = " \
 	--without-libev \
