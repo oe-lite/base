@@ -45,6 +45,14 @@ do_install_extra_files() {
     install -m 755 ${SRCDIR}/ntpd ${D}/${sysconfdir}/init.d/ntpd
 }
 
+RECIPE_FLAGS +="ntp_ntpd_start_args"
+DEFAULT_USE_ntp_ntpd_start_args = "-g"
+
+do_configure[postfuncs] =+ "do_configure_ntpd_init"
+do_configure_ntpd_init() {
+    sed -e "s#NTPD_START_ARGS_PLACEHOLDER#${USE_ntp_ntpd_start_args}#" -i ${SRCDIR}/ntpd
+}
+
 RECIPE_FLAGS += "ntpdate_ifup"
 DEFAULT_USE_ntpdate_ifup = "1"
 DO_INSTALL_NTPDATE = ""
