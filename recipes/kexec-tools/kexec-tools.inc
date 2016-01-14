@@ -6,3 +6,5 @@ LICENSE = "GPL-2.0"
 SRC_URI = "https://www.kernel.org/pub/linux/utils/kernel/kexec/kexec-tools-${PV}.tar.gz"
 
 COMPATIBLE_HOST_ARCHS=".*linux"
+
+AUTOTOOLS_DISTCLEAN="0"
