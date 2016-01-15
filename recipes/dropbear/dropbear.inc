@@ -24,7 +24,7 @@ DEPENDS = "${COMMON_DEPS}"
 DEPENDS_${PN} = "libc ${COMMON_DEPS}"
 RDEPENDS_${PN} = "${COMMON_DEPS}"
 
-PROVIDES_${PN} = "util/ssh service/ssh util/scp"
+PROVIDES_${PN} = "util/ssh service/ssh util/scp util/sshd"
 
 CFLAGS += "-D_GNU_SOURCE"
 

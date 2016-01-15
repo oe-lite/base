@@ -16,7 +16,7 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 inherit autotools passwd
 
 SRC_URI = "ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-${PV}.tar.gz"
-SRC_URI += "file://sshd_config file://ssh_config file://init"
+SRC_URI += "file://init"
 SRC_URI += "file://passwd file://group"
 SRC_URI += "file://sftp-server-skip-libcrypto.patch"
 
@@ -37,6 +37,7 @@ EXTRA_OECONF = "--disable-suid-ssh --with-ssl \
 	--with-privsep-path=/var/run/sshd \
 	--sysconfdir=${sysconfdir}/ssh \
 	--with-md5-passwords \
+	--without-shadow \
 	--with-xauth=${bindir}/xauth"
 
 EXTRA_OEMAKE = "'STRIP_OPT='"
@@ -62,12 +63,6 @@ do_configure_host_key_generation() {
         -i ${SRCDIR}/init
 }
 
-do_compile[postfuncs] += "do_compile_install_config_files"
-do_compile_install_config_files () {
-	install -m 0644 ${SRCDIR}/sshd_config ${S}/
-	install -m 0644 ${SRCDIR}/ssh_config ${S}/
-}
-
 do_install[postfuncs] += "do_install_extra_files"
 do_install_extra_files() {
 	install -d ${D}${sysconfdir}/init.d
@@ -88,7 +83,10 @@ FILES_${PN}-ssh-doc = "${mandir}/*/ssh_config.* ${mandir}/*/slogin.*"
 FILES_${PN}-sshd = "${sysconfdir}/init.d/sshd \
 	${sysconfdir}/rcS.d/* \
 	${sysconfdir}/ssh/moduli \
+	${sysconfdir}/rcS.d \
+	${passwddir} ${groupdir} \
 	${localstatedir}/run/sshd"
+
 FILES_${PN}-sshd-doc = "${mandir}/*/moduli.* ${mandir}/*/sshd_config.*"
 FILES_${PN}-ssh-config = "${sysconfdir}/ssh/ssh_config"
 FILES_${PN}-sshd-config = "${sysconfdir}/ssh/sshd_config"
@@ -119,7 +117,7 @@ DEPENDS_${PN}-sshd              += "libc libcrypt libcrypto libdl libresolv libu
 DEPENDS_${PN}-sftp              += "libc libcrypt libcrypto libdl libresolv libutil libz"
 
 inherit sysvinit
-RECIPE_FLAGS = "sshd_sysvinit_start sshd_sysvinit_stop"
+RECIPE_FLAGS += "sshd_sysvinit_start sshd_sysvinit_stop"
 DEFAULT_USE_sshd_sysvinit_start = "25"
 DEFAULT_USE_sshd_sysvinit_stop = "0"
 
