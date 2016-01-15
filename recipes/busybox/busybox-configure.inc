@@ -1021,3 +1021,12 @@ DEFAULT_USE_busybox_ifplugd_splashutils_msg = "\"Starting Busybox ifplugd\""
 BUSYBOX_SIMPLE_USE_FLAGS += "reset=1:util/"
 
 BUSYBOX_SIMPLE_USE_FLAGS += "powertop:util/"
+
+# md5sum, sha1sum, sha256sum, sha512sum, sha3sum
+BUSYBOX_SIMPLE_USE_FLAGS += "md5sum:util/"
+DEFAULT_USE_busybox_md5sum = "1"
+BUSYBOX_SIMPLE_USE_FLAGS += "sha1sum:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "sha256sum:util/"
+DEFAULT_USE_busybox_sha256sum = "1"
+BUSYBOX_SIMPLE_USE_FLAGS += "sha512sum:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "sha3sum:util/"
