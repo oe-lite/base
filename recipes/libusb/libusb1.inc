@@ -2,6 +2,8 @@ DESCRIPTION = "library to provide userspace access to USB devices"
 HOMEPAGE = "http://libusb.sf.net"
 LICENSE = "LGPL-2.1+"
 
+RECIPE_TYPES = "machine native sdk"
+
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit autotools library
