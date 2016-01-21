@@ -34,6 +34,7 @@ do_install () {
 	fi
 
 	if grep "CONFIG_MDEV=y" ${S}/.config; then
+		install -d ${D}${sysconfdir}
 		install -m 0644 ${SRCDIR}/mdev.conf ${D}${sysconfdir}/
 	fi
 
