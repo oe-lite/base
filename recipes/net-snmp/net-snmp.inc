@@ -6,7 +6,7 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 
 DEPENDS = "openssl"
 
-inherit autotools-autoreconf sysvinit siteinfo
+inherit sysvinit siteinfo
 
 require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/net-snmp/net-snmp-${PV}.tar.gz"
@@ -55,7 +55,7 @@ DEPENDS_${PN}-agentxtrap += "libnetsnmpmibs libnetsnmpagent"
 RDEPENDS_${PN}-agentxtrap += "libnetsnmpmibs libnetsnmpagent"
 
 PACKAGES =+ "${PN}-mibs ${PN}-client ${PN}-server"
-DEPENDS_${PN}-server += "libnetsnmptrapd libnetsnmpmibs libnetsnmpagent libnetsnmp"
+DEPENDS_${PN}-server += "libc libcrypto libdl libnetsnmptrapd libnetsnmpmibs libnetsnmpagent libnetsnmp"
 RDEPENDS_${PN}-server += "libnetsnmptrapd libnetsnmpmibs libnetsnmpagent libnetsnmp"
 DEPENDS_${PN}-client += "${AUTO_PACKAGE_UTILS_PROVIDES}"
 RDEPENDS_${PN}-client += "${AUTO_PACKAGE_UTILS_PROVIDES}"

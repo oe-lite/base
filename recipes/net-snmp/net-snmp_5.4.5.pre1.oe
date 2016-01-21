@@ -1,0 +1,26 @@
+#
+# 5.4.x LTS, supported by net-snmp.org
+#
+require net-snmp.inc
+inherit autotools c c++
+
+EXTRA_OECONF += "${@['--with-endianness=little', '--with-endianness=big']['${HOST_ENDIAN}'=='b']}"
+
+EXTRA_OECONF += "--disable-embedded-perl --with-perl-modules=no"
+EXTRA_OEMAKE = "INSTALL_PREFIX=${D}"
+
+AUTO_PACKAGE_UTILS = "\
+ encode_keychange fixproc ipf-mod.pl \
+ snmpbulkget snmpbulkwalk\
+ snmpcheck snmpconf snmpdelta snmpdf snmpget snmpgetnext\
+ snmpinform snmptrap snmpnetstat snmpset snmpstatus snmptable\
+ snmpusm snmpvacm snmpwalk tkmib snmptest snmptranslate \
+ traptoemail mib2c mib2c-update net-snmp-config"
+
+DEPENDS_${PN}-server += "libm libnetsnmphelpers"
+RDEPENDS_${PN}-server += "libnetsnmphelpers"
+AUTO_PACKAGE_UTILS_DEPENDS += "libm"
+DEPENDS_${PN}-libnetsnmphelpers += "libnetsnmp libnetsnmpagent"
+RDEPENDS_${PN}-libnetsnmphelpers2 += "libnetsnmp libnetsnmpagent"
+DEPENDS_${PN}-libnetsnmpmibs += "libnetsnmphelpers"
+RDEPENDS_${PN}-libnetsnmpmibs += "libnetsnmphelpers"

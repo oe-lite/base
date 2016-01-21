@@ -1,4 +1,5 @@
 require net-snmp.inc
+inherit autotools-autoreconf
 
 EXTRA_OECONF += "--disable-embedded-perl --with-perl-modules=no"
 EXTRA_OEMAKE = "INSTALL_PREFIX=${D}"
