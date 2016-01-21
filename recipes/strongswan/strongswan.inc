@@ -29,11 +29,25 @@ RDEPENDS_${PN}-libhydra = "libc libstrongswan"
 DEPENDS_${PN}-libcharon = "libc libdl libm libpthread libstrongswan libhydra"
 RDEPENDS_${PN}-libcharon = "libc libdl libm libpthread libstrongswan libhydra"
 
+PACKAGES =+ "${PN}-config"
+
 PACKAGEQA_HOST_BINDIRS += "${bindir}/ipsec"
 FILES_${PN}-dev += "${libdir}/ipsec/plugins/*.a ${libdir}/ipsec/plugins/*.la"
 FILES_${PN}-dbg += "${libdir}/ipsec/plugins/.debug ${libexecdir}/ipsec/.debug"
 FILES_${PN} += "${libdir}/ipsec"
+FILES_${PN}-config += "${sysconfdir}/ipsec.conf"
 DEPENDS_${PN} += "libc libdl libm libpthread librt libgmp libcrypto \
 	libstrongswan libhydra libcharon"
 RDEPENDS_${PN} = "libc libdl libm libpthread librt libgmp libcrypto \
-	libstrongswan libhydra libcharon"
+	libstrongswan libhydra libcharon ${PN}-config"
+
+do_install[postfuncs] =+ "do_install_extra_files"
+do_install_extra_files() {
+	sysvinit_install_script ${D}/usr/sbin/ipsec ipsec
+}
+
+inherit sysvinit
+RECIPE_FLAGS += "strongswan_sysvinit_start strongswan_sysvinit_stop"
+SYSVINIT_SCRIPT_strongswan = "ipsec"
+DEFAULT_USE_strongswan_sysvinit_start = "0"
+DEFAULT_USE_strongswan_sysvinit_stop  = "0"
