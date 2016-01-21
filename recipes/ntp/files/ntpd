@@ -1,5 +1,8 @@
 #! /bin/sh
 #
+
+ntpd_start_args="NTPD_START_ARGS_PLACEHOLDER"
+
 # ntpd	init.d script for ntpdc from ntp.isc.org
 test -x /usr/bin/ntpd -a -r /etc/ntp.conf || exit 0
 # rcS contains TICKADJ
@@ -33,7 +36,7 @@ stopdaemon(){
 case "$1" in
   start)
   	settick
-	startdaemon -g
+	startdaemon $ntpd_start_args
 	;;
   stop)
   	stopdaemon
@@ -41,12 +44,12 @@ case "$1" in
   force-reload)
   	stopdaemon
   	settick
-	startdaemon -g
+	startdaemon $ntpd_start_args
 	;;
   restart)
   	# Don't reset the tick here
 	stopdaemon
-	startdaemon -g
+	startdaemon $ntpd_start_args
 	;;
   reload)
   	# Must do this by hand, but don't do -g
