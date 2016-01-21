@@ -73,7 +73,6 @@ dirs755 = "${bindir} \
 	   /dev/shm \
 	   /mnt \
 	   /proc \
-	   /root \
 	   /srv \
 	   /media \
 	   /media/card \

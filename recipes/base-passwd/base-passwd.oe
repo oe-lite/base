@@ -8,8 +8,10 @@ do_install () {
 	install -d ${D}${sysconfdir}/
 	install -p -m 644 passwd ${D}${sysconfdir}/
 	install -p -m 644 group ${D}${sysconfdir}/
+	install -d -m 700 ${D}/root
 }
 
 require root-password.inc
 
 PACKAGES = "${PN}"
+FILES_${PN} += "/root"
