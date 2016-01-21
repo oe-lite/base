@@ -6,8 +6,7 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 
 require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/strace/strace-${PV}.tar.xz \
-    file://git-version-gen \
-    file://fanotify.patch"
+    file://git-version-gen"
 
 inherit autotools
 
