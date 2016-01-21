@@ -207,8 +207,9 @@ static int interpret_table_entry(char *line)
 	for(i=0; i < 8; i++) {
 		scanstr[i][0] = '\0';
 	}
+	memset(path, 0, sizeof(path));
 
-	if ( 0 > sscanf(line, "%40s %c %s %s %s %s %s %s %s %s",
+	if ( 0 > sscanf(line, "%4095s %c %s %s %s %s %s %s %s %s",
 			path, &type,
 			scanstr[0], scanstr[1],
 			scanstr[2], scanstr[3],
