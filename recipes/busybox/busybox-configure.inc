@@ -1018,6 +1018,17 @@ RECIPE_FLAGS += "busybox_ifplugd_splashutils_progress busybox_ifplugd_splashutil
 SPLASHUTILS_INITSCRIPTS:>USE_busybox_ifplugd += " busybox_ifplugd"
 DEFAULT_USE_busybox_ifplugd_splashutils_msg = "\"Starting Busybox ifplugd\""
 
+RECIPE_FLAGS += "busybox_ifplugd_config_interfaces busybox_ifplugd_config_args"
+DEFAULT_USE_busybox_ifplugd_config_interfaces = "eth0"
+DEFAULT_USE_busybox_ifplugd_config_args = "-fI -u0 -d10"
+DO_CONFIGURE_PREFUNCS += "do_configure_busybox_ifplugd_conf"
+do_configure_busybox_ifplugd_conf () {
+	sed -i -e 's#^INTERFACES_CONFIG$#INTERFACES="${USE_busybox_ifplugd_config_interfaces}"#' \
+		${SRCDIR}/busybox-ifplugd.conf
+	sed -i -e 's#^ARGS_CONFIG$#ARGS="${USE_busybox_ifplugd_config_args}"#' \
+		${SRCDIR}/busybox-ifplugd.conf
+}
+
 BUSYBOX_SIMPLE_USE_FLAGS += "reset=1:util/"
 
 BUSYBOX_SIMPLE_USE_FLAGS += "powertop:util/"
