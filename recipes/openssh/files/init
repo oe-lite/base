@@ -38,7 +38,7 @@ check_keys() {
 		keyfile="/etc/ssh/ssh_host_"$keytype"_key"
 		if [ ! -f "$keyfile" ]; then
 			echo "  generating ssh $keytype key..."
-			ssh-keygen -q -f "$keyfile" -N '' -t rsa
+			ssh-keygen -q -f "$keyfile" -N '' -t $keytype
 			sync
 		fi
 	done
