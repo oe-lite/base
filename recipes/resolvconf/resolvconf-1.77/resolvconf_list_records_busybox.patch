@@ -1,0 +1,11 @@
+--- resolvconf-1.77/bin/list-records.org	2016-01-08 16:37:33.702110587 +0100
++++ resolvconf-1.77/bin/list-records	2016-01-08 16:42:45.121489728 +0100
+@@ -73,7 +73,7 @@
+ 		' /etc/resolvconf/interface-order)"
+ fi
+ 
+-shopt -s nullglob extglob
++#shopt -s nullglob extglob
+ # The nullglob option isn't essential since the test -s below will eliminate
+ # any unexpanded patterns. The extglob option, however, is essential; it
+ # makes the glob language of interface-order patterns as powerful as regexps.

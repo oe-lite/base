@@ -1,0 +1,76 @@
+--- resolvconf-1.77/debian/resolvconf.init.org	2016-01-08 11:48:54.848667818 +0100
++++ resolvconf-1.77/debian/resolvconf.init	2016-01-08 16:24:44.759427178 +0100
+@@ -23,40 +23,60 @@
+ 
+ # Don't use set -e; check return status instead.
+ 
+-[ -x /sbin/resolvconf ] || exit 0
++[ -x /usr/sbin/resolvconf ] || exit 0
+ 
+-PATH=/sbin:/bin
++PATH=/sbin:/bin:/usr/bin:/usr/sbin
+ RUN_DIR=/etc/resolvconf/run
+ ENABLE_UPDATES_FLAGFILE="${RUN_DIR}/enable-updates"
+ POSTPONED_UPDATE_FLAGFILE="${RUN_DIR}/postponed-update"
+ 
+-. /lib/lsb/init-functions
++# Commented as not on target - fixed by log_action below
++#. /lib/lsb/init-functions
+ 
++# Commented as upstart is not there
+ # Abort if Upstart is in use, as per Policy §9.11.1.
+-case "$1" in
+-  start|restart|force-reload)
+-	init_is_upstart && exit 1
+-	;;
+-  stop)
+-	init_is_upstart && exit 0
+-	;;
+-esac
++#case "$1" in
++#  start|restart|force-reload)
++#	init_is_upstart && exit 1
++#	;;
++#  stop)
++#	init_is_upstart && exit 0
++#	;;
++#esac
++
++# Adding non color coded output 
++log_action(){
++        echo -n "$1"
++}
+ 
+ # $1 EXITSTATUS
+ # [$2 MESSAGE]
+ log_action_end_msg_and_exit()
+ {
+-	log_action_end_msg "$1" ${2:+"$2"}
++        #  Discard $1 as this is return code, normally used for colored output
++        log_action "$2"
+ 	exit $1
+ }
+ 
++
++log_action_end_msg()
++{
++        log_action "$2"
++	
++}
++
++log_action_begin_msg(){
++        log_action "$2"
++}
++
++
+ create_runtime_directories()
+ {
+ 	umask 022
+ 	if [ ! -d "$RUN_DIR" ] ; then
+ 		[ -L "$RUN_DIR" ] || log_action_end_msg_and_exit 1 "$RUN_DIR is neither a directory nor a symbolic link"
+ 		# It's a symlink. Its target is not a dir.
+-		{ RUN_CANONICALDIR="$(readlink -f "$RUN_DIR")" && [ "$RUN_CANONICALDIR" ] ; } || log_action_end_msg_and_exit 1 "Canonical path of the run directory could not be determined"
++		{ RUN_CANONICALDIR="$(readlink "$RUN_DIR")" && [ "$RUN_CANONICALDIR" ] ; } || log_action_end_msg_and_exit 1 "Canonical path of the run directory could not be determined"
+ 		# Create directory at the target
+ 		mkdir "$RUN_CANONICALDIR" || log_action_end_msg_and_exit 1 "Error creating directory $RUN_CANONICALDIR"
+ 	fi

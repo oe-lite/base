@@ -1,0 +1,24 @@
+--- resolvconf-1.77/debian/resolvconf.resolvconf.if-down.old	2016-01-08 11:45:51.765910220 +0100
++++ resolvconf-1.77/debian/resolvconf.resolvconf.if-down	2016-01-13 09:33:47.262454304 +0100
+@@ -5,12 +5,19 @@
+ # This file is part of the resolvconf package.
+ #
+ 
+-[ -x /sbin/resolvconf ] || exit 0
++[ -x /usr/sbin/resolvconf ] || exit 0
+ 
+ case "$ADDRFAM" in
+   inet|inet6) :      ;;
+   *)          exit 0 ;;
+ esac
+ 
+-/sbin/resolvconf -d "${IFACE}.${ADDRFAM}" || :
++case "$METHOD" in
++    dhcp)
++	# Delete record left behind by TERMinated dhcp client
++	/usr/sbin/resolvconf -d "${IFACE}.dhclient" || :
++	;;
++esac
++
++/usr/sbin/resolvconf -d "${IFACE}.${ADDRFAM}" || :
+ 

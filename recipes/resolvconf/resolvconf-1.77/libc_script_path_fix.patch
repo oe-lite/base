@@ -1,0 +1,23 @@
+--- resolvconf-1.77/etc/resolvconf/update.d/libc.org	2016-01-08 11:26:05.937917269 +0100
++++ resolvconf-1.77/etc/resolvconf/update.d/libc	2016-01-08 16:30:49.486850521 +0100
+@@ -16,9 +16,9 @@
+ #
+ 
+ set -e
+-PATH=/sbin:/bin
++PATH=/sbin:/bin:/usr/bin:/usr/sbin
+ 
+-[ -x /lib/resolvconf/list-records ] || exit 1
++[ -x /usr/lib/resolvconf/list-records ] || exit 1
+ 
+ # Default override
+ [ -r /etc/default/resolvconf ] && . /etc/default/resolvconf
+@@ -107,7 +107,7 @@
+ 	done
+ }
+ 
+-RSLVCNFFILES="$(/lib/resolvconf/list-records)"
++RSLVCNFFILES="$(/usr/lib/resolvconf/list-records)"
+ 
+ [ -f "$BASEFILE" ] && RSLVCNFFILES="$RSLVCNFFILES
+ $BASEFILE"
