@@ -7,7 +7,9 @@ LICENSE = "BSD-3-Clause"
 
 ARM_INSTRUCTION_SET = "arm"
 
-DEPENDS += "libbz2 libz libglib librt"
+DEPENDS_LIBC = "librt libc"
+DEPENDS_LIBC:HOST_LIBC_mingw = ""
+DEPENDS += "${DEPENDS_LIBC} libbz2 libz libglib"
 SRC_URI = "https://github.com/Itseez/${PN}/archive/${PV}.tar.gz \
   file://0001-Use-__vector-instead-of-vector-as-suggests-Eigen.patch"
 
@@ -40,7 +42,7 @@ FILES_${PN}-dbg += "${libdir}/.debug"
 FILES_${PN}-dev = "${libdir}/*.a ${includedir} ${libdir}/pkgconfig"
 FILES_${PN}-doc = "${datadir}/OpenCV/doc"
 
-CDEPS = "libc libdl libgcc libm libpng16 libpthread librt libstdc++"
+CDEPS = "libdl libgcc libm libpng16 libpthread ${DEPENDS_LIBC} libstdc++"
 DEPENDS_${PN} += "${CDEPS} libjpeg libz"
 RDEPENDS_${PN} += "${CDEPS} libjpeg libz"
 DEPENDS_${PN}-apps += "${CDEPS}"
@@ -57,3 +59,7 @@ do_install_fixup() {
     cp ${S}/include/opencv/*.h ${D}${includedir}/opencv/
     sed -i '/blobtrack/d' ${D}${includedir}/opencv/cvaux.h
 }
+
+# CMakeLists.txt installs to ${prefix}/${OpenCV_ARCH}/${OpenCV_RUNTIME}/ on mingw
+# configuration
+FILES_${PN}:>HOST_LIBC_mingw = " /usr/"
