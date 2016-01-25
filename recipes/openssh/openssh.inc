@@ -56,10 +56,12 @@ do_configure_sftp_server () {
 }
 
 HOST_KEY_TYPES ?= "rsa dsa ecdsa ed25519"
+RECIPE_FLAGS += "openssh_host_key_types"
+DEFAULT_USE_openssh_host_key_types = "${HOST_KEY_TYPES}"
 
 do_configure[postfuncs] += "do_configure_host_key_generation"
 do_configure_host_key_generation() {
-    sed -e 's/\(HOST_KEY_TYPES\)=.*/\1="${HOST_KEY_TYPES}"/' \
+    sed -e 's/\(HOST_KEY_TYPES\)=.*/\1="${USE_openssh_host_key_types}"/' \
         -i ${SRCDIR}/init
 }
 
