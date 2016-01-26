@@ -29,10 +29,14 @@ SRC_URI = "http://avahi.org/download/avahi-${PV}.tar.gz \
           file://out-of-tree.patch \
           file://0001-avahi-fix-avahi-status-command-error-prompt.patch \
           file://reuseport-check.patch \
-          file://passwd file://group \
+          file://daemon-passwd file://daemon-group \
+          file://autoipd-passwd file://autoipd-group \
+          file://autoipd-init \
           "
 
 inherit autotools-autoreconf pkgconfig gettext c++ c sysvinit passwd
+PASSWD_FILES = "${SRCDIR}/autoipd-passwd ${SRCDIR}/daemon-passwd"
+GROUP_FILES = "${SRCDIR}/autoipd-group ${SRCDIR}/daemon-group"
 DEPENDS += "native:glib-utils"
 
 EXTRA_OECONF = "--disable-introspection \
@@ -56,9 +60,16 @@ SYSVINIT_SCRIPT_avahi-daemon = "avahi-daemon"
 DEFAULT_USE_avahi-daemon_sysvinit_start = "26"
 DEFAULT_USE_avahi-daemon_sysvinit_stop = "26"
 
+RECIPE_FLAGS += "avahi-autoipd_sysvinit_start avahi-autoipd_sysvinit_stop"
+SYSVINIT_SCRIPT_avahi-autoipd = "avahi-autoipd"
+DEFAULT_USE_avahi-autoipd_sysvinit_start = "27"
+DEFAULT_USE_avahi-autoipd_sysvinit_stop = "27"
+
+
 do_install[postfuncs] =+ "do_install_extra_files"
 do_install_extra_files() {
         sysvinit_install_script ${SRCDIR}/avahi-${PV}/initscript/debian/avahi-daemon avahi-daemon
+        sysvinit_install_script ${SRCDIR}/autoipd-init avahi-autoipd
 }
 
 inherit auto-package-libs
@@ -75,7 +86,12 @@ FILES_${PN}-autoipd = "${sbindir}/avahi-autoipd \
                        ${sysconfdir}/avahi/avahi-autoipd.action \
                        ${sysconfdir}/dhcp/*/avahi-autoipd \
                        ${sysconfdir}/udhcpc.d/00avahi-autoipd \
-                       ${sysconfdir}/udhcpc.d/99avahi-autoipd"
+                       ${sysconfdir}/udhcpc.d/99avahi-autoipd \
+                       ${sysconfdir}/rc*.d/*-autoipd \
+                       ${sysconfdir}/init.d/*-autoipd \
+                       ${sysconfdir}/passwd.d/avahi.2 \
+                       ${sysconfdir}/group.d/avahi.2 \
+"
 DEPENDS_${PN}-autoipd += "libc libdaemon"
 RDEPENDS_${PN}-autoipd += "libc libdaemon"
 FILES_${PN}-libavahi-common = "${libdir}/libavahi-common.so.*"
@@ -94,7 +110,11 @@ FILES_${PN}-daemon = "${sbindir}/avahi-daemon \
                       ${datadir}/avahi/avahi-service.dtd \
                       ${datadir}/avahi/service-types \
                       ${datadir}/dbus-1/system-services \
-                      ${datadir}/dbus-1/*"
+                      ${datadir}/dbus-1/* \
+                      ${sysconfdir}/rc*.d/*-daemon \
+                      ${sysconfdir}/passwd.d/avahi.1 \
+                      ${sysconfdir}/group.d/avahi.1 \
+"
 DEPENDS_${PN}-daemon += "libavahi-common libavahi-core libc libcap libdaemon libdbus libdl libexpat libpthread"
 RDEPENDS_${PN}-daemon += "libavahi-common libavahi-core libc libcap libdaemon libdbus libdl libexpat libpthread"
 FILES_${PN}-libavahi-client = "${libdir}/libavahi-client.so.*"
