@@ -1,0 +1,11 @@
+--- u-boot-2015.10/configs/sandbox_defconfig.orig	2016-01-09 18:12:36.820481797 +0000
++++ u-boot-2015.10/configs/sandbox_defconfig	2016-01-09 18:12:58.460545297 +0000
+@@ -2,7 +2,7 @@
+ CONFIG_DEFAULT_DEVICE_TREE="sandbox"
+ CONFIG_FIT=y
+ CONFIG_FIT_VERBOSE=y
+-CONFIG_FIT_SIGNATURE=y
++# CONFIG_FIT_SIGNATURE is not set
+ # CONFIG_CMD_IMLS is not set
+ # CONFIG_CMD_FLASH is not set
+ # CONFIG_CMD_SETEXPR is not set
