@@ -65,9 +65,12 @@ SYSVINIT_SCRIPT_avahi-autoipd = "avahi-autoipd"
 DEFAULT_USE_avahi-autoipd_sysvinit_start = "27"
 DEFAULT_USE_avahi-autoipd_sysvinit_stop = "27"
 
+RECIPE_FLAGS += "avahi-autoipd_network_interface"
+DEFAULT_USE_avahi-autoipd_network_interface = "eth0"
 
 do_install[postfuncs] =+ "do_install_extra_files"
 do_install_extra_files() {
+    sed -e 's%^INTERFACE=".*%INTERFACE="${USE_avahi-autoipd_network_interface}"%' -i ${SRCDIR}/autoipd-init
         sysvinit_install_script ${SRCDIR}/avahi-${PV}/initscript/debian/avahi-daemon avahi-daemon
         sysvinit_install_script ${SRCDIR}/autoipd-init avahi-autoipd
 }
