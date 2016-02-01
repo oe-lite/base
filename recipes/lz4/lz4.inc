@@ -10,6 +10,7 @@ S = "${SRCDIR}/lz4-${PV}"
 inherit c make
 
 EXTRA_OEMAKE = "PREFIX=${prefix} LIBDIR=${libdir} INCLUDEDIR=${includedir}"
+EXTRA_OEMAKE:>HOST_LIBC_mingw = " OS=Windows"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "lz4"

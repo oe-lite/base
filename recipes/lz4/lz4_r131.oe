@@ -1,1 +1,6 @@
 require ${PN}.inc
+
+SRC_URI:>HOST_LIBC_mingw = " ${SRC_URI_windows}"
+SRC_URI_windows += "file://windows-h-include.patch"
+SRC_URI_windows += "file://exeext.patch"
+SRC_URI_windows += "file://mingw-dll.patch"

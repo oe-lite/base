@@ -1,0 +1,21 @@
+Upstream-Status: Pending
+
+Add .exe filename extension to lz4 and lz4c commands on Windows.
+
+Signed-off-by: Esben Haabendal <esben@haabendal.dk>
+
+--- lz4-r131/programs/Makefile~orig	2016-01-21 13:54:20.522256968 +0000
++++ lz4-r131/programs/Makefile	2016-01-21 13:55:42.212786485 +0000
+@@ -119,10 +119,10 @@
+ install: lz4 lz4c
+ 	@echo Installing binaries
+ 	@install -d -m 755 $(DESTDIR)$(BINDIR)/ $(DESTDIR)$(MANDIR)/
+-	@install -m 755 lz4 $(DESTDIR)$(BINDIR)/lz4
++	@install -m 755 lz4$(EXT) $(DESTDIR)$(BINDIR)/lz4$(EXT)
+ 	@ln -sf lz4 $(DESTDIR)$(BINDIR)/lz4cat
+ 	@ln -sf lz4 $(DESTDIR)$(BINDIR)/unlz4
+-	@install -m 755 lz4c $(DESTDIR)$(BINDIR)/lz4c
++	@install -m 755 lz4c$(EXT) $(DESTDIR)$(BINDIR)/lz4c$(EXT)
+ 	@echo Installing man pages
+ 	@install -m 644 lz4.1 $(DESTDIR)$(MANDIR)/lz4.1
+ 	@ln -sf lz4.1 $(DESTDIR)$(MANDIR)/lz4c.1
