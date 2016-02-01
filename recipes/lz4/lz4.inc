@@ -2,7 +2,7 @@ SUMMARY = "Extremely Fast Compression algorithm"
 DESCRIPTION = "LZ4 is lossless compression algorithm, providing compression speed at 400 MB/s per core (0.16 Bytes/cycle). It features an extremely fast decoder, with speed in multiple GB/s per core (0.71 Bytes/cycle). A high compression derivative, called LZ4_HC, is available, trading customizable CPU time for compression ratio."
 LICENSE = "BSD"
 
-RECIPE_TYPES = "native machine"
+RECIPE_TYPES = "native sdk machine"
 
 SRC_URI = "https://github.com/Cyan4973/lz4/archive/${PV}.tar.gz"
 S = "${SRCDIR}/lz4-${PV}"
