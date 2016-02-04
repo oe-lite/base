@@ -12,7 +12,7 @@ DESCRIPTION = "Script for managing overlay files"
 # directory specified in USE_overlay_files_dir.
 #
 # With
-#   USE_overlay_files      = "foo/bar hello"
+#   USE_overlay_files      = "/foo/bar /hello"
 #   USE_overlay_files_dir  = "/overlay"
 #   USE_overlay_files_base = ""
 # the /overlay dir will be checked when target boots, and if
