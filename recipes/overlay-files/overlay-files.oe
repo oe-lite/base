@@ -6,6 +6,9 @@ DESCRIPTION = "Script for managing overlay files"
 #   USE_overlay_files_dir       a directory path
 #   USE_overlay_files_base      a directory path
 #
+# and optionally
+#   USE_overlay_files_squash    '1' to squash paths used in overlay
+#
 # The filesystem generated will then support overlaying the files
 # specified in USE_overlay_files in the directory specified in
 # USE_overlay_files_base (default "", ie. root) with the files in the
@@ -20,6 +23,9 @@ DESCRIPTION = "Script for managing overlay files"
 # to /overlay/foo/bar, and similar for hello.  If a normal file is
 # found as a normal file, it will be renamed to /foo/bar.default
 # before creating the symlink.
+#
+# If USE_overlay_files_squash is set, then the above example would overlay
+# /overlay/bar to /foo/bar and /overlay/hello to /hello
 
 SRC_URI = "file://overlay.sh"
 
@@ -29,7 +35,8 @@ RECIPE_FLAGS += "overlay_files_overlay_sysvinit_start"
 SYSVINIT_SCRIPT_overlay_files_overlay = "overlay.sh"
 DEFAULT_USE_overlay_files_overlay_sysvinit_start = "12"
 
-VARS_TO_REPLACE = "OVERLAY_FILES_ETC USE_overlay_files_dir USE_overlay_files_base"
+VARS_TO_REPLACE = "OVERLAY_FILES_ETC USE_overlay_files_dir \
+	USE_overlay_files_base USE_overlay_files_squash"
 
 S = "${SRCDIR}"
 
