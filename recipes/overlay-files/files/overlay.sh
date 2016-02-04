@@ -5,9 +5,15 @@ OVERLAY_DIR="${USE_overlay_files_dir}"
 OVERLAY_BASE="${USE_overlay_files_base}"
 
 for file in $OVERLAY_FILES ; do
-    if test -e $OVERLAY_DIR$file ; then
-	ln -sf $OVERLAY_DIR$file $OVERLAY_BASE$file
-    elif test -e ${OVERLAY_BASE}${file}.default ; then
-	ln -sf ${OVERLAY_BASE}${file}.default $OVERLAY_BASE$file
+    link_file="$OVERLAY_BASE$file"
+    overlay_file="$OVERLAY_DIR$file"
+    if test ! -e "$overlay_file" ; then
+	overlay_file="$OVERLAY_BASE$file.default"
+    fi
+    if test -e "$overlay_file" ; then
+	if test ! -h "$link_file" -o \
+	"`readlink "$link_file"`" != "$overlay_file" ; then
+	    ln -sf "$overlay_file" "$link_file"
+	fi
     fi
 done
