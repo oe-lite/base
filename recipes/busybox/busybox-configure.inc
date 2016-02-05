@@ -770,6 +770,20 @@ do_configure_busybox_feature_beep_freq () {
          .config
 }
 
+
+# USE flag: enable fstab, cifs, fake, verbose, helpers, label, flags and fstab
+# features of mount
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_mount_more::\
+CONFIG_FEATURE_MOUNT_FSTAB,\
+CONFIG_FEATURE_MOUNT_CIFS,\
+CONFIG_FEATURE_MOUNT_FAKE,\
+CONFIG_FEATURE_MOUNT_VERBOSE,\
+CONFIG_FEATURE_MOUNT_HELPERS,\
+CONFIG_FEATURE_MOUNT_LABEL,\
+CONFIG_FEATURE_MOUNT_FLAGS,\
+CONFIG_FEATURE_MOUNT_FSTAB\
+"
+
 # USE flag: enable feature_mount nfs
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_mount_nfs"
 
