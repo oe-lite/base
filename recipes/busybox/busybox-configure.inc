@@ -588,8 +588,24 @@ CONFIG_FEATURE_TAR_AUTODETECT"
 # USE flag: enable tar oldgnu compatibility
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_tar_oldgnu_compatibility"
 
+# USE flag: full tar
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_tar_full::\
+CONFIG_FEATURE_TAR_AUTODETECT,\
+CONFIG_FEATURE_TAR_FROM,\
+CONFIG_FEATURE_TAR_LONG_OPTIONS,\
+CONFIG_FEATURE_TAR_TO_COMMAND,\
+CONFIG_FEATURE_TAR_UNAME_GNAME,\
+CONFIG_FEATURE_TAR_NOPRESERVE_TIME"
+
 # USE flag: enable unxz utility
-BUSYBOX_SIMPLE_USE_FLAGS += "unxz:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "unxz:util/:\
+CONFIG_FEATURE_SEAMLESS_XZ,\
+CONFIG_UNXZ"
+
+# USE flag: enable xz utility
+BUSYBOX_SIMPLE_USE_FLAGS += "xz:util/:\
+CONFIG_FEATURE_SEAMLESS_XZ,\
+CONFIG_XZ"
 
 # USE flag: enable unlzma utility
 BUSYBOX_SIMPLE_USE_FLAGS += "unlzma:util/"
