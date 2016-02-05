@@ -22,7 +22,7 @@ S6RC_LONGRUN_SERVICES += "system-console"
 SRC_URI += "file://system-console.run"
 RECIPE_FLAGS += "system_console_s6rc_dependencies"
 DEFAULT_USE_system_console_s6rc_dependencies = "\
-	hostname init-coldplug init-sysctl init-urandom \
+	hostname init-coldplug init-utmp init-sysctl init-urandom \
 	mount-proc mount-tmp mount-cgroups mount-all \
 	syslogd klogd"
 
@@ -65,6 +65,12 @@ RECIPE_FLAGS += "init_devtmpfs_s6rc_dependencies"
 DEFAULT_USE_init_devtmpfs_s6rc_dependencies = "init-runtmpfs"
 RECIPE_FLAGS += "init_devtmpfs_s6rc_timeout_up"
 SRC_URI += "file://init-devtmpfs.up"
+
+S6RC_ONESHOT_SERVICES += "init-utmp"
+RECIPE_FLAGS += "init_utmp_s6rc_dependencies"
+DEFAULT_USE_init_utmp_s6rc_dependencies = "init-runtmpfs"
+RECIPE_FLAGS += "init_utmp_s6rc_timeout_up"
+SRC_URI += "file://init-utmp.up"
 
 S6RC_ONESHOT_SERVICES += "init-sysctl"
 RECIPE_FLAGS += "init_sysctl_s6rc_dependencies"
