@@ -850,6 +850,14 @@ CONFIG_FEATURE_VOLUMEID_SYSV,\
 CONFIG_FEATURE_VOLUMEID_OCFS2,\
 CONFIG_FEATURE_VOLUMEID_LINUXRAID"
 
+# USE flag: enable blockdev utility
+BUSYBOX_SIMPLE_USE_FLAGS += "blockdev:util/"
+
+# USE flag: enable eject utility
+BUSYBOX_SIMPLE_USE_FLAGS += "eject:util/:\
+CONFIG_EJECT,\
+CONFIG_FEATURE_EJECT_SCSI"
+
 # USE flag: enable printenv utility
 BUSYBOX_SIMPLE_USE_FLAGS += "printenv:util/"
 
@@ -1016,6 +1024,9 @@ CONFIG_FEATURE_BRCTL_SHOW, \
 "
 
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_show_threads"
+
+# USE flag: enable less_regexp utility
+BUSYBOX_SIMPLE_USE_FLAGS += "less_regexp:util/"
 
 BUSYBOX_SIMPLE_USE_FLAGS += "df_fancy::CONFIG_FEATURE_DF_FANCY"
 
