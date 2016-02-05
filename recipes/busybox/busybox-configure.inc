@@ -1046,6 +1046,28 @@ CONFIG_FEATURE_MODUTILS_ALIAS,\
 CONFIG_FEATURE_MODUTILS_SYMBOLS,\
 "
 
+# USE flag: enable last utility
+BUSYBOX_SIMPLE_USE_FLAGS += "last:util/:"
+
+# USE flag: enable halt/poweroff/reboot utility
+BUSYBOX_SIMPLE_USE_FLAGS += "halt:util/:"
+
+# USE flag: enable brctl utility
+BUSYBOX_SIMPLE_USE_FLAGS += "brctl:util/:\
+CONFIG_BRCTL,\
+CONFIG_FEATURE_BRCTL_FANCY,\
+CONFIG_FEATURE_BRCTL_SHOW, \
+"
+
+# USE flag: enable fbset utility
+BUSYBOX_SIMPLE_USE_FLAGS += "fbset:util/:\
+CONFIG_FBSET,\
+CONFIG_FEATURE_FBSET_FANCY,\
+CONFIG_FEATURE_FBSET_READMODE, \
+"
+
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_show_threads"
+
 BUSYBOX_SIMPLE_USE_FLAGS += "df_fancy::CONFIG_FEATURE_DF_FANCY"
 
 # USE flag: enable dnsd utility
@@ -1102,6 +1124,8 @@ DEFAULT_USE_busybox_ifplugd_sysvinit_stop  = "20"
 RECIPE_FLAGS += "busybox_ifplugd_splashutils_progress busybox_ifplugd_splashutils_msg"
 SPLASHUTILS_INITSCRIPTS:>USE_busybox_ifplugd += " busybox_ifplugd"
 DEFAULT_USE_busybox_ifplugd_splashutils_msg = "\"Starting Busybox ifplugd\""
+
+BUSYBOX_SIMPLE_USE_FLAGS += "reset=1:util/"
 
 RECIPE_FLAGS += "busybox_ifplugd_config_interfaces busybox_ifplugd_config_args"
 DEFAULT_USE_busybox_ifplugd_config_interfaces = "eth0"
