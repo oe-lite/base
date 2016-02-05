@@ -347,8 +347,9 @@ do_configure_busybox_udhcpd_relay () {
 
 BUSYBOX_SIMPLE_USE_FLAGS += "inetd:inetd"
 
-RECIPE_FLAGS += "busybox_inetd_sysvinit_start"
+RECIPE_FLAGS += "busybox_inetd_sysvinit_start busybox_inetd_sysvinit_stop"
 DEFAULT_USE_busybox_inetd_sysvinit_start = "26"
+DEFAULT_USE_busybox_inetd_sysvinit_stop  = "0"
 
 # USE flag: enable inetd builtin echo
 BUSYBOX_SIMPLE_USE_FLAGS += "echo:service/:CONFIG_FEATURE_INETD_SUPPORT_BUILTIN_ECHO"
