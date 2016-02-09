@@ -1041,3 +1041,8 @@ BUSYBOX_SIMPLE_USE_FLAGS += "sha256sum:util/"
 DEFAULT_USE_busybox_sha256sum = "1"
 BUSYBOX_SIMPLE_USE_FLAGS += "sha512sum:util/"
 BUSYBOX_SIMPLE_USE_FLAGS += "sha3sum:util/"
+
+# USE flag: nameif command
+BUSYBOX_SIMPLE_USE_FLAGS += "nameif:util/:\
+CONFIG_NAMEIF,\
+CONFIG_FEATURE_NAMEIF_EXTENDED"
