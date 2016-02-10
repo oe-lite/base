@@ -606,6 +606,12 @@ BUSYBOX_SIMPLE_USE_FLAGS += "tr:util/"
 # USE flag: enable cksum utility
 BUSYBOX_SIMPLE_USE_FLAGS += "cksum:util/"
 
+# USE flag: enable fbset utility
+BUSYBOX_SIMPLE_USE_FLAGS += "fbset:util/"
+
+# USE flag: enable fbsplash utility
+BUSYBOX_SIMPLE_USE_FLAGS += "fbsplash:util/"
+
 # USE flag: enable install utility
 BUSYBOX_SIMPLE_USE_FLAGS += "install:util/"
 
