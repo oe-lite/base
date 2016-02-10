@@ -1,1 +1,3 @@
 include kexec-tools.inc
+
+SRC_URI += "file://autotools.patch"
