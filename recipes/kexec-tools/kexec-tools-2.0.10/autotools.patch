@@ -1,0 +1,11 @@
+--- kexec-tools-2.0.11/Makefile.in	2014-10-14 06:58:06.000000000 +0200
++++ kexec-tools-2.0.11/Makefile.in.orig	2016-02-10 11:47:41.453802496 +0100
+@@ -232,7 +232,7 @@
+ 
+ dist-clean: clean
+ 	$(RM) -f config.log config.status config.cache Makefile include/config.h
+-	$(RM) -f include/config.h.in configure $(SPEC)
++	$(RM) -f include/config.h.in $(SPEC)
+ 	$(RM) -rf autom4te.cache
+ 
+ install: $(TARGETS)
