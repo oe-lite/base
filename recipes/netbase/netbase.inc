@@ -21,13 +21,12 @@ SRC_URI += "file://hosts"
 SRC_URI += "file://interfaces"
 
 do_install () {
-	install -d ${D}${sysconfdir}/init.d \
+	install -d \
 		${D}${sbindir} \
 		${D}${sysconfdir}/network/if-pre-up.d \
 		${D}${sysconfdir}/network/if-up.d \
 		${D}${sysconfdir}/network/if-down.d \
 		${D}${sysconfdir}/network/if-post-down.d
-	install -m 0755 ${SRCDIR}/init ${D}${sysconfdir}/init.d/networking
 	install -m 0644 ${SRCDIR}/hosts ${D}${sysconfdir}/hosts
 	if [ -f ${SRCDIR}/resolv.conf ] ; then
 		install -m 0644 ${SRCDIR}/resolv.conf ${D}${sysconfdir}/
@@ -39,6 +38,14 @@ do_install () {
 		${D}${sysconfdir}/network/interfaces
         echo -e "\nauto ${USE_netbase_auto_if}" \
 		>> ${D}${sysconfdir}/network/interfaces
+}
+
+do_install[postfuncs] =+ "${do_install_SYSVINIT_SCRIPT}"
+do_install_SYSVINIT_SCRIPT = ""
+do_install_SYSVINIT_SCRIPT:USE_sysvinit = "do_install_sysvinit_script"
+do_install_sysvinit_script() {
+	install -d ${D}${sysconfdir}/init.d
+	install -m 0755 ${SRCDIR}/init ${D}${sysconfdir}/init.d/networking
 }
 
 PACKAGES = "${PN}-init ${PN}-hosts ${PN}-resolv-conf ${PN}-interfaces ${PN}"
