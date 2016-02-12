@@ -96,5 +96,8 @@ RDEPENDS_${PN} = "netbase base-passwd base-files ${LIB_DEPENDS}"
 RDEPENDS_${PN}:>USE_busybox_udhcpc += " ${PN}-udhcpc-scripts"
 DEPENDS_${PN} += "libc"
 
-BUSYBOX_PROVIDES += "util/awk"
+BUSYBOX_PROVIDES += "util/awk util/tar util/cat util/date util/basename \
+util/dd util/sync util/touch util/chgrp util/chmod util/chown util/cp \
+util/cut util/df util/df util/dirname \
+"
 PROVIDES_${PN} = "${BUSYBOX_PROVIDES}"
