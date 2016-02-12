@@ -3,13 +3,22 @@
 # Check for request to enable debug messages
 importas -D 1 VERBOSITY INIT_VERBOSITY
 
+# Use /var/rc/compiled.new if it exists
+if {
+  if -t { test -e /var/rc/compiled.new }
+  if { rm -rf /var/rc/compiled }
+  mv /var/rc/compiled.new /var/rc/compiled
+}
+
 ifthenelse { test -e /var/rc/compiled }
 {
   ifelse -X { s6-rc-db -c /var/rc/compiled check }
   { if { test $VERBOSITY -ge 2 } s6-echo "/var/rc/compiled is OK" }
-  s6-init-update -v $VERBOSITY
+  s6-init-compile -v $VERBOSITY /var/rc/compiled
 }
-{ s6-init-update -v $VERBOSITY }
+{
+  s6-init-compile -v $VERBOSITY /var/rc/compiled
+}
 
 foreground { if { test $VERBOSITY -ge 2 }
   s6-echo -- "Initializing s6-rc system" }

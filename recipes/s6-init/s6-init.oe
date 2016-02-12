@@ -132,7 +132,7 @@ do_configure_hostname() {
 	sed -i -e 's/HOSTNAME/${USE_hostname}/' ${SRCDIR}/hostname.up
 }
 
-SRC_URI += "file://s6-init-update"
+SRC_URI += "file://s6-init-update file://s6-init-compile"
 
 do_install() {
 	mkdir -p ${D}${base_sbindir} \
@@ -147,6 +147,7 @@ do_install() {
 	install -m 0755 ${SRCDIR}/init.stage2_finish ${D}${sysconfdir}/rc.tini
 	install -m 0755 ${SRCDIR}/init.stage3 ${D}${sysconfdir}/rc.shutdown
 	install -m 755 ${SRCDIR}/s6-init-update ${D}${base_sbindir}/
+	install -m 755 ${SRCDIR}/s6-init-compile ${D}${base_sbindir}/
 
 	for script in SIGHUP SIGINT SIGQUIT SIGTERM SIGUSR1 SIGUSR2 \
 		crash finish

@@ -1,0 +1,32 @@
+#!/bin/execlineb
+
+elgetopt v:
+importas -D 2 VERBOSITY ELGETOPT_v
+importas -D /var/rc/compiled.new COMPILED 1
+
+define hookdst /var/rc/hooks
+foreground { if { test $VERBOSITY -ge 2 }
+  s6-echo "Executing hooks in ${hookdst}" }
+if { rm -rf ${hookdst}.tmp }
+if { mkdir -p ${hookdst}.tmp }
+if {
+  elglob -s -0 hooks /etc/rc.hooks/*
+  forx hook { $hooks }
+  import -u hook
+  if { test -f $hook -a -x $hook }
+  foreground { if { test $VERBOSITY -ge 2 }
+    s6-echo "Executing ${hook}" }
+  $hook ${hookdst}.tmp
+}
+if { rm -rf $hookdst }
+if { mv ${hookdst}.tmp $hookdst }
+
+foreground { if { test $VERBOSITY -ge 2 }
+  s6-echo "Compiling ${COMPILED}" }
+if { rm -rf /var/rc/compiled.tmp $COMPILED }
+if { s6-rc-compile -v $VERBOSITY /var/rc/compiled.tmp /etc/rc /var/rc/hooks }
+if { s6-rc-db -c /var/rc/compiled.tmp check }
+if { mv /var/rc/compiled.tmp $COMPILED }
+foreground { if { test $VERBOSITY -ge 1 }
+  s6-echo "Compiled s6-rc services to ${COMPILED}" }
+true
