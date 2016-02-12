@@ -39,7 +39,7 @@ AUTO_PACKAGE_UTILS = "agetty blkdiscard blkid cal chrt col colcrt colrm \
 	wipefs addpart blockdev ctrlaltdel delpart fdformat fsfreeze fstrim \
 	ldattach readprofile rtcwake tunelp more mountpoint partx eject \
 	kill lslocks utmpdump wdctl chcpu raw resizepart sulogin"
-AUTO_PACKAGE_UTILS:>USE_ncurses = " cfdisk"
+AUTO_PACKAGE_UTILS:>USE_ncurses = " cfdisk setterm"
 
 #new dependencies required in 2.25.2
 DEPENDS_${PN}-libsmartcols += "libc"
