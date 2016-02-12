@@ -751,6 +751,9 @@ BUSYBOX_SIMPLE_USE_FLAGS += "feature_securetty"
 
 # USE flag: enable mount util
 BUSYBOX_SIMPLE_USE_FLAGS += "mount=1:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "umount=1:util/:\
+CONFIG_UMOUNT,\
+CONFIG_FEATURE_UMOUNT_ALL"
 
 # USE flag: enable beep util
 BUSYBOX_SIMPLE_USE_FLAGS += "beep:util/"
@@ -786,6 +789,9 @@ CONFIG_FEATURE_MOUNT_FSTAB\
 
 # USE flag: enable feature_mount nfs
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_mount_nfs"
+
+# USE flag: enabel fsck
+BUSYBOX_SIMPLE_USE_FLAGS += "fsck=1"
 
 # USE flag: enable feature_mount_loop
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_mount_loop=1::\
