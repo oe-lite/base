@@ -14,15 +14,28 @@ ifthenelse { test -e /var/rc/compiled }
 {
   ifelse -X { s6-rc-db -c /var/rc/compiled check }
   { if { test $VERBOSITY -ge 2 } s6-echo "/var/rc/compiled is OK" }
-  s6-init-compile -v $VERBOSITY /var/rc/compiled
+  if { s6-init-compile -v $VERBOSITY /var/rc/compiled }
+  if -t { test -d /etc/rc/bootstrap }
+  s6-touch /var/rc/bootstrap
 }
 {
-  s6-init-compile -v $VERBOSITY /var/rc/compiled
+  if { s6-init-compile -v $VERBOSITY /var/rc/compiled }
+  if -t { test -d /etc/rc/bootstrap }
+  s6-touch /var/rc/bootstrap
 }
 
 foreground { if { test $VERBOSITY -ge 2 }
   s6-echo -- "Initializing s6-rc system" }
 if { s6-rc-init -c /var/rc/compiled /run/service }
+
+if {
+  if -t { test -e /var/rc/bootstrap }
+  foreground { if { test $VERBOSITY -ge 2 }
+    s6-echo -- "Starting bootstrap services" }
+  if { s6-rc -v $VERBOSITY -u change bootstrap }
+  if { s6-init-update -v $VERBOSITY }
+  rm /var/rc/bootstrap
+}
 
 foreground { if { test $VERBOSITY -ge 2 }
   s6-echo -- "Starting default services" }
