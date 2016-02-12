@@ -1,0 +1,57 @@
+#!/bin/sh
+
+add_iface() {
+    ifaces="$1"
+    for iface in $2 ; do
+	if [ "${ifaces/ $iface }" == "${ifaces}" ] ; then
+	    ifaces="${ifaces}${iface} "
+	fi
+    done
+    echo "${ifaces}"
+}
+
+is_vlan_iface() {
+    iface=$1
+    for parent_iface in "${iface%.[[:digit:]]}" \
+	"${iface%.[[:digit:]][[:digit:]]}" \
+	"${iface%.[[:digit:]][[:digit:]][[:digit:]]}" \
+	"${iface%.[[:digit:]][[:digit:]][[:digit:]][[:digit:]]}" ; do
+	[ "$parent_iface" != "$iface" ] && return 0
+    done
+    return 1
+}
+
+is_alias_iface() {
+    iface=$1
+    for parent_iface in "${iface%:[[:digit:]]}" \
+	"${iface%:[[:digit:]][[:digit:]]}" \
+	"${iface%:[[:digit:]][[:digit:]][[:digit:]]}" \
+	"${iface%:[[:digit:]][[:digit:]][[:digit:]][[:digit:]]}" ; do
+	[ "$parent_iface" != "$iface" ] && return 0
+    done
+    return 1
+}
+
+hotplug_ifaces=" "          # list of "allow-hotplug" interfaces
+exec 3< /etc/network/interfaces
+while read cmd ifaces <&3 ; do
+    if [ "$cmd" = "allow-hotplug" ] ; then
+	hotplug_ifaces=`add_iface "${hotplug_ifaces}" "${ifaces}"`
+    fi
+done
+exec 3>&-
+
+ifplugd_ifaces=" "
+for iface in $hotplug_ifaces ; do
+    if is_vlan_iface $iface ; then
+	echo >&2 "ERROR: allow-hotplug not allowed on VLAN interface: $iface"
+	continue
+    fi
+    if is_alias_iface $iface ; then
+	iface=${iface%:*}
+	continue
+    fi
+    ifplugd_ifaces=`add_iface "${ifplugd_ifaces}" "${iface}"`
+done
+
+echo $ifplugd_ifaces

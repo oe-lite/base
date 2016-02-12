@@ -54,3 +54,56 @@ FILES_${PN}-init = "${sysconfdir}/init.d ${sysconfdir}/rc?.d"
 FILES_${PN}-hosts = "${sysconfdir}/hosts"
 FILES_${PN}-resolv-conf = "${sysconfdir}/resolv.conf"
 FILES_${PN}-interfaces = "${sysconfdir}/network/interfaces"
+
+inherit s6rc
+SRC_URI:>USE_s6rc = " ${SRC_URI_S6RC}"
+do_configure[postfuncs] += "${do_configure_netbase_s6rc}"
+do_install[postfuncs] += "${do_install_netbase_s6rc}"
+
+S6RC_BUNDLE_SERVICES += "net"
+RECIPE_FLAGS += "net_s6rc_bundle"
+DEFAULT_USE_net_s6rc_bundle = "net-auto net-hotplug"
+
+# Service for doing "ifup -a" and "ifdown -a"
+S6RC_ONESHOT_SERVICES += "net-auto"
+SRC_URI_S6RC += "file://net-auto.up file://net-auto.down"
+RECIPE_FLAGS += "net_auto_s6rc_dependencies"
+DEFAULT_USE_net_auto_s6rc_dependencies = "init-sysctl"
+RECIPE_FLAGS += "net_auto_s6rc_timeout_up"
+DEFAULT_USE_net_auto_s6rc_timeout_up = "30000"
+
+# Hook to generate ifplugd@ services for all allow-hotplug enabled interfaces
+# and net-hotplug bundle containing all of them
+SRC_URI_S6RC += "file://net-hotplug.hook file://ifplugd.run \
+	file://hotplug-interfaces"
+RECIPE_FLAGS += "ifplugd_s6rc_dependencies"
+# re-use the busybox flag for better backwards compatibility
+RECIPE_FLAGS += "busybox_ifplugd_config_args"
+do_configure_netbase_s6rc:USE_s6rc += "do_configure_hotplug"
+do_configure_hotplug[expand] = 3
+do_configure_hotplug() {
+    echo "${USE_busybox_ifplugd_config_args}" \
+	 > ${SRCDIR}/ifplugd.args
+    rm -f ${SRCDIR}/ifplugd.dependencies
+    for dep in ${USE_ifplugd_s6rc_dependencies} ; do
+	echo "$dep" \
+	     >> ${SRCDIR}/ifplugd.dependencies
+    done
+}
+do_install_netbase_s6rc:USE_s6rc += "do_install_hotplug"
+do_install_hotplug() {
+    mkdir -p ${D}${sysconfdir}/rc.hooks/ifplugd@.d/env
+    install -m 0755 ${SRCDIR}/net-hotplug.hook \
+	    ${D}${sysconfdir}/rc.hooks/net-hotplug
+    install -m 0755 ${SRCDIR}/ifplugd.run \
+	    ${D}${sysconfdir}/rc.hooks/ifplugd@.d/run
+    install -m 0755 ${SRCDIR}/ifplugd.args \
+	    ${D}${sysconfdir}/rc.hooks/ifplugd@.d/env/ARGS
+    echo longrun \
+	 > ${D}${sysconfdir}/rc.hooks/ifplugd@.d/type
+    if test -e ${SRCDIR}/ifplugd.dependencies ; then
+	install -m 0755 ${SRCDIR}/ifplugd.dependencies \
+		${D}${sysconfdir}/rc.hooks/ifplugd@.d/dependencies
+    fi
+    install -m 0755 ${SRCDIR}/hotplug-interfaces ${D}${sbindir}
+}

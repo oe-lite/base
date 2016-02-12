@@ -1,0 +1,19 @@
+#!/bin/execlineb
+
+elgetpositionals
+backtick -n hooksdir { dirname $0 }
+import -u hooksdir
+define basename ifplugd@
+define templatedir ${hooksdir}/${basename}.d
+if { mkdir ${1}/net-hotplug }
+redirfd -w 3 ${1}/net-hotplug/type
+fdswap 1 3
+if { s6-echo -- "bundle" }
+fdswap 1 3
+redirfd -w 3 ${1}/net-hotplug/contents
+forbacktickx iface { hotplug-interfaces }
+import -u iface
+fdswap 1 3
+if { s6-echo -- "${basename}${iface}" }
+fdswap 1 3
+cp -r ${templatedir}/ ${1}/${basename}${iface}/

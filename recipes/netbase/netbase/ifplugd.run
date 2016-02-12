@@ -1,0 +1,10 @@
+#!/bin/execlineb -P
+
+s6-envdir -I ./env
+import -s ARGS
+backtick -n iface {
+  pipeline { getcwd cwd import cwd basename $cwd }
+  sed -e "s/ifplugd@//"
+}
+import -u iface
+ifplugd -i $iface -n $ARGS -r /etc/ifplugd/ifplugd.action
