@@ -1034,7 +1034,7 @@ BUSYBOX_SIMPLE_USE_FLAGS += "feature_show_threads"
 # USE flag: enable less_regexp utility
 BUSYBOX_SIMPLE_USE_FLAGS += "less_regexp:util/"
 
-BUSYBOX_SIMPLE_USE_FLAGS += "modprobe_small=1:util/:\
+BUSYBOX_SIMPLE_USE_FLAGS += "modprobe_small=1:util/modprobe:\
 CONFIG_MODPROBE_SMALL,\
 CONFIG_FEATURE_MODPROBE_SMALL_OPTIONS_ON_CMDLINE,\
 CONFIG_FEATURE_MODPROBE_SMALL_CHECK_ALREADY_LOADED"
