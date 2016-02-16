@@ -1,8 +1,0 @@
-LICENSE = "GPL-3.0+"
-
-require lftp.inc
-
-SRC_URI += "file://ftpclass.patch"
-
-DEPENDS += "libz"
-COMMON_DEPENDS += " libz"
