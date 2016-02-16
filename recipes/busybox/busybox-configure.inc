@@ -751,6 +751,7 @@ BUSYBOX_SIMPLE_USE_FLAGS += "feature_securetty"
 
 # USE flag: enable mount util
 BUSYBOX_SIMPLE_USE_FLAGS += "mount=1:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "mountpoint=1:util/"
 BUSYBOX_SIMPLE_USE_FLAGS += "umount=1:util/:\
 CONFIG_UMOUNT,\
 CONFIG_FEATURE_UMOUNT_ALL"
