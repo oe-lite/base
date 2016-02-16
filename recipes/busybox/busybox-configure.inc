@@ -826,6 +826,12 @@ BUSYBOX_SIMPLE_USE_FLAGS += "swaponoff:util/"
 # USE flag: enable sfdisk
 BUSYBOX_SIMPLE_USE_FLAGS += "sfdisk:util/"
 
+# USE flag: enable fdisk
+BUSYBOX_SIMPLE_USE_FLAGS += "fdisk=1:util/:\
+CONFIG_FDISK,\
+CONFIG_FDISK_SUPPORT_LARGE_DISKS,\
+CONFIG_FEATURE_FDISK_WRITABLE"
+
 # USE flag: enable pidof
 BUSYBOX_SIMPLE_USE_FLAGS += "pidof:util/"
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_pidof_single"
