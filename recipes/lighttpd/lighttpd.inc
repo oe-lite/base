@@ -85,12 +85,18 @@ RECIPE_FLAGS += "lighttpd_sysvinit_start"
 DEFAULT_USE_lighttpd_sysvinit_start = "70"
 DEFAULT_USE_lighttpd_sysvinit_stop = "0"
 SYSVINIT_SCRIPT_lighttpd = "lighttpd"
-do_install[postfuncs] =+ " do_install_lighttpd_extra"
+do_install[postfuncs] =+ "${do_install_lighttpd_sysvinit_ENABLED}"
+do_install_lighttpd_sysvinit_ENABLED = ""
+do_install_lighttpd_sysvinit_ENABLED:USE_sysvinit = "do_install_lighttpd_sysvinit"
+do_install_lighttpd_sysvinit() {
+    install -d ${D}${sysconfdir}/init.d
+    install -m 0755 ${SRCDIR}/lighttpd ${D}${sysconfdir}/init.d/
+}
+
+do_install[postfuncs] =+ "do_install_lighttpd_extra"
 do_install_lighttpd_extra() {
-    install -d ${D}${sysconfdir}/init.d \
-	${D}/www/logs ${D}/www/pages/dav ${D}/www/var
-    install -m 0755 ${SRCDIR}/lighttpd ${D}${sysconfdir}/init.d
-    install -m 0755 ${SRCDIR}/lighttpd.conf ${D}${sysconfdir}
+    install -d ${D}${sysconfdir} ${D}/www/logs ${D}/www/pages/dav ${D}/www/var
+    install -m 0755 ${SRCDIR}/lighttpd.conf ${D}${sysconfdir}/
     install -m 0644 ${SRCDIR}/index.html ${D}/www/pages/
 }
 
