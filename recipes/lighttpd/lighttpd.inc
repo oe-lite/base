@@ -93,6 +93,11 @@ do_install_lighttpd_sysvinit() {
     install -m 0755 ${SRCDIR}/lighttpd ${D}${sysconfdir}/init.d/
 }
 
+inherit s6rc
+S6RC_LONGRUN_SERVICES = "lighttpd"
+SRC_URI:>USE_s6rc = " file://lighttpd.run"
+RECIPE_FLAGS += "lighttpd_s6rc_dependencies"
+
 do_install[postfuncs] =+ "do_install_lighttpd_extra"
 do_install_lighttpd_extra() {
     install -d ${D}${sysconfdir} ${D}/www/logs ${D}/www/pages/dav ${D}/www/var
