@@ -1,0 +1,41 @@
+Upstream-status: Pending
+
+Fix building and installation of Windows DLL files.
+
+http://sourceforge.net/p/cygwin-ports/mingw64-i686-lz4/ci/master/tree/124-mingw-dll.patch
+
+--- lz4~orig/lib/Makefile	2014-11-06 12:39:42.000000000 -0600
++++ lz4/lib/Makefile	2015-01-01 00:42:05.368670100 -0600
+@@ -44,6 +44,7 @@ CC     := $(CC)
+ CFLAGS ?= -O3
+ CFLAGS += -I. -std=c99 -Wall -Wextra -Wundef -Wshadow -Wcast-align -Wstrict-prototypes -DLZ4_VERSION=\"$(RELEASE)\"
+ 
++BINDIR?= $(PREFIX)/bin
+ LIBDIR?= $(PREFIX)/lib
+ INCLUDEDIR=$(PREFIX)/include
+ PRGDIR = programs
+@@ -110,10 +111,7 @@ liblz4: lz4.c lz4hc.c
+ 	@$(CC) $(CPPFLAGS) $(CFLAGS) -c $^
+ 	@$(AR) rcs liblz4.a lz4.o lz4hc.o
+ 	@echo compiling dynamic library $(LIBVER)
+-	@$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -shared $^ -fPIC $(SONAME_FLAGS) -o $@.$(SHARED_EXT_VER)
+-	@echo creating versioned links
+-	@ln -sf $@.$(SHARED_EXT_VER) $@.$(SHARED_EXT_MAJOR)
+-	@ln -sf $@.$(SHARED_EXT_VER) $@.$(SHARED_EXT)
++	@$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -shared $^ -Wl,--out-implib,liblz4.dll.a -o liblz4-$(LIBVER_MAJOR).dll
+ 
+ clean:
+ 	@rm -f core *.o *.a *.$(SHARED_EXT) *.$(SHARED_EXT).* $(DISTRIBNAME) *.sha1 liblz4.pc
+@@ -136,9 +134,9 @@ liblz4.pc: liblz4.pc.in Makefile
+ 
+ install: liblz4 liblz4.pc
+ 	@install -d -m 755 $(DESTDIR)$(LIBDIR)/pkgconfig/ $(DESTDIR)$(INCLUDEDIR)/
+-	@install -m 755 liblz4.$(SHARED_EXT_VER) $(DESTDIR)$(LIBDIR)/liblz4.$(SHARED_EXT_VER)
+-	@cp -a liblz4.$(SHARED_EXT_MAJOR) $(DESTDIR)$(LIBDIR)
+-	@cp -a liblz4.$(SHARED_EXT) $(DESTDIR)$(LIBDIR)
++	@install -d -m 755 $(DESTDIR)$(BINDIR)/
++	@install -m 755 liblz4-$(LIBVER_MAJOR).dll $(DESTDIR)$(BINDIR)/
++	@install -m 644 liblz4.dll.a $(DESTDIR)$(LIBDIR)/liblz4.dll.a
+ 	@cp -a liblz4.pc $(DESTDIR)$(LIBDIR)/pkgconfig/
+ 	@install -m 644 liblz4.a $(DESTDIR)$(LIBDIR)/liblz4.a
+ 	@install -m 644 lz4.h $(DESTDIR)$(INCLUDEDIR)/lz4.h
