@@ -770,9 +770,6 @@ BUSYBOX_SIMPLE_USE_FLAGS += "rdate:util/"
 # USE flag: enable swaponoff utility
 BUSYBOX_SIMPLE_USE_FLAGS += "swaponoff:util/"
 
-# USE flag: enable feature mount loop
-BUSYBOX_SIMPLE_USE_FLAGS += "feature_mount_loop"
-
 # USE flag: enable sfdisk
 BUSYBOX_SIMPLE_USE_FLAGS += "sfdisk:util/"
 
