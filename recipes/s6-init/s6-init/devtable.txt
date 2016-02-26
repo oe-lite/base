@@ -11,6 +11,8 @@
 /sys				d 755		0 0	- -	- - -
 /tmp				d 777		0 0	- -	- - -
 /etc/service/svscan-log/fifo	p 640		0 0	- -	- - -
+/var				d 755		0 0	- -	- - -
+/var/log			d 755		0 0	- -	- - -
 /var/log/svscan			d 755	65534 65534	- -	- - -
 /var/log/klogd			d 755	65534 65534	- -	- - -
 /var/log/syslogd		d 755	65534 65534	- -	- - -
