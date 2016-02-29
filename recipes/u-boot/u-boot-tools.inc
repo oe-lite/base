@@ -44,9 +44,7 @@ inherit auto-package-utils
 U_BOOT_TOOLS = "bmp_logo mkimage envcrc gen_eth_addr img2srec img2brec.sh \
     jtagconsole netconsole setlocalversion"
 
-GDB_TOOLS:machine = ""
-GDB_TOOLS = "install -m 0755 tools/gdb/gdbcont ${D}${bindir}; \
-             install -m 0755 tools/gdb/gdbsend ${D}${bindir}"
+GDB_TOOLS = "gdbcont gdbsend"
 
 do_install () {
     install -d ${D}${bindir}
@@ -57,7 +55,12 @@ do_install () {
         fi
     done
 
-    ${GDB_TOOLS}
+    for tool in ${GDB_TOOLS} ; do
+        if [ -f tools/gdb/$tool${HOST_EXEEXT} ] ; then
+            install -m 0755 tools/gdb/$tool${HOST_EXEEXT} \
+                ${D}${bindir}/$tool${HOST_EXEEXT}
+        fi
+    done
 
     if [ -f tools/env/fw_printenv${HOST_EXEEXT} ] ; then
         install -m 0755 tools/env/fw_printenv${HOST_EXEEXT} \
@@ -76,5 +79,5 @@ PROVIDES_${PN}-env = "util/fw_printenv util/fw_setenv"
 DEPENDS_${PN}-mkimage += "dtc"
 RDEPENDS_${PN}-mkimage += "dtc"
 
-PACKAGES =+ "${PN}-gdb"
+PACKAGES:<native =+ "${PN}-gdb "
 FILES_${PN}-gdb = "${bindir}/gdb*"
