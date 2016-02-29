@@ -1,0 +1,4 @@
+require ${PN}.inc
+
+SRC_URI += "file://mingw.patch"
+CFLAGS:>HOST_LIBC_mingw += "-DMKDIR_TAKES_ONE_ARG"
