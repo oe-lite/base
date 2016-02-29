@@ -13,12 +13,11 @@ S = "${SRCDIR}/u-boot-${PV}"
 MIRRORS =. """http://ftp.denx.de/pub/u-boot/ ftp://ftp.denx.de/pub/u-boot/
 """
 
-EXTRA_OEMAKE = 'HOSTCC="${CC}" \
-    HOSTLDFLAGS="${HOST_LDFLAGS}"'
-
-EXTRA_OEMAKE:machine = ' \
-    LDFLAGS="${LDFLAGS}" \
-    CROSS_COMPILE="${HOST_PREFIX}"'
+EXTRA_OEMAKE = "NO_SDL=1"
+EXTRA_OEMAKE_CROSS = 'CROSS_COMPILE="${HOST_PREFIX}" LDFLAGS="${LDFLAGS}"'
+EXTRA_OEMAKE:>machine = " ${EXTRA_OEMAKE_CROSS}"
+EXTRA_OEMAKE:>native = ' HOSTCC="${BUILD_CC}" HOSTLDFLAGS="${BUILD_LDFLAGS}"'
+EXTRA_OEMAKE:>sdk = " ${EXTRA_OEMAKE_CROSS}"
 
 RECIPE_FLAGS = "u_boot_tools_config"
 DEFAULT_USE_u_boot_tools_config = "defconfig"
@@ -27,8 +26,9 @@ do_configure () {
     oe_runmake ${USE_u_boot_tools_config}
 }
 
-MAKE_TARGETS = "tools-all"
 MAKE_TARGETS:machine = "cross_tools env"
+MAKE_TARGETS:native = "tools-all"
+MAKE_TARGETS:sdk = "cross_tools"
 
 do_compile[prefuncs] += "do_compile_fix_gdb_include_path"
 
