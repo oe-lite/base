@@ -9,11 +9,10 @@ inherit make c++ pkgconfig
 
 DEPENDS_LIBC = "libdl"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
-DEPENDS += "libdbus-1 libnl-3 libnl-genl-3 libnl-genl-3 libgnutls libgcrypt \
-	libgpg-error ${DEPENDS_LIBC}"
+DEPENDS += "libnl-3 libnl-genl-3 libnl-genl-3 librt \
+	    ${CRYPTO} ${DEPENDS_LIBC}"
 
 SRC_URI = "http://hostap.epitest.fi/releases/wpa_supplicant-${PV}.tar.gz \
-           file://defconfig-gnutls \
            file://wpa-supplicant.sh \
            file://wpa_supplicant.conf \
            file://wpa_supplicant.conf-sane \
@@ -33,11 +32,30 @@ WPA_SUPPLICANT_FLAGS:>USE_wpa_fast_eap += " CONFIG_EAP_FAST"
 DEPENDS:>USE_wpa_fast_eap += " libssl"
 RDEPENDS_${PN}-wpa-supplicant:>USE_wpa_fast_eap += " libssl"
 
-RECIPE_FLAGS += "wpa_wps"
-WPA_SUPPLICANT_FLAGS:>USE_wpa_wps += " CONFIG_WPS CONFIG_WPS2"
+RECIPE_FLAGS += "wpa_supplicant_wps"
+WPA_SUPPLICANT_FLAGS:>USE_wpa_supplicant_wps += " CONFIG_WPS CONFIG_WPS2"
+
+RECIPE_FLAGS += "wpa_supplicant_libnl"
+DEFAULT_USE_wpa_supplicant_libnl = "1"
+WPA_SUPPLICANT_FLAGS:>USE_wpa_supplicant_libnl += " CONFIG_LIBNL32"
+
+RECIPE_FLAGS += "wpa_supplicant_gnutls"
+DEFAULT_USE_wpa_supplicant_gnutls = "1"
+WPA_SUPPLICANT_FLAGS:>USE_wpa_supplicant_gnutls += " CONFIG_TLS=gnutls"
+CRYPTO:>USE_wpa_supplicant_gnutls = " libgnutls libgcrypt"
+CRYPTO = " libssl libcrypto"
+
+RECIPE_FLAGS += "wpa_supplicant_dbus"
+DEFAULT_USE_wpa_supplicant_dbus = "1"
+WPA_SUPPLICANT_FLAGS:>USE_wpa_supplicant_dbus += " CONFIG_CTRL_IFACE_DBUS CONFIG_CTRL_IFACE_DBUS_NEW"
+DEPENDS:>USE_wpa_supplicant_dbus += " libdbus-1"
+
+RECIPE_FLAGS += "wpa_supplicant_ap"
+DEFAULT_USE_wpa_supplicant_ap = "1"
+WPA_SUPPLICANT_FLAGS:>USE_wpa_supplicant_ap += " CONFIG_AP"
 
 do_configure () {
-	install -m 0755 ${SRCDIR}/defconfig-gnutls .config
+	install -m 0755 defconfig .config
 }
 
 CFLAGS += "-I${HOST_SYSROOT}${includedir}/libnl3"
@@ -80,12 +98,14 @@ inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "wpa_passphrase wpa_cli wpa_supplicant"
 AUTO_PACKAGE_UTILS_DEPENDS += "libc"
 AUTO_PACKAGE_UTILS_RDEPENDS += "libc"
-DEPENDS_${PN}-wpa-passphrase += "libgcrypt librt"
-RDEPENDS_${PN}-wpa-passphrase += "libgcrypt librt"
+DEPENDS_${PN}-wpa-passphrase += " librt ${CRYPTO}"
+RDEPENDS_${PN}-wpa-passphrase += " librt ${CRYPTO}"
 DEPENDS_${PN}-wpa-cli += "librt"
 RDEPENDS_${PN}-wpa-cli += "librt"
-DEPENDS_${PN}-wpa-supplicant += "${DEPENDS_LIBC} libgnutls libgcrypt libgpg-error libdbus-1 libnl-3 libnl-genl-3"
-RDEPENDS_${PN}-wpa-supplicant += "${DEPENDS_LIBC} libgnutls libgcrypt libgpg-error libdbus-1 libnl-3 libnl-genl-3"
+DEPENDS_${PN}-wpa-supplicant += "${DEPENDS_LIBC} ${CRYPTO} libnl-3 libnl-genl-3 librt"
+RDEPENDS_${PN}-wpa-supplicant += "${DEPENDS_LIBC} ${CRYPTO} libnl-3 libnl-genl-3 librt"
+DEPENDS_${PN}-wpa-supplicant:>USE_wpa_supplicant_dbus += " libdbus-1"
+RDEPENDS_${PN}-wpa-supplicant:>USE_wpa_supplicant_dbus += " libdbus-1"
 
 PACKAGES =+  "${PN}-conf"
 FILES_${PN}-conf = "${sysconfdir}/wpa_supplicant.conf"
