@@ -1,0 +1,44 @@
+commit ebd269a50f7fa4cdc5000d2d464b3584ca1ba876
+Author: Martin Hundebøll <mnhu@prevas.dk>
+Date:   Tue Mar 1 10:46:06 2016 +0100
+
+    fix library names when building with mingw
+    
+    mpdecimal maintains visual studio build files, and so hardcodes the
+    library names to .so extensions when building with autotools.
+    
+    When building with mingw for windows targets, the library names should
+    have .dll extensions, so update the hardcoded names in configure script.
+    
+    Upstream-status: reported (private email)
+
+diff --git a/Makefile.in b/Makefile.in
+index 2db3459..24bffe4 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -37,7 +37,7 @@ install: FORCE
+ 	$(INSTALL) -d -m 755 $(DESTDIR)$(libdir)
+ 	$(INSTALL) -m 644 libmpdec/$(LIBSTATIC) $(DESTDIR)$(libdir)
+ 	$(INSTALL) -m 755 libmpdec/$(LIBSHARED) $(DESTDIR)$(libdir)
+-	cd $(DESTDIR)$(libdir) && ln -sf $(LIBSHARED) $(LIBSONAME) && ln -sf $(LIBSHARED) libmpdec.so
++	cd $(DESTDIR)$(libdir) && ln -sf $(LIBSHARED) $(LIBSONAME) && ln -sf $(LIBSHARED) libmpdec.dll
+ 	$(INSTALL) -d -m 755 $(DESTDIR)$(docdir)
+ 	cp -R doc/* $(DESTDIR)$(docdir)
+ 
+diff --git a/configure b/configure
+index ba109b1..fd20e16 100755
+--- a/configure
++++ b/configure
+@@ -2380,9 +2380,9 @@ ac_config_files="$ac_config_files Makefile libmpdec/Makefile tests/Makefile libm
+ 
+ 
+ 
+-LIBSTATIC=libmpdec.a
+-LIBSONAME=libmpdec.so.2
+-LIBSHARED=libmpdec.so.2.4.2
++LIBSTATIC=libmpdec-2.4.2.dll.a
++LIBSONAME=libmpdec-2.dll
++LIBSHARED=libmpdec-2.4.2.dll
+ 
+ 
+ 
