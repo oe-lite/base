@@ -1,0 +1,19 @@
+DESCRIPTION = "C++ bindings for ZeroMQ"
+HOMEPAGE = "http://www.zeromq.org"
+LICENSE = "MIT"
+SRC_URI = "git://github.com/zeromq/cppzmq.git;protocol=http;${SRC_REV}"
+SRC_REV = "commit=92d2af6def80a01b76d5e73f073c439ad00ab757"
+
+S = "${SRCDIR}/cppzmq"
+
+do_install () {
+    install -d ${D}${includedir}
+    install -m 0755 ${S}/*.hpp ${D}${includedir}/
+}
+
+# This is a header-only C++ library, but lets try to make it look like a
+# normal library for OE-lite.
+inherit library
+PACKAGES = "${PN}-dev ${PN}"
+
+DEPENDS_${PN} += "libzmq"
