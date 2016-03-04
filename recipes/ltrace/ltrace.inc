@@ -3,7 +3,7 @@ HOMEPAGE = "http://ltrace.alioth.debian.org"
 DEPENDS = "libelf libsupc++"
 LICENSE = "GPLv2"
 
-COMPATIBLE_HOST_ARCHS = ".*linux"
+COMPATIBLE_HOST_ARCHS = "i.86-.*-.*linux- x86_64-.*-.*linux- powerpc-.*-.*linux- powerpc64-.*-.*linux- arm-cortexa.*-linux- mips-.*-.*linux-"
 
 inherit make c
 
