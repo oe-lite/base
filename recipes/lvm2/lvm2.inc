@@ -7,6 +7,9 @@ S = "${SRCDIR}/LVM2.${PV}"
 
 inherit autotools auto-package-libs auto-package-utils pkgconfig
 
+#Only used for Aarch64
+AUTOCONFDIRS = "/autoconf"
+
 AUTO_PACKAGE_UTILS = """
 	blkdeactivate
 	dmsetup
