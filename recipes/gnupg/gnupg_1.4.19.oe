@@ -1,6 +1,11 @@
-require gnupg.inc
+require ${PN}.inc
 
 DEPENDS += "readline"
 EXTRA_OECONF += "--with-readline"
+
+# split out gpgv from main package
+RDEPENDS_${PN} = "gpgv"
+PACKAGES =+ "gpgv"
+FILES_gpgv = "${bindir}/gpgv"
 
 EXTRA_OECONF += "ac_cv_sys_symbol_underscore=no --without-libusb"
