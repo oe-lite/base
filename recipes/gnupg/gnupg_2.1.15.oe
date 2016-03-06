@@ -2,14 +2,17 @@ require gnupg.inc
 
 inherit pkgconfig binconfig
 
-DEPENDS += "readline libgpg-error-dev libgcrypt-dev libassuan-dev libassuan \
-	libgcrypt libksba libksba-dev libpth libpth-dev libdl \
-	libassuan-libassuan-config pth-pth-config libksba-ksba-config"
+DEPENDS += "readline libgpg-error libgcrypt libassuan \
+libksba libnpth libdl \
+util/libassuan-config util/npth-config util/ksba-config util/npth-config \
+"
+DEPENDS:>machine = " libnss-dns libresolv"
+DEPENDS:>sdk = " libnss-dns libresolv"
+
 
 EXTRA_OECONF += "--with-readline \
-	--with-ksba-prefix=${HOST_SYSROOT}/usr/ \
-	--with-libassuan-prefix=${HOST_SYSROOT}/usr/ \
-	--with-pth-prefix=${HOST_SYSROOT}/usr/ \
+	--with-ksba-prefix=${HOST_SYSROOT}/${prefix}/ \
+	--with-libassuan-prefix=${HOST_SYSROOT}/${prefix}/ \
 	ac_cv_sys_symbol_underscore=no"
 
 PACKAGES += "${PN}-internal-executables"
@@ -17,26 +20,29 @@ FILES_${PN}-internal-executables = "${libexecdir}"
 
 inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "gpg2 gpg-agent gpgconf gpg-connect-agent \
- gpgkey2ssh gpgparsemail gpgsm gpgsm-gencert.sh gpgv2 kbxutil watchgnup \
+ gpgparsemail gpgsm gpgv2 kbxutil \
+ dirmngr dirmngr-client gpgtar watchgnupg \
  addgnupghome applygnupgdefaults"
 AUTO_PACKAGE_UTILS_DEPENDS += "libc"
 AUTO_PACKAGE_UTILS_RDEPENDS += "${PN}-internal-executables libc"
 
-DEPENDS_${PN}-gpg2 += "libassuan libgcrypt libz libgpg-error"
-RDEPENDS_${PN}-gpg2 += "libassuan libgcrypt libz libgpg-error"
-DEPENDS_${PN}-gpg-agent += "libassuan libgcrypt libpth libgpg-error"
-RDEPENDS_${PN}-gpg-agent += "libassuan libgcrypt libpth libgpg-error"
+DEPENDS_${PN}-gpg2 += "libassuan libgcrypt libz libgpg-error libintl"
+RDEPENDS_${PN}-gpg2 += "libassuan libgcrypt libz libgpg-error libintl"
+DEPENDS_${PN}-gpg-agent += "libnpth libpthread libassuan libgcrypt libgpg-error"
+RDEPENDS_${PN}-gpg-agent += "libnpth libpthread libassuan libgcrypt libgpg-error"
 DEPENDS_${PN}-gpgconf += "libgpg-error"
 RDEPENDS_${PN}-gpgconf += "libgpg-error"
-DEPENDS_${PN}-gpg-connect-agent += "libassuan libpth libgpg-error"
-RDEPENDS_${PN}-gpg-connect-agent += "libassuan libpth libgpg-error"
-DEPENDS_${PN}-gpgkey2ssh += "libgcrypt libgpg-error"
-RDEPENDS_${PN}-gpgkey2ssh += "libgcrypt libgpg-error"
+DEPENDS_${PN}-gpg-connect-agent += "libnpth libpthread libassuan libgpg-error"
+RDEPENDS_${PN}-gpg-connect-agent += "libnpth libpthread libassuan libgpg-error"
 DEPENDS_${PN}-gpgsm += "libassuan libgcrypt libgpg-error libksba libz"
 RDEPENDS_${PN}-gpgsm += "libassuan libgcrypt libgpg-error libksba libz"
 DEPENDS_${PN}-gpgv2 += "libassuan libgcrypt libgpg-error libz"
 RDEPENDS_${PN}-gpgv2 += "libassuan libgcrypt libgpg-error libz"
 DEPENDS_${PN}-kbxutil += "libgcrypt libgpg-error libksba"
 RDEPENDS_${PN}-kbxutil += "libgcrypt libgpg-error libksba"
-DEPENDS_${PN} += "libc"
-RDEPENDS_${PN} += "libc"
+DEPENDS_${PN}-gpgtar += "libgpg-error"
+RDEPENDS_${PN}-gpgtar += "libgpg-error"
+RDEPENDS_${PN}-dirmngr-client += "libassuan libgpg-error"
+DEPENDS_${PN}-dirmngr-client += "libassuan libgpg-error"
+RDEPENDS_${PN}-dirmngr += "libassuan libgcrypt libgpg-error libksba libnpth libpthread libresolv"
+DEPENDS_${PN}-dirmngr += "libassuan libgcrypt libgpg-error libksba libnpth libpthread libresolv"

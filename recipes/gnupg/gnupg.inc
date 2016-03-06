@@ -5,6 +5,7 @@ LICENSE = "GPL-3.0+, LGPL-3.0+"
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit autotools gettext
+RECIPE_TYPES = "native machine sdk"
 
 DEPENDS = "zlib bzip2"
 
