@@ -2,6 +2,7 @@ DESCRIPTION = "A small library that defines common values for all GnuPG componen
 HOMEPAGE = "http://www.gnupg.org/related_software/libgpg-error/"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
+RECIPE_TYPES = "native machine sdk"
 
 SRC_URI = "ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-${PV}.tar.bz2"
 
