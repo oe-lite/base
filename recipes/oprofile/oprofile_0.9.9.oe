@@ -6,3 +6,4 @@ SRC_URI += "${SOURCEFORGE_MIRROR}/${PN}/${PN}-${PV}.tar.gz"
 S = "${SRCDIR}/oprofile-${PV}"
 
 SRC_URI += "file://opstart.patch"
+SRC_URI += "file://tidy-powerpc64-bfd-target-check.patch"
