@@ -45,8 +45,8 @@ EXTRA_OECONF_SSH = "--disable-ssh"
 EXTRA_OECONF_IDN:USE_curl_idn = "--with-libssh2"
 AUTO_PACKAGE_UTILS = "curl curl-config"
 
-DEPENDS_${PN} = "libc libgcc"
-RDEPENDS_${PN} = "libc libgcc"
+DEPENDS_${PN} += "libc libgcc"
+RDEPENDS_${PN} += "libc libgcc"
 DEPENDS_${PN}-curl = "libc libcurl"
 RDEPENDS_${PN}-curl = "libc libcurl"
 
