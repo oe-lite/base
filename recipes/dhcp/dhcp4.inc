@@ -57,9 +57,9 @@ do_install_extra_files () {
 		${D}${sysconfdir}/default/dhcp-server
 
 	mv ${D}${sysconfdir}/dhcpd.conf.example \
-	   	${D}${sysconfdir}/dhcp/dhcpd.conf.example
+		${D}${sysconfdir}/dhcp/dhcpd.conf.example
 	mv ${D}${sysconfdir}/dhclient.conf.example \
-	   	${D}${sysconfdir}/dhcp/dhclient.conf.example
+		${D}${sysconfdir}/dhcp/dhclient.conf.example
 	install -d ${D}${base_sbindir}/
 	mv ${D}${sbindir}/dhclient ${D}${base_sbindir}/
 	install -m 0755 ${S}/client/scripts/linux \
