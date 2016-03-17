@@ -39,6 +39,7 @@ SRC_URI += "\
 	file://busybox-ifplugd \
 	file://busybox-ifplugd.action \
 	file://busybox-ifplugd.conf \
+	file://busybox-dnsd \
 "
 
 PACKAGES:<USE_busybox_udhcpc = "${PN}-udhcpc-scripts "
