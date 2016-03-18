@@ -11,8 +11,6 @@ LICENSE_${PN}-bin = "GPL-3.0+"
 LICENSE_${PN}-extra = "GPL-3.0+"
 LICENSE_${PN}-openssl = "GPL-3.0+"
 
-PARALLEL_MAKE = ""
-
 inherit c++ autotools make-vpath binconfig pkgconfig gettext
 
 DEPENDS += "libz liblzo2 ${DEPENDS_LIBTASN1} libgcrypt libreadline"
