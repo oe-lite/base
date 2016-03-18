@@ -4,12 +4,12 @@ BUGTRACKER = "https://savannah.gnu.org/support/?group=gnutls"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
-LICENSE = "GPLv3+ & LGPLv2.1+"
-LICENSE_${PN} = "LGPLv2.1+"
-LICENSE_${PN}-xx = "LGPLv2.1+"
-LICENSE_${PN}-bin = "GPLv3+"
-LICENSE_${PN}-extra = "GPLv3+"
-LICENSE_${PN}-openssl = "GPLv3+"
+LICENSE = "GPL-3.0+ & LGPL-2.1+"
+LICENSE_${PN} = "LGPL-2.1+"
+LICENSE_${PN}-xx = "LGPL-2.1+"
+LICENSE_${PN}-bin = "GPL-3.0+"
+LICENSE_${PN}-extra = "GPL-3.0+"
+LICENSE_${PN}-openssl = "GPL-3.0+"
 
 PARALLEL_MAKE = ""
 
