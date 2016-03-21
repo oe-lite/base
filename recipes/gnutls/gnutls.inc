@@ -4,6 +4,13 @@ BUGTRACKER = "https://savannah.gnu.org/support/?group=gnutls"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
+LICENSE = "GPL-3.0+ & LGPL-2.1+"
+LICENSE_${PN} = "LGPL-2.1+"
+LICENSE_${PN}-xx = "LGPL-2.1+"
+LICENSE_${PN}-bin = "GPL-3.0+"
+LICENSE_${PN}-extra = "GPL-3.0+"
+LICENSE_${PN}-openssl = "GPL-3.0+"
+
 inherit c++ autotools make-vpath binconfig pkgconfig gettext
 
 DEPENDS += "libz liblzo2 ${DEPENDS_LIBTASN1} libgcrypt libreadline"
@@ -38,12 +45,14 @@ do_stage_fix_libstdc() {
 }
 
 inherit auto-package-libs
-AUTO_PACKAGE_LIBS = "gnutls gnutlsxx gnutls-openssl gnutls-extra"
+AUTO_PACKAGE_LIBS = "gnutls gnutlsxx gnutls-openssl"
 AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev"
 DEPENDS_${PN}-dev = ""
 RDEPENDS_${PN}-libgnutls-extra += "${DEPENDS_LIBTASN1} liblzo2"
 DEPENDS_${PN}-libgnutls += "libc libz ${DEPENDS_LIBTASN1} libgpg-error libgcrypt libiconv"
+DEPENDS_${PN}-libgnutls += "libgmp libhogweed libnettle"
 RDEPENDS_${PN}-libgnutls += "libc libz ${DEPENDS_LIBTASN1} libgpg-error libgcrypt libiconv"
+RDEPENDS_${PN}-libgnutls += "libgmp libhogweed libnettle"
 DEPENDS_${PN}-libgnutlsxx += "libgcc-s libc libm libstdc++  libgnutls"
 RDEPENDS_${PN}-libgnutlsxx += "libgcc-s libc libm libstdc++  libgnutls"
 DEPENDS_${PN}-libgnutls-openssl += "libc ${DEPENDS_LIBTASN1} libgnutls"
@@ -54,9 +63,13 @@ RDEPENDS_${PN}-libgnutls-extra += "libc liblzo2 libgnutls libgpg-error libgcrypt
 inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "srptool certtool gnutls-serv psktool gnutls-cli \
 	gnutls-cli-debug"
+AUTO_PACKAGE_UTILS += "danetool ocsptool"
 AUTO_PACKAGE_UTILS_DEPENDS += "libc libgnutls"
 AUTO_PACKAGE_UTILS_RDEPENDS += "libc libgnutls"
 DEPENDS_${PN}-gnutls-serv += "libgnutls-extra"
 RDEPENDS_${PN}-gnutls-serv += "libgnutls-extra"
 DEPENDS_${PN}-gnutls-cli += "libgnutls-extra"
 RDEPENDS_${PN}-gnutls-cli += "libgnutls-extra"
+
+DEPENDS_${PN}-certtool += "libgmp libhogweed libnettle"
+RDEPENDS_${PN}-certtool += "libgmp libhogweed libnettle"

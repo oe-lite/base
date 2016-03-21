@@ -1,6 +1,0 @@
-require ${PN}.inc
-
-LIBRARY_VERSION = "5"
-LIBRARY_VERSION_${PN}-libhogweed = "3"
-
-DEFAULT_PREFERENCE = "-1"

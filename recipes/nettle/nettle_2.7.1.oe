@@ -1,4 +1,0 @@
-require ${PN}.inc
-
-LIBRARY_VERSION = "4"
-LIBRARY_VERSION_${PN}-libhogweed = "2"
