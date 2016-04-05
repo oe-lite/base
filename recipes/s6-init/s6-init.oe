@@ -34,7 +34,7 @@ RECIPE_FLAGS += "system_watchdog_device"
 DEFAULT_USE_system_watchdog_device = "/dev/watchdog"
 do_configure[postfuncs] += "do_configure_system_watchdog"
 do_configure_system_watchdog() {
-	sed -e 's|/dev/watchdog|${USE_system_watchdog_device}|' \
+	sed -e 's|-F [^ \t]*|${USE_system_watchdog_device}|' \
 	    -i ${SRCDIR}/system-watchdog.run
 }
 
