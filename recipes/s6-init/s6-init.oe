@@ -123,7 +123,15 @@ DEFAULT_USE_syslogd_srv_s6rc_dependencies = "init-devtmpfs"
 SRC_URI += "file://syslogd-srv.run \
 	file://syslogd-srv.pipeline-name file://syslogd-srv.producer-for \
 	file://syslogd-srv.notification-fd \
-	file://syslogd-log.run file://syslogd-log.consumer-for"
+	file://syslogd-log.run file://syslogd-log.consumer-for \
+	file://syslogd-srv.filter"
+# Filter out TIMESTAMP part of RFC 3164 packet, as we are using s6-log
+# timestamping instead
+do_install_syslogd_srv_filter() {
+	install -m 755 ${SRCDIR}/syslogd-srv.filter \
+		${D}${s6rcsrcdir}/syslogd-srv/filter
+}
+do_install[postfuncs] += "do_install_syslogd_srv_filter"
 
 RECIPE_FLAGS += "hostname"
 do_configure[postfuncs] += "do_configure_hostname"
