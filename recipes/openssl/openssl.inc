@@ -95,7 +95,7 @@ do_compile () {
 }
 
 do_install () {
-	oe_runmake INSTALL_PREFIX="${D}" MANDIR="${mandir}" install
+	oe_runmake -j1 INSTALL_PREFIX="${D}" MANDIR="${mandir}" install
 
 	# On x86_64, move lib/* to lib64
 	if [ "${libdir}" != "${prefix}/lib" ]
