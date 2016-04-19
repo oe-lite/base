@@ -3,6 +3,7 @@ HOMEPAGE = "http://www.gnupg.org/related_software/libksba/"
 LICENSE = "GPLv2+ | LGPLv3+ | GPLv3+"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
+RECIPE_TYPES = "native machine sdk"
 
 DEPENDS = "libgpg-error"
 

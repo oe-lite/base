@@ -4,6 +4,7 @@ BUGTRACKER = "https://bugs.g10code.com/gnupg/index"
 LICENSE = "GPLv3 & LGPLv2.1+"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
+RECIPE_TYPES = "native machine sdk"
 
 inherit autotools-autoreconf pkgconfig library auto-package-utils binconfig
 

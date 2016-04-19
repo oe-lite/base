@@ -2,7 +2,7 @@
 DESCRIPTION = "Commands for Manipulating Filesystem Extended Attributes"
 LICENSE = "GPL-2.0+,LGPL-2.1"
 
-RECIPE_TYPES = "machine native"
+RECIPE_TYPES = "machine sdk native"
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
 require conf/fetch/savannah.conf
