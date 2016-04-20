@@ -7,7 +7,7 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 
 RECIPE_TYPES = "machine sdk"
 
-inherit autotools pkgconfig gettext sysvinit make
+inherit autotools pkgconfig gettext sysvinit make passwd
 
 DEPENDS = "libdl libm"
 
@@ -15,6 +15,7 @@ SRC_URI =  "http://download.lighttpd.net/lighttpd/releases-1.4.x/lighttpd-${PV}.
 SRC_URI += "file://lighttpd.conf"
 SRC_URI += "file://index.html"
 SRC_URI += "file://lighttpd"
+SRC_URI += "file://passwd file://group"
 
 EXTRA_OECONF = " \
 	--without-libev \
@@ -93,15 +94,12 @@ do_install_lighttpd_extra() {
     install -m 0644 ${SRCDIR}/index.html ${D}/www/pages/
 }
 
-PACKAGES =+ "${PN}-conf"
+PACKAGES =+ "${PN}-config"
 FILES_${PN} += "${sysconfdir}"
 FILES_${PN} += "${libdir}/mod_*"
 FILES_${PN} += "/www"
-FILES_${PN}-conf = "${sysconfdir}/lighttpd.conf"
-FILES_${PN}-conf += "/www/pages/index.html"
-
-PACKAGES =+ "${PN}-config"
 FILES_${PN}-config = "${sysconfdir}/lighttpd.conf"
+FILES_${PN}-config += "/www/pages/index.html"
 RDEPENDS_${PN} += "${PN}-config"
 
 RDEPENDS_${PN} += "libc libgcc libdl libm"
