@@ -106,6 +106,8 @@ CONFIG_START_STOP_DAEMON,\
 CONFIG_FEATURE_START_STOP_DAEMON_FANCY,\
 CONFIG_FEATURE_START_STOP_DAEMON_LONG_OPTIONS"
 
+BUSYBOX_SIMPLE_USE_FLAGS += "blockdev:util/"
+
 BUSYBOX_SIMPLE_USE_FLAGS += "mdev=1:mdev:\
 CONFIG_MDEV,\
 CONFIG_FEATURE_MDEV_CONF,\
@@ -145,7 +147,8 @@ RECIPE_FLAGS += "busybox_syslogd \
         busybox_syslogd_ipc busybox_syslogd_ipc_bufsize \
         busybox_syslogd_remote busybox_syslogd_remote_host \
         busybox_syslogd_rotate \
-        busybox_syslogd_rotate_size busybox_syslogd_rotate_n"
+        busybox_syslogd_rotate_size busybox_syslogd_rotate_n \
+        busybox_syslogd_log_level"
 # USE flag: enable syslogd daemon
 DEFAULT_USE_busybox_syslogd = "1"
 DEFAULT_USE_busybox_syslogd_sysvinit_start = "21"
@@ -166,6 +169,9 @@ DEFAULT_USE_busybox_syslogd_rotate = "0"
 DEFAULT_USE_busybox_syslogd_rotate_size = "200"
 # USE flag: number of rotated logfiles to keep
 DEFAULT_USE_busybox_syslogd_rotate_n = "1"
+# USE flag: syslogd log lovel
+DEFAULT_USE_busybox_syslogd_log_level = "8"
+
 BUSYBOX_PROVIDES:>USE_busybox_syslogd = " busybox-syslogd syslogd"
 DO_CONFIGURE_PREFUNCS:>USE_busybox_syslogd = " do_configure_busybox_syslogd"
 do_configure_busybox_syslogd () {
@@ -173,6 +179,7 @@ do_configure_busybox_syslogd () {
                -e 's/^# \(CONFIG_FEATURE_SYSLOGD_DUP\) is not set/\1=y/' \
         .config
         sed -i -e 's|^\(FILE\)=.*|\1="${USE_busybox_syslogd_file}"|' ${SRCDIR}/busybox-syslogd
+        sed -i -e 's/^#\(LOG_LEVEL\)=.*/\1="-l ${USE_busybox_syslogd_log_level}"/' ${SRCDIR}/busybox-syslogd
 }
 DO_CONFIGURE_PREFUNCS:>USE_busybox_syslogd_ipc = " do_configure_busybox_syslogd_ipc"
 do_configure_busybox_syslogd_ipc () {
@@ -601,6 +608,15 @@ BUSYBOX_SIMPLE_USE_FLAGS += "feature_date_compat"
 # USE flag: enable tr utility
 BUSYBOX_SIMPLE_USE_FLAGS += "tr:util/"
 
+# USE flag: enable cksum utility
+BUSYBOX_SIMPLE_USE_FLAGS += "cksum:util/"
+
+# USE flag: enable fbset utility
+BUSYBOX_SIMPLE_USE_FLAGS += "fbset:util/"
+
+# USE flag: enable fbsplash utility
+BUSYBOX_SIMPLE_USE_FLAGS += "fbsplash:util/"
+
 # USE flag: enable install utility
 BUSYBOX_SIMPLE_USE_FLAGS += "install:util/"
 
@@ -1008,6 +1024,15 @@ BUSYBOX_SIMPLE_USE_FLAGS += "ubimkvol:util/"
 BUSYBOX_SIMPLE_USE_FLAGS += "ubirmvol:util/"
 BUSYBOX_SIMPLE_USE_FLAGS += "ubirsvol:util/"
 BUSYBOX_SIMPLE_USE_FLAGS += "ubiupdatevol:util/"
+
+# USE flag: enable feature IPv6
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_ipv6"
+
+# USE flag: enable ping6 utility
+BUSYBOX_SIMPLE_USE_FLAGS += "ping6:util/"
+
+# USE flag: enable feature IPv6 in ifup and ifdown
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_ifupdown_ipv6"
 
 # USE flag: enable ifplugd service
 BUSYBOX_SIMPLE_USE_FLAGS += "ifplugd:service/ifplugd"

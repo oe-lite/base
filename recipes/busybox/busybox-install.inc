@@ -25,6 +25,11 @@ do_install () {
 
 	test -n "${busybox_suid_root}" && chmod +s ${D}${base_bindir}/busybox
 
+	if grep "CONFIG_INETD=y" ${S}/.config; then
+		inetd_conf=${INETD_CONF_FILES}
+		echo `cat ${SRCDIR}/inetd.conf` > $inetd_conf
+	fi
+
 	if grep "CONFIG_SYSLOGD=y" ${S}/.config; then
 		install -d ${D}${localstatedir}/log
 	fi

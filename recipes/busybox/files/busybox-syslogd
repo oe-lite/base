@@ -1,15 +1,16 @@
-#! /bin/sh
+#!/bin/sh
 
 PIDFILE=/var/run/syslogd.pid
 FILE="-O /var/log/messages"
 #REMOTE="-L -R host[:port]"
 #ROTATE_SIZE="-s SIZE"
 #ROTATE_N="-b N"
+#LOG_LEVEL="-l LEVEL"
 
 case "$1" in
     start)
 	splash_progress PLACEHOLDER
-	syslogd -S $FILE $REMOTE $ROTATE_SIZE $ROTATE_N
+	syslogd -S $FILE $REMOTE $ROTATE_SIZE $ROTATE_N $LOG_LEVEL
         ;;
     stop)
 	kill `cat $PIDFILE`
