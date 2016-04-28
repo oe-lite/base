@@ -9,6 +9,9 @@ DEPENDS = "${DEPENDS_LIBC} native:flex"
 
 inherit autotools gettext
 
+#Only used for Aarch64
+AUTOCONFDIRS = "/build-aux"
+
 require conf/fetch/gnu.conf
 SRC_URI = "${GNU_MIRROR}/wget/wget-${PV}.tar.gz"
 

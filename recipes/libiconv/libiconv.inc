@@ -10,6 +10,10 @@ SRC_URI = "ftp://ftp.gnu.org/pub/gnu/libiconv/libiconv-${PV}.tar.gz"
 
 inherit library autotools
 
+#Only used for Aarch64
+AUTOCONFDIRS = "/build-aux \
+                /libcharset/build-aux"
+
 EXTRA_OECONF += "--enable-shared --enable-static --disable-rpath"
 
 inherit auto-package-libs

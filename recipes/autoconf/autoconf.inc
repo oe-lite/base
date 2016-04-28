@@ -12,6 +12,10 @@ SRC_URI = "${GNU_MIRROR}/autoconf/autoconf-${PV}.tar.bz2"
 
 inherit autotools
 
+#Only used for Aarch64
+AUTOCONFDIRS = "/ \
+                /build-aux"
+
 # Excluded: tests man doc
 SUBDIRS = "bin . lib"
 

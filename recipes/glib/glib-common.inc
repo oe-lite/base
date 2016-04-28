@@ -12,6 +12,8 @@ DEPENDS += "${DEPENDS_LIBELF}"
 DEPENDS_LIBELF = "libelf"
 DEPENDS_LIBELF:HOST_LIBC_mingw = ""
 EXTRA_OECONF:>HOST_LIBC_mingw = " --disable-libelf"
+#gELF in glib not compatible with aarch64
+EXTRA_OECONF:>TARGET_CPU_aarch64 = " --disable-libelf"
 
 DEPENDS += "${DEPENDS_NATIVE}"
 DEPENDS_NATIVE = "native:libglib-2.0 native:libgthread-2.0 \

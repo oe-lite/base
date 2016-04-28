@@ -1,0 +1,26 @@
+From f6aa9475ea933219de025ade80f81d7dc4194fde Mon Sep 17 00:00:00 2001
+From: Sean Nyekjaer <sean.nyekjaer@prevas.dk>
+Date: Fri, 4 Mar 2016 15:11:55 +0100
+Subject: [PATCH] configure: add aarch64
+
+---
+ configure | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/configure b/configure
+index 097f5b4..729b361 100755
+--- a/configure
++++ b/configure
+@@ -3033,6 +3033,9 @@ case $target_cpu in
+ 	arm* )
+ 		ARCH="arm"
+ 		;;
++	aarch64* )
++		ARCH="arm64"
++		;;
+ 	s390x|s390 )
+ 		ARCH="s390"
+ 		;;
+-- 
+2.7.2
+

@@ -1,3 +1,5 @@
 include kexec-tools.inc
 
-SRC_URI += "file://autotools.patch"
+SRC_URI += "file://autotools.patch \
+            file://kexec-aarch64.patch \
+            file://configure-add-aarch64.patch"

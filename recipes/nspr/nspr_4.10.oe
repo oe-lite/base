@@ -15,6 +15,9 @@ SRC_URI:>machine += " file://nsinstall.patch"
 
 inherit pkgconfig autotools auto-package-libs auto-package-utils
 
+#Only used for Aarch64
+AUTOCONFDIRS = "/build/autoconf"
+
 DEPENDS += "libstdc++ libpthread ${DEPENDS_LIBC}"
 DEPENDS_LIBC = "libdl librt"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
