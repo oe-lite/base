@@ -6,6 +6,8 @@ SRC_URI = "ftp://ftp.gnupg.org/gcrypt/${PN}/${P}.tar.bz2 \
            file://pkgconfig.patch \
           "
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 DEPENDS = "libc libpthread"
 RECIPE_TYPES = "native machine sdk"
 inherit autotools pkgconfig library auto-package-utils binconfig
