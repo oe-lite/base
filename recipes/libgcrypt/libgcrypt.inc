@@ -9,9 +9,9 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit autotools-autoreconf binconfig pkgconfig library
 
-DEPENDS = "libgpg-error libcap"
-DEPENDS_${PN} += "libgpg-error libc libcap"
-RDEPENDS_${PN} += "libgpg-error libc libcap"
+DEPENDS = "libgpg-error libcap libpthread"
+DEPENDS_${PN} += "libgpg-error libc libcap libpthread"
+RDEPENDS_${PN} += "libgpg-error libc libcap libpthread"
 
 SRC_URI = "ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-${PV}.tar.gz"
 
