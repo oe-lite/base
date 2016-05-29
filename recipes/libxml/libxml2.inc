@@ -8,12 +8,12 @@ SRC_URI = "ftp://xmlsoft.org/${PN}/${PN}-${PV}.tar.gz"
 
 DEPENDS = "libc libm ${DEPENDS_HOST_OS} ${DEPENDS_PYTHON}"
 DEPENDS_PYTHON = ""
-DEPENDS_PYTHON:native = "python-runtime"
+DEPENDS_PYTHON:native = "python2 python2-distutils python2-dev"
 DEPENDS_HOST_OS = "libdl"
 DEPENDS_HOST_OS:HOST_LIBC_mingw = ""
 DEPENDS_${PN} += "libc libm ${DEPENDS_HOST_OS}"
 
-EXTRA_OECONF_PYTHON = "--with-python-install-dir=${libdir}/python"
+EXTRA_OECONF_PYTHON += "--with-python-install-dir=${PYDIR}/site-packages"
 EXTRA_OECONF_PYTHON:machine = "--without-python"
 EXTRA_OECONF_PYTHON:sdk = "--without-python"
 
@@ -40,9 +40,27 @@ FILES_${PN}-doc += "${datadir}/gtk-doc"
 DEPENDS_${PN}-utils += "libc libm ${DEPENDS_HOST_OS} libxml2"
 RDEPENDS_${PN}-utils += "libc libm ${DEPENDS_HOST_OS} libxml2"
 
-FILES_${PN}-python += "${libdir}/python/libxml2mod.so \
-			   ${libdir}/python/libxml2.py \
-			   ${libdir}/python/drv_libxml2.py"
-FILES_${PN}-python-dev += "${libdir}/python/libxml2mod.la \
-			       ${libdir}/python/libxml2mod.a"
-FILES_${PN}-python-dbg += "${libdir}/python/.debug/libxml2mod.so"
+#for now this works only with python2
+addhook setup_python to post_recipe_parse
+def setup_python(d):
+    python_version = d.get("PYTHON_VERSION") or ""
+    libdir = d.get("libdir") or ""
+    major_cmd = "python{} -c 'import sys; print(sys.version_info.major)'".format(python_version)
+    minor_cmd = "python{} -c 'import sys; print(sys.version_info.minor)'".format(python_version)
+    major = oelite.util.shcmd(major_cmd, quiet=True).strip()
+    minor= oelite.util.shcmd(minor_cmd, quiet=True).strip()
+    pydir = " {}/python{}.{}".format(libdir, major, minor)
+    d.set("PYDIR",pydir.strip())
+
+do_configure[prefunc] += "python_setup"
+python_setup() {
+    export PYTHONPATH=${BUILD_SYSROOT}/${PYDIR}
+    export PYTHONHOME=${TARGET_SYSROOT}${prefix}
+}
+
+FILES_${PN}-python += "${PYDIR}/site-packages/libxml2mod.so \
+			   ${PYDIR}/site-packages/libxml2.py \
+			   ${PYDIR}/site-packages/drv_libxml2.py"
+FILES_${PN}-python-dev += "${PYDIR}/site-packages/libxml2mod.la \
+			       ${PYDIR}/site-packages/libxml2mod.a"
+FILES_${PN}-python-dbg += "${PYDIR}/site-packages/.debug/libxml2mod.so"
