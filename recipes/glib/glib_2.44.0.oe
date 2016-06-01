@@ -6,6 +6,7 @@ require ${PN}.inc
 SRC_URI += "file://001-automake-compat.patch"
 inherit autotools-autoreconf
 SRC_URI += "file://100-fix-gio-linking.patch"
+SRC_URI += "file://001-fix-error-wont-overwrite-defined-macro.patch"
 
 SRC_URI:>HOST_LIBC_mingw = " file://libtool-bindir.patch"
 export sharedlibdir
