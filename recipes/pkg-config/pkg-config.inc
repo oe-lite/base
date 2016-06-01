@@ -13,7 +13,7 @@ DEPENDS = " libglib"
 DEPENDS:>HOST_LIBC_glibc = " libdl libpthread"
 DEPENDS:>HOST_LIBC_uclibc = " libdl libpthread"
 
-SRC_URI = "http://pkgconfig.freedesktop.org/releases/pkg-config-${PV}.tar.gz"
+SRC_URI = "https://pkgconfig.freedesktop.org/releases/pkg-config-${PV}.tar.gz"
 
 SRC_URI += "file://common.site file://host_cpu.site"
 SRC_HOST_SITEFILES = "${SRCDIR}/common.site ${SRCDIR}/host_cpu.site"
