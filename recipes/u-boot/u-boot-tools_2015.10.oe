@@ -5,3 +5,4 @@ require ${PN}.inc
 
 SRC_URI = "ftp://ftp.denx.de/pub/u-boot/u-boot-${PV}.tar.bz2"
 SRC_URI += "file://defconfig.patch"
+SRC_URI += "file://0001-tools-env-include-compiler.h.patch"
