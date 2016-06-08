@@ -347,8 +347,9 @@ do_configure_busybox_udhcpd_relay () {
 
 BUSYBOX_SIMPLE_USE_FLAGS += "inetd:inetd"
 
-RECIPE_FLAGS += "busybox_inetd_sysvinit_start"
+RECIPE_FLAGS += "busybox_inetd_sysvinit_start busybox_inetd_sysvinit_stop"
 DEFAULT_USE_busybox_inetd_sysvinit_start = "26"
+DEFAULT_USE_busybox_inetd_sysvinit_stop  = "0"
 
 # USE flag: enable inetd builtin echo
 BUSYBOX_SIMPLE_USE_FLAGS += "echo:service/:CONFIG_FEATURE_INETD_SUPPORT_BUILTIN_ECHO"
@@ -587,8 +588,24 @@ CONFIG_FEATURE_TAR_AUTODETECT"
 # USE flag: enable tar oldgnu compatibility
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_tar_oldgnu_compatibility"
 
+# USE flag: full tar
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_tar_full::\
+CONFIG_FEATURE_TAR_AUTODETECT,\
+CONFIG_FEATURE_TAR_FROM,\
+CONFIG_FEATURE_TAR_LONG_OPTIONS,\
+CONFIG_FEATURE_TAR_TO_COMMAND,\
+CONFIG_FEATURE_TAR_UNAME_GNAME,\
+CONFIG_FEATURE_TAR_NOPRESERVE_TIME"
+
 # USE flag: enable unxz utility
-BUSYBOX_SIMPLE_USE_FLAGS += "unxz:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "unxz:util/:\
+CONFIG_FEATURE_SEAMLESS_XZ,\
+CONFIG_UNXZ"
+
+# USE flag: enable xz utility
+BUSYBOX_SIMPLE_USE_FLAGS += "xz:util/:\
+CONFIG_FEATURE_SEAMLESS_XZ,\
+CONFIG_XZ"
 
 # USE flag: enable unlzma utility
 BUSYBOX_SIMPLE_USE_FLAGS += "unlzma:util/"
@@ -734,6 +751,10 @@ BUSYBOX_SIMPLE_USE_FLAGS += "feature_securetty"
 
 # USE flag: enable mount util
 BUSYBOX_SIMPLE_USE_FLAGS += "mount=1:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "mountpoint=1:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "umount=1:util/:\
+CONFIG_UMOUNT,\
+CONFIG_FEATURE_UMOUNT_ALL"
 
 # USE flag: enable beep util
 BUSYBOX_SIMPLE_USE_FLAGS += "beep:util/"
@@ -753,8 +774,25 @@ do_configure_busybox_feature_beep_freq () {
          .config
 }
 
+
+# USE flag: enable fstab, cifs, fake, verbose, helpers, label, flags and fstab
+# features of mount
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_mount_more::\
+CONFIG_FEATURE_MOUNT_FSTAB,\
+CONFIG_FEATURE_MOUNT_CIFS,\
+CONFIG_FEATURE_MOUNT_FAKE,\
+CONFIG_FEATURE_MOUNT_VERBOSE,\
+CONFIG_FEATURE_MOUNT_HELPERS,\
+CONFIG_FEATURE_MOUNT_LABEL,\
+CONFIG_FEATURE_MOUNT_FLAGS,\
+CONFIG_FEATURE_MOUNT_FSTAB\
+"
+
 # USE flag: enable feature_mount nfs
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_mount_nfs"
+
+# USE flag: enabel fsck
+BUSYBOX_SIMPLE_USE_FLAGS += "fsck=1"
 
 # USE flag: enable feature_mount_loop
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_mount_loop=1::\
@@ -789,6 +827,12 @@ BUSYBOX_SIMPLE_USE_FLAGS += "swaponoff:util/"
 # USE flag: enable sfdisk
 BUSYBOX_SIMPLE_USE_FLAGS += "sfdisk:util/"
 
+# USE flag: enable fdisk
+BUSYBOX_SIMPLE_USE_FLAGS += "fdisk=1:util/:\
+CONFIG_FDISK,\
+CONFIG_FDISK_SUPPORT_LARGE_DISKS,\
+CONFIG_FEATURE_FDISK_WRITABLE"
+
 # USE flag: enable pidof
 BUSYBOX_SIMPLE_USE_FLAGS += "pidof:util/"
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_pidof_single"
@@ -818,6 +862,14 @@ CONFIG_FEATURE_VOLUMEID_ROMFS,\
 CONFIG_FEATURE_VOLUMEID_SYSV,\
 CONFIG_FEATURE_VOLUMEID_OCFS2,\
 CONFIG_FEATURE_VOLUMEID_LINUXRAID"
+
+# USE flag: enable blockdev utility
+BUSYBOX_SIMPLE_USE_FLAGS += "blockdev:util/"
+
+# USE flag: enable eject utility
+BUSYBOX_SIMPLE_USE_FLAGS += "eject:util/:\
+CONFIG_EJECT,\
+CONFIG_FEATURE_EJECT_SCSI"
 
 # USE flag: enable printenv utility
 BUSYBOX_SIMPLE_USE_FLAGS += "printenv:util/"
@@ -986,6 +1038,49 @@ CONFIG_FEATURE_BRCTL_SHOW, \
 
 BUSYBOX_SIMPLE_USE_FLAGS += "feature_show_threads"
 
+# USE flag: enable less_regexp utility
+BUSYBOX_SIMPLE_USE_FLAGS += "less_regexp:util/"
+
+BUSYBOX_SIMPLE_USE_FLAGS += "modprobe_small=1:util/modprobe:\
+CONFIG_MODPROBE_SMALL,\
+CONFIG_FEATURE_MODPROBE_SMALL_OPTIONS_ON_CMDLINE,\
+CONFIG_FEATURE_MODPROBE_SMALL_CHECK_ALREADY_LOADED"
+
+BUSYBOX_SIMPLE_USE_FLAGS += "modprobe:util/:\
+CONFIG_MODINFO,\
+CONFIG_INSMOD,\
+CONFIG_RMMOD,\
+CONFIG_LSMOD,\
+CONFIG_FEATURE_LSMOD_PRETTY_2_6_OUTPUT,\
+CONFIG_MODPROBE,\
+CONFIG_FEATURE_MODPROBE_BLACKLIST,\
+CONFIG_DEPMOD,\
+CONFIG_FEATURE_MODUTILS_ALIAS,\
+CONFIG_FEATURE_MODUTILS_SYMBOLS,\
+"
+
+# USE flag: enable last utility
+BUSYBOX_SIMPLE_USE_FLAGS += "last:util/:"
+
+# USE flag: enable halt/poweroff/reboot utility
+BUSYBOX_SIMPLE_USE_FLAGS += "halt:util/:"
+
+# USE flag: enable brctl utility
+BUSYBOX_SIMPLE_USE_FLAGS += "brctl:util/:\
+CONFIG_BRCTL,\
+CONFIG_FEATURE_BRCTL_FANCY,\
+CONFIG_FEATURE_BRCTL_SHOW, \
+"
+
+# USE flag: enable fbset utility
+BUSYBOX_SIMPLE_USE_FLAGS += "fbset:util/:\
+CONFIG_FBSET,\
+CONFIG_FEATURE_FBSET_FANCY,\
+CONFIG_FEATURE_FBSET_READMODE, \
+"
+
+BUSYBOX_SIMPLE_USE_FLAGS += "feature_show_threads"
+
 BUSYBOX_SIMPLE_USE_FLAGS += "df_fancy::CONFIG_FEATURE_DF_FANCY"
 
 # USE flag: enable dnsd utility
@@ -1042,6 +1137,8 @@ DEFAULT_USE_busybox_ifplugd_sysvinit_stop  = "20"
 RECIPE_FLAGS += "busybox_ifplugd_splashutils_progress busybox_ifplugd_splashutils_msg"
 SPLASHUTILS_INITSCRIPTS:>USE_busybox_ifplugd += " busybox_ifplugd"
 DEFAULT_USE_busybox_ifplugd_splashutils_msg = "\"Starting Busybox ifplugd\""
+
+BUSYBOX_SIMPLE_USE_FLAGS += "reset=1:util/"
 
 RECIPE_FLAGS += "busybox_ifplugd_config_interfaces busybox_ifplugd_config_args"
 DEFAULT_USE_busybox_ifplugd_config_interfaces = "eth0"
