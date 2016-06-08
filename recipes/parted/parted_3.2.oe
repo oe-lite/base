@@ -1,0 +1,4 @@
+require parted.inc
+LICENSE = "GPL-3.0+"
+
+RECIPE_TYPES = "machine sdk"
