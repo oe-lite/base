@@ -1,0 +1,48 @@
+From: Morten Thunberg Svendsen <moth@prevas.dk>
+Date: Fri, 1 April 2016 19:19:19 +0000
+Subject: [PATCH] VA_ARGS overflow bug fix
+
+When using va_args with vsyslog() and vfprintf() with the same copy of the
+va_args, the list can overflow depending on the implementation in libc. Use a
+copy of the va_args when calling those functions. This bug would only show if
+setting 2 or 3 of either SYSLOG, STDOUT or STDERR as log out.
+
+
+===================================================================
+--- libdaemon-0.14.orig/libdaemon/dlog.c
++++ libdaemon-0.14/libdaemon/dlog.c
+@@ -43,26 +43,33 @@ void daemon_set_verbosity(int verbosity_
+     daemon_verbosity_level = verbosity_prio & LOG_PRIMASK;
+ }
+ 
+-void daemon_logv(int prio, const char* template, va_list arglist) {
++void daemon_logv(int prio, const char* template, va_list org_arglist) {
+     int saved_errno;
++    va_list arglist;
+ 
+     saved_errno = errno;
+ 
+     if (daemon_log_use & DAEMON_LOG_SYSLOG) {
+         openlog(daemon_log_ident ? daemon_log_ident : "UNKNOWN", LOG_PID, LOG_DAEMON);
++	va_copy(arglist, org_arglist);
+         vsyslog(prio | LOG_DAEMON, template, arglist);
++	va_end(arglist);
+     }
+ 
+     if (prio > daemon_verbosity_level)
+         goto end_daemon_logv;
+ 
+     if (daemon_log_use & DAEMON_LOG_STDERR) {
++	va_copy(arglist, org_arglist);
+         vfprintf(stderr, template, arglist);
++	va_end(arglist);
+         fprintf(stderr, "\n");
+     }
+ 
+     if (daemon_log_use & DAEMON_LOG_STDOUT) {
++	va_copy(arglist, org_arglist);
+         vfprintf(stdout, template, arglist);
++	va_end(arglist);
+         fprintf(stdout, "\n");
+     }
+ 
