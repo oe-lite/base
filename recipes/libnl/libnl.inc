@@ -3,7 +3,9 @@ HOMEPAGE = "http://www.infradead.org/~tgr/libnl/"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
-SRC_URI = "http://www.infradead.org/~tgr/${PN}/files/${PN}-${PV}.tar.gz"
+SRC_URI = "git://github.com/thom311/libnl.git;commit=${RELEASE_COMMIT}"
+
+S = "${SRCDIR}/libnl"
 
 inherit autotools-autoreconf pkgconfig
 
