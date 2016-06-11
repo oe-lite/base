@@ -1,4 +1,0 @@
-require libressl.inc
-
-LIBRARY_VERSION = "35"
-LIBRARY_VERSION_${PN}-libtls = "6"
