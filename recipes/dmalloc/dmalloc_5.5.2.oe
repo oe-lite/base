@@ -1,0 +1,61 @@
+DESCRIPTION = "Debug Malloc Library"
+HOMEPAGE = "http://dmalloc.com"
+LICENSE = "CC-BY-SA-3.0"
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
+SRC_URI = "\
+  http://dmalloc.com/releases/dmalloc-${PV}.tgz \
+  file://configure-pagesize-HACK.patch \
+  file://strdup.patch \
+  file://conf.h \
+"
+inherit autotools pkgconfig c++
+
+CFLAGS += "-fPIC"
+EXTRA_OECONF += "--enable-shlib"
+
+do_configure[postfuncs] += "do_configure_conf"
+do_configure_conf() {
+    cp ${SRCDIR}/conf.h ${S}
+}
+
+do_compile[prefuncs] += "do_compile_fix_ld"
+do_compile_fix_ld() {
+    sed -i -e 's/ld \-G/${HOST_ARCH}-ld \-G/' ${S}/Makefile
+}
+
+EXTRA_OEMAKE += " \
+    cxx \
+    cxxsl \
+    threads \
+    threadssl \
+    threadscxx \
+    threadscxxsl \
+    utils \
+    shlib \
+"
+
+do_install () {
+    install -d 0644 ${D}${bindir}
+    install -m 0755 ${S}/dmalloc ${D}${bindir}/
+    install -d 0644 ${D}${libdir}
+    install -m 0755 ${S}/libdmalloc.a ${D}${libdir}/
+    install -m 0755 ${S}/libdmalloc.so ${D}${libdir}/
+    install -m 0755 ${S}/libdmallocth.a ${D}${libdir}/
+    install -m 0755 ${S}/libdmallocth.so ${D}${libdir}/
+    install -m 0755 ${S}/libdmallocthcxx.a ${D}${libdir}/
+    install -m 0755 ${S}/libdmallocthcxx.so ${D}${libdir}/
+    install -m 0755 ${S}/libdmallocxx.a ${D}${libdir}/
+    install -m 0755 ${S}/libdmallocxx.so ${D}${libdir}/
+}
+
+DEPENDS_${PN} += "libc"
+RDEPENDS_${PN} += "libc"
+
+inherit auto-package-libs
+AUTO_PACKAGE_LIBS = "dmalloc dmallocth dmallocthcxx dmallocxx"
+AUTO_PACKAGE_LIBS_FILES = ".so"
+PROVIDES_${PN}-libdmalloc[qa] += "allow-missing-soname:libdmalloc"
+PROVIDES_${PN}-libdmallocthcxx[qa] += "allow-missing-soname:libdmallocthcxx"
+PROVIDES_${PN}-libdmallocth[qa] += "allow-missing-soname:libdmallocth"
+PROVIDES_${PN}-libdmallocxx[qa] += "allow-missing-soname:libdmallocxx"
