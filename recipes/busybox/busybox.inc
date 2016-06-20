@@ -40,6 +40,7 @@ SRC_URI += "\
 	file://busybox-ifplugd.action \
 	file://busybox-ifplugd.conf \
 	file://busybox-dnsd \
+	file://speed_table.patch \
 "
 
 PACKAGES:<USE_busybox_udhcpc = "${PN}-udhcpc-scripts "
