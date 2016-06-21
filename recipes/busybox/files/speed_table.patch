@@ -1,0 +1,40 @@
+--- busybox-1.23.2/libbb/speed_table.c.org	2016-06-15 13:17:31.029138573 +0200
++++ busybox-1.23.2/libbb/speed_table.c	2016-06-15 13:34:26.043647343 +0200
+@@ -59,6 +59,27 @@
+ #ifdef B921600
+ 	{B921600, 921600/256 + 0x8000U},
+ #endif
++#ifdef B1152000
++	{B1152000, 1152000/256 + 0x8000U},
++#endif
++#ifdef B1500000
++	{B1500000, 1500000/250 + 0x4000U},
++#endif
++#ifdef B2000000
++        {B2000000, 2000000/250 + 0x4000U},
++#endif
++#ifdef B2500000
++	{B2500000, 2500000/250 + 0x4000U},
++#endif
++#ifdef B3000000
++	{B3000000, 3000000/250 + 0x4000U},
++#endif
++#ifdef B3500000
++	{B3500000, 3500000/250 + 0x4000U},
++#endif
++#ifdef B4000000
++	{B4000000, 4000000/256 + 0x8000U},
++#endif
+ };
+ 
+ enum { NUM_SPEEDS = ARRAY_SIZE(speeds) };
+@@ -72,6 +93,9 @@
+ 			if (speeds[i].value & 0x8000U) {
+ 				return ((unsigned long) (speeds[i].value) & 0x7fffU) * 256;
+ 			}
++			if (speeds[i].value & 0x4000U) {
++				return ((unsigned long) (speeds[i].value) & 0x3fffU) * 250;
++			}
+ 			return speeds[i].value;
+ 		}
+ 	} while (++i < NUM_SPEEDS);
