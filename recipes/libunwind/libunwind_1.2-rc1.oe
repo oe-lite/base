@@ -1,1 +1,7 @@
 require libunwind.inc
+
+LIBRARY_VERSION = "8"
+LIBRARY_VERSION_${PN}-arm = "8"
+LIBRARY_VERSION_${PN}-coredump = "0"
+LIBRARY_VERSION_${PN}-ptrace = "0"
+LIBRARY_VERSION_${PN}-setjmp = "0"
