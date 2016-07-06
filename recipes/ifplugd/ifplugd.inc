@@ -20,4 +20,8 @@ SYSVINIT_SCRIPT_ifplugd = "ifplugd"
 DEFAULT_USE_ifplugd_sysvinit_start = "25"
 DEFAULT_USE_ifplugd_sysvinit_stop  = "20"
 
-RDEPENDS_${PN} = "libdaemon"
+PACKAGES =+ "${PN}-conf"
+
+FILES_${PN}-conf = "${sysconfdir}/ifplugd/" 
+
+RDEPENDS_${PN} = "libdaemon ${PN}-conf"
