@@ -18,7 +18,7 @@ case "$1" in
 	;;
     stop)
         echo -n "stopping $DESC: $NAME... "
-	start-stop-daemon -K -p $PIDFILE
+	start-stop-daemon -K -p $PIDFILE && rm $PIDFILE
 	echo "done."
 	;;
     restart)
