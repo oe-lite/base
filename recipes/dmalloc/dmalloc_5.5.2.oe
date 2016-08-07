@@ -21,7 +21,7 @@ do_configure_conf() {
 
 do_compile[prefuncs] += "do_compile_fix_ld"
 do_compile_fix_ld() {
-    sed -i -e 's/ld \-G/${HOST_ARCH}-ld \-G/' ${S}/Makefile
+    sed -i -e 's/\tld \-G/\t${HOST_LD} \-G/' ${S}/Makefile
 }
 
 EXTRA_OEMAKE += " \
