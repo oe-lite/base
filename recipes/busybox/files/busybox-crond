@@ -2,7 +2,7 @@
 DAEMON=/usr/sbin/crond
 NAME=crond
 DESC="Busybox Periodic Command Scheduler"
-ARGS=""
+ARGS="-f"
 PIDFILE=/var/run/busybox-crond.pid
 
 test -f $DAEMON || exit 0
@@ -18,7 +18,7 @@ case "$1" in
 	;;
     stop)
         echo -n "stopping $DESC: $NAME... "
-	start-stop-daemon -K -p $PIDFILE
+	start-stop-daemon -K -p $PIDFILE && rm $PIDFILE
 	echo "done."
 	;;
     restart)
