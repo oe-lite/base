@@ -70,7 +70,9 @@ do_install_extra_files () {
 
 PACKAGES += "${PN}-server ${PN}-client ${PN}-relay ${PN}-omshell ${PN}-server-config ${PN}-client-config"
 
-COMMON_DEPENDS = "libdl libcrypto libdl libgcc libssl"
+COMMON_DEPENDS = "libc libdl ${CRYPTO_DEPENDS}"
+CRYPTO_DEPENDS = ""
+CRYPTO_DEPENDS:>USE_bind_openssl = " libcrypto libssl"
 
 FILES_${PN} = ""
 FILES_${PN}-server = "${sbindir}/dhcpd ${sysconfdir}/init.d/dhcp-server \
@@ -83,14 +85,14 @@ FILES_${PN}-relay = "${sbindir}/dhcrelay ${sysconfdir}/init.d/dhcp-relay \
 	${sysconfdir}/default/dhcp-relay"
 FILES_${PN}-client = "${base_sbindir}/dhclient ${base_sbindir}/dhclient-script"
 FILES_${PN}-client-config = "${sysconfdir}/dhcp/dhclient.conf.example"
-DEPENDS_${PN}-client = "libc libdl"
-RDEPENDS_${PN}-client = "sh libc libdl ${PN}-client-config"
-DEPENDS_${PN}-server = "libc libc libdl"
-RDEPENDS_${PN}-server = "libc libc libdl ${PN}-server-config"
-DEPENDS_${PN}-relay = "libc libdl"
-RDEPENDS_${PN}-relay = "libc libdl"
-DEPENDS_${PN}-omshell = "libc libdl"
-RDEPENDS_${PN}-omshell = "libc libdl"
+DEPENDS_${PN}-client = "${COMMON_DEPENDS}"
+RDEPENDS_${PN}-client = "sh ${PN}-client-config ${COMMON_DEPENDS}"
+DEPENDS_${PN}-server = "${COMMON_DEPENDS}"
+RDEPENDS_${PN}-server = "${PN}-server-config ${COMMON_DEPENDS}"
+DEPENDS_${PN}-relay = "${COMMON_DEPENDS}"
+RDEPENDS_${PN}-relay = "${COMMON_DEPENDS}"
+DEPENDS_${PN}-omshell = "${COMMON_DEPENDS}"
+RDEPENDS_${PN}-omshell = "${COMMON_DEPENDS}"
 
 FILES_${PN}-omshell = "${bindir}/omshell"
 
@@ -105,3 +107,4 @@ DEFAULT_USE_bind_openssl = "1"
 EXTRA_OECONF += "${EXTRA_OECONF_OPENSSL}"
 EXTRA_OECONF_OPENSSL += ""
 EXTRA_OECONF_OPENSSL:USE_bind_openssl = 'LIBS="-lssl -lcrypto"'
+DEPENDS:>USE_bind_openssl = " ${CRYPTO_DEPENDS}"
