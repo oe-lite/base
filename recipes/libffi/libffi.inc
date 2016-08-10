@@ -13,7 +13,7 @@ passed between the two languages."""
 
 RECIPE_TYPES = "machine native sdk"
 
-inherit library autotools
+inherit library autotools c++
 
 SRC_URI = "ftp://sourceware.org/pub/libffi/${PN}-${PV}.tar.gz"
 

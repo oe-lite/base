@@ -3,4 +3,6 @@ require ${PN}.inc
 
 LICENSE = "MIT"
 
+SRC_URI += "file://configure-no-multiosdir.patch"
+
 LIBRARY_VERSION = "6"

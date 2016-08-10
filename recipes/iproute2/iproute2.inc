@@ -32,5 +32,9 @@ RDEPENDS_${PN}-rtmon += "libc libdl"
 DEPENDS_${PN}-tc += "libc libm libdl"
 RDEPENDS_${PN}-tc += "libc libm libdl"
 
+PACKAGES =+ " ${PN}-config"
+FILES_${PN}-config = "${sysconfdir}/iproute2/*"
+RDEPENDS_${PN} += "${PN}-config"
+
 RECIPE_FLAGS = "iproute2_rt_tables"
 RDEPENDS_${PN}-ip:>USE_iproute2_rt_tables = " iproute2"
