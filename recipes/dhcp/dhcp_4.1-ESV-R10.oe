@@ -8,3 +8,5 @@ SRC_URI += "file://nobash.patch"
 PACKAGES += "${PN}-examples"
 
 FILES_${PN}-examples = "${sysconfdir}/*.example"
+
+SRC_URI += "file://static_default_prefix_len.patch"

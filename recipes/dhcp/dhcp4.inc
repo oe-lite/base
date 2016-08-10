@@ -14,7 +14,7 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit autotools-autoreconf pkgconfig
 
-SRC_URI = "ftp://ftp.isc.org/isc/dhcp/dhcp-${PV}.tar.gz"
+SRC_URI = "ftp://ftp.isc.org/isc/dhcp/${PV}/dhcp-${PV}.tar.gz"
 
 SRC_URI += "${SRC_URI_EXTRA}"
 SRC_URI_EXTRA += "file://site.h"
@@ -57,18 +57,22 @@ do_install_extra_files () {
 		${D}${sysconfdir}/default/dhcp-server
 
 	mv ${D}${sysconfdir}/dhcpd.conf.example \
-	   	${D}${sysconfdir}/dhcp/dhcpd.conf.example
+		${D}${sysconfdir}/dhcp/dhcpd.conf.example
 	mv ${D}${sysconfdir}/dhclient.conf.example \
-	   	${D}${sysconfdir}/dhcp/dhclient.conf.example
+		${D}${sysconfdir}/dhcp/dhclient.conf.example
 	install -d ${D}${base_sbindir}/
 	mv ${D}${sbindir}/dhclient ${D}${base_sbindir}/
 	install -m 0755 ${S}/client/scripts/linux \
 		${D}${base_sbindir}/dhclient-script
+
+    install -d ${D}${localstatedir}/lib/dhcp
 }
 
 PACKAGES += "${PN}-server ${PN}-client ${PN}-relay ${PN}-omshell ${PN}-server-config ${PN}-client-config"
 
-COMMON_DEPENDS = "libdl libcrypto libdl libgcc libssl"
+COMMON_DEPENDS = "libc libdl ${CRYPTO_DEPENDS}"
+CRYPTO_DEPENDS = ""
+CRYPTO_DEPENDS:>USE_bind_openssl = " libcrypto libssl"
 
 FILES_${PN} = ""
 FILES_${PN}-server = "${sbindir}/dhcpd ${sysconfdir}/init.d/dhcp-server \
@@ -81,14 +85,14 @@ FILES_${PN}-relay = "${sbindir}/dhcrelay ${sysconfdir}/init.d/dhcp-relay \
 	${sysconfdir}/default/dhcp-relay"
 FILES_${PN}-client = "${base_sbindir}/dhclient ${base_sbindir}/dhclient-script"
 FILES_${PN}-client-config = "${sysconfdir}/dhcp/dhclient.conf.example"
-DEPENDS_${PN}-client = "libc libdl"
-RDEPENDS_${PN}-client = "sh libc libdl ${PN}-client-config"
-DEPENDS_${PN}-server = "libc libc libdl"
-RDEPENDS_${PN}-server = "libc libc libdl ${PN}-server-config"
-DEPENDS_${PN}-relay = "libc libdl"
-RDEPENDS_${PN}-relay = "libc libdl"
-DEPENDS_${PN}-omshell = "libc libdl"
-RDEPENDS_${PN}-omshell = "libc libdl"
+DEPENDS_${PN}-client = "${COMMON_DEPENDS}"
+RDEPENDS_${PN}-client = "sh ${PN}-client-config ${COMMON_DEPENDS}"
+DEPENDS_${PN}-server = "${COMMON_DEPENDS}"
+RDEPENDS_${PN}-server = "${PN}-server-config ${COMMON_DEPENDS}"
+DEPENDS_${PN}-relay = "${COMMON_DEPENDS}"
+RDEPENDS_${PN}-relay = "${COMMON_DEPENDS}"
+DEPENDS_${PN}-omshell = "${COMMON_DEPENDS}"
+RDEPENDS_${PN}-omshell = "${COMMON_DEPENDS}"
 
 FILES_${PN}-omshell = "${bindir}/omshell"
 
@@ -98,3 +102,9 @@ SYSVINIT_SCRIPT_dhcp-server ="dhcp-server"
 DEFAULT_USE_dhcp-server_sysvinit_start = "0"
 DEFAULT_USE_dhcp-server-sysvinit_stop = "0"
 
+RECIPE_FLAGS += "bind_openssl"
+DEFAULT_USE_bind_openssl = "1"
+EXTRA_OECONF += "${EXTRA_OECONF_OPENSSL}"
+EXTRA_OECONF_OPENSSL += ""
+EXTRA_OECONF_OPENSSL:USE_bind_openssl = 'LIBS="-lssl -lcrypto"'
+DEPENDS:>USE_bind_openssl = " ${CRYPTO_DEPENDS}"

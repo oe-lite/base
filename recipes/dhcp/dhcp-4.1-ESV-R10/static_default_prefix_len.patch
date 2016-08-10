@@ -1,0 +1,14 @@
+The DHCLIENT_DEFAULT_PREFIX_LEN.
+In older ESV versions, and in newer 4.2 releases, the prefix len is set to 64.
+
+--- dhcp-4.1-ESV-R10/client/dhc6.c.orig	2015-01-06 15:13:50.539012925 +0100
++++ dhcp-4.1-ESV-R10/client/dhc6.c	2015-01-06 15:14:05.131012714 +0100
+@@ -3912,7 +3912,7 @@
+ 				      (unsigned) addr->plen);
+ 		} else {
+ 			client_envadd(client, prefix, "ip6_prefixlen",
+-				      "%d", DHCLIENT_DEFAULT_PREFIX_LEN);
++				      "%d", 64);
+ 			client_envadd(client, prefix, "ip6_address",
+ 				      "%s", piaddr(addr->address));
+ 		}
