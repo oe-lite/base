@@ -1,5 +1,0 @@
-LICENSE = "GPL-2.0+"
-
-require ${PN}.inc
-
-SRC_URI:>HOST_LIBC_mingw = " file://pkg-config-0.26-win32.patch;striplevel=0"

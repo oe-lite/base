@@ -13,6 +13,11 @@ DEPENDS = " libglib"
 DEPENDS:>HOST_LIBC_glibc = " libdl libpthread"
 DEPENDS:>HOST_LIBC_uclibc = " libdl libpthread"
 
+EXTRA_MACHINE_DEPENDS:HOST_LIBC_glibc = "libc libglib-2.0 libpcre libpthread"
+EXTRA_MACHINE_DEPENDS:HOST_LIBC_uclibc = "libc libglib-2.0 libpcre libpthread"
+DEPENDS_${PN}:>machine += "${EXTRA_MACHINE_DEPENDS}"
+RDEPENDS_${PN}:>machine += "${EXTRA_MACHINE_DEPENDS}"
+
 SRC_URI = "https://pkgconfig.freedesktop.org/releases/pkg-config-${PV}.tar.gz"
 
 SRC_URI += "file://common.site file://host_cpu.site"
