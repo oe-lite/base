@@ -209,6 +209,7 @@ SPLASHUTILS_INITSCRIPTS:>USE_busybox_syslogd += " busybox_syslogd"
 DEFAULT_USE_busybox_syslogd_splashutils_msg = "\"Starting Busybox Syslogd\""
 
 BUSYBOX_SIMPLE_USE_FLAGS += "logger=1:util/"
+BUSYBOX_SIMPLE_USE_FLAGS += "pkill=1:util/"
 
 BUSYBOX_SIMPLE_USE_FLAGS += "hwclock=1:util/:\
 CONFIG_HWCLOCK,\
