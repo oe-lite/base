@@ -1,5 +1,0 @@
-require libsodium.inc
-
-SRC_URI = "http://download.libsodium.org/libsodium/releases/libsodium-${PV}.tar.gz"
-
-LIBRARY_VERSION = "13"
