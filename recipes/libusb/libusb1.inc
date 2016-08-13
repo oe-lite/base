@@ -4,8 +4,6 @@ LICENSE = "LGPL-2.1+"
 
 RECIPE_TYPES = "machine native sdk"
 
-COMPATIBLE_HOST_ARCHS = ".*linux"
-
 inherit autotools library
 
 require conf/fetch/sourceforge.conf
