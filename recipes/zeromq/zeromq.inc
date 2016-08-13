@@ -4,7 +4,7 @@ RECIPE_TYPES = "machine sdk"
 
 DESCRIPTION = "Zeromq - The Intelligent Transport Layer"
 HOMEPAGE = "http://www.zeromq.org"
-LICENSE = "LGPLv3+"
+LICENSE = "LGPL-3.0+"
 SRC_URI = "http://download.zeromq.org/zeromq-${PV}.tar.gz"
 
 COMMON_DEPENDS = "libc libgcc libm libpthread libstdc++"
@@ -23,7 +23,7 @@ AUTO_PACKAGE_LIBS_DEV_RDEPENDS = "${PN}-dev_${PV}"
 LIBRARY_VERSION = "5"
 
 RECIPE_FLAGS += "zeromq_libsodium"
-DEPENDS_LIBSODIUM = "libsodium"
+DEPENDS_LIBSODIUM = ""
 DEPENDS_LIBSODIUM:USE_zeromq_libsodium = "libsodium"
 EXTRA_OECONF_LIBSODIUM = "--without-libsodium"
 EXTRA_OECONF_LIBSODIUM:USE_zeromq_libsodium = "--with-libsodium"
