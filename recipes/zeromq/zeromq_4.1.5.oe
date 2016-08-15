@@ -1,0 +1,2 @@
+require zeromq.inc
+SRC_URI = "https://github.com/zeromq/zeromq4-1/releases/download/v${PV}/zeromq-${PV}.tar.gz"
