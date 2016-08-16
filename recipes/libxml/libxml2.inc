@@ -52,11 +52,12 @@ def setup_python(d):
     pydir = " {}/python{}.{}".format(libdir, major, minor)
     d.set("PYDIR",pydir.strip())
 
-do_configure[prefunc] += "python_setup"
-python_setup() {
-    export PYTHONPATH=${BUILD_SYSROOT}/${PYDIR}
-    export PYTHONHOME=${TARGET_SYSROOT}${prefix}
-}
+PYTHONPATH = "${BUILD_SYSROOT}/${PYDIR}"
+PYTHONHOME = "${TARGET_SYSROOT}${prefix}"
+PYTHONPATH[emit] = "do_configure"
+PYTHONHOME[emit] = "do_configure"
+PYTHONPATH[export] = "1"
+PYTHONHOME[export] = "1"
 
 FILES_${PN}-python += "${PYDIR}/site-packages/libxml2mod.so \
 			   ${PYDIR}/site-packages/libxml2.py \
