@@ -1,0 +1,35 @@
+SUMMARY = "libqmi is a library for talking to WWAN devices by QMI protocol"
+DESCRIPTION = "libqmi is a glib-based library for talking to WWAN modems \
+               and devices which speak the Qualcomm MSM Interface (QMI) protocol"
+HOMEPAGE = "http://www.freedesktop.org/wiki/Software/libqmi"
+LICENSE = "GPL-2.0 LGPL-2.1"
+
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
+DEPENDS += "native:glib-utils libglib-2.0 libglib-2.0-dev libgobject-2.0 libgobject-2.0-dev libgio-2.0 libgio-2.0-dev"
+RDEPENDS += "libglib-2.0 libgobject-2.0 libgio-2.0"
+
+inherit autotools pkgconfig
+
+SRC_URI = "https://www.freedesktop.org/software/${PN}/${PN}-${PV}.tar.xz"
+
+PACKAGES += "${PN}-bash-completion"
+
+inherit auto-package-libs
+
+AUTO_PACKAGE_LIBS = "qmi-glib"
+
+DEPENDS_${PN} += "libc libdl libffi libgio-2.0 libglib-2.0 libgmodule-2.0 \
+                  libgobject-2.0 libpcre libpthread libqmi-glib libresolv libz"
+RDEPENDS_${PN} += "libc libdl libffi libgio-2.0 libglib-2.0 libgmodule-2.0 \
+                  libgobject-2.0 libpcre libpthread libresolv libz libqmi-glib"
+
+DEPENDS_${PN}-libqmi-glib += "libc libdl libffi libgio-2.0 libglib-2.0 libgmodule-2.0 \
+                              libgobject-2.0 libpcre libpthread libresolv libz"
+RDEPENDS_${PN}-libqmi-glib += "libc libdl libffi libgio-2.0 libglib-2.0 libgmodule-2.0 \
+                               libgobject-2.0 libpcre libpthread libresolv libz"
+
+PROVIDES_${PN}-libqmi-glib += "libqmi-glib-5"
+
+FILES_${PN}-doc += "${datadir}/gtk-doc/html/libqmi-glib/*" 
+FILES_${PN}-bash-completion += "${datadir}/bash-completion/completions/*" 
