@@ -8,7 +8,7 @@ RECIPE_TYPES = "native machine sdk"
 
 inherit autotools pkgconfig library auto-package-utils binconfig
 
-DEPENDS = "libgpg-error"
+DEPENDS = "libgpg-error libgpg-error-config"
 
 SRC_URI = "ftp://ftp.gnupg.org/gcrypt/libassuan/libassuan-${PV}.tar.bz2"
 
