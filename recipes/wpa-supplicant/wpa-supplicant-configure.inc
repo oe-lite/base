@@ -1,5 +1,5 @@
 do_configure[postfuncs] += "do_configure_flags"
-CONF ?= "${S}/.config"
+CONF ?= "${B}/.config"
 WPA_SUPPLICANT_FLAGS ?= ""
 
 def do_configure_flags(d):

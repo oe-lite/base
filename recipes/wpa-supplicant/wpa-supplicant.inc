@@ -18,7 +18,8 @@ SRC_URI = "http://hostap.epitest.fi/releases/wpa_supplicant-${PV}.tar.gz \
            file://wpa_supplicant.conf-sane \
 	   "
 
-S = "${SRCDIR}/wpa_supplicant-${PV}/wpa_supplicant"
+S = "${SRCDIR}/wpa_supplicant-${PV}"
+B = "${SRCDIR}/wpa_supplicant-${PV}/wpa_supplicant"
 
 RDEPENDS_${PN} = "util/wpa-passphrase util/wpa-cli util/wpa-supplicant"
 
@@ -86,9 +87,9 @@ do_install () {
 	ln -sf ../if-pre-up.d/wpa-supplicant if-post-down.d/wpa-supplicant
 
 	install -d ${D}/${sysconfdir}/dbus-1/system.d
-	install -m 644 ${S}/dbus/dbus-wpa_supplicant.conf ${D}/${sysconfdir}/dbus-1/system.d
+	install -m 644 ${B}/dbus/dbus-wpa_supplicant.conf ${D}/${sysconfdir}/dbus-1/system.d
 	install -d ${D}/${datadir}/dbus-1/system-services
-	install -m 644 ${S}/dbus/*.service ${D}/${datadir}/dbus-1/system-services
+	install -m 644 ${B}/dbus/*.service ${D}/${datadir}/dbus-1/system-services
 	sed -i -e s:${base_sbindir}:${sbindir}:g ${D}/${datadir}/dbus-1/system-services/*.service
 }
 
