@@ -13,7 +13,11 @@ S = "${SRCDIR}/mosquitto-${PV}"
 
 inherit c++ make auto-package-libs auto-package-utils
 
-DEPENDS = "librt libssl libuuid"
+RECIPE_FLAGS = "mosquitto_uuid"
+DEFAULT_USE_mosquitto_uuid = "1"
+
+DEPENDS = "librt libssl"
+DEPENDS:>USE_mosquitto_uuid = " libuuid"
 
 AUTO_PACKAGE_UTILS = "\
   ${PN} \
@@ -22,20 +26,28 @@ AUTO_PACKAGE_UTILS = "\
   ${PN}_passwd \
 "
 
-AUTO_PACKAGE_UTILS_DEPENDS = "libc lib${PN} libuuid"
-AUTO_PACKAGE_UTILS_RDEPENDS = "libc libm lib${PN} libuuid"
+AUTO_PACKAGE_UTILS_DEPENDS = "libc lib${PN}"
+AUTO_PACKAGE_UTILS_RDEPENDS = "libc libm lib${PN}"
+
+AUTO_PACKAGE_UTILS_DEPENDS:>USE_mosquitto_uuid = " libuuid"
 
 DEPENDS_${PN}-${PN}-passwd += "libcrypto"
 RDEPENDS_${PN}-${PN}-passwd += "libcrypto"
 
 AUTO_PACKAGE_LIBS = "${PN} ${PN}pp"
-AUTO_PACKAGE_LIBS_DEPENDS = "libpthread librt libz libm openssl libuuid"
+AUTO_PACKAGE_LIBS_DEPENDS = "libpthread librt libz libm openssl"
 AUTO_PACKAGE_LIBS_RDEPENDS = "libc libcrypto libpthread librt libssl"
+
+AUTO_PACKAGE_LIBS_RDEPENDS:>USE_mosquitto_uuid = " libuuid"
 
 DEPENDS_${PN}-lib${PN}pp += "lib${PN} libstdc++"
 RDEPENDS_${PN}-lib${PN}pp += "lib${PN} libc libgcc-s libm libstdc++"
 
+EXTRA_OEMAKE_UUID = "WITH_UUID=no"
+EXTRA_OEMAKE_UUID:USE_mosquitto_uuid = "WITH_UUID=yes"
+
 EXTRA_OEMAKE = "\
+  ${EXTRA_OEMAKE_UUID} \
   WITH_SRV=no \
   WITH_DOCS=no \
   prefix=${prefix} \
