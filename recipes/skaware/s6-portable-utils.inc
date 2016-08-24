@@ -3,6 +3,8 @@ often performing well-known tasks such as cut and grep, but optimized for \
 simplicity and small size."
 LICENSE = "ISC"
 
+require compatible-archs.inc
+
 SRC_URI = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
 
 inherit c make

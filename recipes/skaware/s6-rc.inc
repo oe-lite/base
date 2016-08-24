@@ -1,6 +1,8 @@
 DESCRIPTION = "a dependency-based init script management system"
 LICENSE = "ISC"
 
+require compatible-archs.inc
+
 SRC_URI = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
 
 inherit c make

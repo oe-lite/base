@@ -3,6 +3,8 @@ process supervision (a.k.a service supervision), in the line of daemontools \
 and runit, as well as various operations on processes and daemons."
 LICENSE = "ISC"
 
+require compatible-archs.inc
+
 SRC_URI = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
 
 inherit c make

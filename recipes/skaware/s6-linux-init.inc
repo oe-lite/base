@@ -2,6 +2,8 @@ DESCRIPTION = "s6-linux-init is a set of minimalistic tools to create an \
 s6-based init system, including a /sbin/init binary, on a Linux kernel."
 LICENSE = "ISC"
 
+require compatible-archs.inc
+
 SRC_URI = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
 
 inherit c make

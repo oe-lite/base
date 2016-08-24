@@ -2,6 +2,8 @@ DESCRIPTION = "skalibs is a package centralizing the free software / \
 open source C development files used for building all software at skarnet.org"
 LICENSE = "ISC"
 
+require compatible-archs.inc
+
 SRC_URI = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
 
 inherit c make

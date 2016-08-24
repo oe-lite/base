@@ -2,6 +2,8 @@ DESCRIPTION = "s6-linux-utils is a set of minimalistic Linux-specific system \
 utilities."
 LICENSE = "ISC"
 
+require compatible-archs.inc
+
 SRC_URI = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
 
 inherit c make
