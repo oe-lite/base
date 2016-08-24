@@ -1,3 +1,0 @@
-require libmodbus.inc
-
-SRC_URI = "https://github.com/stephane/libmodbus/archive/v${PV}.tar.gz"
