@@ -6,6 +6,8 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit autotools-autoreconf pkgconfig library
 
+LIBRARY_VERSION = "5"
+
 LIBMODBUS_TEST_APPS="\
     bandwidth-client bandwidth-server-many-up bandwidth-server-one \
     random-test-client random-test-server \
@@ -25,3 +27,8 @@ do_install_modbus_tests () {
 
 PACKAGES =+ "${PN}-tests"
 FILES_${PN}-tests = "${bindir}"
+
+DEPENDS_${PN} += "libc"
+RDEPENDS_${PN} += "libc"
+DEPENDS_${PN}-tests = "libc libmodbus-${LIBRARY_VERSION}"
+RDEPENDS_${PN}-tests = "libc libmodbus-${LIBRARY_VERSION}"
