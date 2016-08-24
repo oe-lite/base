@@ -1,4 +1,6 @@
-DESCRIPTION = "s6 is a small suite of programs for UNIX, designed to allow process supervision (a.k.a service supervision), in the line of daemontools and runit, as well as various operations on processes and daemons."
+DESCRIPTION = "s6 is a small suite of programs for UNIX, designed to allow \
+process supervision (a.k.a service supervision), in the line of daemontools \
+and runit, as well as various operations on processes and daemons."
 LICENSE = "ISC"
 
 SRC_URI = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
