@@ -17,7 +17,6 @@ flock: yes
 getpeereid: no
 sopeercred: yes
 getpeerucred: no
-ipv6: no
 malloc0: yes
 msgdontwait: yes
 nbwaitall: yes

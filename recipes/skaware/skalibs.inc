@@ -32,15 +32,9 @@ do_configure_sysdeps() {
 }
 
 RECIPE_FLAGS = "skalibs_ipv6"
-do_configure[prefuncs] += "${do_configure_ipv6}"
-do_configure_ipv6 = ""
-do_configure_ipv6:USE_skalibs_ipv6 = "do_configure_ipv6_enable"
-do_configure_ipv6_enable() {
-	sed -e 's/^\(ipv6\):. */\1: yes/' \
-	    -i ${B}/sysdeps/sysdeps
-	sed -e 's/^#undef \(SKALIBS_HASIPV6\)/#define \1/' \
-	    -i ${B}/sysdeps/sysdeps.h
-}
+EXTRA_OECONF += "${EXTRA_OECONF_IPV6}"
+EXTRA_OECONF_IPV6 = "--disable-ipv6"
+EXTRA_OECONF_IPV6:USE_skalibs_ipv6 = "--enable-ipv6"
 
 do_configure() {
 	./configure \
@@ -51,7 +45,6 @@ do_configure() {
 		--datadir=${datadir} \
 		--sysdepdir=${libdir}/skalibs/sysdeps \
 		--with-sysdeps=${B}/sysdeps \
-		--disable-ipv6 \
 		--enable-clock \
 		--enable-monotonic \
 		--with-default-path="${sbindir}:${bindir}:${base_sbindir}:${base_bindir}" \
