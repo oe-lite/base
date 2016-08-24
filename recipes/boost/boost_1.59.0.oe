@@ -1,5 +1,8 @@
 include boost.inc
 
+#Should be fixed in 1.61.0
+SRC_URI += "file://0001-Do-not-qualify-fenv.h-names-that-might-be-macros.patch"
+
 DEPENDS_${PN}-libboost-random += "libboost-system"
 RDEPENDS_${PN}-libboost-random += "libboost-system"
 
