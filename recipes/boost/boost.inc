@@ -1,10 +1,11 @@
 DESCRIPTION = "Free peer-reviewed portable C++ source libraries"
 HOMEPAGE = "http://www.boost.org/"
-LICENSE = "Boost Software License"
+LICENSE = "BSL-1.0"
 
 RECIPE_TYPES = "machine native sdk"
 
 COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
+# Adding support for Windows requires target-os being configured below
 
 inherit c++ auto-package-libs
 
@@ -17,41 +18,21 @@ DEPENDS_LIBC = "librt libpthread"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
 DEPENDS = "${DEPENDS_LIBC} libz libbz2 libstdc++ libm libc libgcc"
 
-# Oh yippee, a new build system, it's sooo cooool I could eat my own
-# foot.  inlining=on lets the compiler choose, I think.  At least this
+# inlining=on lets the compiler choose, I think.  At least this
 # stuff is documented...
 # NOTE: if you leave <debug-symbols>on then in a debug build the build sys
 # objcopy will be invoked, and that won't work.  Building debug apparently
 # requires hacking gcc-tools.jam
-#
-# Sometimes I wake up screaming.  Famous figures are gathered in the nightmare,
-# Steve Bourne, Larry Wall, the whole of the ANSI C committee.  They're just
-# standing there, waiting, but the truely terrifying thing is what they carry
-# in their hands.  At first sight each seems to bear the same thing, but it is
-# not so for the forms in their grasp are ever so slightly different one from
-# the other.  Each is twisted in some grotesque way from the other to make each
-# an unspeakable perversion impossible to perceive without the onset of madness.
-# True insanity awaits anyone who perceives all of these horrors together.
-#
-# Quotation marks, there might be an easier way to do this, but I can't find
-# it.  The problem is that the user.hpp configuration file must receive a
-# pre-processor macro defined as the appropriate string - complete with "'s
-# around it.  (<> is a possibility here but the danger to that is that the
-# failure case interprets the < and > as shell redirections, creating
-# random files in the source tree.)
-#
-#bjam: '-DBOOST_PLATFORM_CONFIG=\"config\"'
-#do_compile: '-sGCC=... '"'-DBOOST_PLATFORM_CONFIG=\"config\"'"
-SQD = '"'
-EQD = '\"'
-#boost.oe:   "...  '-sGCC=... '${SQD}'-DBOOST_PLATFORM_CONFIG=${EQD}config${EQD}'${SQD} ..."
-BJAM_CONF = "${SQD}'-DBOOST_PLATFORM_CONFIG=${EQD}boost/config/platform/${TARGET_OS}.hpp${EQD}'${SQD}"
 
-# bzip2 and zip are disabled because... they're broken - the compilation simply
-# isn't working with bjam.  I guess they will fix it, but who needs it?  This
-# only affects the (new in 33) iostream library.
-#		'-sNO_BZIP2=1'
-#		'-sNO_ZLIB=1'
+# http://www.boost.org/build/doc/html/bbv2/tasks/crosscompile.html
+# file: user-config.jam
+# action: add line at end using ${CXX} from OE-lite env like
+#   using gcc : arm : arm-none-linux-gnueabi-g++ ;
+# b2 toolset=gcc-arm <target-os=linux>
+#   target-os only needed if cross compiling on windows os for linux on arm
+# b2 name as of version 1.47, oe-lite usage as of 1.59
+# Shell Quoting: Add one \ for each nested parser handling the line - roughly
+BJAM_CONF = "\'-DBOOST_PLATFORM_CONFIG=\\"boost/config/platform/${TARGET_OS}.hpp\\"\'"
 
 BJAM_OPTIONS = "-sTOOLS=gcc"
 BJAM_OPTIONS += "'-sGCC=${CC} ${CPPFLAGS} ${CFLAGS} '${BJAM_CONF}"
@@ -88,32 +69,38 @@ def boost_flags(d):
 BJAM_CFLAGS=""
 BJAM_CXXFLAGS=""
 BJAM_LINKFLAGS=""
+
+# Setup boost support for cross compilation:
+#  Not in boost documentation (1.59.0)
+#    ensure user-config.jam is placed properly
+#    naming convention and location of linux.hpp
 do_configure () {
     cp -f boost/config/platform/linux.hpp \
           boost/config/platform/linux-gnueabi.hpp
 
-    (cd ${S}/tools/build/v2/
-        if [ ! -f user-config.jam~orig ] ; then
-            cp user-config.jam user-config.jam~orig
-        fi
-        cp user-config.jam~orig user-config.jam
-        echo "using gcc : $(${CXX} -dumpversion) : ${CXX} : <define>-DBOOST_SP_USE_PTHREADS ${BJAM_CFLAGS} ${BJAM_CXXFLAGS} ${BJAM_LINKFLAGS} ;" \
-            >> user-config.jam
+    (cd ${S}/tools/build/
+
+    cp example/user-config.jam src/user-config.jam
+    echo "using gcc : $(${CXX} -dumpversion) : ${CXX} : <define>-DBOOST_SP_USE_PTHREADS ${BJAM_CFLAGS} ${BJAM_CXXFLAGS} ${BJAM_LINKFLAGS} ;" \
+        >> src/user-config.jam
     )
     CC="${BUILD_CC}" CFLAGS="${BUILD_CFLAGS}" CPPFLAGS="${BUILD_CFLAGS}" CXXFLAGS="${BUILD_CFLAGS}" ./bootstrap.sh --with-toolset=gcc ${BOOTSTRAP_OPTIONS}
 }
 
 do_compile() {
     set -ex
-    ./bjam -d2 ${BJAM_OPTIONS} \
+    ./b2 -d2 ${BJAM_OPTIONS} \
     --prefix=${prefix} --exec-prefix=${exec_prefix} \
     --libdir=${libdir} --includedir=${includedir} \
     --debug-configuration ${PARALLEL_MAKE}
 }
 
 do_install() {
+    # Install headers and libs to install/usr/include/boost install/lib/
+    # For target only libs are wanted, (boost)
+    # For sdk both are requested       (boost-dev)
     set -ex
-    ./bjam ${BJAM_OPTIONS} \
+    ./b2 ${BJAM_OPTIONS} \
         --libdir=${D}${libdir} --includedir=${D}${includedir} \
         install
 }
@@ -122,6 +109,7 @@ BOOST_LIBS = "\
 	chrono date_time filesystem graph iostreams math \
 	program_options random regex serialization signals system \
 	thread test wave"
+
 AUTO_PACKAGE_LIBS = "\
 	boost_chrono boost_date_time boost_filesystem boost_graph \
 	boost_iostreams boost_math_c99f boost_math_c99l boost_math_c99 \
@@ -157,70 +145,30 @@ RDEPENDS_${PN}-libboost-wave += "libboost-chrono libboost-date-time \
 			libboost-filesystem libboost-system libboost-thread"
 DEPENDS_${PN}-libboost-wserialization += "libboost-serialization"
 RDEPENDS_${PN}-libboost-wserialization += "libboost-serialization"
+DEPENDS_${PN}-libboost-prg-exec-monitor += "libboost-system libboost-timer"
+RDEPENDS_${PN}-libboost-prg-exec-monitor += "libboost-system libboost-timer"
+
+DEPENDS_${PN}-libboost-unit-test-framework += "libboost-system libboost-timer"
+RDEPENDS_${PN}-libboost-unit-test-framework += "libboost-system libboost-timer"
 
 BOOTSTRAP_OPTIONS += "--with-libraries=${@','.join('${BOOST_LIBS}'.split())}"
 
 #Ensure no libraries are placed in PN
 FILES_${PN} = ""
 
-#To be removed in next base master release!
-PACKAGES += "libmath libmath-dev"
-DEPENDS_libmath = "libboost-math-c99f libboost-math-c99l libboost-math-c99 \
-	libboost-math-tr1f libboost-math-tr1l libboost-math-tr1"
-DEPENDS_lib-math-dev = "libboost-math-c99f-dev libboost-math-c99l-dev \
-	libboost-math-c99-dev libboost-math-tr1f-dev libboost-math-tr1l-dev \
-	 libboost-math-tr1-dev"
-RDEPENDS_libmath = "libboost-math-c99f libboost-math-c99l libboost-math-c99 \
-	libboost-math-tr1f libboost-math-tr1l libboost-math-tr1"
-RDEPENDS_libmath-dev = "libboost-math-c99f-dev libboost-math-c99l-dev \
-	libboost-math-c99-dev libboost-math-tr1f-dev libboost-math-tr1l-dev \
-	 libboost-math-tr1-dev"
-PACKAGES += "libtest libtest-dev"
-DEPENDS_libtest = "libboost-prg-exec-monitor libboost-unit-test-framework"
-DEPENDS_libtest-dev = "libboost-prg-exec-monitor-dev \
-		libboost-unit-test-framework-dev"
-RDEPENDS_libtest = "libboost-prg-exec-monitor libboost-unit-test-framework"
-RDEPENDS_libtest-dev = "libboost-prg-exec-monitor-dev \
-		libboost-unit-test-framework-dev"
-PROVIDES_${PN}-libboost-chrono += "libchrono"
-PROVIDES_${PN}-libboost-chrono-dev += "libchrono-dev"
-PROVIDES_${PN}-libboost-chrono[qa] += "allow-missing-soname:libchrono"
-PROVIDES_${PN}-libboost-date-time += "libdate-time"
-PROVIDES_${PN}-libboost-date-time-dev += "libdate-time-dev"
-PROVIDES_${PN}-libboost-date-time[qa] += "allow-missing-soname:libdate-time"
-PROVIDES_${PN}-libboost-filesystem += "libfilesystem"
-PROVIDES_${PN}-libboost-filesystem-dev += "libfilesystem-dev"
-PROVIDES_${PN}-libboost-filesystem[qa] += "allow-missing-soname:libfilesystem"
-PROVIDES_${PN}-libboost-graph += "libgraph"
-PROVIDES_${PN}-libboost-graph-dev += "libgraph-dev"
-PROVIDES_${PN}-libboost-graph[qa] += "allow-missing-soname:libgraph"
-PROVIDES_${PN}-libboost-iostreams += "libiostreams"
-PROVIDES_${PN}-libboost-iostreams-dev += "libiostreams-dev"
-PROVIDES_${PN}-libboost-iostreams[qa] += "allow-missing-soname:libiostreams"
-PROVIDES_${PN}-libboost-program-options += "libprogram-options"
-PROVIDES_${PN}-libboost-program-options-dev += "libprogram-options-dev"
-PROVIDES_${PN}-libboost-program-options[qa] += "allow-missing-soname:libprogram-options"
-PROVIDES_${PN}-libboost-random += "librandom"
-PROVIDES_${PN}-libboost-random-dev += "librandom-dev"
-PROVIDES_${PN}-libboost-random[qa] += "allow-missing-soname:librandom"
-PROVIDES_${PN}-libboost-regex += "libregex"
-PROVIDES_${PN}-libboost-regex-dev += "libregex-dev"
-PROVIDES_${PN}-libboost-regex[qa] += "allow-missing-soname:libregex"
-PROVIDES_${PN}-libboost-serialization += "libserialization"
-PROVIDES_${PN}-libboost-serialization-dev += "libserialization-dev"
-PROVIDES_${PN}-libboost-serialization[qa] += "allow-missing-soname:libserialization"
-PROVIDES_${PN}-libboost-signals += "libsignals"
-PROVIDES_${PN}-libboost-signals-dev += "libsignals-dev"
-PROVIDES_${PN}-libboost-signals[qa] += "allow-missing-soname:libsignals"
-PROVIDES_${PN}-libboost-system += "libsystem"
-PROVIDES_${PN}-libboost-system-dev += "libsystem-dev"
-PROVIDES_${PN}-libboost-system[qa] += "allow-missing-soname:libsystem"
-PROVIDES_${PN}-libboost-thread += "libthread"
-PROVIDES_${PN}-libboost-thread-dev += "libthread-dev"
-PROVIDES_${PN}-libboost-thread[qa] += "allow-missing-soname:libthread"
-PROVIDES_${PN}-libboost-wave += "libwave"
-PROVIDES_${PN}-libboost-wave-dev += "libwave-dev"
-PROVIDES_${PN}-libboost-wave[qa] += "allow-missing-soname:libwave"
-PROVIDES_${PN}-libboost-wave += "libwave"
-PROVIDES_${PN}-libboost-wave-dev += "libwave-dev"
-PROVIDES_${PN}-libboost-wave[qa] += "allow-missing-soname:libwave"
+LIBRARY_VERSION = "1"
+
+#make it possible to get all of boost easily
+PACKAGES += "${PN}-full ${PN}-full-dev"
+RDEPENDS_${PN}-full += "${LIBS_AUTO_RPACKAGES}"
+addhook add_deps to post_recipe_parse after auto_package_libs before blacklist
+do_fetch[prefuncs] += "add_deps"
+def add_deps(d):
+    pn = (d.get('PN') or '')
+    rdeps = (d.get('LIBS_AUTO_RPACKAGES') or '').split( )
+    rdepsdev = []
+    for lib in rdeps:
+        rdepsdev.append(lib+"-dev")
+    #boost-dev contains all the boost header-only code
+    rdepsdev.append(pn+"-dev")
+    d.set('RDEPENDS_boost-full-dev', ' '.join(rdepsdev))
