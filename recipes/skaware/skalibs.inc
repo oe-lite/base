@@ -7,6 +7,9 @@ inherit c make
 
 endianness = "${@['big', 'little'][d.get('HOST_ENDIAN') == 'l']}"
 
+# All supported archs need to have a sysdeps and sysdeps.h file.  These are
+# not provided by upstream, so we have to create them them ourselves when
+# adding support for more archs.
 SRC_URI += "file://sysdeps file://sysdeps.h"
 do_configure[prefuncs] += "do_configure_sysdeps"
 do_configure_sysdeps() {
