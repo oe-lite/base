@@ -1,0 +1,8 @@
+redirfd -r 0 /etc/ssh/host_key_types
+forstdin -o 0 keytype
+import -u keytype
+ifelse { test ${keytype} = all }
+{ ssh-keygen -A }
+define keyfile ssh_host_${keytype}_key
+if -t -n { test -e /etc/ssh/${keyfile} }
+ssh-keygen -f /etc/ssh/${keyfile} -N "" -t ${keytype}

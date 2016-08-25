@@ -56,4 +56,14 @@ do_install() {
 	sysvinit_install_script ${B}/overlay.sh overlay.sh
 }
 
+inherit s6rc
+S6RC_ONESHOT_SERVICES = "overlay-files"
+RECIPE_FLAGS += "overlay_files_s6rc_dependencies"
+do_compile[postfuncs] = "${do_compile_S6RC}"
+do_compile_S6RC = ""
+do_compile_S6RC:USE_s6rc = "do_compile_s6rc"
+do_compile_s6rc() {
+    echo "${sysconfdir}/init.d/overlay.sh" > ${SRCDIR}/overlay-files.up
+}
+
 PACKAGES = "${PN}"

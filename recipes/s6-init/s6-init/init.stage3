@@ -1,0 +1,38 @@
+#!/bin/execlineb
+
+# Read environment from /etc/env
+s6-envdir -I -- /etc/env
+
+# Check for request to enable debug messages
+importas -D 1 VERBOSITY INIT_VERBOSITY
+
+foreground { if { test $VERBOSITY -ge 3 }
+  s6-echo "init.stage3" }
+
+# Send SIGTERM to all processes (except PID 1)
+foreground { if { test $VERBOSITY -ge 2 }
+  s6-echo "Sending SIGTERM to all processes" }
+foreground { kill -TERM -1 }
+
+foreground { if { test $VERBOSITY -ge 2 }
+  s6-echo "Synchronizing cached writes to persistent storage" }
+foreground { sync }
+
+# Kill all processes (except PID 1)
+foreground { if { test $VERBOSITY -ge 2 }
+  s6-echo "Killing all processes" }
+foreground { kill -KILL -1 }
+
+# Unmount all filesystems
+foreground { if { test $VERBOSITY -ge 2 }
+  s6-echo "Unmounting all filesystems" }
+foreground { umount -a -r -n }
+
+# We should be called with either 'reboot', 'halt', 'poweroff' or 'halt'
+importas finish_arg 1
+
+# Drop into emergency shell if called with 'other'
+ifelse { test $finish_arg = other } { /bin/sh -i }
+
+# Otherwise call the shell command with same name with '-f' argument
+$finish_arg -f

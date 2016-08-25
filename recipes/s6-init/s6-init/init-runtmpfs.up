@@ -1,0 +1,6 @@
+if { ln -s /run /var/run }
+if { mkdir -p -m 0777 /run/shm }
+if { ln -s /run/shm /dev/shm }
+if { mkdir -p -m 0755 /run/lock }
+if { ln -s /run/lock /var/lock }
+mkdir -p -m 0755 /run/tmp

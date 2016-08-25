@@ -1,0 +1,19 @@
+#<path> <type> <mode> <uid> <gid> <major> <minor> <start> <inc> <count>
+#
+#type can be one of: 
+#    f	A regular file
+#    d	Directory
+#    c	Character special device file
+#    b	Block special device file
+#    p	Fifo (named pipe)
+
+/proc				d 755		0 0	- -	- - -
+/sys				d 755		0 0	- -	- - -
+/tmp				d 777		0 0	- -	- - -
+/etc/service/svscan-log/fifo	p 640		0 0	- -	- - -
+/var				d 755		0 0	- -	- - -
+/var/log			d 755		0 0	- -	- - -
+/var/log/svscan			d 755	65534 65534	- -	- - -
+/var/log/klogd			d 755	65534 65534	- -	- - -
+/var/log/syslogd		d 755	65534 65534	- -	- - -
+/var/log/devd			d 755	65534 65534	- -	- - -

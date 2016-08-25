@@ -1,0 +1,19 @@
+#!/bin/execlineb
+
+elgetopt v:
+importas -D 1 VERBOSITY ELGETOPT_v
+importas -D /var/rc/compiled.new COMPILED 1
+
+if { s6-init-compile -v $VERBOSITY $COMPILED }
+
+foreground { if { test $VERBOSITY -ge 2 }
+  s6-echo "Live upgrading to ${COMPILED}" }
+if { s6-rc-update -v $VERBOSITY $COMPILED }
+foreground { if { test $VERBOSITY -ge 2 }
+  s6-echo "Moving live database to /var/rc/compiled" }
+
+if { rm -rf /var/rc/compiled }
+if { mv $COMPILED /var/rc/compiled }
+if { ln -sf /var/rc/compiled /run/rc/compiled }
+foreground { if { test $VERBOSITY -ge 1 }
+  s6-echo "Live upgrade completed" }

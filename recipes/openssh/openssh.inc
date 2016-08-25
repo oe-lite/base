@@ -123,4 +123,23 @@ RECIPE_FLAGS += "sshd_sysvinit_start sshd_sysvinit_stop"
 DEFAULT_USE_sshd_sysvinit_start = "25"
 DEFAULT_USE_sshd_sysvinit_stop = "0"
 
+inherit s6rc
+S6RC_LONGRUN_SERVICES = "openssh"
+S6RC_ONESHOT_SERVICES = "openssh-keygen"
+SRC_URI += "file://openssh.run file://openssh-keygen.up"
+RECIPE_FLAGS += "openssh_s6rc_dependencies openssh_keygen_s6rc_dependencies"
+DEFAULT_USE_openssh_s6rc_dependencies = "init-utmp init-sysctl init-coldplug openssh-keygen"
+DEFAULT_USE_openssh_keygen_s6rc_dependencies = "hostname init-urandom"
+RECIPE_FLAGS += "openssh_host_key_types"
+DEFAULT_USE_openssh_host_key_types = "${HOST_KEY_TYPES}"
+do_install_host_keytypes() {
+    rm -f ${D}${sysconfdir}/ssh/host_key_types
+    for keytype in ${USE_openssh_host_key_types} ; do
+        echo $keytype >> ${D}${sysconfdir}/ssh/host_key_types
+    done
+}
+do_install_HOST_KEYTYPES = ""
+do_install_HOST_KEYTYPES:USE_s6rc = "do_install_host_keytypes"
+do_install[postfuncs] += "${do_install_HOST_KEYTYPES}"
+
 PACKAGEQA_TARGET_BINDIRS += "${target_libexecdir}"

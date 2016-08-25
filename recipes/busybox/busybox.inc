@@ -93,7 +93,8 @@ FILES_${PN}:>USE_busybox_ftpd = " ${USE_busybox_ftpd_dir}"
 
 FILES_${PN}-udhcpc-scripts = "${datadir}/udhcpc ${sysconfdir}/udhcpc.d"
 
-RDEPENDS_${PN} = "netbase base-passwd base-files ${LIB_DEPENDS}"
+RDEPENDS_${PN} = "netbase base-passwd ${LIB_DEPENDS}"
+RDEPENDS_${PN}-sysinit += "base-files"
 RDEPENDS_${PN}:>USE_busybox_udhcpc += " ${PN}-udhcpc-scripts"
 DEPENDS_${PN} += "libc"
 

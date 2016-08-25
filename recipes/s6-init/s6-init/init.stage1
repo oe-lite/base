@@ -1,0 +1,51 @@
+#!/bin/execlineb -P
+
+# Make sure path and cwd is right
+/bin/export PATH /usr/bin:/bin:/usr/sbin:/sbin
+cd /
+
+# Create background process group
+s6-setsid -qb --
+umask 022
+
+# Read environment from /etc/env
+s6-envdir -I -- /etc/env
+
+# Check for request to enable debug messages
+importas -D 1 VERBOSITY INIT_VERBOSITY
+
+foreground { if { test $VERBOSITY -ge 2 }
+  s6-echo -- "init.stage1" }
+
+# Initialize /run tmpfs with copy of service directories
+if { s6-mount -nwt tmpfs -o mode=0755 tmpfs /run }
+if { s6-hiercopy /etc/service /run/service }
+
+# Close stdin
+redirfd -r 0 /dev/null
+
+# Open svscan-log FIFO on stdout
+redirfd -wnb 1 /run/service/svscan-log/fifo
+
+# Fork off process to handle init tasks
+background
+{
+  # Create new session group
+  s6-setsid --
+
+  # Synchronize with startup of svscan-log
+  redirfd -w 1 /run/service/svscan-log/fifo
+  fdmove -c 2 1
+
+  # Exec into stage2 script
+  /etc/rc.init
+}
+unexport !
+
+cd /run/service
+
+# Also open svscan-log FIFO on stderr
+fdmove -c 2 1
+
+# Exec into svscan, which should start svscan-log service
+s6-svscan -st0

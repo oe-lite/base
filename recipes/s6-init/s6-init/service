@@ -1,0 +1,131 @@
+#!/bin/sh
+
+usage() {
+    cat <<EOF
+usage: $0 start <service>...
+       $0 stop <service>...
+       $0 restart <service>...
+       $0 status [<service>]
+EOF
+    }
+
+start() {
+    s6-rc -u change $*
+}
+
+stop() {
+    s6-rc -d change $*
+}
+
+if test -t 1 ; then
+    is_terminal=1
+else
+    is_terminal=0
+fi
+
+status_all_line() {
+    if [ $is_terminal -eq 0 ] ; then
+	echo "$1 $2"
+	return
+    fi
+    case "$2" in
+	up)	printf "%-${srvmaxlen}s  \e[92mup\e[0m\n" $srv ;;
+	down)	printf "%-${srvmaxlen}s \e[91mdown\e[0m\n" $srv ;;
+    esac
+}
+
+srvmaxlen=0
+status_all() {
+    t=`mktemp`
+    up=""
+    down=""
+    for srv in `s6-rc -a list` ; do
+	test "$srv" = "s6rc-oneshot-runner" && continue
+	test "$srv" = "s6rc-fdholder" && continue
+	if [ ${#srv} -gt $srvmaxlen ] ; then
+	    srvmaxlen=${#srv}
+	fi
+	up="$up $srv"
+    done
+    for srv in `s6-rc -da list` ; do
+	test "$srv" = "s6rc-oneshot-runner" && continue
+	test "$srv" = "s6rc-fdholder" && continue
+	if [ ${#srv} -gt $srvmaxlen ] ; then
+	    srvmaxlen=${#srv}
+	fi
+	down="$down $srv"
+    done
+    for srv in $up ; do
+	status_all_line $srv up >> $t
+    done
+    for srv in $down ; do
+	status_all_line $srv down >> $t
+    done
+    sort < $t
+    rm $t
+}
+
+status_one() {
+    for srv in `s6-rc -a list` ; do
+	if [ "$srv" = "$1" ] ; then
+	    echo "$1 is up"
+	    return 0
+	fi
+    done
+    for srv in `s6-rc -da list` ; do
+	if [ "$srv" = "$1" ] ; then
+	    echo "$1 is down"
+	    return 1
+	fi
+    done
+    echo "$1 is unknown"
+    return 3
+}
+
+if [ $# -lt 1 ] ; then
+    usage
+    exit 1
+fi
+
+subcmd="$1"
+shift
+
+case "$subcmd" in
+
+    start)
+	if [ $# -lt 1 ] ; then
+	    usage
+	    exit 1
+	fi
+	start $*
+	;;
+
+    stop)
+	if [ $# -lt 1 ] ; then
+	    usage
+	    exit 1
+	fi
+	stop $*
+	;;
+
+    restart)
+	if [ $# -lt 1 ] ; then
+	    usage
+	    exit 1
+	fi
+	stop $* && start $*
+	;;
+
+    status)
+	case "$#" in
+	    0) status_all ;;
+	    1) status_one $1 ;;
+	    *) usage ; exit 1 ;;
+	esac
+	;;
+
+    *)
+	usage
+	exit 1
+	;;
+esac
