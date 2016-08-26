@@ -59,10 +59,10 @@ do_install() {
 
 RECIPE_FLAGS += "ftp_home"
 DEFAULT_USE_ftp_home = "/home/ftp"
-do_install[postfuncs] += "do_install_set_ftp_home"
-do_install_set_ftp_home() {
+do_configure[postfuncs] += "do_configure_set_ftp_home"
+do_configure_set_ftp_home() {
 	sed -i -e "s|PLACEHOLDER_FTP_HOME|${USE_ftp_home}|" \
-		${D}${sysconfdir}/passwd.d/${PN}.1
+		${SRCDIR}/passwd
 }
 
 RECIPE_FLAGS += "vsftpd_sysvinit_start vsftpd_sysvinit_stop"
