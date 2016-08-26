@@ -87,7 +87,7 @@ PACKAGES =+ "${PN}-daemon-config"
 
 #FILES_avahi = ""
 DEPENDS_${PN} += "libavahi-client libavahi-common libavahi-glib libc libdbus libdl libffi libglib libgobject libpcre libpthread"
-RDEPENDS_${PN} += "avahi-daemon libavahi-client libavahi-common libavahi-glib libc libdbus libdl libffi libglib libgobject libpcre libpthread"
+RDEPENDS_${PN} += "avahi-avahi-daemon libavahi-client libavahi-common libavahi-glib libc libdbus libdl libffi libglib libgobject libpcre libpthread"
 FILES_${PN}-${PN}-autoipd = "${sbindir}/avahi-autoipd \
                        ${sysconfdir}/avahi/avahi-autoipd.action \
                        ${sysconfdir}/dhcp/*/avahi-autoipd \
@@ -95,8 +95,8 @@ FILES_${PN}-${PN}-autoipd = "${sbindir}/avahi-autoipd \
                        ${sysconfdir}/udhcpc.d/99avahi-autoipd \
                        ${sysconfdir}/rc*.d/*-autoipd \
                        ${sysconfdir}/init.d/*-autoipd \
-                       ${sysconfdir}/passwd.d/avahi.2 \
-                       ${sysconfdir}/group.d/avahi.2 \
+                       ${passwddir}/${PN}/autoipd-passwd \
+                       ${groupdir}/${PN}/autoipd-group \
 "
 DEPENDS_${PN}-${PN}-autoipd += "libc libdaemon"
 RDEPENDS_${PN}-${PN}-autoipd += "libc libdaemon"
@@ -117,8 +117,8 @@ FILES_${PN}-${PN}-daemon = "${sbindir}/avahi-daemon \
                       ${datadir}/dbus-1/system-services \
                       ${datadir}/dbus-1/* \
                       ${sysconfdir}/rc*.d/*-daemon \
-                      ${sysconfdir}/passwd.d/avahi.1 \
-                      ${sysconfdir}/group.d/avahi.1 \
+                      ${passwddir}/${PN}/daemon-passwd \
+                      ${groupdir}/${PN}/daemon-group \
 "
 DEPENDS_${PN}-${PN}-daemon += "libavahi-common libavahi-core libc libcap libdaemon libdbus libdl libexpat libpthread"
 RDEPENDS_${PN}-${PN}-daemon += "${PN}-daemon-config libavahi-common libavahi-core libc libcap libdaemon libdbus libdl libexpat libpthread"
