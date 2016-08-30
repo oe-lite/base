@@ -9,7 +9,7 @@ inherit autotools sysvinit
 DEPENDS = "libssl libcrypto ${DEPENDS_LIBC}"
 DEPENDS_LIBC = "libdl"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
-RDEPENDS = "${PN}-config"
+RDEPENDS_${PN} = "${PN}-config"
 
 SRC_URI = "ftp://ftp.isc.org/isc/bind9/${PV}/${PN}-${PV}.tar.gz"
 
