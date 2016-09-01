@@ -20,6 +20,7 @@ EXTRA_OECONF = " \
   --libdir=${PHP_LIBDIR} \
   --with-libdir=${base_libdir} \
   --disable-all \
+  --enable-json \
 "
 
 EXTRA_OEMAKE = "INSTALL_ROOT=${D}"
