@@ -25,3 +25,14 @@ EXTRA_OECONF = " \
 EXTRA_OEMAKE = "INSTALL_ROOT=${D}"
 
 FILES_${PN}-dev += "${PHP_LIBDIR}/build"
+
+RECIPE_FLAGS += "php_ssl"
+DEFAULT_USE_php_ssl = True
+EXTRA_OECONF_SSL = "--without-openssl"
+EXTRA_OECONF_SSL:USE_php_ssl = "--with-openssl"
+EXTRA_OECONF += "${EXTRA_OECONF_SSL}"
+DEPENDS_SSL = ""
+DEPENDS_SSL:USE_php_ssl = "libssl libcrypto"
+DEPENDS += "${DEPENDS_SSL}"
+DEPENDS_${PN} += "${DEPENDS_SSL}"
+RDEPENDS_${PN} += "${DEPENDS_SSL}"
