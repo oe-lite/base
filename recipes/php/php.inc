@@ -49,3 +49,14 @@ DEFAULT_USE_php_session = True
 EXTRA_OECONF_SESSION = "--disable-session"
 EXTRA_OECONF_SESSION:USE_php_session = "--enable-session"
 EXTRA_OECONF += "${EXTRA_OECONF_SESSION}"
+
+RECIPE_FLAGS += "php_system_pcre"
+DEFAULT_USE_php_system_pcre = True
+EXTRA_OECONF_SYSTEM_PCRE = ""
+EXTRA_OECONF_SYSTEM_PCRE:USE_php_system_pcre = "--with-pcre-regex=${TARGET_SYSROOT}${target_prefix}"
+EXTRA_OECONF += "${EXTRA_OECONF_SYSTEM_PCRE}"
+DEPENDS_SYSTEM_PCRE = ""
+DEPENDS_SYSTEM_PCRE:USE_php_system_pcre = "libpcre"
+DEPENDS += "${DEPENDS_SYSTEM_PCRE}"
+DEPENDS_${PN} += "${DEPENDS_SYSTEM_PCRE}"
+RDEPENDS_${PN} += "${DEPENDS_SYSTEM_PCRE}"
