@@ -42,3 +42,9 @@ DEFAULT_USE_php_sockets = True
 EXTRA_OECONF_SOCKETS = "--disable-sockets"
 EXTRA_OECONF_SOCKETS:USE_php_sockets = "--enable-sockets"
 EXTRA_OECONF += "${EXTRA_OECONF_SOCKETS}"
+
+RECIPE_FLAGS += "php_session"
+DEFAULT_USE_php_session = True
+EXTRA_OECONF_SESSION = "--disable-session"
+EXTRA_OECONF_SESSION:USE_php_session = "--enable-session"
+EXTRA_OECONF += "${EXTRA_OECONF_SESSION}"
