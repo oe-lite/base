@@ -36,3 +36,9 @@ DEPENDS_SSL:USE_php_ssl = "libssl libcrypto"
 DEPENDS += "${DEPENDS_SSL}"
 DEPENDS_${PN} += "${DEPENDS_SSL}"
 RDEPENDS_${PN} += "${DEPENDS_SSL}"
+
+RECIPE_FLAGS += "php_sockets"
+DEFAULT_USE_php_sockets = True
+EXTRA_OECONF_SOCKETS = "--disable-sockets"
+EXTRA_OECONF_SOCKETS:USE_php_sockets = "--enable-sockets"
+EXTRA_OECONF += "${EXTRA_OECONF_SOCKETS}"
