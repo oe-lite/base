@@ -21,6 +21,7 @@ EXTRA_OECONF = " \
   --with-libdir=${base_libdir} \
   --disable-all \
   --enable-json \
+  --enable-calendar \
 "
 
 EXTRA_OEMAKE = "INSTALL_ROOT=${D}"
