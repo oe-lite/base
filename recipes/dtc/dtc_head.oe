@@ -1,3 +1,4 @@
 require dtc.inc
 
-SRCREV = ";commit=e4b497f367a3b2ae99cc52089a14a221b13a76ef"
+#release v1.4.1
+SRCREV = ";commit=302fca9f4c283e1994cf0a5a9ce1cf43ca15e6d2"
