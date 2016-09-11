@@ -1,0 +1,5 @@
+LICENSE = "GPL-2.0+"
+
+require ${PN}.inc
+
+SRC_URI += "file://0001-glib-gettext.m4-Update-AM_GLIB_GNU_GETTEXT-to-match-.patch"
