@@ -6,8 +6,9 @@ LICENSE = "iperf"
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit autotools c++
-require conf/fetch/sourceforge.conf
 
-SRC_URI = "${SOURCEFORGE_MIRROR}/iperf/iperf-${PV}.tar.gz"
+SRC_URI = "git://github.com/esnet/iperf.git;protocol=http;tag=${PV}"
+
+S = "${SRCDIR}/iperf"
 
 RDEPENDS_${PN} += "libstdc++"
