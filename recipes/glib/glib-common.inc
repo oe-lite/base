@@ -96,7 +96,8 @@ DEPENDS_${PN}-libgio-2.0 += "libc libgcc ${DEPENDS_LIBDL} ${DEPENDS_LIBRESOLV} \
 				libgobject-2.0 libgthread-2.0 ${DEPENDS_PCRE} \
 				${DEPENDS_THREADS}"
 
-FILES_${PN}-libgio-2.0-dev += "${libdir}/pkgconfig/gio-*-2.0.pc"
+FILES_${PN}-libgio-2.0-dev += "${libdir}/pkgconfig/gio-*-2.0.pc \
+				${datadir}/gettext/its"
 FILES_${PN}-libgmodule-2.0-dev += "${libdir}/pkgconfig/gmodule-*-2.0.pc"
 FILES_${PN} += "${libdir}/charset.alias"
 
