@@ -1,6 +1,0 @@
-LICENSE = "GPL-3.0+"
-
-require lftp.inc
-
-DEPENDS += "libz"
-COMMON_DEPENDS += " libz"
