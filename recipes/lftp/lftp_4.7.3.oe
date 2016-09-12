@@ -1,0 +1,10 @@
+LICENSE = "GPL-3.0+"
+
+require lftp.inc
+
+DEPENDS += "libz"
+
+EXTRA_OECONF += " \
+--with-zlib=${STAGE_DIR}/${HOST_TYPE}/${includedir}/.. \
+--with-readline --with-readline-inc=${STAGE_DIR}/${HOST_TYPE}/${includedir} --with-readline-lib=-lreadline \
+"
