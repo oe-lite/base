@@ -11,6 +11,7 @@ S = "${SRCDIR}/lib_mysqludf_sys-master"
 
 DEPENDS += "mysql-dev"
 COMPATIBLE_HOST_ARCHS = ".*linux"
+COMPATIBLE_IF_FLAGS="gcc_older_than_6.x"
 
 CFLAGS += "-I${STAGE_DIR}/machine/usr/include -fPIC"
 export LIBDIR = "${D}/${libdir}"
