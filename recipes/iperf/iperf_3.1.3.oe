@@ -1,0 +1,5 @@
+require iperf.inc
+
+# OE-lite adds per default -fomit-frame-pointer and iperf adds -fpg
+# and they are not compatible. So here we disables omit-frame-pointer
+CFLAGS += " -fno-omit-frame-pointer"
