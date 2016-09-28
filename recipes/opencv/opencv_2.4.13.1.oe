@@ -1,0 +1,12 @@
+require opencv.inc
+
+# OpenCV looks for the Microsoft Video for Windows library in libvfw32.a. In
+# current versions of MinGW this lib is named libmsvfw32.a.
+STAGE_FIXUP = ""
+STAGE_FIXUP:HOST_LIBC_mingw = "do_stage_fix_vfw32"
+do_stage[postfuncs] += "${STAGE_FIXUP}"
+do_stage_fix_vfw32() {
+    if [ ! -e ${HOST_SYSROOT}${libdir}/libvfw32.a ]; then
+        ln -sf ${HOST_SYSROOT}${libdir}/libmsvfw32.a ${HOST_SYSROOT}${libdir}/libvfw32.a
+    fi
+}
