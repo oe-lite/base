@@ -1,0 +1,14 @@
+Reason: is to remove gcc incompatible linking of a virtualstudio library
+Upstream: Will probably work if compiled on a windows machine,
+          so we have not tried to upstream this.
+
+--- json-c-0.12.1/random_seed.c.orig	2016-09-28 19:01:19.380235398 +0200
++++ json-c-0.12.1/random_seed.c	2016-09-28 19:01:24.436910739 +0200
+@@ -181,7 +181,6 @@
+ #define HAVE_CRYPTGENRANDOM 1
+ 
+ #include <windows.h>
+-#pragma comment(lib, "advapi32.lib")
+ 
+ static int get_cryptgenrandom_seed()
+ {
