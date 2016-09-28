@@ -10,4 +10,10 @@ S = "${SRCDIR}/can-utils"
 
 RDEPENDS_${PN} = "libc"
 
+export PREFIX="${exec_prefix}"
+do_configure[prefuncs] += "do_configure_prefix_from_env"
+do_configure_prefix_from_env() {
+	sed -i -e 's/^\(PREFIX = .*\)/#\1/' Makefile
+}
+
 FILES_${PN} += "/usr"
