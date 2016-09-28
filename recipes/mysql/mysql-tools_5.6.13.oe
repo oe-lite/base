@@ -11,6 +11,7 @@ SRC_URI += " file://gen_pfs_lex_token.patch "
 
 RECIPE_TYPES = "native"
 COMPATIBLE_HOST_ARCHS = ".*linux"
+COMPATIBLE_IF_FLAGS="gcc_older_than_6.x"
 
 inherit cmake c++
 

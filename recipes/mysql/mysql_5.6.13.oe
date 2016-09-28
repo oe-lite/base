@@ -7,6 +7,7 @@ SRC_URI += " file://srv_buff_size.patch"
 
 RECIPE_TYPES = "machine"
 COMPATIBLE_HOST_ARCHS = ".*linux"
+COMPATIBLE_IF_FLAGS="gcc_older_than_6.x"
 
 inherit cmake c++ pkgconfig
 
