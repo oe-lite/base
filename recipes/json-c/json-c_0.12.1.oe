@@ -1,6 +1,7 @@
 DESCRIPTION = "JSON-C - A JSON implementation in C"
 HOMEPAGE = "https://github.com/json-c/json-c/wiki"
-SRC_URI = "https://s3.amazonaws.com/json-c_releases/releases/${PN}-${PV}.tar.gz"
+SRC_URI = "https://s3.amazonaws.com/json-c_releases/releases/${PN}-${PV}.tar.gz \
+	   file://pragma.patch"
 LICENSE = "MIT"
 
 inherit autotools
