@@ -1,5 +1,0 @@
-require ${PN}.inc
-
-SRC_URI += "file://config.site"
-
-SRC_HOST_SITEFILES = "${SRCDIR}/config.site"
