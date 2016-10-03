@@ -1,0 +1,1 @@
+2a5a6013dff9b4954303c6fd5680a86cfd66aa64  socat-1.7.3.1.tar.bz2
