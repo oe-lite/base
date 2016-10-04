@@ -11,7 +11,8 @@ DEPENDS_LIBC = "librt libc"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
 DEPENDS += "${DEPENDS_LIBC} libbz2 libz libglib"
 SRC_URI = "https://github.com/Itseez/${PN}/archive/${PV}.tar.gz \
-  file://0001-Use-__vector-instead-of-vector-as-suggests-Eigen.patch"
+  file://0001-Use-__vector-instead-of-vector-as-suggests-Eigen.patch \
+  file://0001-cmake-fix-for-GCC-6.x.patch"
 
 EXTRA_OE_CMAKE_CONF += "\
                  -DWITH_GSTREAMER=OFF \
