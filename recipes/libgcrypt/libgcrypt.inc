@@ -8,7 +8,7 @@ RECIPE_TYPES = "native machine sdk"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
-inherit autotools-autoreconf binconfig pkgconfig library
+inherit autotools binconfig pkgconfig library
 
 DEPENDS = "libgpg-error libcap libpthread"
 DEPENDS_${PN} += "libgpg-error libc libcap libpthread"
@@ -22,13 +22,6 @@ DEFAULT_USE_libgcrypt_capabilities = "1"
 EXTRA_OECONF = "--without-pth --disable-asm ${EXTRA_OECONF_CAPABILITIES}"
 EXTRA_OECONF_CAPABILITIES = "--without-capabilities"
 EXTRA_OECONF_CAPABILITIES:USE_libgcrypt_capabilities = "--with-capabilities"
-
-# libgcrypt.pc is added locally and thus installed here
-do_install[postfuncs] += "do_install_append"
-do_install_append() {
-	install -d ${D}/${libdir}/pkgconfig
-	install -m 0644 ${S}/src/libgcrypt.pc ${D}/${libdir}/pkgconfig/
-}
 
 FILES_${PN}-dev += "${bindir}/dumpsexp ${bindir}/hmac256"
 

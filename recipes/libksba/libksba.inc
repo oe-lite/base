@@ -7,7 +7,7 @@ RECIPE_TYPES = "native machine sdk"
 
 DEPENDS = "libgpg-error"
 
-inherit autotools-autoreconf pkgconfig library auto-package-utils binconfig
+inherit autotools pkgconfig library auto-package-utils binconfig
 
 SRC_URI = "ftp://ftp.gnupg.org/gcrypt/${PN}/${PN}-${PV}.tar.bz2"
 
