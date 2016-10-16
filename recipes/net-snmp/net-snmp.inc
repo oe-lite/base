@@ -28,7 +28,7 @@ SRC_URI += "file://init \
 
 EXTRA_OECONF += "--enable-shared --disable-manuals --with-defaults "
 
-do_install[postfuncs] += "do_install_snmp_scripts"
+do_install[postfuncs] =+ "do_install_snmp_scripts"
 do_install_snmp_scripts () {
 	install -d ${D}${sysconfdir}/snmp
 	install -d ${D}${sysconfdir}/init.d
