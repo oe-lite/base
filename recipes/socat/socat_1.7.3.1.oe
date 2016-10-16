@@ -1,0 +1,6 @@
+require ${PN}.inc
+
+SRC_URI += "file://config.site \
+            file://missing-stddef-include.patch"
+
+SRC_HOST_SITEFILES = "${SRCDIR}/config.site"

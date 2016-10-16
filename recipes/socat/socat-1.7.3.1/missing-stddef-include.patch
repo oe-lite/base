@@ -1,0 +1,24 @@
+Reason: fixing missing stddef include
+
+--- a/nestlex.c.orig	2016-10-03 12:22:11.163334142 +0200
++++ a/nestlex.c	2016-10-03 12:24:10.400627533 +0200
+@@ -4,6 +4,8 @@
+ 
+ /* a function for lexical scanning of nested character patterns */
+ 
++#include <stddef.h>
++
+ #include "config.h"
+ #include "mytypes.h"
+ 
+--- a/sycls.c.orig	2016-10-03 12:22:27.300085667 +0200
++++ a/sycls.c	2016-10-03 12:24:23.154027858 +0200
+@@ -5,6 +5,8 @@
+ /* explicit system call and C library trace function, for those who miss strace
+  */
+ 
++#include <stddef.h>
++
+ #include "config.h"
+ #include "xioconfig.h"	/* what features are enabled */
+ 
