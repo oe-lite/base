@@ -304,6 +304,17 @@ do_configure_busybox_udhcpc () {
 }
 BUSYBOX_SIMPLE_USE_FLAGS += "udhcpc_rfc3397::CONFIG_FEATURE_UDHCP_RFC3397"
 
+# USE flag: extra dhclient cmd_options
+RECIPE_FLAGS += "busybox_dhclient_ifupdown_cmd_options"
+DHCLIENT_OPTIONS = ""
+DHCLIENT_OPTIONS:USE_busybox_dhclient_ifupdown_cmd_options = "${USE_busybox_dhclient_ifupdown_cmd_options}"
+DO_CONFIGURE_PREFUNCS:>USE_busybox_dhclient_ifupdown_cmd_options = " do_configure_busybox_dhclient"
+do_configure_busybox_dhclient () {
+        sed -i -e 's|^\(CONFIG_IFUPDOWN_DHCLIENT_CMD_OPTIONS\)=.*|\1="${DHCLIENT_OPTIONS}"|' \
+               -e 's/^\(CONFIG_FEATURE_IFUPDOWN_EXTERNAL_DHCP\)=.*/\1=y/' \
+        .config
+}
+
 RECIPE_FLAGS += "busybox_udhcpc6"
 # USE flag: enable udhcpc6 client
 DEFAULT_USE_busybox_udhcpc6 = "0"
