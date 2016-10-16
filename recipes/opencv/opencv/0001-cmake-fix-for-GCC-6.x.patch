@@ -1,0 +1,48 @@
+Reason: Fixes include c++/stdlib.h issues
+Upstream status: https://github.com/opencv/opencv/pull/7391
+
+From c181f2f4937186306dc6f1a72fc3cebd8685f37a Mon Sep 17 00:00:00 2001
+From: Alexander Alekhin <alexander.alekhin@intel.com>
+Date: Tue, 4 Oct 2016 13:30:43 +0300
+Subject: [PATCH] cmake: fix for GCC 6.x
+
+---
+ cmake/OpenCVPCHSupport.cmake | 7 +------
+ cmake/OpenCVUtils.cmake      | 3 +++
+ 2 files changed, 4 insertions(+), 6 deletions(-)
+
+diff --git a/cmake/OpenCVPCHSupport.cmake b/cmake/OpenCVPCHSupport.cmake
+index e6585ca..7d7aacf 100644
+--- a/cmake/OpenCVPCHSupport.cmake
++++ b/cmake/OpenCVPCHSupport.cmake
+@@ -14,12 +14,7 @@
+ 
+ IF(CMAKE_COMPILER_IS_GNUCXX)
+ 
+-    EXEC_PROGRAM(
+-        ${CMAKE_CXX_COMPILER}
+-        ARGS ${CMAKE_CXX_COMPILER_ARG1} -dumpversion
+-        OUTPUT_VARIABLE gcc_compiler_version)
+-    #MESSAGE("GCC Version: ${gcc_compiler_version}")
+-    IF(gcc_compiler_version VERSION_GREATER "4.2.-1" AND gcc_compiler_version VERSION_LESS "6.0.0")
++    IF(NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.2.0")
+         SET(PCHSupport_FOUND TRUE)
+     ENDIF()
+ 
+diff --git a/cmake/OpenCVUtils.cmake b/cmake/OpenCVUtils.cmake
+index 0692b76..0241c43 100644
+--- a/cmake/OpenCVUtils.cmake
++++ b/cmake/OpenCVUtils.cmake
+@@ -41,6 +41,9 @@ function(ocv_include_directories)
+     get_filename_component(__abs_dir "${dir}" ABSOLUTE)
+     if("${__abs_dir}" MATCHES "^${OpenCV_SOURCE_DIR}" OR "${__abs_dir}" MATCHES "^${OpenCV_BINARY_DIR}")
+       list(APPEND __add_before "${dir}")
++    elseif(CMAKE_COMPILER_IS_GNUCXX AND NOT CMAKE_CXX_COMPILER_VERSION VERSION_LESS "6.0" AND
++           dir MATCHES "/usr/include$")
++      # workaround for GCC 6.x bug
+     else()
+       include_directories(AFTER SYSTEM "${dir}")
+     endif()
+-- 
+2.10.0
+
