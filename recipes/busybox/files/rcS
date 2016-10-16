@@ -3,6 +3,12 @@
 # This is a minmal rcS file for target startup
 #
 
+# Proc & Sys
+[ ! -d /proc ] && mkdir /proc
+mount -t proc proc /proc
+[ ! -d /sys ] && mkdir /sys
+mount -t sysfs sysfs /sys
+
 # Mount filesystems in fstab
 mount -a
 
