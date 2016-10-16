@@ -6,6 +6,8 @@ inherit pkgconfig
 UTIL_LINUX_EXTENTION = ".tar.gz"
 require util-linux.inc
 
+DEPENDS += " libm"
+
 SRC_URI += "file://configure-install-dirs.patch"
 EXTRA_OECONF += "usrbin_execdir=${bindir} usrsbin_execdir=${sbindir}"
 
