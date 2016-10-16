@@ -3,7 +3,7 @@ DESCRIPTION = "Libcap is a library for getting and setting POSIX.1e \
 	(formerly POSIX 6) draft 15 capabilities."
 LICENSE = "GPL-2.0+,BSD-3-Clause"
 
-RECIPE_TYPES = "machine"
+RECIPE_TYPES = "native machine"
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit make c library auto-package-utils
