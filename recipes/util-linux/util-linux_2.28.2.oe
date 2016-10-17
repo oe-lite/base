@@ -24,14 +24,16 @@ autotools_configure () {
  ${EXTRA_OECONF} $@
 }
 
-AUTO_PACKAGE_LIBS += "smartcols"
+AUTO_PACKAGE_LIBS += "smartcols fdisk"
+FILES_${PN}-libfdisk-dev += "${includedir}/libfdisk"
+FILES_${PN}-libsmartcols-dev += "${includedir}/libsmartcols"
 
 EXTRA_OECONF_PAM = " --disable-login --disable-su"
 
 LIBRARY_VERSION = "1"
 
 AUTO_PACKAGE_UTILS = "agetty blkdiscard blkid cal chrt col colcrt colrm \
-	column cytune dmesg fallocate fdisk findfs findmnt flock fsck \
+	column dmesg fallocate fdisk findfs findmnt flock fsck \
 	fsck.cramfs fsck.minix getopt hexdump hwclock ionice ipcmk ipcrm ipcs \
 	isosize last lastb logger look losetup lsblk lscpu lslogins mesg mkfs \
 	mkfs.bfs mkfs.cramfs mkfs.minix mcookie mkswap mount namei nologin \
@@ -39,17 +41,18 @@ AUTO_PACKAGE_UTILS = "agetty blkdiscard blkid cal chrt col colcrt colrm \
 	setarch setsid sfdisk swaplabel swapoff swapon switch_root tailf \
 	taskset umount uname26 unshare uuidd uuidgen wall whereis \
 	wipefs addpart blockdev ctrlaltdel delpart fdformat fsfreeze fstrim \
-	ldattach readprofile rtcwake tunelp more mountpoint partx eject \
-	kill lslocks utmpdump wdctl chcpu raw resizepart sulogin"
-AUTO_PACKAGE_UTILS:>USE_ncurses = " cfdisk setterm"
+	ldattach readprofile rtcwake mountpoint partx eject \
+	kill lslocks utmpdump wdctl chcpu raw resizepart sulogin \
+	zramctl lsipc lsns"
+AUTO_PACKAGE_UTILS:>USE_ncurses = " cfdisk setterm ul tunelp pg more"
 
 #new dependencies required in 2.25.2
 DEPENDS_${PN}-libsmartcols += "libc"
 RDEPENDS_${PN}-libsmartcols += "libc"
-DEPENDS_${PN}-blkdiscard += "libc"
-RDEPENDS_${PN}-blkdiscard += "libc"
-DEPENDS_${PN}-fdisk += "libsmartcols"
-RDEPENDS_${PN}-fdisk += "libsmartcols"
+DEPENDS_${PN}-blkdiscard += "libc librt"
+RDEPENDS_${PN}-blkdiscard += "libc librt"
+DEPENDS_${PN}-fdisk += "libsmartcols libfdisk"
+RDEPENDS_${PN}-fdisk += "libsmartcols libfdisk"
 DEPENDS_${PN}-findmnt += "libsmartcols"
 RDEPENDS_${PN}-findmnt += "libsmartcols"
 DEPENDS_${PN}-last += "libc librt"
@@ -84,6 +87,24 @@ DEPENDS_${PN}-lslocks += "libsmartcols"
 RDEPENDS_${PN}-lslocks += "libsmartcols"
 DEPENDS_${PN}-wdctl += "libsmartcols"
 RDEPENDS_${PN}-wdctl += "libsmartcols"
+DEPENDS_${PN}-zramctl += "libsmartcols"
+RDEPENDS_${PN}-zramctl += "libsmartcols"
+DEPENDS_${PN}-zramctl += "libsmartcols"
+RDEPENDS_${PN}-zramctl += "libsmartcols"
+DEPENDS_${PN}-cfdisk += "libblkid libc libfdisk libmount libncurses librt libsmartcols libuuid"
+RDEPENDS_${PN}-cfdisk += "libblkid libc libfdisk libmount libncurses librt libsmartcols libuuid"
+DEPENDS_${PN}-libfdisk += "libc libgcc libuuid libblkid"
+RDEPENDS_${PN}-libfdisk += "libc libgcc libuuid libblkid"
+RDEPENDS_${PN}-sfdisk += "libblkid libsmartcols libfdisk"
+DEPENDS_${PN}-sfdisk += "libblkid libsmartcols libfdisk"
+DEPENDS_${PN}-lsipc += "libc libsmartcols"
+RDEPENDS_${PN}-lsipc += "libc libsmartcols"
+DEPENDS_${PN}-pg += "libc libncurses"
+RDEPENDS_${PN}-pg += "libc libncurses"
+DEPENDS_${PN}-ul += "libc libncurses"
+RDEPENDS_${PN}-ul += "libc libncurses"
+DEPENDS_${PN}-lsns += "libc libsmartcols"
+RDEPENDS_${PN}-lsns += "libc libsmartcols"
 
 #lastb symlinks to last, uname26 symlinks to setarch
 RDEPENDS_${PN}-lastb += "${PN}-last"
