@@ -120,7 +120,6 @@ FILES_${PN}-engines:HOST_KERNEL_darwin = "${libdir}/engines/*.dylib"
 FILES_${PN}-dbg =+ "${libdir}/engines/.debug"
 FILES_${PN}-doc =+ "${libdir}/ssl/man"
 
-SRC_URI += "file://mingw.patch"
 SRC_URI += "file://oe-ldflags.patch file://shared-libs.patch"
 SRC_URI += "file://no-librpath-rpath.patch"
 
