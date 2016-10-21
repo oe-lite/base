@@ -1,0 +1,5 @@
+require wget.inc
+
+COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
+
+DEPENDS += "libz"
