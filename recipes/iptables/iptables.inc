@@ -18,6 +18,8 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit autotools pkgconfig auto-package-libs
 
+EXTRA_OECONF = " --disable-ipv6"
+
 AUTO_PACKAGE_LIBS += "ip4tc ip6tc iptc xtables"
 AUTO_PACKAGE_LIBS_DEPENDS += "libc"
 AUTO_PACKAGE_LIBS_RDEPENDS += "libc"
