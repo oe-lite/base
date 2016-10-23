@@ -1,0 +1,28 @@
+require ${PN}.inc
+
+LICENSE = "LGPLv2.1+"
+
+RELEASE_COMMIT = "656f381ccf58785319bb0236595c896125d33ed0"
+
+SRC_URI += "file://fix-pc-file.patch"
+
+AUTO_PACKAGE_LIBS += "nl-idiag-3 nl-xfrm-3"
+AUTO_PACKAGE_UTILS_DEPENDS += "libnl-idiag-3"
+AUTO_PACKAGE_UTILS_RDEPENDS += "libnl-idiag-3"
+DEPENDS_${PN}-libnl-idiag-3 += "libnl-3"
+RDEPENDS_${PN}-libnl-idiag-3 += "libnl-3"
+DEPENDS_${PN}-libnl-cli-3 += "libnl-idiag-3"
+RDEPENDS_${PN}-libnl-cli-3 += "libnl-idiag-3"
+DEPENDS_${PN} += "libnl-idiag-3"
+RDEPENDS_${PN} += "libnl-idiag-3"
+
+LIBRARY_VERSION = "200"
+LIBRARY_VERSION_${PN}-libnl = "22"
+
+
+do_autoreconf[prefuncs] += "do_autoreconf_prepend"
+do_autoreconf_prepend() {
+	for dir in doc ; do
+		mkdir $dir/m4
+	done
+}
