@@ -62,6 +62,7 @@ FILES_${PN}-utils = "${bindir}/g*"
 FILES_${PN}-gdb = "${datadir}/gdb ${datadir}/glib-2.0/gdb"
 FILES_${PN}-doc += "${datadir}/gtk-doc"
 FILES_${PN}-dev += "${datadir}/glib-2.0 ${libdir}/gdbus-2.0"
+FILES_${PN}-locale += "${libdir}/locale"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "glib-2.0 gobject-2.0 gmodule-2.0 gthread-2.0 gio-2.0"
