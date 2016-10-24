@@ -15,7 +15,7 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit autotools passwd
 
-SRC_URI = "ftp://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-${PV}.tar.gz"
+SRC_URI = "ftp://mirror.one.com/pub/OpenBSD/OpenSSH/portable/openssh-${PV}.tar.gz"
 SRC_URI += "file://init"
 SRC_URI += "file://passwd file://group"
 SRC_URI += "file://sftp-server-skip-libcrypto.patch"
