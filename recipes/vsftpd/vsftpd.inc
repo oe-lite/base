@@ -7,7 +7,8 @@ inherit c make sysvinit passwd
 
 SRC_URI = "https://security.appspot.com/downloads/vsftpd-${PV}.tar.gz \
            file://0001-utmpx-builddef.patch \
-           file://0003-fix-CVE-2015-1419.patch"
+           file://0003-fix-CVE-2015-1419.patch\
+           file://allow-overwrite-cflags-etc.patch"
 SRC_URI += "file://init file://vsftpd.conf file://passwd file://group"
 
 DEPENDS_LIBC = "libcrypt libnsl libresolv"
@@ -17,6 +18,10 @@ DEPENDS = "${DEPENDS_LIBC}"
 
 LIBS = "-lnsl -lresolv -lcrypt"
 LIBS:HOST_LIBC_musl = "-lresolv -lcrypt"
+
+#repect CFLAGS from upstream
+CFLAGS += " -fPIE -fstack-protector --param=ssp-buffer-size=4"
+LDFLAGS += " -fPIE -pie -Wl,-z,relro -Wl,-z,now"
 
 do_configure() {
     # Fix hardcoded /usr, /etc, /var mess.
@@ -35,14 +40,6 @@ do_configure() {
         | sed 's: /usr/man: \$\(DESTDIR\)${mandir}:g' \
         | sed 's: /etc: \$\(DESTDIR\)${sysconfdir}:g' \
         | sed 's: /etc: \$\(DESTDIR\)${sysconfdir}:g' \
-        > Makefile.new
-
-    # Configure CFLAGS and hardcode LIBS
-    mv Makefile.new Makefile
-    cat Makefile \
-        | sed -e 's:^\(CC\s*=\).*:\1 ${CC}:g' \
-        | sed -e 's:^\(CFLAGS\s*=\)\(.*\):\1 ${CFLAGS} \2:g' \
-        | sed -e 's:^\(LIBS\s*=\).*:\1 ${LIBS}:g' \
         > Makefile.new
     mv Makefile.new Makefile
 }
