@@ -6,12 +6,17 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 inherit c make sysvinit passwd
 
 SRC_URI = "https://security.appspot.com/downloads/vsftpd-${PV}.tar.gz \
-           file://0003-fix-CVE-2015-1419.patch \
+           file://0001-utmpx-builddef.patch \
+           file://0003-fix-CVE-2015-1419.patch"
 SRC_URI += "file://init file://vsftpd.conf file://passwd file://group"
 
 DEPENDS_LIBC = "libcrypt libnsl libresolv"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
+DEPENDS_LIBC:HOST_LIBC_musl = "libcrypt libresolv"
 DEPENDS = "${DEPENDS_LIBC}"
+
+LIBS = "-lnsl -lresolv -lcrypt"
+LIBS:HOST_LIBC_musl = "-lresolv -lcrypt"
 
 do_configure() {
     # Fix hardcoded /usr, /etc, /var mess.
@@ -37,9 +42,19 @@ do_configure() {
     cat Makefile \
         | sed -e 's:^\(CC\s*=\).*:\1 ${CC}:g' \
         | sed -e 's:^\(CFLAGS\s*=\)\(.*\):\1 ${CFLAGS} \2:g' \
-        | sed -e 's:^\(LIBS\s*=\).*:\1 -lnsl -lresolv -lcrypt:g' \
+        | sed -e 's:^\(LIBS\s*=\).*:\1 ${LIBS}:g' \
         > Makefile.new
     mv Makefile.new Makefile
+}
+
+DISABLE_UTMPX = ""
+DISABLE_UTMPX:HOST_LIBC_musl = "do_configure_disable_utmpx"
+do_configure[postfuncs] += "${DISABLE_UTMPX}"
+do_configure_disable_utmpx() {
+    cat builddefs.h \
+        | sed 's/.*VSF_BUILD_UTMPX/#undef VSF_BUILD_UTMPX/' \
+        > builddefs.h.new
+    mv builddefs.h.new builddefs.h
 }
 
 do_compile() {
