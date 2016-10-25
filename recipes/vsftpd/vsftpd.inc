@@ -5,7 +5,8 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit c make sysvinit passwd
 
-SRC_URI = "https://security.appspot.com/downloads/vsftpd-${PV}.tar.gz"
+SRC_URI = "https://security.appspot.com/downloads/vsftpd-${PV}.tar.gz \
+           file://0003-fix-CVE-2015-1419.patch \
 SRC_URI += "file://init file://vsftpd.conf file://passwd file://group"
 
 DEPENDS_LIBC = "libcrypt libnsl libresolv"
