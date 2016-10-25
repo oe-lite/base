@@ -1,16 +1,4 @@
 # -*- mode:python; -*-
 include dbus.inc
 
-SRC_URI += "file://tmpdir.patch"
-
-SRC_URI:>HOST_LIBC_mingw = " file://libtool-bindir.patch"
-export sharedlibdir
-
-AUTO_PACKAGE_UTILS += "dbus-test-tool"
-DEPENDS_${PN}-dbus-test-tool += "libdbus-1"
-RDEPENDS_${PN}-dbus-test-tool += "libdbus-1"
-
-FILES_${PN} += "${datadir}/dbus-1/session.conf \
-                ${datadir}/dbus-1/system.conf"
-
 LIBRARY_VERSION = "3"

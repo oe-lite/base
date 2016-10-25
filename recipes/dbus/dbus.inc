@@ -11,6 +11,10 @@ inherit autotools make-vpath pkgconfig gettext sysvinit passwd c++
 SRC_URI = "http://dbus.freedesktop.org/releases/dbus/dbus-${PV}.tar.gz"
 SRC_URI += "file://dbus-1.init"
 SRC_URI += "file://passwd file://group"
+SRC_URI += "file://tmpdir.patch"
+
+SRC_URI:>HOST_LIBC_mingw = " file://libtool-bindir.patch"
+export sharedlibdir
 
 DEPENDS = "libexpat libglib libintl"
 
@@ -61,6 +65,9 @@ do_install_extra_files() {
         install -m 0755 -d ${D}${localstatedir}/run/dbus
 }
 
+FILES_${PN} += "${datadir}/dbus-1/session.conf \
+                ${datadir}/dbus-1/system.conf"
+
 RDEPENDS_${PN}-x11 = "${PN}"
 RDEPENDS_${PN} += "libc ${DEPENDS_LIBC} libexpat libdbus util/dbus-uuidgen"
 RDEPENDS_${PN}-x11 += "libc ${DEPENDS_LIBC}"
@@ -85,7 +92,8 @@ DEFAULT_USE_dbus_1_splashutils_msg = "\"Starting Dbus\""
 
 inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "dbus-cleanup-sockets dbus-launch \
-			dbus-monitor dbus-run-session dbus-send dbus-uuidgen"
+			dbus-monitor dbus-run-session dbus-send dbus-uuidgen \
+			dbus-test-tool"
 AUTO_PACKAGE_UTILS_DEPENDS += "libc"
 AUTO_PACKAGE_UTILS_RDEPENDS += "libc"
 DEPENDS_${PN}-dbus-monitor += "libdbus-1"
@@ -96,6 +104,9 @@ DEPENDS_${PN}-dbus-send += "libdbus-1"
 RDEPENDS_${PN}-dbus-send += "libdbus-1"
 DEPENDS_${PN}-dbus-uuidgen += "libdbus-1"
 RDEPENDS_${PN}-dbus-uuidgen += "libdbus-1"
+DEPENDS_${PN}-dbus-test-tool += "libdbus-1"
+RDEPENDS_${PN}-dbus-test-tool += "libdbus-1"
+
 
 #To be removed in next base master release!
 PROVIDES_${PN}-libdbus-1 += "libdbus"
