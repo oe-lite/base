@@ -4,14 +4,15 @@ BUGTRACKER = "https://bugs.g10code.com/gnupg/index"
 
 # helper program gcryptrnd and getrandom are under GPL, rest LGPL
 LICENSE = "GPL-2.0+ & LGPL-2.1+"
+RECIPE_TYPES = "native machine sdk"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
-inherit autotools-autoreconf binconfig pkgconfig library
+inherit autotools binconfig pkgconfig library
 
-DEPENDS = "libgpg-error libcap"
-DEPENDS_${PN} += "libgpg-error libc libcap"
-RDEPENDS_${PN} += "libgpg-error libc libcap"
+DEPENDS = "libgpg-error libcap libpthread"
+DEPENDS_${PN} += "libgpg-error libc libcap libpthread"
+RDEPENDS_${PN} += "libgpg-error libc libcap libpthread"
 
 SRC_URI = "ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-${PV}.tar.gz"
 
@@ -21,13 +22,6 @@ DEFAULT_USE_libgcrypt_capabilities = "1"
 EXTRA_OECONF = "--without-pth --disable-asm ${EXTRA_OECONF_CAPABILITIES}"
 EXTRA_OECONF_CAPABILITIES = "--without-capabilities"
 EXTRA_OECONF_CAPABILITIES:USE_libgcrypt_capabilities = "--with-capabilities"
-
-# libgcrypt.pc is added locally and thus installed here
-do_install[postfuncs] += "do_install_append"
-do_install_append() {
-	install -d ${D}/${libdir}/pkgconfig
-	install -m 0644 ${S}/src/libgcrypt.pc ${D}/${libdir}/pkgconfig/
-}
 
 FILES_${PN}-dev += "${bindir}/dumpsexp ${bindir}/hmac256"
 

@@ -5,6 +5,7 @@ LICENSE = "GPL-3.0+, LGPL-3.0+"
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit autotools gettext
+RECIPE_TYPES = "native machine sdk"
 
 DEPENDS = "zlib bzip2"
 
@@ -24,11 +25,6 @@ do_install_post() {
 	mv ${D}${datadir}/${PN}/* ${D}/${docdir}/${PN}/ || :
 	mv ${D}${prefix}/doc/* ${D}/${docdir}/${PN}/ || :
 }
-
-# split out gpgv from main package
-RDEPENDS_${PN} += "gpgv"
-PACKAGES =+ "gpgv"
-FILES_gpgv = "${bindir}/gpgv"
 
 # Exclude debug files from the main packages
 FILES_${PN} = "${bindir}/* ${datadir}/${PN} ${libexecdir}/${PN}/*"
