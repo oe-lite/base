@@ -26,6 +26,8 @@ AUTO_PACKAGE_UTILS = "gpg2 gpg-agent gpgconf gpg-connect-agent \
 AUTO_PACKAGE_UTILS_DEPENDS += "libc"
 AUTO_PACKAGE_UTILS_RDEPENDS += "${PN}-internal-executables libc"
 
+DEPENDS_${PN} += "libc libgcrypt libgpg-error"
+RDEPENDS_${PN} += "libc libgcrypt libgpg-error"
 DEPENDS_${PN}-gpg2 += "libassuan libgcrypt libz libgpg-error libintl"
 RDEPENDS_${PN}-gpg2 += "libassuan libgcrypt libz libgpg-error libintl"
 DEPENDS_${PN}-gpg-agent += "libnpth libpthread libassuan libgcrypt libgpg-error"
