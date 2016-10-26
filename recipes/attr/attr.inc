@@ -6,7 +6,9 @@ RECIPE_TYPES = "machine sdk native"
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
 require conf/fetch/savannah.conf
-SRC_URI = "${SAVANNAH_MIRROR}/attr/attr-${PV}.src.tar.gz"
+SRC_URI = "${SAVANNAH_MIRROR}/attr/attr-${PV}.src.tar.gz \
+           file://0002-avoid-glibc-specific-decls-defines.patch \
+           file://0003-portability-fixes.patch"
 
 inherit autotools
 
@@ -36,6 +38,7 @@ do_install() {
 		mv $file ${D}${libdir}
 	done
 	rm -rf ${D}${libexecdir}
+	rm -rf ${D}${libdir}/charset.alias
 }
 
 inherit auto-package-utils
