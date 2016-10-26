@@ -18,7 +18,7 @@ DEPENDS_HOST_OS = "libdl"
 DEPENDS_HOST_OS:HOST_OS_mingw32 = ""
 
 CFLAG = "${@['-DL_ENDIAN', '-DB_ENDIAN']['${HOST_ENDIAN}'=='b']} ${HOST_CFLAGS}"
-CFLAG:>HOST_KERNEL_linux = " -DTERMIO"
+CFLAG:>HOST_LIBC_glibc = " -DTERMIO"
 
 CROSS:native = ""
 export WINDRES = "${CROSS}windres"
