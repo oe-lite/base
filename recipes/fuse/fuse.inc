@@ -12,6 +12,13 @@ SRC_URI = "${SOURCEFORGE_MIRROR}/fuse/fuse-${PV}.tar.gz"
 
 PACKAGES = "${PN}-dbg ${PN} ${PN}-doc"
 
+# Get rid of /dev/fuse (and /dev while at it), which will be created if run
+# with mknod privileges
+do_install_rm_dev() {
+	rm -rf ${D}/dev
+}
+do_install[postfuncs] += "do_install_rm_dev"
+
 DEPENDS_${PN} = "libc libpthread"
 RDEPENDS_${PN} = "libc libpthread"
 
