@@ -8,7 +8,7 @@ COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
 
 inherit autotools make-vpath pkgconfig gettext sysvinit passwd c++
 
-SRC_URI = "http://dbus.freedesktop.org/releases/dbus/dbus-${PV}.tar.gz"
+SRC_URI = "https://dbus.freedesktop.org/releases/dbus/dbus-${PV}.tar.gz"
 SRC_URI += "file://dbus-1.init"
 SRC_URI += "file://passwd file://group"
 SRC_URI += "file://tmpdir.patch"
