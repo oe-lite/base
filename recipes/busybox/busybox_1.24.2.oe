@@ -3,3 +3,4 @@ require busybox.inc
 SRC_URI += "file://busybox-1.24.2-CVE-2016-2147.patch"
 SRC_URI += "file://busybox-1.24.2-CVE-2016-2148.patch"
 SRC_URI += "file://busybox-1.24.2-ash-recursive-heredocs.patch"
+SRC_URI += "file://dhclient-options.patch"

@@ -110,7 +110,7 @@ FILES_${PN} += "${sysconfdir}"
 FILES_${PN} += "${libdir}/mod_*"
 FILES_${PN} += "/www"
 FILES_${PN}-config = "${sysconfdir}/lighttpd.conf"
-FILES_${PN}-config += "/www/pages/index.html"
+FILES_${PN}-config += "/www/pages/"
 RDEPENDS_${PN} += "${PN}-config"
 
 RDEPENDS_${PN} += "libc libgcc libdl libm"

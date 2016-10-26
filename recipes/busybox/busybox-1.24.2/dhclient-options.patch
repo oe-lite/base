@@ -1,0 +1,48 @@
+From: Morten Thunberg <mail@mortenthunberg.dk>
+Date: Fri, 13 Oct 2016 00:13:13 +1300
+Subject: Add OPTION to set arguments for dhclient and avoid kill -9
+
+
+Index: busybox-1.24.1/networking/ifupdown.c
+===================================================================
+--- busybox-1.24.1.orig/networking/ifupdown.c
++++ busybox-1.24.1/networking/ifupdown.c
+@@ -55,6 +55,7 @@
+ #endif
+ 
+ #define UDHCPC_CMD_OPTIONS CONFIG_IFUPDOWN_UDHCPC_CMD_OPTIONS
++#define DHCLIENT_CMD_OPTIONS CONFIG_IFUPDOWN_DHCLIENT_CMD_OPTIONS
+ 
+ #define debug_noise(args...) /*fprintf(stderr, args)*/
+ 
+@@ -526,8 +527,8 @@ static const struct dhcp_client_t ext_dh
+ 		"dhcpcd -k %iface%",
+ 	},
+ 	{ "dhclient",
+-		"dhclient -pf /var/run/dhclient.%iface%.pid %iface%",
+-		"kill -9 `cat /var/run/dhclient.%iface%.pid` 2>/dev/null",
++		"dhclient " DHCLIENT_CMD_OPTIONS " -pf /var/run/dhclient.%iface%.pid %iface%",
++		"dhclient -x  -pf /var/run/dhclient.%iface%.pid 2>/dev/null",
+ 	},
+ 	{ "pump",
+ 		"pump -i %iface%[[ -h %hostname%]][[ -l %leasehours%]]",
+Index: busybox-1.24.1/networking/Config.src
+===================================================================
+--- busybox-1.24.1.orig/networking/Config.src
++++ busybox-1.24.1/networking/Config.src
+@@ -940,6 +940,15 @@ config IFUPDOWN_UDHCPC_CMD_OPTIONS
+ 	  Intended to alter options not available in /etc/network/interfaces.
+ 	  (IE: --syslog --background etc...)
+ 
++config IFUPDOWN_DHCLIENT_CMD_OPTIONS
++	string "ifup dhclient command line options"
++	default ""
++	depends on IFUPDOWN
++	help
++	  Command line options to pass to dhclient from ifup.
++	  Intended to alter options not available in /etc/network/interfaces.
++	  (IE: -nw etc...)
++
+ config UDPSVD
+ 	bool "udpsvd"
+ 	default y

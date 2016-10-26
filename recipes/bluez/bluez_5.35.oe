@@ -1,3 +1,0 @@
-require ${PN}.inc
-
-SRC_URI += "file://0001-hciattach-add-fixed-delay-between-brf-actions-for-te.patch"
