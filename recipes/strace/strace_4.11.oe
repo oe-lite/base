@@ -1,8 +1,0 @@
-require strace.inc
-
-SRC_URI += "file://git-version-gen"
-
-do_configure[prefuncs] += "do_configure_add_git_config_gen"
-do_configure_add_git_config_gen() {
-	cp ${SRCDIR}/git-version-gen ${S}
-}
