@@ -6,8 +6,8 @@ DEPENDS += "readline libgpg-error libgcrypt libassuan \
 libksba libnpth libdl \
 util/libassuan-config util/npth-config util/ksba-config util/npth-config \
 "
-DEPENDS:>machine = " libnss-dns libresolv"
-DEPENDS:>sdk = " libnss-dns libresolv"
+DEPENDS:>machine = " libresolv"
+DEPENDS:>sdk = " libresolv"
 
 
 EXTRA_OECONF += "--with-readline \
