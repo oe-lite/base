@@ -21,6 +21,7 @@ do_install_openvpn_extra () {
 	sysvinit_install_script ${SRCDIR}/openvpn.init openvpn
 }
 
+DEPENDS_${PN} = "libc libgcc ${DEPENDS}"
 RDEPENDS_${PN} = "libc libgcc ${DEPENDS}"
 
 FILES_${PN}-dev += "${libdir}/openvpn/plugins/*.la"
