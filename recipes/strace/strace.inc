@@ -5,18 +5,12 @@ LICENSE = "BSD"
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
 require conf/fetch/sourceforge.conf
-SRC_URI = "${SOURCEFORGE_MIRROR}/strace/strace-${PV}.tar.xz \
-    file://git-version-gen"
+SRC_URI = "${SOURCEFORGE_MIRROR}/strace/strace-${PV}.tar.xz"
 
 inherit autotools auto-package-utils
 
 AUTO_PACKAGE_UTILS = "strace strace-graph strace-log-merge"
 RDEPENDS_${PN}-strace-graph += "perl"
-
-do_configure[prefuncs] += "do_configure_add_git_config_gen"
-do_configure_add_git_config_gen() {
-	cp ${SRCDIR}/git-version-gen ${S}
-}
 
 DEPENDS_${PN} += "libc"
 RDEPENDS_${PN} += "libc ${PN}-strace"
