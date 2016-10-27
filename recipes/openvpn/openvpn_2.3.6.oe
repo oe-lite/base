@@ -1,9 +1,0 @@
-# -*- mode:python; -*-
-require ${PN}.inc
-LICENSE = "GPLv2"
-
-EXTRA_OECONF += "--disable-plugin-auth-pam"
-
-EXTRA_OECONF += "--enable-iproute2"
-export IPROUTE="${base_sbindir}/ip"
-RDEPENDS_${PN} += "util/ip"
