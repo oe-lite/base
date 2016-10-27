@@ -1,7 +1,7 @@
 # -*- mode:python; -*-
 DESCRIPTION = "A full-featured SSL VPN solution via tun device."
 HOMEPAGE = "http://openvpn.sourceforge.net"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 

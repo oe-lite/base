@@ -1,0 +1,7 @@
+# -*- mode:python; -*-
+require ${PN}.inc
+
+EXTRA_OECONF += "--disable-plugin-auth-pam"
+
+EXTRA_OECONF += "--enable-iproute2"
+RDEPENDS_${PN} += "util/ip"
