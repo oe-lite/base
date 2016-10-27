@@ -1,0 +1,4 @@
+# -*- mode:python; -*-
+include dbus.inc
+
+LIBRARY_VERSION = "3"
