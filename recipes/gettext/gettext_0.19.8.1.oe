@@ -1,0 +1,11 @@
+LICENSE = "GPL-3.0+ & LGPL-2.1+"
+
+require gettext.inc
+
+export sharedlibdir
+
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
+PACKAGES =+ "${PN}-its"
+
+FILES_${PN}-its = "${datadir}/${PN}-0.19.8/its/*"
