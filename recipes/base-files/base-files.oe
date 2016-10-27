@@ -8,6 +8,7 @@ RECIPE_TYPES = "machine"
 RDEPENDS_${PN} = "base-version ${RDEPENDS_LIBNSS}"
 RDEPENDS_LIBNSS = "libnss-files libnss-dns"
 RDEPENDS_LIBNSS:HOST_LIBC_uclibc = ""
+RDEPENDS_LIBNSS:HOST_LIBC_musl = ""
 
 RECIPE_FLAGS += "hostname"
 DEFAULT_USE_hostname = "oe-lite"
