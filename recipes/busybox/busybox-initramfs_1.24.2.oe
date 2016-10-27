@@ -1,4 +1,0 @@
-require busybox_${PV}.oe
-require busybox-initramfs.inc
-
-PROVIDES_${PN} = "${PN}"
