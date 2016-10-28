@@ -1,7 +1,10 @@
-#!/bin/execlineb -P
+#!/bin/execlineb
 
 # Check for request to enable debug messages
 importas -D 1 VERBOSITY INIT_VERBOSITY
+
+# Get the service to bring up from positional parameters
+importas -D default SERVICE 1
 
 # Use /var/rc/compiled.new if it exists
 if {
@@ -38,5 +41,5 @@ if {
 }
 
 foreground { if { test $VERBOSITY -ge 2 }
-  s6-echo -- "Starting default services" }
-s6-rc -v $VERBOSITY -u change default
+  s6-echo -- "Bringing" $SERVICE "up" }
+s6-rc -v $VERBOSITY -u change $SERVICE

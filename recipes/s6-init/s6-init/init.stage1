@@ -1,4 +1,4 @@
-#!/bin/execlineb -P
+#!/bin/execlineb
 
 # Make sure path and cwd is right
 /bin/export PATH /usr/bin:/bin:/usr/sbin:/sbin
@@ -7,6 +7,9 @@ cd /
 # Create background process group
 s6-setsid -qb --
 umask 022
+
+# Get the service to bring up from positional parameters
+importas -D default SERVICE 1
 
 # Read environment from /etc/env
 s6-envdir -I -- /etc/env
@@ -38,7 +41,7 @@ background
   fdmove -c 2 1
 
   # Exec into stage2 script
-  /etc/rc.init
+  /etc/rc.init $SERVICE
 }
 unexport !
 
