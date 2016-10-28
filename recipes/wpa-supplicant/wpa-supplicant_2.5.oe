@@ -1,5 +1,0 @@
-require wpa-supplicant.inc
-
-SRC_URI =+ "file://wpa_supplicant-2.5-fix-libressl.patch"
-
-LICENSE = "GPL-2.0+,  BSD-3-Clause"
