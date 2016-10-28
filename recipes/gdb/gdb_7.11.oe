@@ -1,0 +1,20 @@
+require gdb.inc
+
+SRC_URI += "file://0001-include-sys-types.h-for-mode_t.patch \
+            file://0002-make-man-install-relative-to-DESTDIR.patch \
+            file://0004-ppc-ptrace-Define-pt_regs-uapi_pt_regs-on-GLIBC-syst.patch \
+            file://0008-Use-exorted-definitions-of-SIGRTMIN.patch \
+            file://0009-Change-order-of-CFLAGS.patch \
+            file://0010-resolve-restrict-keyword-conflict.patch \
+            file://0011-avx_mpx.patch"
+
+EXTRA_OECONF += " --without-uiout \
+                 --with-curses \
+                 --without-included-gettext"
+
+EXTRA_OEMAKE += " ${MUSL_MAKE}"
+MUSL_MAKE = ""
+MUSL_MAKE:HOST_LIBC_musl = "gt_cv_func_gnugettext1_libc=yes \
+                            gt_cv_func_gnugettext2_libc=yes \
+                            "
+CFLAGS:>HOST_LIBC_musl += " -Drpl_gettimeofday=gettimeofday"
