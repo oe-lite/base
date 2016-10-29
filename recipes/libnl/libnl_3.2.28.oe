@@ -23,6 +23,6 @@ LIBRARY_VERSION_${PN}-libnl = "22"
 do_autoreconf[prefuncs] += "do_autoreconf_prepend"
 do_autoreconf_prepend() {
 	for dir in doc ; do
-		mkdir $dir/m4
+		mkdir -p $dir/m4
 	done
 }
