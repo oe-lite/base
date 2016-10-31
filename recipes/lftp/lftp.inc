@@ -10,7 +10,7 @@ inherit c++ autotools pkgconfig largefile
 
 DEPENDS = "libncurses libreadline"
 
-COMMON_DEPENDS = "libncurses libreadline libstdc++ libm libgcc libc"
+COMMON_DEPENDS = "libncurses libreadline libstdc++ libm libgcc libc libz"
 DEPENDS_${PN} = "${COMMON_DEPENDS}"
 RDEPENDS_${PN} = "${COMMON_DEPENDS}"
 
@@ -36,4 +36,8 @@ EXTRA_OECONF = " \
 --with-gnu-ld \
 --without-libresolv \
 --without-gnutls \
+--disable-ipv6 \
+--without-openssl \
+--without-expat \
+--without-libidn \
 "
