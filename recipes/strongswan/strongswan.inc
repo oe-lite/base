@@ -29,13 +29,14 @@ RDEPENDS_${PN}-libhydra = "libc libstrongswan"
 DEPENDS_${PN}-libcharon = "libc libdl libm libpthread libstrongswan libhydra"
 RDEPENDS_${PN}-libcharon = "libc libdl libm libpthread libstrongswan libhydra"
 
-PACKAGES =+ "${PN}-config"
+PACKAGES =+ "${PN}-config ${PN}-systemd"
 
 PACKAGEQA_HOST_BINDIRS += "${bindir}/ipsec"
 FILES_${PN}-dev += "${libdir}/ipsec/plugins/*.a ${libdir}/ipsec/plugins/*.la"
 FILES_${PN}-dbg += "${libdir}/ipsec/plugins/.debug ${libexecdir}/ipsec/.debug"
 FILES_${PN} += "${libdir}/ipsec"
 FILES_${PN}-config += "${sysconfdir}/ipsec.conf"
+FILES_${PN}-systemd += "${base_libdir}/systemd"
 DEPENDS_${PN} += "libc libdl libm libpthread librt libgmp libcrypto \
 	libstrongswan libhydra libcharon"
 RDEPENDS_${PN} = "libc libdl libm libpthread librt libgmp libcrypto \
