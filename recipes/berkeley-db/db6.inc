@@ -34,8 +34,8 @@ AUTO_PACKAGE_UTILS = "db_archive db_checkpoint db_deadlock db_dump \
 	db_hotbackup db_load db_log_verify db_printlog db_recover \
 	db_replicate db_sql db_stat db_tuner db_upgrade db_verify"
 
-AUTO_PACKAGE_UTILS_DEPENDS += "libc libpthread libdb-6.1"
-AUTO_PACKAGE_UTILS_RDEPENDS += "libc libpthread libdb-6.1"
+AUTO_PACKAGE_UTILS_DEPENDS += "libc libpthread libdb"
+AUTO_PACKAGE_UTILS_RDEPENDS += "libc libpthread libdb"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "db db_cxx db_stl"
