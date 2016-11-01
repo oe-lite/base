@@ -16,6 +16,7 @@ require conf/fetch/sourceforge.conf
 SRC_URI = "${SOURCEFORGE_MIRROR}/project/${PN}/${PN}/${PV}/${P}.tar.gz"
 
 DEPENDS = "libbz2 libz libreadline"
+DEPENDS:native = "libbz2 libz"
 
 CFLAGS += "-D_REENTRANT"
 EXTRA_OECONF = "--with-link-size=2 \
