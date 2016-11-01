@@ -1,0 +1,15 @@
+require iproute2.inc
+
+SRC_URI="https://www.kernel.org/pub/linux/utils/net/${PN}/${PN}-${PV}.tar.xz"
+
+S="${SRCDIR}/${PN}-${PV}"
+
+DEPENDS += "iptables-dev libmnl"
+
+FILES_${PN}-tc += "${libdir}/tc/*"
+FILES_${PN}-dev += "${libdir}/tc/.debug/*"
+
+do_install[postfuncs] += "do_install_unmangle"
+do_install_unmangle() {
+	rm -r ${D}${datadir}/bash-completion/completions/tc
+}
