@@ -3,6 +3,8 @@ HOMEPAGE = "http://www.oracle.com/us/products/database/berkeley-db/index.html"
 
 SRC_URI = "http://download.oracle.com/berkeley-db/db-${PV}.tar.gz"
 
+LICENCE = "AGPL-1.0"
+
 inherit autotools c++ largefile
 
 #Only used for Aarch64
