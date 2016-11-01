@@ -39,8 +39,4 @@ AUTO_PACKAGE_UTILS_RDEPENDS += "libc libpthread libdb"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "db db_cxx db_stl"
-AUTO_PACKAGE_LIBS_LIBDIR = "${libdir}:lib:,-6.1,-6"
-FILES_${PN}-libdb += "${libdir}/libdb-6.1.so"
-FILES_${PN}-libdb-cxx += "${libdir}/libdb_cxx-6.1.so"
-FILES_${PN}-libdb-stl += "${libdir}/libdb_stl-6.1.so"
 PROVIDES_${PN}-libdb += "libdb6"

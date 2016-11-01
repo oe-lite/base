@@ -1,0 +1,9 @@
+require db6.inc
+
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
+EXTRA_OECONF += " --disable-atomicsupport"
+
+FILES_${PN}-libdb += "${libdir}/libdb-6.2.so"
+FILES_${PN}-libdb-cxx += "${libdir}/libdb_cxx-6.2.so"
+FILES_${PN}-libdb-stl += "${libdir}/libdb_stl-6.2.so"
