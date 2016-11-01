@@ -7,9 +7,6 @@ LICENCE = "AGPL-1.0"
 
 inherit autotools c++ largefile
 
-#Only used for Aarch64
-AUTOCONFDIRS = "/dist"
-
 DEPENDS = "${DEPENDS_LIBC}"
 DEPENDS_LIBC = "libpthread"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
