@@ -1,4 +1,4 @@
-DESCRIPTION = "Berkeley DB 4.x"
+DESCRIPTION = "Berkeley DB 6.x"
 HOMEPAGE = "http://www.oracle.com/us/products/database/berkeley-db/index.html"
 
 SRC_URI = "http://download.oracle.com/berkeley-db/db-${PV}.tar.gz"
@@ -22,10 +22,10 @@ EXTRA_OECONF += "--enable-compat185"
 EXTRA_OECONF += "--enable-cxx --enable-stl"
 EXTRA_OECONF += "--enable-pthread_api"
 
-RECIPE_FLAGS += "db4_smallbuild"
+RECIPE_FLAGS += "db_smallbuild"
 EXTRA_OECONF += "${EXTRA_OECONF_SMALLBUILD}"
 EXTRA_OECONF_SMALLBUILD = ""
-EXTRA_OECONF_SMALLBUILD:USE_db4_smallbuild = "--enable-smallbuild"
+EXTRA_OECONF_SMALLBUILD:USE_db_smallbuild = "--enable-smallbuild"
 
 EXTRA_OEMAKE += "prefix=${prefix} exec_prefix=${exec_prefix} bindir=${bindir} includedir=${includedir} libdir=${libdir} docdir=${docdir}/berkeley-db"
 
