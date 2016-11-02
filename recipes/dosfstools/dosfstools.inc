@@ -10,16 +10,11 @@ RECIPE_TYPES = "machine native sdk"
 COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
 
 SRC_URI = "https://github.com/${PN}/${PN}/releases/download/v${PV}/${P}.tar.xz"
-inherit c make
+inherit c autotools
 
 # output of getconf LFS_CFLAGS
 #
 CFLAGS += '-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64'
-
-do_install () {
-	oe_runmake "PREFIX=${D}" "SBINDIR=${D}${sbindir}" \
-		   "MANDIR=${D}${mandir}" "DOCDIR=${D}${docdir}" install
-}
 
 PACKAGES =+ "${PN}-mkfs ${PN}-fsck ${PN}-fslabel"
 
