@@ -1,0 +1,11 @@
+LICENSE = "MIT"
+
+require expat.inc
+
+SRC_URI:>HOST_LIBC_mingw = " file://libtool-bindir.patch"
+export sharedlibdir
+
+require conf/fetch/sourceforge.conf
+SRC_URI = "${SOURCEFORGE_MIRROR}/expat/expat-${PV}.tar.bz2"
+
+LIBRARY_VERSION = "1"

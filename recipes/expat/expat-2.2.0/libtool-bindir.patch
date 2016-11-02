@@ -1,0 +1,11 @@
+--- expat-2.1.0/conftools/ltmain.sh~orig	2014-04-14 16:58:24.504372164 +0200
++++ expat-2.1.0/conftools/ltmain.sh	2014-04-14 16:59:07.676370983 +0200
+@@ -4386,7 +4386,7 @@
+     new_inherited_linker_flags=
+ 
+     avoid_version=no
+-    bindir=
++    bindir=$sharedlibdir
+     dlfiles=
+     dlprefiles=
+     dlself=no
