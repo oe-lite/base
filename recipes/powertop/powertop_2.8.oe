@@ -12,7 +12,7 @@ DEPENDS = "${POWERTOP_COMMON_DEPENDS} libpci-dev"
 
 inherit autotools-autoreconf gettext pkgconfig c++
 
-SRC_URI = "https://github.com/fenrus75/powertop/archive/v${PV}.tar.gz"
+SRC_URI = "https://01.org/sites/default/files/downloads/powertop/powertop-${PV}.tar.gz"
 
 # we do not want libncursesw if we can
 do_configure[prefuncs] += "do_configure_ncurses_fixup"

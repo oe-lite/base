@@ -1,0 +1,2 @@
+60da464a0c5d39c64b5d4a0e854bc6c480f8927a  powertop-2.8.tar.gz
+80cba7042196bf09ad4c299032bbb787af3ea800  v2.8.tar.gz
