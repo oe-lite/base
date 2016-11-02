@@ -1,6 +1,0 @@
-require oprofile.inc
-
-require conf/fetch/sourceforge.conf
-SRC_URI += "${SOURCEFORGE_MIRROR}/${PN}/${PN}-${PV}.tar.gz"
-
-S = "${SRCDIR}/oprofile-${PV}"
