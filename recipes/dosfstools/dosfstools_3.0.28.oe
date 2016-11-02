@@ -1,8 +1,0 @@
-require ${PN}.inc
-
-inherit make
-
-do_install () {
-	oe_runmake "PREFIX=${D}" "SBINDIR=${D}${sbindir}" \
-		   "MANDIR=${D}${mandir}" "DOCDIR=${D}${docdir}" install
-}
