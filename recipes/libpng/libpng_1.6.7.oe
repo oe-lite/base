@@ -1,4 +1,0 @@
-require libpng16.inc
-
-SRC_URI:>HOST_LIBC_mingw = " file://libtool-bindir.patch"
-export sharedlibdir
