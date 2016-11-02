@@ -1,0 +1,11 @@
+--- libpng-1.6.7/ltmain.sh~orig	2014-02-14 09:41:47.210067007 +0100
++++ libpng-1.6.7/ltmain.sh	2014-02-14 09:41:55.766066830 +0100
+@@ -5133,7 +5133,7 @@
+     new_inherited_linker_flags=
+ 
+     avoid_version=no
+-    bindir=
++    bindir=$sharedlibdir
+     dlfiles=
+     dlprefiles=
+     dlself=no
