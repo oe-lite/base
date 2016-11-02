@@ -6,11 +6,8 @@ RECIPE_TYPES = "machine native sdk"
 
 inherit autotools make-vpath
 
-#Only used for Aarch64
-AUTOCONFDIRS = "/conftools"
-
 require conf/fetch/sourceforge.conf
-SRC_URI = "${SOURCEFORGE_MIRROR}/expat/expat-${PV}.tar.gz"
+SRC_URI = "${SOURCEFORGE_MIRROR}/expat/expat-${PV}.tar.bz2"
 
 export LTCC = "${CC}"
 

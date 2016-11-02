@@ -5,6 +5,4 @@ require expat.inc
 SRC_URI:>HOST_LIBC_mingw = " file://libtool-bindir.patch"
 export sharedlibdir
 
-SRC_URI += " file://expat-CVE-2015-1283.patch"
-
 LIBRARY_VERSION = "1"
