@@ -1,0 +1,50 @@
+SUMMARY = "PCI utilities"
+DESCRIPTION = 'The PCI Utilities package contains a library for portable access \
+to PCI bus configuration space and several utilities based on this library.'
+HOMEPAGE = "http://atrey.karlin.mff.cuni.cz/~mj/pciutils.shtml"
+
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
+LICENSE = "GPL-2.0+"
+
+inherit c make
+DEPENDS += "libz libresolv"
+
+require conf/fetch/kernelorg.conf
+SRC_URI = "${KERNELORG_MIRROR}/software/utils/pciutils/pciutils-${PV}.tar.xz \
+           file://configure.patch \
+           file://guess-fix.patch \
+           file://makefile.patch"
+
+PCI_CONF_FLAG = "ZLIB=yes DNS=yes SHARED=yes PREFIX=${prefix} \
+	SBINDIR=${sbindir} SHAREDIR=${datadir} INCDIR=${includedir} \
+	 LIBDIR=${libdir} MANDIR=${mandir} CROSS_COMPILE=${HOST_PREFIX}"
+
+# see configure.patch
+do_configure () {
+    (
+        cd lib && \
+        ${PCI_CONF_FLAG} ./configure ${PV} ${datadir} ${TARGET_OS} ${TARGET_ARCH}
+    )
+}
+
+EXTRA_OEMAKE = "${PCI_CONF_FLAG}"
+
+EXTRA_OEMAKE_INSTALL = "install-lib"
+
+inherit library
+LIBRARY_NAME = "libpci"
+DEPENDS_${PN} += "libc libz libresolv"
+RDEPENDS_${PN} += "libc libz libresolv"
+
+inherit auto-package-utils
+AUTO_PACKAGE_UTILS = "lspci setpci update-pciids"
+DEPENDS_${PN}-lspci = "libc libz libresolv libpci"
+RDEPENDS_${PN}-lspci = "libc libz libresolv libpci"
+DEPENDS_${PN}-setpci = "libc libz libresolv libpci"
+RDEPENDS_${PN}-setpci = "libc libz libresolv libpci"
+
+PACKAGES += "${PN}-ids"
+FILES_${PN}-ids = "${datadir}/pci.ids.gz"
+
+LIBRARY_VERSION = "3"
