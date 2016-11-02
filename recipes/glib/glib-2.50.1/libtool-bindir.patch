@@ -1,0 +1,11 @@
+--- glib-2.34.0/ltmain.sh~orig	2014-02-01 18:36:10.724676077 +0100
++++ glib-2.34.0/ltmain.sh	2014-02-01 18:36:18.900675907 +0100
+@@ -5133,7 +5133,7 @@
+     new_inherited_linker_flags=
+ 
+     avoid_version=no
+-    bindir=
++    bindir=$sharedlibdir
+     dlfiles=
+     dlprefiles=
+     dlself=no
