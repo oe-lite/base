@@ -1,3 +1,0 @@
-require libpng12.inc
-
-RDEPENDS_${PN}-libpng3 += "libc libm libz"
