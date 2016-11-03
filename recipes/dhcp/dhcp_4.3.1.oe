@@ -10,3 +10,10 @@ SRC_URI += "${SRC_URI_EXTRA}"
 
 DEPENDS += "bind-dev"
 EXTRA_OECONF += "--with-libbind=${TARGET_SYSROOT}${target_libdir}"
+
+SRC_URI_EXTRA += "file://site.h"
+
+do_patch[postfuncs] += "do_patch_cp_site_h"
+do_patch_cp_site_h () {
+       cp -f ${SRCDIR}/site.h ${S}/includes
+}
