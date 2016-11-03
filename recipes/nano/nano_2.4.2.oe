@@ -1,5 +1,0 @@
-LICENSE = "GPL-3.0+"
-
-include nano.inc
-
-TAREXT = "gz"
