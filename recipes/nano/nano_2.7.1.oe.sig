@@ -1,0 +1,1 @@
+6a06d2c396a98a256722659fd22ace3d04d4c9f5  nano-2.7.1.tar.xz
