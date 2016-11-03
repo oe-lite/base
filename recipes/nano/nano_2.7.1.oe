@@ -2,4 +2,4 @@ LICENSE = "GPL-3.0+"
 
 include nano.inc
 
-SRC_URI += "file://fix-doc-build.patch"
+TAREXT = "xz"
