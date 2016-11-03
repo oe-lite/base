@@ -4,3 +4,4 @@ EXTRA_OECONF += "--disable-udev"
 
 LIBRARY_NAME = "libusb-1.0"
 LIBRARY_VERSION = "0"
+PARALLEL_MAKE = ""
