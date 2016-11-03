@@ -1,7 +1,5 @@
 require iproute2.inc
 
-DEPENDS += "iptables-dev libmnl"
-
 FILES_${PN}-tc += "${libdir}/tc/*"
 FILES_${PN}-dev += "${libdir}/tc/.debug/*"
 

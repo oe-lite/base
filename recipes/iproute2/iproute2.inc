@@ -11,7 +11,7 @@ inherit autotools-autoreconf pkgconfig auto-package-utils
 
 SRC_URI="https://www.kernel.org/pub/linux/utils/net/${PN}/${PN}-${PV}.tar.xz"
 
-DEPENDS += "libdl libresolv libm libdb4 libnl-3 native:bison native:flex"
+DEPENDS += "libdl iptables-dev libmnl"
 
 do_configure() {
 	echo "PKG_CONFIG:=pkg-config" > Config
@@ -40,5 +40,5 @@ RDEPENDS_${PN}-tc += "libc libm libdl"
 
 PACKAGES =+ " ${PN}-config"
 FILES_${PN}-config = "${sysconfdir}/iproute2/*"
-RDEPENDS_${PN} += "${PN}-config"
-
+DEPENDS_${PN} += "libc libdl libm libmnl"
+RDEPENDS_${PN} += "libc libdl libm libmnl ${PN}-config"
