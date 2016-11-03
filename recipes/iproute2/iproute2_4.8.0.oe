@@ -1,9 +1,5 @@
 require iproute2.inc
 
-SRC_URI="https://www.kernel.org/pub/linux/utils/net/${PN}/${PN}-${PV}.tar.xz"
-
-S="${SRCDIR}/${PN}-${PV}"
-
 DEPENDS += "iptables-dev libmnl"
 
 FILES_${PN}-tc += "${libdir}/tc/*"

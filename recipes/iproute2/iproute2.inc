@@ -9,8 +9,7 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit autotools-autoreconf pkgconfig auto-package-utils
 
-SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/shemminger/iproute2.git;commit=${GIT_COMMIT}"
-S = "${SRCDIR}/iproute2"
+SRC_URI="https://www.kernel.org/pub/linux/utils/net/${PN}/${PN}-${PV}.tar.xz"
 
 DEPENDS += "libdl libresolv libm libdb4 libnl-3 native:bison native:flex"
 
