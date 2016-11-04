@@ -7,7 +7,7 @@ COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
 
 inherit autotools-autoreconf pkgconfig gettext
 
-SRC_URI = "http://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-${PV}.tar.gz"
+SRC_URI = "https://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-${PV}.tar.gz"
 
 DEPENDS = "libexpat libintl ${DEPENDS_LIBC} libdbus-1 \
 	libgobject libglib libgthread libgmodule"
