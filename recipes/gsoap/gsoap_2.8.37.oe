@@ -1,0 +1,20 @@
+require gsoap.inc
+
+DEPENDS = "native:gsoap-utils native:bison native:flex libstdc++ libssl libcrypto libz ${DEPENDS_LIBC}"
+DEPENDS_LIBC = "libdl"
+DEPENDS_LIBC:HOST_LIBC_mingw = ""
+
+inherit auto-package-utils
+
+AUTO_PACKAGE_UTILS = "soapcpp2 wsdl2h"
+
+FILES_${PN} += "${datadir}"
+
+EXTRA_OECONF:>HOST_LIBC_musl += " ac_cv_func_malloc_0_nonnull=yes"
+CFLAGS:>HOST_LIBC_musl += " -D__GLIBC__ -D_SOCKLEN_T -DHAVE_STDINT_H"
+CXXFLAGS:>HOST_LIBC_musl += " -D__GLIBC__ -D_SOCKLEN_T -DHAVE_STDINT_H"
+
+DEPENDS_${PN}-soapcpp2 += "libc"
+RDEPENDS_${PN}-soapcpp2 += "libc"
+DEPENDS_${PN}-wsdl2h += "libc libcrypto libgcc-s libm libssl libstdc++ libz"
+RDEPENDS_${PN}-wsdl2h += "libcrypto libssl libz ${DEPENDS_LIBC} libstdc++ libm libgcc libc"
