@@ -1,0 +1,25 @@
+# -*- mode:python; -*-
+LICENSE = "LGPL-2.0+"
+
+require ${PN}.inc
+
+inherit autotools-autoreconf
+
+SRC_URI:>HOST_LIBC_mingw = " file://libtool-bindir.patch"
+export sharedlibdir
+
+CFLAGS:>HOST_LIBC_mingw += '-DMINGW_HAS_SECURE_API=1'
+
+DEPENDS += " ${DEP_LIBMOUNT}"
+
+DEP_LIBMOUNT = "libmount"
+DEP_LIBMOUNT:HOST_LIBC_mingw = ""
+
+EXTRA_OECONF:HOST_LIBC_mingw += " --disable-libmount"
+
+DEPENDS_${PN}-libgio-2.0 += "libblkid libmount librt libuuid"
+RDEPENDS_${PN}-libgio-2.0 += "libdl libffi libglib-2.0 libgmodule-2.0 libgobject-2.0 libpcre libresolv libz libblkid libmount librt libuuid"
+DEPENDS_${PN}-utils += "libblkid libmount librt libuuid"
+RDEPENDS_${PN}-utils += "libblkid libmount librt libuuid"
+
+LIBRARY_VERSION = "0"

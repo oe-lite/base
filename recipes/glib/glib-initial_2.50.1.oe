@@ -1,0 +1,9 @@
+# -*- mode:python; -*-
+LICENSE = "LGPL-2.0+"
+
+require ${PN}.inc
+
+#disable libmount as it will cause an circular dependency with util-linux
+EXTRA_OECONF += " --disable-libmount"
+
+LIBRARY_VERSION = "0"
