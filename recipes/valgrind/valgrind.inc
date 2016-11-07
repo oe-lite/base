@@ -1,7 +1,7 @@
 DESCRIPTION = "Valgrind memory debugger"
 HOMEPAGE = "http://valgrind.org/"
 
-inherit autotools auto-package-utils
+inherit autotools-autoreconf auto-package-utils
 
 DEPENDS += "librt"
 RDEPENDS_${PN} += "librt ld-so-dbg"
