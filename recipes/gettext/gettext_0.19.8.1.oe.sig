@@ -1,0 +1,1 @@
+b5d24ba2958c91fc5cc0058165837c99a0f58784  gettext-0.19.8.1.tar.gz
