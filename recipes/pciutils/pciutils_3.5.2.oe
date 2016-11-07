@@ -11,13 +11,10 @@ inherit c make
 DEPENDS += "libz libresolv"
 
 require conf/fetch/kernelorg.conf
-SRC_URI = "${KERNELORG_MIRROR}/software/utils/pciutils/pciutils-${PV}.tar.bz2 \
+SRC_URI = "${KERNELORG_MIRROR}/software/utils/pciutils/pciutils-${PV}.tar.xz \
            file://configure.patch \
-           file://lib-build-fix.patch \
            file://guess-fix.patch \
            file://makefile.patch"
-
-PARALLEL_MAKE = ""
 
 PCI_CONF_FLAG = "ZLIB=yes DNS=yes SHARED=yes PREFIX=${prefix} \
 	SBINDIR=${sbindir} SHAREDIR=${datadir} INCDIR=${includedir} \
@@ -29,14 +26,6 @@ do_configure () {
         cd lib && \
         ${PCI_CONF_FLAG} ./configure ${PV} ${datadir} ${TARGET_OS} ${TARGET_ARCH}
     )
-}
-
-do_compile[prefuncs] += "do_compile_cleanup"
-do_compile_cleanup () {
-	#Otherwise rebuilding fails
-	if [ -e ${S}/lib/libpci.so ]; then
-	    rm ${S}/lib/libpci.so
-	fi
 }
 
 EXTRA_OEMAKE = "${PCI_CONF_FLAG}"
@@ -57,3 +46,5 @@ RDEPENDS_${PN}-setpci = "libc libz libresolv libpci"
 
 PACKAGES += "${PN}-ids"
 FILES_${PN}-ids = "${datadir}/pci.ids.gz"
+
+LIBRARY_VERSION = "3"
