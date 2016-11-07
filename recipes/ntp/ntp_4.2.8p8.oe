@@ -1,0 +1,5 @@
+LICENSE = "NTP"
+
+require ntp.inc
+
+SRC_URI += "file://ntp-4.2.8_p8-nano.patch"

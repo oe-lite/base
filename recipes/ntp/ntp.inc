@@ -9,14 +9,14 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit autotools-autoreconf make-vpath
 
-DEPENDS = "libm"
+DEPENDS = "libm libpthread"
 
 SRC_URI = "http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/${P}.tar.gz"
 SRC_URI += "file://ntp.conf file://ntpd file://ntpdate"
 
 # The ac_cv_header_readline_history is to stop ntpdc depending on either
 # readline or curses
-EXTRA_OECONF += "ac_cv_header_readline_history_h=no"
+EXTRA_OECONF += "ac_cv_header_readline_history_h=no  --with-yielding_select=yes"
 
 RECIPE_FLAGS += "ssl"
 EXTRA_OECONF += "${EXTRA_OECONF_SSL}"
