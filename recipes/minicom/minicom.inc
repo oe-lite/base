@@ -12,6 +12,8 @@ SRC_URI = "https://alioth.debian.org/frs/download.php/file/3977/minicom-${PV}.ta
            file://0001-fix-minicom-h-v-return-value-is-not-0.patch \
           "
 
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
 COMMON_DEPENDS = "libc libiconv libncurses"
 
 DEPENDS += "${COMMON_DEPENDS}"
