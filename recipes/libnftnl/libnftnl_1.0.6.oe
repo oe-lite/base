@@ -1,0 +1,14 @@
+SUMMARY = "Library for low-level interaction with nftables Netlink's API over libmnl"
+LICENSE = "GPL-2.0"
+
+inherit autotools pkgconfig library
+
+SRC_URI = "http://netfilter.org/projects/libnftnl/files/${PN}-${PV}.tar.bz2"
+
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
+DEPENDS += "libc libmnl"
+DEPENDS_${PN} += "libc libmnl"
+RDEPENDS_${PN} += "libc libmnl"
+
+PROVIDES_${PN} += "libnftnl-4"

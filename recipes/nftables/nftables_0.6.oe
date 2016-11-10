@@ -1,0 +1,19 @@
+SUMMARY = "Netfilter Tables userspace utillites"
+LICENSE = "GPL-2.0"
+
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
+DEPENDS = "libmnl libnftnl libreadline libgmp"
+
+SRC_URI = "http://www.netfilter.org/projects/nftables/files/nftables-${PV}.tar.bz2 \
+           file://fix-to-generate-ntf.8.patch"
+
+inherit autotools pkgconfig
+
+do_configure[postfuncs] += "do_configure_create_m4"
+do_configure_create_m4() {
+	mkdir -p ${S}/m4
+}
+
+DEPENDS_${PN} += "libc libgmp libmnl libncurses libnftnl libreadline"
+RDEPENDS_${PN} += "libc libgmp libmnl libncurses libnftnl libreadline"

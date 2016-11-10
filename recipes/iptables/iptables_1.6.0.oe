@@ -1,0 +1,11 @@
+require ${PN}.inc
+
+DEPENDS += "libnftnl"
+
+DEPENDS_${PN} += "libip6tc libnftnl"
+RDEPENDS_${PN} += "libip6tc libnftnl"
+
+SRC_URI += "file://makefile-parallel-fix.patch"
+
+LIBRARY_VERSION = "0"
+LIBRARY_VERSION_${PN}-libxtables = "11"

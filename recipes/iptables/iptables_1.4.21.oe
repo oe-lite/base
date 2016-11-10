@@ -1,4 +1,0 @@
-require ${PN}.inc
-
-LIBRARY_VERSION = "0"
-LIBRARY_VERSION_${PN}-libxtables = "10"
