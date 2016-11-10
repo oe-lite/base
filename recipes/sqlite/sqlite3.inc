@@ -2,7 +2,7 @@
 DESCRIPTION = "An Embeddable SQL Database Engine"
 HOMEPAGE = "http://www.sqlite.org"
 
-RECIPE_TYPES = "machine"
+RECIPE_TYPES = "native machine"
 
 inherit autotools pkgconfig
 
