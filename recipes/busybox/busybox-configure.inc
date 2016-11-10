@@ -1180,3 +1180,8 @@ CONFIG_FEATURE_TASKSET_FANCY"
 
 # USE flag: chpst command
 BUSYBOX_SIMPLE_USE_FLAGS += "chpst:util/"
+
+# USE flag: nsenter command
+BUSYBOX_SIMPLE_USE_FLAGS += "nsenter:util/:\
+CONFIG_NSENTER,\
+CONFIG_FEATURE_NSENTER_LONG_OPTS"
