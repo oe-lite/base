@@ -1,8 +1,20 @@
 # -*- mode:python; -*-
 DESCRIPTION = "An Embeddable SQL Database Engine"
 HOMEPAGE = "http://www.sqlite.org"
+LICENSE = "Public Domain"
 
 RECIPE_TYPES = "native machine"
+
+addhook sqlite3_file_version_mangle to post_recipe_parse first
+def sqlite3_file_version_mangle(d):
+    pv = map(int, d.get("PV").split("."))
+    while len(pv) < 4:
+        pv.append(0)
+    pv_mangled = "%d%02d%02d%02d"%tuple(pv)
+    d.set("PV_MANGLED", pv_mangled)
+
+SRC_URI = "http://www.sqlite.org/2016/sqlite-autoconf-${PV_MANGLED}.tar.gz"
+S = "${SRCDIR}/sqlite-autoconf-${PV_MANGLED}"
 
 inherit autotools pkgconfig
 
@@ -33,9 +45,6 @@ EXTRA_OECONF_EXTENSIONS:USE_sqlite3_extensions = "--enable-dynamic-extensions"
 EXTRA_OECONF += "${EXTRA_OECONF_EXTENSIONS}"
 DEPENDS:>USE_sqlite3_extensions = " libdl"
 # FIXME: -ldl should be passed on to the build system in some way...
-
-SRC_URI = "http://www.sqlite.org/sqlite-${PV}.tar.gz"
-S = "${SRCDIR}/sqlite-${PV}"
 
 export config_BUILD_CC = "${BUILD_CC}"
 export config_BUILD_CFLAGS = "${BUILD_CFLAGS}"
