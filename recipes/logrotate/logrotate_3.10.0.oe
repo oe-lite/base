@@ -1,0 +1,2 @@
+require logrotate.inc
+LICENSE = "GPL-2.0"
