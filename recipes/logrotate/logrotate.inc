@@ -1,6 +1,6 @@
 DESCRIPTION = "The logrotate utility is designed to simplify \
-							the administration of log files on a system which \
-							generates a lot of log files."
+               the administration of log files on a system which \
+               generates a lot of log files."
 
 HOMEPAGE = "https://github.com/logrotate/logrotate"
 
