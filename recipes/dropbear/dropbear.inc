@@ -47,7 +47,7 @@ do_configure_norevdns() {
 # save several kB in binary size however will make the symmetrical
 # ciphers and hashes slower, perhaps by 50%.
 RECIPE_FLAGS += "dropbear_smallcode"
-DEFAULT_USE_dropbear_smallcode = "1"
+DEFAULT_USE_dropbear_smallcode = True
 DO_CONFIGURE_POSTFUNCS:>USE_dropbear_smallcode = " do_configure_smallcode"
 do_configure_smallcode() {
 	sed -i -e 's|/\*.*\(#define DROPBEAR_SMALL_CODE\).*$|\1|' options.h
