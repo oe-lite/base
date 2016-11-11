@@ -1,0 +1,11 @@
+#!/bin/execlineb -P
+redirfd -w 1 /run/network-log.fifo
+fdmove -c 2 1
+s6-envdir -I ./env
+import -s ARGS
+backtick -n iface {
+  pipeline { getcwd cwd import cwd basename $cwd }
+  sed -e "s/udhcpc@//"
+}
+import -u iface
+udhcpc -i $iface -f $ARGS

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+exec 3< /etc/network/interfaces
+while read cmd dev proto method <&3 ; do
+    if [ "$cmd" != "iface" ] ; then continue ; fi
+    if [ "$method" != "dhcp" ] ; then continue ; fi
+    dhcp_ifaces="$dhcp_ifaces $dev"
+done
+echo $dhcp_ifaces
