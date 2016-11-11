@@ -64,11 +64,15 @@ S6RC_BUNDLE_SERVICES += "net"
 RECIPE_FLAGS += "net_s6rc_bundle"
 DEFAULT_USE_net_s6rc_bundle = "net-auto net-hotplug"
 
+S6RC_LONGRUN_SERVICES += "network-log"
+SRC_URI += "file://network-log.run"
+RECIPE_FLAGS += "network_log_s6rc_dependencies"
+
 # Service for doing "ifup -a" and "ifdown -a"
 S6RC_ONESHOT_SERVICES += "net-auto"
 SRC_URI_S6RC += "file://net-auto.up file://net-auto.down"
 RECIPE_FLAGS += "net_auto_s6rc_dependencies"
-DEFAULT_USE_net_auto_s6rc_dependencies = "init-sysctl"
+DEFAULT_USE_net_auto_s6rc_dependencies = "init-sysctl network-log"
 RECIPE_FLAGS += "net_auto_s6rc_timeout_up"
 DEFAULT_USE_net_auto_s6rc_timeout_up = "30000"
 
@@ -77,6 +81,7 @@ DEFAULT_USE_net_auto_s6rc_timeout_up = "30000"
 SRC_URI_S6RC += "file://net-hotplug.hook file://ifplugd.run \
 	file://hotplug-interfaces"
 RECIPE_FLAGS += "ifplugd_s6rc_dependencies"
+DEFAULT_USE_ifplugd_s6rc_dependencies = "network-log"
 # re-use the busybox flag for better backwards compatibility
 RECIPE_FLAGS += "busybox_ifplugd_config_args"
 do_configure_netbase_s6rc:USE_s6rc += "do_configure_hotplug"
