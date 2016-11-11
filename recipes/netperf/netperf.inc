@@ -23,7 +23,7 @@ RECIPE_FLAGS += "netperf_ipv6"
 CFLAGS:>USE_netperf_ipv6 = " -DDO_IPV6"
 
 inherit largefile
-DEFAULT_USE_largefile = "1"
+DEFAULT_USE_largefile = True
 
 RECIPE_FLAGS += "netperf_histogram"
 EXTRA_OECONF:>USE_netperf_histogram = " --enable-histogram"
