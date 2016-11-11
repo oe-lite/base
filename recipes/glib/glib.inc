@@ -30,7 +30,7 @@ DEPENDS += "${DEPENDS_ICONV}"
 DEPENDS_ICONV:USE_glib_iconv = "libiconv"
 
 RECIPE_FLAGS += "glib_threads"
-DEFAULT_USE_glib_threads = "1"
+DEFAULT_USE_glib_threads = True
 EXTRA_OECONF += "${EXTRA_OECONF_THREADS}"
 EXTRA_OECONF_THREADS = "--disable-threads"
 EXTRA_OECONF_THREADS_TYPE = "posix"
