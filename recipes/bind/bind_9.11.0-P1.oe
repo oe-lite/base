@@ -1,0 +1,14 @@
+require bind.inc
+
+EXTRA_OECONF += "--with-gost=yes \
+                 --with-ecdsa=yes \
+                 --build=${BUILD_ARCH} \
+                 --host=${HOST_ARCH} \
+                 --without-python"
+
+SRC_URI += "file://conf.patch"
+
+DEPENDS_${PN} += "libc libcrypto libdl"
+RDEPENDS_${PN} += "libc libcrypto libdl"
+DEPENDS_${PN}-utils += "libc libcrypto libdl"
+RDEPENDS_${PN}-utils += "libc libcrypto libdl"
