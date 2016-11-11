@@ -1,3 +1,6 @@
 require busybox.inc
 
 SRC_URI += "file://dhclient-options.patch"
+
+RECIPE_FLAGS += "s6rc"
+SRC_URI:>USE_s6rc += " file://ifupdown-s6-init.patch"
