@@ -59,7 +59,7 @@ def busybox_simple_use_flags(d):
 
 RECIPE_FLAGS += "busybox_init"
 # USE flag: Enable sysvinit utility (boolean)
-DEFAULT_USE_busybox_init = "1"
+DEFAULT_USE_busybox_init = True
 BUSYBOX_PROVIDES:>USE_busybox_init = " busybox-init sysvinit"
 DO_CONFIGURE_PREFUNCS:>USE_busybox_init = " do_configure_busybox_init"
 do_configure_busybox_init () {
@@ -75,7 +75,7 @@ do_configure_busybox_init () {
 
 RECIPE_FLAGS += "busybox_runit"
 # USE flag: enable runit utility
-DEFAULT_USE_busybox_runit = "0"
+DEFAULT_USE_busybox_runit = False
 BUSYBOX_PROVIDES:>USE_busybox_runit = " busybox-runit runit"
 DO_CONFIGURE_PREFUNCS:>USE_busybox_runit = " do_configure_busybox_runit"
 do_configure_busybox_runit () {
@@ -113,12 +113,12 @@ RECIPE_FLAGS += "busybox_mdev_splashutils_progress busybox_mdev_splashutils_msg"
 SPLASHUTILS_INITSCRIPTS:>USE_busybox_mdev += " busybox_mdev"
 DEFAULT_USE_busybox_mdev_splashutils_msg = "\"Starting Mdev\""
 RECIPE_FLAGS += "busybox_mdev_dash_s"
-DEFAULT_USE_busybox_mdev_dash_s = "1"
+DEFAULT_USE_busybox_mdev_dash_s = True
 
 RECIPE_FLAGS += "busybox_klogd \
         busybox_klogd_sysvinit_start busybox_klogd_conlevel"
 # USE flag: enable klogd daemon
-DEFAULT_USE_busybox_klogd = "1"
+DEFAULT_USE_busybox_klogd = True
 DEFAULT_USE_busybox_klogd_sysvinit_start = "22"
 # USE flag: console log level (default: LOG_WARNING)
 DEFAULT_USE_busybox_klogd_conlevel = "5"
@@ -142,21 +142,21 @@ RECIPE_FLAGS += "busybox_syslogd \
         busybox_syslogd_rotate_size busybox_syslogd_rotate_n \
         busybox_syslogd_log_level"
 # USE flag: enable syslogd daemon
-DEFAULT_USE_busybox_syslogd = "1"
+DEFAULT_USE_busybox_syslogd = True
 DEFAULT_USE_busybox_syslogd_sysvinit_start = "21"
 DEFAULT_USE_busybox_syslogd_sysvinit_stop  = "0"
 # USE flag: syslogd destination (default: to file /var/log/messages)
 DEFAULT_USE_busybox_syslogd_file = "-O /var/log/messages"
 # USE flag: enable syslogd IPC (circular buffer) support
-DEFAULT_USE_busybox_syslogd_ipc = "0"
+DEFAULT_USE_busybox_syslogd_ipc = False
 # USE flag: syslogd IPC buffer size, in kByte
 DEFAULT_USE_busybox_syslogd_ipc_bufsize = "16"
 # USE flag: enable remote syslogd support
-DEFAULT_USE_busybox_syslogd_remote = "0"
+DEFAULT_USE_busybox_syslogd_remote = False
 # USE flag: syslogd remote host (should be set to -R and optionally -L args)
 DEFAULT_USE_busybox_syslogd_remote_host = "0"
 # USE flag: enable syslogd log rotation support
-DEFAULT_USE_busybox_syslogd_rotate = "0"
+DEFAULT_USE_busybox_syslogd_rotate = False
 # USE flag: syslogd log rotation size (in kByte)
 DEFAULT_USE_busybox_syslogd_rotate_size = "200"
 # USE flag: number of rotated logfiles to keep
@@ -209,7 +209,7 @@ CONFIG_FEATURE_HWCLOCK_LONG_OPTIONS,\
 CONFIG_FEATURE_HWCLOCK_ADJTIME_FHS"
 
 RECIPE_FLAGS += "busybox_hwclock_sysvinit_start busybox_hwclock_sysvinit_stop"
-DEFAULT_USE_busybox_hwclock = "1"
+DEFAULT_USE_busybox_hwclock = True
 DEFAULT_USE_busybox_hwclock_sysvinit_start = "15"
 DEFAULT_USE_busybox_hwclock_sysvinit_stop  = "15"
 RECIPE_FLAGS += "busybox_hwclock_splashutils_progress busybox_hwclock_splashutils_msg"
@@ -263,7 +263,7 @@ RECIPE_FLAGS += "busybox_watchdog \
         busybox_watchdog_runit \
         busybox_watchdog_dev"
 # USE flag: enable watchdog support
-DEFAULT_USE_busybox_watchdog = "0"
+DEFAULT_USE_busybox_watchdog = False
 DEFAULT_USE_busybox_watchdog_sysvinit_start = "70"
 DEFAULT_USE_busybox_watchdog_sysvinit_stop  = "01"
 # USE flag: wathcdog device
@@ -286,10 +286,10 @@ RECIPE_FLAGS += "busybox_udhcpc \
                  busybox_udhcpc_ifupdown_cmd_options \
 "
 # USE flag: enable udhcp client
-DEFAULT_USE_busybox_udhcpc = "1"
+DEFAULT_USE_busybox_udhcpc = True
 DEFAULT_USE_busybox_udhcpc_ifupdown_cmd_options ="-R -n"
 # USE flag: enable RFC3397 support
-DEFAULT_USE_busybox_udhcpc_rfc3397 = "1"
+DEFAULT_USE_busybox_udhcpc_rfc3397 = True
 BUSYBOX_PROVIDES:>USE_busybox_udhcpc = " busybox-udhcpc dhcp-client"
 DO_CONFIGURE_PREFUNCS:>USE_busybox_udhcpc = " do_configure_busybox_udhcpc"
 do_configure_busybox_udhcpc () {
@@ -317,7 +317,7 @@ do_configure_busybox_dhclient () {
 
 RECIPE_FLAGS += "busybox_udhcpc6"
 # USE flag: enable udhcpc6 client
-DEFAULT_USE_busybox_udhcpc6 = "0"
+DEFAULT_USE_busybox_udhcpc6 = False
 BUSYBOX_PROVIDES:>USE_busybox_udhcpc6 = " busybox-udhcpc6 dhcp-client6"
 DO_CONFIGURE_PREFUNCS:>USE_busybox_udhcpc6 = " do_configure_busybox_udhcpc6"
 do_configure_busybox_udhcpc6 () {
@@ -331,7 +331,7 @@ do_configure_busybox_udhcpc6 () {
 RECIPE_FLAGS += "busybox_udhcpd \
         busybox_udhcpd_sysvinit_start busybox_udhcpd_sysvinit_stop"
 # USE flag: enable udhcp server
-DEFAULT_USE_busybox_udhcpd = "0"
+DEFAULT_USE_busybox_udhcpd = False
 DEFAULT_USE_busybox_udhcpd_sysvinit_start = "90"
 DEFAULT_USE_busybox_udhcpd_sysvinit_stop  = "90"
 BUSYBOX_PROVIDES:>USE_busybox_udhcpd = " busybox-udhcpd dhcp-server"
@@ -454,7 +454,7 @@ busybox_suid_root:USE_busybox_su = "1"
 
 RECIPE_FLAGS += "busybox_ash"
 # USE flag: enable ash shell
-DEFAULT_USE_busybox_ash = "1"
+DEFAULT_USE_busybox_ash = True
 # Run-time provides ash shell
 BUSYBOX_PROVIDES:>USE_busybox_ash += " busybox-ash sh getopts echo printf test"
 DO_CONFIGURE_PREFUNCS:>USE_busybox_ash = " do_configure_busybox_ash"
@@ -487,7 +487,7 @@ BUSYBOX_SIMPLE_USE_FLAGS += "sh_math_support_64"
 RECIPE_FLAGS += "busybox_hush"
 
 # USE flag: enable hush shell
-DEFAULT_USE_busybox_hush = "0"
+DEFAULT_USE_busybox_hush = False
 # Run-time provides hush shell
 BUSYBOX_PROVIDES:>USE_busybox_hush += " busybox-hush sh getopts echo printf test"
 DO_CONFIGURE_PREFUNCS:>USE_busybox_hush = " do_configure_busybox_hush"
@@ -1161,10 +1161,10 @@ BUSYBOX_SIMPLE_USE_FLAGS += "powertop:util/"
 
 # md5sum, sha1sum, sha256sum, sha512sum, sha3sum
 BUSYBOX_SIMPLE_USE_FLAGS += "md5sum:util/"
-DEFAULT_USE_busybox_md5sum = "1"
+DEFAULT_USE_busybox_md5sum = True
 BUSYBOX_SIMPLE_USE_FLAGS += "sha1sum:util/"
 BUSYBOX_SIMPLE_USE_FLAGS += "sha256sum:util/"
-DEFAULT_USE_busybox_sha256sum = "1"
+DEFAULT_USE_busybox_sha256sum = True
 BUSYBOX_SIMPLE_USE_FLAGS += "sha512sum:util/"
 BUSYBOX_SIMPLE_USE_FLAGS += "sha3sum:util/"
 
