@@ -153,8 +153,10 @@ DEFAULT_USE_busybox_syslogd_ipc = False
 DEFAULT_USE_busybox_syslogd_ipc_bufsize = "16"
 # USE flag: enable remote syslogd support
 DEFAULT_USE_busybox_syslogd_remote = False
-# USE flag: syslogd remote host (should be set to -R and optionally -L args)
-DEFAULT_USE_busybox_syslogd_remote_host = "0"
+# USE flag: syslogd remote host (should be set to -R and optionally -L
+# args). If enabling busybox_syslogd_remote, you must also set this to
+# a sensible value.
+DEFAULT_USE_busybox_syslogd_remote_host = "example.net -L"
 # USE flag: enable syslogd log rotation support
 DEFAULT_USE_busybox_syslogd_rotate = False
 # USE flag: syslogd log rotation size (in kByte)
@@ -182,7 +184,6 @@ do_configure_busybox_syslogd_ipc () {
         .config
 }
 DO_CONFIGURE_PREFUNCS:>USE_busybox_syslogd_remote = " do_configure_busybox_syslogd_remote"
-do_configure_busybox_syslogd_remote[precondition] = "${USE_busybox_syslogd_remote}"
 do_configure_busybox_syslogd_remote () {
         sed -i -e 's/^# \(CONFIG_FEATURE_REMOTE_LOG\) is not set/\1=y/' \
         .config
