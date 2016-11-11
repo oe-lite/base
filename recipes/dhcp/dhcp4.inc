@@ -17,7 +17,6 @@ inherit autotools-autoreconf pkgconfig
 SRC_URI = "ftp://ftp.isc.org/isc/dhcp/${PV}/dhcp-${PV}.tar.gz"
 
 SRC_URI += "${SRC_URI_EXTRA}"
-SRC_URI_EXTRA += "file://site.h"
 SRC_URI_EXTRA += "file://init-relay"
 SRC_URI_EXTRA += "file://default-relay"
 SRC_URI_EXTRA += "file://init-server"
@@ -36,11 +35,6 @@ EXTRA_OECONF = "\
 "
 
 CFLAGS += "-ldl"
-
-do_patch[postfuncs] += "do_patch_cp_site_h"
-do_patch_cp_site_h () {
-	cp -f ${SRCDIR}/site.h ${S}/includes
-}
 
 do_install[postfuncs] += "do_install_extra_files"
 do_install_extra_files () {
