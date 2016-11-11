@@ -299,7 +299,6 @@ do_configure_busybox_udhcpc () {
                -e 's|^\(CONFIG_UDHCPC_DEFAULT_SCRIPT\)=.*|\1="${datadir}/udhcpc/default.script"|' \
                -e 's/^\(CONFIG_UDHCPC_SLACK_FOR_BUGGY_SERVERS\)=.*/\1=924/' \
                -e 's|^\(CONFIG_IFUPDOWN_UDHCPC_CMD_OPTIONS\)=.*|\1="${USE_busybox_udhcpc_ifupdown_cmd_options}"|' \
-               -e 's/^\(CONFIG_FEATURE_IFUPDOWN_EXTERNAL_DHCP\)=y/\1=n/' \
         .config
 }
 BUSYBOX_SIMPLE_USE_FLAGS += "udhcpc_rfc3397::CONFIG_FEATURE_UDHCP_RFC3397"
@@ -311,9 +310,11 @@ DHCLIENT_OPTIONS:USE_busybox_dhclient_ifupdown_cmd_options = "${USE_busybox_dhcl
 DO_CONFIGURE_PREFUNCS:>USE_busybox_dhclient_ifupdown_cmd_options = " do_configure_busybox_dhclient"
 do_configure_busybox_dhclient () {
         sed -i -e 's|^\(CONFIG_IFUPDOWN_DHCLIENT_CMD_OPTIONS\)=.*|\1="${DHCLIENT_OPTIONS}"|' \
-               -e 's/^\(CONFIG_FEATURE_IFUPDOWN_EXTERNAL_DHCP\)=.*/\1=y/' \
         .config
 }
+
+BUSYBOX_SIMPLE_USE_FLAGS += "ifupdown_external_dhcp=1::\
+CONFIG_FEATURE_IFUPDOWN_EXTERNAL_DHCP"
 
 RECIPE_FLAGS += "busybox_udhcpc6"
 # USE flag: enable udhcpc6 client
