@@ -11,9 +11,9 @@ inherit autotools c++ auto-package-utils auto-package-libs
 AUTOCONFDIRS = "/config"
 
 RECIPE_FLAGS += "tiff_jpeg tiff_lzma tiff_zlib"
-DEFAULT_USE_tiff_jpeg = "1"
-DEFAULT_USE_tiff_lzma = "1"
-DEFAULT_USE_tiff_zlib = "1"
+DEFAULT_USE_tiff_jpeg = True
+DEFAULT_USE_tiff_lzma = True
+DEFAULT_USE_tiff_zlib = True
 
 # The configure script autodetects presence of lib{jpeg,lzma,z} and
 # enables/disables accordingly. So in principle one can control these
