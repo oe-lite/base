@@ -54,7 +54,7 @@ do_configure_ntpd_init() {
 }
 
 RECIPE_FLAGS += "ntpdate_ifup"
-DEFAULT_USE_ntpdate_ifup = "1"
+DEFAULT_USE_ntpdate_ifup = True
 DO_INSTALL_NTPDATE = ""
 DO_INSTALL_NTPDATE:USE_ntpdate_ifup = "do_install_ntpdate"
 do_install[postfuncs] += "${DO_INSTALL_NTPDATE}"
