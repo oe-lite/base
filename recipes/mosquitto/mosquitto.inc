@@ -14,8 +14,8 @@ S = "${SRCDIR}/mosquitto-${PV}"
 inherit c++ make auto-package-libs auto-package-utils
 
 RECIPE_FLAGS = "mosquitto_uuid mosquitto_websockets"
-DEFAULT_USE_mosquitto_uuid = "1"
-DEFAULT_USE_mosquitto_websockets = "0"
+DEFAULT_USE_mosquitto_uuid = True
+DEFAULT_USE_mosquitto_websockets = False
 
 DEPENDS = "librt libssl"
 DEPENDS:>USE_mosquitto_uuid = " libuuid"
