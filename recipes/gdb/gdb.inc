@@ -20,8 +20,8 @@ EXTRA_OECONF = "--disable-gdbtk --disable-x --disable-werror \
 	--without-lzma --without-python"
 
 RECIPE_FLAGS += "gdb_tui"
-DEFAULT_USE_gdb_tui = "1"
-DEFAULT_USE_gdb_tui:HOST_LIBC_mingw = "0"
+DEFAULT_USE_gdb_tui = True
+DEFAULT_USE_gdb_tui:HOST_LIBC_mingw = False
 GDB_DEPENDS += "${DEPENDS_TUI}"
 DEPENDS_TERMCAP = "host:libtermcap"
 DEPENDS_TERMCAP:HOST_LIBC_mingw = ""

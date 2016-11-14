@@ -30,14 +30,14 @@ EXTRA_OECONF += "${EXTRA_OECONF_THREADSAFE}"
 DEPENDS_PTHREAD = "libpthread"
 DEPENDS_PTHREAD:HOST_LIBC_mingw = ""
 DEPENDS:>USE_sqlite3_threadsafe = " ${DEPENDS_PTHREAD}"
-DEFAULT_USE_sqlite3_threadsafe = "1"
+DEFAULT_USE_sqlite3_threadsafe = True
 
 RECIPE_FLAGS += "sqlite3_readline"
 EXTRA_OECONF_READLINE = "--disable-readline"
 EXTRA_OECONF_READLINE:USE_sqlite3_readline = "--enable-readline"
 EXTRA_OECONF += "${EXTRA_OECONF_READLINE}"
 DEPENDS:>USE_sqlite3_readline = " libreadline"
-DEFAULT_USE_sqlite3_readline = "1"
+DEFAULT_USE_sqlite3_readline = True
 
 RECIPE_FLAGS += "sqlite3_extensions"
 EXTRA_OECONF_EXTENSIONS = "--disable-dynamic-extensions"

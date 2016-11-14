@@ -13,4 +13,4 @@ EXTRA_OECONF += "${EXTRA_OECONF_LIBDBI}"
 DEPENDS:>USE_enable_libdbi += " libdbi libdbi-dev"
 DEPENDS_${PN}:>USE_enable_libdbi += " libdbi"
 RDEPENDS_${PN}:>USE_enable_libdbi += " libdbi libdbd-sqlite3"
-DEFAULT_USE_enable_libdbi = "0"
+DEFAULT_USE_enable_libdbi = False

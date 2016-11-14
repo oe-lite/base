@@ -37,22 +37,22 @@ RECIPE_FLAGS += "wpa_supplicant_wps"
 WPA_SUPPLICANT_FLAGS:>USE_wpa_supplicant_wps += " CONFIG_WPS CONFIG_WPS2"
 
 RECIPE_FLAGS += "wpa_supplicant_libnl"
-DEFAULT_USE_wpa_supplicant_libnl = "1"
+DEFAULT_USE_wpa_supplicant_libnl = True
 WPA_SUPPLICANT_FLAGS:>USE_wpa_supplicant_libnl += " CONFIG_LIBNL32"
 
 RECIPE_FLAGS += "wpa_supplicant_gnutls"
-DEFAULT_USE_wpa_supplicant_gnutls = "1"
+DEFAULT_USE_wpa_supplicant_gnutls = True
 WPA_SUPPLICANT_FLAGS:>USE_wpa_supplicant_gnutls += " CONFIG_TLS=gnutls"
 CRYPTO:>USE_wpa_supplicant_gnutls = " libgnutls libgcrypt"
 CRYPTO = " libssl libcrypto"
 
 RECIPE_FLAGS += "wpa_supplicant_dbus"
-DEFAULT_USE_wpa_supplicant_dbus = "1"
+DEFAULT_USE_wpa_supplicant_dbus = True
 WPA_SUPPLICANT_FLAGS:>USE_wpa_supplicant_dbus += " CONFIG_CTRL_IFACE_DBUS CONFIG_CTRL_IFACE_DBUS_NEW"
 DEPENDS:>USE_wpa_supplicant_dbus += " libdbus-1"
 
 RECIPE_FLAGS += "wpa_supplicant_ap"
-DEFAULT_USE_wpa_supplicant_ap = "1"
+DEFAULT_USE_wpa_supplicant_ap = True
 WPA_SUPPLICANT_FLAGS:>USE_wpa_supplicant_ap += " CONFIG_AP"
 
 do_configure () {

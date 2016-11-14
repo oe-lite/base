@@ -13,7 +13,7 @@ EXTRA_OECONF_IPV6 = "--disable-ipv6"
 EXTRA_OECONF_IPV6:USE_netsnmp_ipv6 = "--enable-ipv6"
 EXTRA_OECONF += "${EXTRA_OECONF_IPV6}"
 
-DEFAULT_USE_netsnmp_mibs = "1"
+DEFAULT_USE_netsnmp_mibs = True
 RECIPE_FLAGS += "netsnmp_mibs"
 EXTRA_OECONF_MIBS = "--with-out-mib-modules=examples/ucdDemoPublic --disable-mibs --disable-mib-loading"
 EXTRA_OECONF_MIBS:USE_netsnmp_mibs = ""

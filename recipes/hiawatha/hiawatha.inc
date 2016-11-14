@@ -18,15 +18,15 @@ DEPENDS="libc libm libcrypt libpthread"
 RDEPENDS_${PN} += "${DEPENDS}"
 
 RECIPE_FLAGS += "hiawatha_cache hiawatha_debug hiawatha_ipv6 hiawatha_monitor hiawatha_rproxy hiawatha_ssl hiawatha_tomahawk hiawatha_toolkit hiawatha_xslt"
-DEFAULT_USE_hiawatha_cache	= "1"
-DEFAULT_USE_hiawatha_debug	= "0"
-DEFAULT_USE_hiawatha_ipv6	= "1"
-DEFAULT_USE_hiawatha_monitor	= "0"
-DEFAULT_USE_hiawatha_rproxy	= "1"
-DEFAULT_USE_hiawatha_ssl	= "1"
-DEFAULT_USE_hiawatha_tomahawk	= "0"
-DEFAULT_USE_hiawatha_toolkit	= "1"
-DEFAULT_USE_hiawatha_xslt	= "0"
+DEFAULT_USE_hiawatha_cache	= True
+DEFAULT_USE_hiawatha_debug	= False
+DEFAULT_USE_hiawatha_ipv6	= True
+DEFAULT_USE_hiawatha_monitor	= False
+DEFAULT_USE_hiawatha_rproxy	= True
+DEFAULT_USE_hiawatha_ssl	= True
+DEFAULT_USE_hiawatha_tomahawk	= False
+DEFAULT_USE_hiawatha_toolkit	= True
+DEFAULT_USE_hiawatha_xslt	= False
 
 ENABLE_cache				="-DENABLE_CACHE=off"
 ENABLE_cache:USE_hiawatha_cache		="-DENABLE_CACHE=ON"

@@ -42,7 +42,7 @@ EXTRA_OECONF_IPV6:USE_lighttpd_ipv6 = "--enable-ipv6"
 EXTRA_OECONF += "${EXTRA_OECONF_IPV6}"
 
 RECIPE_FLAGS += "lighttpd_pcre"
-DEFAULT_USE_lighttpd_pcre = "1"
+DEFAULT_USE_lighttpd_pcre = True
 EXTRA_OECONF_PCRE = "--without-pcre"
 EXTRA_OECONF_PCRE:USE_lighttpd_pcre = "--with-pcre"
 EXTRA_OECONF += "${EXTRA_OECONF_PCRE}"
@@ -53,7 +53,7 @@ DEPENDS_${PN} += "libc libcrypto libdl libm libpcre libssl libz"
 RDEPENDS_${PN} += "${DEPENDS_PCRE}"
 
 RECIPE_FLAGS += "lighttpd_zlib"
-DEFAULT_USE_lighttpd_zlib = "1"
+DEFAULT_USE_lighttpd_zlib = True
 EXTRA_OECONF_ZLIB = "--without-zlib"
 EXTRA_OECONF_ZLIB:USE_lighttpd_zlib = "--with-zlib"
 EXTRA_OECONF += "${EXTRA_OECONF_ZLIB}"
@@ -72,7 +72,7 @@ DEPENDS += "${DEPENDS_BZIP2}"
 RDEPENDS_${PN} += "${DEPENDS_BZIP2}"
 
 RECIPE_FLAGS += "lighttpd_ssl"
-DEFAULT_USE_lighttpd_ssl = "1"
+DEFAULT_USE_lighttpd_ssl = True
 EXTRA_OECONF_SSL = "--without-openssl"
 EXTRA_OECONF_SSL:USE_lighttpd_ssl = "--with-openssl=${STAGE_DIR}/${HOST_TYPE}${prefix}"
 EXTRA_OECONF += "${EXTRA_OECONF_SSL}"

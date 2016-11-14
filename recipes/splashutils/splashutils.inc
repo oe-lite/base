@@ -25,7 +25,7 @@ EXTRA_OECONF += "--without-lpng-src"
 EXTRA_OECONF += "--without-zlib-src"
 
 RECIPE_FLAGS += "splashutils_png"
-DEFAULT_USE_splashutils_png = "1"
+DEFAULT_USE_splashutils_png = True
 DEPENDS += "${DEPENDS_PNG}"
 DEPENDS_PNG = ""
 DEPENDS_PNG:USE_splashutils_png = "libpng12"

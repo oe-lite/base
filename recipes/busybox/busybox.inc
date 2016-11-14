@@ -46,7 +46,7 @@ SRC_URI += "\
 PACKAGES:<USE_busybox_udhcpc = "${PN}-udhcpc-scripts "
 
 RECIPE_FLAGS += "busybox_init_shutdown_umount"
-DEFAULT_USE_busybox_init_shutdown_umount = "1"
+DEFAULT_USE_busybox_init_shutdown_umount = True
 SRC_URI:>USE_busybox_init_shutdown_umount = " file://init-shutdown-umount.patch"
 
 LIB_DEPENDS = "libc libm libcrypt"

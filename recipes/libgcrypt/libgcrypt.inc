@@ -17,7 +17,7 @@ RDEPENDS_${PN} += "libgpg-error libc libcap libpthread"
 SRC_URI = "ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-${PV}.tar.gz"
 
 RECIPE_FLAGS = "libgcrypt_capabilities"
-DEFAULT_USE_libgcrypt_capabilities = "1"
+DEFAULT_USE_libgcrypt_capabilities = True
 
 EXTRA_OECONF = "--without-pth --disable-asm ${EXTRA_OECONF_CAPABILITIES}"
 EXTRA_OECONF_CAPABILITIES = "--without-capabilities"

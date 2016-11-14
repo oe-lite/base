@@ -34,7 +34,7 @@ DEFAULT_USE_bind_sysvinit_start= "20"
 DEFAULT_USE_bind_sysvinit_stop = "20"
 
 RECIPE_FLAGS += "bind_openssl"
-DEFAULT_USE_bind_openssl = "1"
+DEFAULT_USE_bind_openssl = True
 EXTRA_OECONF += "${EXTRA_OECONF_OPENSSL}"
 EXTRA_OECONF_OPENSSL = " --without-openssl"
 EXTRA_OECONF_OPENSSL:USE_bind_openssl = ""
