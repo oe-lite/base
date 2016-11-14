@@ -24,7 +24,7 @@ EXTRA_OECONF = "\
 
 RECIPE_FLAGS += "ncurses"
 EXTRA_OECONF += "${EXTRA_OECONF_NCURSES}"
-EXTRA_OECONF_NCURSES = " --without-ncurses"
+EXTRA_OECONF_NCURSES = " --without-ncurses --without-ncursesw"
 EXTRA_OECONF_NCURSES:USE_ncurses = " --with-ncurses"
 DEPENDS:>USE_ncurses = " libncurses"
 # FIXME: add ncursesw USE flag support
