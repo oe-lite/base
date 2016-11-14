@@ -112,3 +112,39 @@ do_install_hotplug() {
     fi
     install -m 0755 ${SRCDIR}/hotplug-interfaces ${D}${sbindir}
 }
+
+# Hook to generate dhcpc@ services for all dhcp enabled interfaces
+SRC_URI_S6RC += "file://net-udhcpc.hook file://udhcpc.run \
+	file://dhcp-interfaces"
+RECIPE_FLAGS += "udhcpc_s6rc_dependencies"
+DEFAULT_USE_dhcpc_s6rc_dependencies = "network-log net-rename"
+# re-use the busybox flag for better backwards compatibility
+RECIPE_FLAGS += "busybox_udhcpc_ifupdown_cmd_options"
+do_configure_netbase_s6rc:USE_s6rc += "do_configure_udhcpc"
+do_configure_udhcpc[expand] = 3
+do_configure_udhcpc() {
+    echo "${USE_busybox_udhcpc_ifupdown_cmd_options}" \
+	 > ${SRCDIR}/udhcpc.args
+    rm -f ${SRCDIR}/udhcpc.dependencies
+    for dep in ${USE_udhcpc_s6rc_dependencies} ; do
+	echo "$dep" \
+	     >> ${SRCDIR}/udhcpc.dependencies
+    done
+}
+do_install_netbase_s6rc:USE_s6rc += "do_install_udhcpc"
+do_install_udhcpc() {
+    mkdir -p ${D}${sysconfdir}/rc.hooks/udhcpc@.d/env
+    install -m 0755 ${SRCDIR}/net-udhcpc.hook \
+	    ${D}${sysconfdir}/rc.hooks/net-udhcpc
+    install -m 0755 ${SRCDIR}/udhcpc.run \
+	    ${D}${sysconfdir}/rc.hooks/udhcpc@.d/run
+    install -m 0755 ${SRCDIR}/udhcpc.args \
+	    ${D}${sysconfdir}/rc.hooks/udhcpc@.d/env/ARGS
+    echo longrun \
+	 > ${D}${sysconfdir}/rc.hooks/udhcpc@.d/type
+    if test -e ${SRCDIR}/udhcpc.dependencies ; then
+	install -m 0755 ${SRCDIR}/udhcpc.dependencies \
+		${D}${sysconfdir}/rc.hooks/udhcpc@.d/dependencies
+    fi
+    install -m 0755 ${SRCDIR}/dhcp-interfaces ${D}${sbindir}
+}
