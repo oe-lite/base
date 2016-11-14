@@ -28,6 +28,16 @@ EXTRA_OECONF = "\
     --with-export-libdir=${libdir} \
 "
 
+RECIPE_FLAGS += "bind_zlib"
+EXTRA_OECONF_ZLIB = "--without-zlib"
+EXTRA_OECONF_ZLIB:USE_bind_zlib = "--with-zlib"
+EXTRA_OECONF += "${EXTRA_OECONF_ZLIB}"
+DEPENDS:>USE_bind_zlib = " libz"
+DEPENDS_${PN}:>USE_bind_zlib = " libz"
+RDEPENDS_${PN}:>USE_bind_zlib = " libz"
+DEPENDS_${PN}-utils:>USE_bind_zlib = " libz"
+RDEPENDS_${PN}-utils:>USE_bind_zlib = " libz"
+
 RECIPE_FLAGS += "bind_sysvinit_start bind_sysvinit_stop"
 SYSVINI_SCRIPT_bind = "bind"
 DEFAULT_USE_bind_sysvinit_start= "20"
