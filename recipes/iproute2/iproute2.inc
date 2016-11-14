@@ -9,17 +9,23 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit autotools-autoreconf pkgconfig auto-package-utils
 
-SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/shemminger/iproute2.git;commit=${GIT_COMMIT}"
-S = "${SRCDIR}/iproute2"
+SRC_URI="https://www.kernel.org/pub/linux/utils/net/${PN}/${PN}-${PV}.tar.xz"
 
-DEPENDS += "libdl libresolv libm libdb4 libnl-3 native:bison native:flex"
+DEPENDS += "libdl iptables-dev libmnl"
 
-do_compile[prefuncs] += "do_compile_add_libnl"
-do_compile_add_libnl () {
-	sed -i -e 's#^\(CFLAGS.*\)#\1 -I\${STAGE_DIR}\/\${HOST_TYPE}\/usr\/include\/libnl3\/#' Makefile
+do_configure() {
+	echo "PKG_CONFIG:=pkg-config" > Config
+	echo "AR:=${AR}" >> Config
+	echo "CC:=${CC}" >> Config
+	echo "TC_CONFIG_XT:=y" >> Config
+	echo "TC_CONFIG_IPSET:=y" >> Config
+	echo "IPT_LIB_DIR:=/usr/lib/xtables" >> Config
+	echo "IP_CONFIG_SETNS:=y" >> Config
+	echo "HAVE_MNL:=y" >> Config
+	echo >> Config
+	echo "%.o: %.c" >> Config
+	echo "	\$(QUIET_CC)\$(CC) \$(CFLAGS) \$(EXTRA_CFLAGS) -c -o \$@ $<" >> Config
 }
-
-EXTRA_OEMAKE = "CC='${CC}' DESTDIR=${S} LIBDIR=${libdir} SBINDIR=${base_sbindir} CONFDIR=${sysconfdir}/iproute2 DOCDIR=${docdir}/iproute2 MANDIR=${mandir} ARPDDIR=${localstatedir}/lib/arpd SUBDIRS='lib tc ip' SBINDIR=${base_sbindir}"
 
 FILES_${PN} += "${base_libdir}/tc/*"
 FILES_${PN}-dbg += "${base_libdir}/tc/.debug"
@@ -34,7 +40,5 @@ RDEPENDS_${PN}-tc += "libc libm libdl"
 
 PACKAGES =+ " ${PN}-config"
 FILES_${PN}-config = "${sysconfdir}/iproute2/*"
-RDEPENDS_${PN} += "${PN}-config"
-
-RECIPE_FLAGS = "iproute2_rt_tables"
-RDEPENDS_${PN}-ip:>USE_iproute2_rt_tables = " iproute2"
+DEPENDS_${PN} += "libc libdl libm libmnl"
+RDEPENDS_${PN} += "libc libdl libm libmnl ${PN}-config"
