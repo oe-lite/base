@@ -1,11 +1,9 @@
-inherit sysvinit autotools-autoreconf
-AUTOTOOLS_DISTCLEAN = "0"
+inherit sysvinit
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
-SRC_URI = "http://www.tildeslash.com/monit/dist/monit-${PV}.tar.gz\
+SRC_URI = " \
 	file://monit \
-	file://fix-rebuild.patch \
 	"
 
 LICENSE = "AGPL-3.0"
