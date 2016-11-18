@@ -1,8 +1,5 @@
-LICENSE = "AGPL-3.0"
-DEPENDS = "libssl libpthread libcrypto libdl libcrypt"
-DEPENDS_${PN} = "libssl libpthread libcrypto libc libcrypt"
-RDEPENDS_${PN} = "libssl libpthread libcrypto libc libcrypt"
-inherit sysvinit
+inherit sysvinit autotools-autoreconf
+AUTOTOOLS_DISTCLEAN = "0"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
@@ -11,11 +8,14 @@ SRC_URI = "http://www.tildeslash.com/monit/dist/monit-${PV}.tar.gz\
 	file://fix-rebuild.patch \
 	"
 
+LICENSE = "AGPL-3.0"
+
+DEPENDS = "libssl libpthread libcrypto libdl libcrypt"
+DEPENDS_${PN} = "libssl libpthread libcrypto libc libcrypt"
+RDEPENDS_${PN} = "libssl libpthread libcrypto libc libcrypt"
+
 RECIPE_FLAGS = "monit_sysvinit_start"
 DEFAULT_USE_monit_sysvinit_start = "99"
-
-inherit autotools-autoreconf
-AUTOTOOLS_DISTCLEAN = "0"
 
 # Workaround bug in monit config
 EXTRA_OECONF = "--with-ssl-lib-dir=${TARGET_SYSROOT}${libdir} --with-ssl-incl-dir=${TARGET_SYSROOT}${includedir}"
