@@ -1,4 +1,4 @@
-DESRIPTION = "A powerful, fast, lightweight, embeddable scripting language"
+DESCRIPTION = "A powerful, fast, lightweight, embeddable scripting language"
 
 inherit c make auto-package-utils
 
