@@ -1,4 +1,4 @@
-DESCRIPTON = "Init script for initramfs"
+DESCRIPTION = "Init script for initramfs"
 
 SRC_URI += "file://init"
 
