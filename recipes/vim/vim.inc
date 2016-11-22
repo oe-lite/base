@@ -7,7 +7,7 @@ inherit autotools
 SRC_URI = "ftp://ftp.vim.org/pub/vim/unix/${PN}-${PV}.tar.bz2"
 SRC_URI += "file://vimrc"
 
-VIM_S = "vim${@bb.data.getVar('PV',d,1).replace('.','')}"
+VIM_S = "vim${@d.get('PV').replace('.','')}"
 
 S = "${SRCDIR}/${VIM_S}/src"
 
