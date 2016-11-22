@@ -1,5 +1,5 @@
 DESCRIPTION = "MySQL UDFs that allows one to interact with the operating system"
-HOME_PAGE = "http://www.mysqludf.org/"
+HOMEPAGE = "http://www.mysqludf.org/"
 LICENSE = "BSD style"
 
 SRC_URI = "https://github.com/mysqludf/lib_mysqludf_sys/archive/master.zip"
