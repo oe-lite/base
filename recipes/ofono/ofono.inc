@@ -1,4 +1,4 @@
-DESCRIPTTION = "oFono is a free software project for mobile telephony (GSM/UMTS) applications"
+DESCRIPTION = "oFono is a free software project for mobile telephony (GSM/UMTS) applications"
 LICENSE = "GPL-2.0"
 
 SRC_URI = "https://www.kernel.org/pub/linux/network/ofono/ofono-${PV}.tar.xz"
