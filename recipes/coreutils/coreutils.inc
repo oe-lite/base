@@ -43,9 +43,9 @@ AUTO_PACKAGE_UTILS = "chown dd expr install mkfifo od readlink sha384sum stty tr
 
 AUTO_PACKAGE_UTILS_RDEPENDS:>USE_singlebin += "${PN}"
 
-REPENDS_SINGLEBIN = "${AUTO_PACKAGE_UTILS_PACKAGES}"
-REPENDS_SINGLEBIN:USE_singlebin = ""
+RDEPENDS_SINGLEBIN = "${AUTO_PACKAGE_UTILS_PACKAGES}"
+RDEPENDS_SINGLEBIN:USE_singlebin = ""
 DEPENDS_${PN} += " libc libcap libgmp libiconv"
-RDEPENDS_${PN} += "${REPENDS_SINGLEBIN} libc libcap libgmp libiconv"
+RDEPENDS_${PN} += "${RDEPENDS_SINGLEBIN} libc libcap libgmp libiconv"
 
 FILES_${PN}-test += "${bindir}/["
