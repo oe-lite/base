@@ -2,7 +2,5 @@ require monit.inc
 
 inherit autotools
 
-SRC_URI += "https://bitbucket.org/tildeslash/monit/downloads/monit-${PV}.tar.gz"
-
 DEPENDS += "libz libm"
 RDEPENDS_${PN} += "libz libm"
