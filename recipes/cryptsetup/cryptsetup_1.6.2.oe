@@ -34,7 +34,7 @@ AUTO_PACKAGE_UTILS = "cryptsetup veritysetup"
 AUTO_PACKAGE_UTILS_RDEPENDS += "libpopt libc"
 
 AUTO_PACKAGE_LIBS = "${PN}"
-AUTO_PACKAGE_LIB_DEV_DEPENDS = "libuuid libdevmapper libgcrypt"
-AUTO_PACKAGE_LIB_RDEPENDS = "libuuid libdevmapper libgcrypt libgpg-error libc"
+AUTO_PACKAGE_LIBS_DEV_DEPENDS = "libuuid libdevmapper libgcrypt"
+AUTO_PACKAGE_LIBS_RDEPENDS = "libuuid libdevmapper libgcrypt libgpg-error libc"
 
 RDEPENDS_${PN} = "${AUTO_PACKAGE_UTILS_PACKAGES} ${LIBS_AUTO_RPACKAGES}"
