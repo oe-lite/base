@@ -3,6 +3,7 @@ inherit sysvinit
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
 SRC_URI = " \
+	https://mmonit.com/monit/dist/monit-${PV}.tar.gz \
 	file://monit \
 	"
 
