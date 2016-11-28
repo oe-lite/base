@@ -9,8 +9,8 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 inherit autotools autotools-autoreconf gettext
 
 require conf/fetch/kernelorg.conf
-MA = "${@bb.data.getVar('PV', d, 1).split('.')[0]}"
-MI = "${@bb.data.getVar('PV', d, 1).split('-')[0].split('.')[1]}"
+MA = "${@d.get('PV').split('.')[0]}"
+MI = "${@d.get('PV').split('-')[0].split('.')[1]}"
 UTIL_LINUX_EXTENTION ?= ".tar.bz2"
 SRC_URI = "${KERNELORG_MIRROR}/linux/utils/${PN}/v${MA}.${MI}/${P}${UTIL_LINUX_EXTENTION}"
 

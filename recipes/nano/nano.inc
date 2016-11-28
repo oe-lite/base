@@ -9,8 +9,8 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 
 DEPENDS = "libncurses native:texinfo"
 
-PV_MAJOR = "${@bb.data.getVar('PV',d,1).split('.')[0]}"
-PV_MINOR = "${@bb.data.getVar('PV',d,1).split('.')[1]}"
+PV_MAJOR = "${@d.get('PV').split('.')[0]}"
+PV_MINOR = "${@d.get('PV').split('.')[1]}"
 SRC_URI = "http://www.nano-editor.org/dist/v${PV_MAJOR}.${PV_MINOR}/nano-${PV}.tar.${TAREXT}"
 
 EXTRA_OECONF = "\
