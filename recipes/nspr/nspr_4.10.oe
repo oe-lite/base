@@ -59,7 +59,7 @@ SOLIBS = ".so"
 SOLIBSDEV = ".so.*"
 
 AUTO_PACKAGE_LIBS = "nspr4 plc4 plds4"
-AUTO_PACKAGE_LIB_RDEPENDS = "libpthread libdl librt libc"
+AUTO_PACKAGE_LIBS_RDEPENDS = "libpthread libdl librt libc"
 
 RDEPENDS_${PN} = "libnspr4 libplc4 libplds4"
 

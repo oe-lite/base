@@ -1,4 +1,4 @@
 require ${PN}.inc
-LICENCE = "MIT"
+LICENSE = "MIT"
 
 SRC_URI += "file://makefile.patch"
