@@ -7,7 +7,7 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 inherit autotools gettext
 RECIPE_TYPES = "native machine sdk"
 
-DEPENDS = "zlib bzip2"
+DEPENDS = "zlib bzip2 libgpg-error-config"
 
 SRC_URI = "ftp://ftp.gnupg.org/gcrypt/gnupg/gnupg-${PV}.tar.bz2"
 

@@ -1,11 +1,11 @@
 SUMMARY = "Easy API to create and parse X.509 and CMS related objects"
 HOMEPAGE = "http://www.gnupg.org/related_software/libksba/"
-LICENSE = "GPLv2+ | LGPLv3+ | GPLv3+"
+LICENSE = "GPL-2.0+ | LGPL-3.0+ | GPL-3.0+"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 RECIPE_TYPES = "native machine sdk"
 
-DEPENDS = "libgpg-error"
+DEPENDS = "libgpg-error libgpg-error-config"
 
 inherit autotools pkgconfig library auto-package-utils binconfig
 
