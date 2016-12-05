@@ -19,7 +19,7 @@ SRC_URI = "ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-${PV}.tar.gz"
 RECIPE_FLAGS = "libgcrypt_capabilities"
 DEFAULT_USE_libgcrypt_capabilities = True
 
-EXTRA_OECONF = "--without-pth --disable-asm --with-gpg-error-prefix=${MACHINE_SYSROOT}/usr ${EXTRA_OECONF_CAPABILITIES}"
+EXTRA_OECONF = "--disable-asm --with-gpg-error-prefix=${TARGET_SYSROOT}${target_prefix} ${EXTRA_OECONF_CAPABILITIES}"
 EXTRA_OECONF_CAPABILITIES = "--without-capabilities"
 EXTRA_OECONF_CAPABILITIES:USE_libgcrypt_capabilities = "--with-capabilities"
 
