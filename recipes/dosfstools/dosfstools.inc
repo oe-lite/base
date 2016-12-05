@@ -10,7 +10,7 @@ RECIPE_TYPES = "machine native sdk"
 COMPATIBLE_HOST_ARCHS = ".*linux .*darwin"
 
 SRC_URI = "https://github.com/${PN}/${PN}/releases/download/v${PV}/${P}.tar.xz"
-inherit c autotools
+inherit c autotools pkgconfig
 
 # output of getconf LFS_CFLAGS
 #
