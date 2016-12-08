@@ -1,0 +1,198 @@
+From 20a3262cd756aadf8771969a4764cd3c571f0a3e Mon Sep 17 00:00:00 2001
+From: Denys Vlasenko <vda.linux@googlemail.com>
+Date: Wed, 7 Sep 2016 14:09:01 +0200
+Subject: mdev: create devices from /sys/dev
+
+Currently some new devices that have a bus but no class will
+be missed by mdev coldplug device creation after boot. This
+happens because mdev recursively searches /sys/class which will
+by definition only find class devices.
+
+Some important devices such as iio and gpiochip does not have
+a class. But users will need them.
+
+This switches from using /sys/class as the place to look for
+devices to create to using /sys/dev where all char and block
+devices are listed.
+
+The subsystem lookup code that provide the G.subsystem
+environment variable is changed from using the directory
+name of the class device to instead dereference the
+"subsystem" symlink for the device, and look at the last
+element of the path of the symlink for the subsystem, which
+will work with class devices and bus devices alike. (The new
+bus-only devices only symlink to the /sys/bus/* hierarchy.)
+
+We delete the legacy kernel v2.6.2x /sys/block device path
+code as part of this change. It's too old to be kept alive.
+
+Tested on kernel v4.6-rc2 with a bunch of devices, including
+some IIO and gpiochip devices.
+
+With a print inserted before make_device() the log looks
+like so:
+
+Create device from "/sys/dev/char/1:1", subsystem "mem"
+Create device from "/sys/dev/char/1:2", subsystem "mem"
+Create device from "/sys/dev/char/1:3", subsystem "mem"
+Create device from "/sys/dev/char/1:5", subsystem "mem"
+(...)
+Create device from "/sys/dev/block/179:56", subsystem "block"
+Create device from "/sys/dev/block/179:64", subsystem "block"
+
+function                                             old     new   delta
+mdev_main                                           1388    1346     -42
+dirAction                                            134      14    -120
+------------------------------------------------------------------------------
+(add/remove: 0/0 grow/shrink: 0/2 up/down: 0/-162)           Total: -162 bytes
+
+Cc: Isaac Dunham <ibid.ag@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jonathan Cameron <jic23@cam.ac.uk>
+Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+Signed-off-by: Denys Vlasenko <vda.linux@googlemail.com>
+---
+ util-linux/mdev.c | 88 ++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 41 insertions(+), 47 deletions(-)
+
+diff --git a/util-linux/mdev.c b/util-linux/mdev.c
+index 37514eb..a59115d 100644
+--- a/util-linux/mdev.c
++++ b/util-linux/mdev.c
+@@ -543,8 +543,7 @@ static char *build_alias(char *alias, const char *device_name)
+ 
+ /* mknod in /dev based on a path like "/sys/block/hda/hda1"
+  * NB1: path parameter needs to have SCRATCH_SIZE scratch bytes
+- * after NUL, but we promise to not mangle (IOW: to restore NUL if needed)
+- * path string.
++ * after NUL, but we promise to not mangle it (IOW: to restore NUL if needed).
+  * NB2: "mdev -s" may call us many times, do not leak memory/fds!
+  *
+  * device_name = $DEVNAME (may be NULL)
+@@ -810,41 +809,39 @@ static void make_device(char *device_name, char *path, int operation)
+ 	} /* for (;;) */
+ }
+ 
+-/* File callback for /sys/ traversal */
++/* File callback for /sys/ traversal.
++ * We act only on "/sys/.../dev" (pseudo)file
++ */
+ static int FAST_FUNC fileAction(const char *fileName,
+ 		struct stat *statbuf UNUSED_PARAM,
+ 		void *userData,
+ 		int depth UNUSED_PARAM)
+ {
+ 	size_t len = strlen(fileName) - 4; /* can't underflow */
+-	char *scratch = userData;
+-
+-	/* len check is for paranoid reasons */
+-	if (strcmp(fileName + len, "/dev") != 0 || len >= PATH_MAX)
+-		return FALSE;
+-
+-	strcpy(scratch, fileName);
+-	scratch[len] = '\0';
+-	make_device(/*DEVNAME:*/ NULL, scratch, OP_add);
+-
+-	return TRUE;
+-}
+-
+-/* Directory callback for /sys/ traversal */
+-static int FAST_FUNC dirAction(const char *fileName UNUSED_PARAM,
+-		struct stat *statbuf UNUSED_PARAM,
+-		void *userData UNUSED_PARAM,
+-		int depth)
+-{
+-	/* Extract device subsystem -- the name of the directory
+-	 * under /sys/class/ */
+-	if (1 == depth) {
++	char *path = userData;	/* char array[PATH_MAX + SCRATCH_SIZE] */
++	char subsys[PATH_MAX];
++	int res;
++
++	/* Is it a ".../dev" file? (len check is for paranoid reasons) */
++	if (strcmp(fileName + len, "/dev") != 0 || len >= PATH_MAX - 32)
++		return FALSE; /* not .../dev */
++
++	strcpy(path, fileName);
++	path[len] = '\0';
++
++	/* Read ".../subsystem" symlink in the same directory where ".../dev" is */
++	strcpy(subsys, path);
++	strcpy(subsys + len, "/subsystem");
++	res = readlink(subsys, subsys, sizeof(subsys)-1);
++	if (res > 0) {
++		subsys[res] = '\0';
+ 		free(G.subsystem);
+ 		if (G.subsys_env) {
+ 			bb_unsetenv_and_free(G.subsys_env);
+ 			G.subsys_env = NULL;
+ 		}
+-		G.subsystem = strrchr(fileName, '/');
++		/* Set G.subsystem and $SUBSYSTEM from symlink's last component */
++		G.subsystem = strrchr(subsys, '/');
+ 		if (G.subsystem) {
+ 			G.subsystem = xstrdup(G.subsystem + 1);
+ 			G.subsys_env = xasprintf("%s=%s", "SUBSYSTEM", G.subsystem);
+@@ -852,6 +849,17 @@ static int FAST_FUNC dirAction(const char *fileName UNUSED_PARAM,
+ 		}
+ 	}
+ 
++	make_device(/*DEVNAME:*/ NULL, path, OP_add);
++
++	return TRUE;
++}
++
++/* Directory callback for /sys/ traversal */
++static int FAST_FUNC dirAction(const char *fileName UNUSED_PARAM,
++		struct stat *statbuf UNUSED_PARAM,
++		void *userData UNUSED_PARAM,
++		int depth)
++{
+ 	return (depth >= MAX_SYSFS_DEPTH ? SKIP : TRUE);
+ }
+ 
+@@ -872,8 +880,9 @@ static void load_firmware(const char *firmware, const char *sysfs_path)
+ 	int firmware_fd, loading_fd;
+ 
+ 	/* check for /lib/firmware/$FIRMWARE */
+-	xchdir("/lib/firmware");
+-	firmware_fd = open(firmware, O_RDONLY); /* can fail */
++	firmware_fd = -1;
++	if (chdir("/lib/firmware") == 0)
++		firmware_fd = open(firmware, O_RDONLY); /* can fail */
+ 
+ 	/* check for /sys/$DEVPATH/loading ... give 30 seconds to appear */
+ 	xchdir(sysfs_path);
+@@ -1065,25 +1074,10 @@ int mdev_main(int argc UNUSED_PARAM, char **argv)
+ 
+ 		putenv((char*)"ACTION=add");
+ 
+-		/* ACTION_FOLLOWLINKS is needed since in newer kernels
+-		 * /sys/block/loop* (for example) are symlinks to dirs,
+-		 * not real directories.
+-		 * (kernel's CONFIG_SYSFS_DEPRECATED makes them real dirs,
+-		 * but we can't enforce that on users)
+-		 */
+-		if (access("/sys/class/block", F_OK) != 0) {
+-			/* Scan obsolete /sys/block only if /sys/class/block
+-			 * doesn't exist. Otherwise we'll have dupes.
+-			 * Also, do not complain if it doesn't exist.
+-			 * Some people configure kernel to have no blockdevs.
+-			 */
+-			recursive_action("/sys/block",
+-				ACTION_RECURSE | ACTION_FOLLOWLINKS | ACTION_QUIET,
+-				fileAction, dirAction, temp, 0);
+-		}
+-		recursive_action("/sys/class",
+-			ACTION_RECURSE | ACTION_FOLLOWLINKS,
+-			fileAction, dirAction, temp, 0);
++		/* Create all devices from /sys/dev hierarchy */
++		recursive_action("/sys/dev",
++				 ACTION_RECURSE | ACTION_FOLLOWLINKS,
++				 fileAction, dirAction, temp, 0);
+ 	} else {
+ 		char *fw;
+ 		char *seq;
+-- 
+cgit v0.12
+
