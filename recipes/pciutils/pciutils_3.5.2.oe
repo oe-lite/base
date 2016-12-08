@@ -8,6 +8,7 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 LICENSE = "GPL-2.0+"
 
 inherit c make
+inherit pkgconfig
 DEPENDS += "libz libresolv"
 
 require conf/fetch/kernelorg.conf
