@@ -3,7 +3,7 @@ DESCRIPTION = "Network Packet Capture Library"
 HOMEPAGE = "http://www.tcpdump.org/"
 LICENSE = "Modified BSD-3-Clause"
 
-RECIPE_TYPES = "machine"
+RECIPE_TYPES = "native machine"
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit autotools siteinfo library binconfig
