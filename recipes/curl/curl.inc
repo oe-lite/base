@@ -11,7 +11,7 @@ HOMEPAGE = "http://curl.haxx.se/"
 
 SRC_URI = "http://curl.haxx.se/download/${PN}-${PV}.tar.gz"
 
-RECIPE_TYPES = "machine native"
+RECIPE_TYPES = "machine native sdk"
 
 inherit autotools pkgconfig binconfig library auto-package-utils largefile
 
