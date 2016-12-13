@@ -34,7 +34,7 @@ EXTRA_OECONF:>USE_tiff_zlib = " --enable-zlib"
 
 USE_FLAG_DEPENDS = "${TIFF_JPEG} ${TIFF_LZMA} ${TIFF_ZLIB}"
 
-DEPENDS += "libc libgcc-s libm libstdc++ ${USE_FLAG_DEPENDS}"
+DEPENDS += "libc libgcc libm libstdc++ ${USE_FLAG_DEPENDS}"
 
 AUTO_PACKAGE_UTILS = "\
   bmp2tiff    \
@@ -68,5 +68,5 @@ AUTO_PACKAGE_UTILS_RDEPENDS = "libc libm libtiff ${USE_FLAG_DEPENDS}"
 AUTO_PACKAGE_LIBS = "tiff tiffxx"
 AUTO_PACKAGE_LIBS_DEPENDS = "libc libm tiff-dev ${USE_FLAG_DEPENDS}"
 AUTO_PACKAGE_LIBS_RDEPENDS = "libc libm ${USE_FLAG_DEPENDS}"
-DEPENDS_${PN}-libtiffxx += "libgcc-s libstdc++ libtiff"
-RDEPENDS_${PN}-libtiffxx += "libgcc-s libstdc++ libtiff"
+DEPENDS_${PN}-libtiffxx += "libgcc libstdc++ libtiff"
+RDEPENDS_${PN}-libtiffxx += "libgcc libstdc++ libtiff"
