@@ -15,6 +15,7 @@ FILES_${PN} = "${base_bindir}/${PN}"
 DEPENDS_${PN} = "libc"
 RDEPENDS_${PN} = "libc"
 EXTRA_OECONF = "--disable-manpages --bindir=${base_bindir}"
+EXTRA_OECONF += "--with-bashcompletiondir=${datadir}/bash-completion/completions"
 
 AUTO_PACKAGE_LIBS = "kmod"
 AUTO_PACKAGE_LIBS_DEPENDS = "libc"
