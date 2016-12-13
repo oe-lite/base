@@ -1,5 +1,7 @@
 require gnupg.inc
 
+RECIPE_TYPES = "machine"
+
 inherit pkgconfig binconfig
 
 DEPENDS += "readline libgpg-error-dev libgcrypt-dev libassuan-dev libassuan \
