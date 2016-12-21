@@ -5,9 +5,15 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 SRC_URI = " \
 	https://mmonit.com/monit/dist/monit-${PV}.tar.gz \
 	file://monit \
+	file://fix-rebuild.patch \
 	"
 
 LICENSE = "AGPL-3.0"
+
+# Upstream explicitly says "Do not run make in parallel" in response
+# to a bug where the reporter used -j2.
+# <https://bitbucket.org/tildeslash/monit/issues/238/make-failed>
+PARALLEL_MAKE = ""
 
 DEPENDS = "libssl libpthread libcrypto libdl libcrypt"
 DEPENDS_${PN} = "libssl libpthread libcrypto libc libcrypt"
