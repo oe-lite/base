@@ -18,12 +18,8 @@ AUTO_PACKAGE_UTILS_SYMLINKS_bzdiff = "bzcmp"
 AUTO_PACKAGE_UTILS_SYMLINKS_bzgrep = "bzegrep bzfgrep"
 AUTO_PACKAGE_UTILS_SYMLINKS_bzmore = "bzless"
 
-RDEPENDS_${PN} = "${PN}-bzip2 ${PN}-bzdiff ${PN}-bzgrep ${PN}-bzip2recover ${PN}-bzmore"
-RDEPENDS_${PN}-bzip2 = "${PN}-libbz2"
-RDEPENDS_${PN}-bzdiff = "${PN}-libbz2"
-RDEPENDS_${PN}-bzgrep = "${PN}-libbz2"
-RDEPENDS_${PN}-bzip2recover = "${PN}-libbz2"
-RDEPENDS_${PN}-bzmore = "${PN}-libbz2"
+AUTO_PACKAGE_UTILS_RDEPENDS = "libbz2"
+RDEPENDS_${PN} = "${AUTO_PACKAGE_UTILS_PACKAGES}"
 
 do_autoreconf[prefuncs] += "do_autoreconf_prep"
 do_autoreconf_prep() {
