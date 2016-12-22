@@ -1,3 +1,14 @@
+Forcing do_configure to run again consistently fails without this
+patch applied. That is, doing
+
+  oe bake monit -y # from clean state
+  rm tmp/stamp/machine/arm-926ejs-linux-gnueabi/monit-5.20.0/do_configure
+  oe bake monit -y # this fails
+
+Source: OE-lite
+Upstream-status: not submitted
+
+
 --- a/libmonit/test/Makefile.am~	2012-05-06 11:40:45.000000000 +0200
 +++ b/libmonit/test/Makefile.am	2013-05-06 10:58:41.502912238 +0200
 @@ -31,9 +31,6 @@
