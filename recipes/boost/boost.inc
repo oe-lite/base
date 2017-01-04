@@ -162,7 +162,6 @@ LIBRARY_VERSION = "1"
 PACKAGES += "${PN}-full ${PN}-full-dev"
 RDEPENDS_${PN}-full += "${LIBS_AUTO_RPACKAGES}"
 addhook add_deps to post_recipe_parse after auto_package_libs before blacklist
-do_fetch[prefuncs] += "add_deps"
 def add_deps(d):
     pn = (d.get('PN') or '')
     rdeps = (d.get('LIBS_AUTO_RPACKAGES') or '').split( )
