@@ -4,7 +4,7 @@ COMPATIBLE_HOST_ARCHS = ".*linux"
 
 inherit autotools auto-package-utils
 
-SRC_URI = "http://dl.lm-sensors.org/i2c-tools/releases/i2c-tools-${PV}.tar.bz2"
+SRC_URI = "http://downloads.yoctoproject.org/mirror/sources/i2c-tools-${PV}.tar.bz2"
 SRC_URI += "file://Module.mk"
 
 do_configure[postfuncs] += "do_configure_eepromer_makefile"
