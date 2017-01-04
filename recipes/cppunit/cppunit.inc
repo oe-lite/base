@@ -25,3 +25,5 @@ RDEPENDS_${PN} = "libdl libm libc libgcc-s libstdc++"
 AUTO_PACKAGE_UTILS = "cppunit-config DllPlugInTester"
 AUTO_PACKAGE_UTILS_DEPENDS ="${PN}"
 AUTO_PACKAGE_UTILS_RDEPENDS = "${PN}"
+
+EXTRA_OECONF += "--disable-doxygen --disable-dot"
