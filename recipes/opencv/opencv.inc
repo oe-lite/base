@@ -7,7 +7,7 @@ LICENSE = "BSD-3-Clause"
 
 ARM_INSTRUCTION_SET = "arm"
 
-DEPENDS_LIBC = "librt libc"
+DEPENDS_LIBC = "librt libc libdl"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
 DEPENDS += "${DEPENDS_LIBC} libbz2 libz libglib"
 SRC_URI = "https://github.com/Itseez/${PN}/archive/${PV}.tar.gz \
@@ -43,7 +43,7 @@ FILES_${PN}-dbg += "${libdir}/.debug"
 FILES_${PN}-dev = "${libdir}/*.a ${includedir} ${libdir}/pkgconfig"
 FILES_${PN}-doc = "${datadir}/OpenCV/doc"
 
-CDEPS = "libdl libgcc libm libpng16 libpthread ${DEPENDS_LIBC} libstdc++"
+CDEPS = "libgcc libm libpng16 libpthread ${DEPENDS_LIBC} libstdc++"
 DEPENDS_${PN} += "${CDEPS} libjpeg libz"
 RDEPENDS_${PN} += "${CDEPS} libjpeg libz"
 DEPENDS_${PN}-apps += "${CDEPS}"
