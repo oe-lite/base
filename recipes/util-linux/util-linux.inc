@@ -6,7 +6,7 @@ RECIPE_TYPES = "machine native sdk"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
-inherit autotools autotools-autoreconf gettext
+inherit autotools autotools-autoreconf gettext pkgconfig
 
 require conf/fetch/kernelorg.conf
 MA = "${@d.get('PV').split('.')[0]}"
@@ -23,9 +23,9 @@ EXTRA_OECONF = "\
 "
 
 RECIPE_FLAGS += "ncurses"
-EXTRA_OECONF += "${EXTRA_OECONF_NCURSES}"
-EXTRA_OECONF_NCURSES = " --without-ncurses --without-ncursesw"
-EXTRA_OECONF_NCURSES:USE_ncurses = " --with-ncurses"
+EXTRA_OECONF += " --without-ncursesw ${EXTRA_OECONF_NCURSES}"
+EXTRA_OECONF_NCURSES = " --without-ncurses"
+EXTRA_OECONF_NCURSES:USE_ncurses = " --with-ncurses --disable-widechar"
 DEPENDS:>USE_ncurses = " libncurses"
 # FIXME: add ncursesw USE flag support
 
