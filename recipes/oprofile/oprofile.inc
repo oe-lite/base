@@ -8,7 +8,7 @@ LICENSE = "LGPL-2.1+ & GPL-2.0"
 
 inherit autotools pkgconfig c++
 
-DEPENDS = "libpopt libbfd librt libz kernel-dev"
+DEPENDS = "libpopt libbfd librt libz kernel-dev libiberty libdl"
 
 COMPATIBLE_MACHINES = ".*"
 
