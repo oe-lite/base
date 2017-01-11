@@ -16,8 +16,6 @@ FILES_${PN} = "${bindir} ${libdir}/${PN}/lib*${SOLIBS} ${datadir}/${PN}"
 FILES_${PN}-dev += "${libdir}/${PN}/lib*${SOLIBSDEV} ${libdir}/${PN}/lib*.la"
 FILES_${PN}-staticdev += "${libdir}/${PN}/lib*.a"
 
-SRC_URI += "file://opstart.patch"
-
 EXTRA_OECONF = "--with-kernel=${HOST_SYSROOT}${kernelsrcdir} --without-x"
 
 #NOTE: package-qa fails since a specific version of libbfd is needed
