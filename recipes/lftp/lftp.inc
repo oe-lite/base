@@ -14,7 +14,7 @@ COMMON_DEPENDS = "libncurses libreadline libstdc++ libm libgcc libc libz"
 DEPENDS_${PN} = "${COMMON_DEPENDS}"
 RDEPENDS_${PN} = "${COMMON_DEPENDS}"
 
-LFTP_MIRROR = "http://lftp.yar.ru/ftp"
+LFTP_MIRROR = "ftp://ftp.st.ryukoku.ac.jp/pub/network/ftp/lftp"
 
 SRC_URI = "${LFTP_MIRROR}/lftp-${PV}.tar.bz2"
 SRC_URI += "file://config.site"

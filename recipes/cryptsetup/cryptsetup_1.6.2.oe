@@ -2,7 +2,7 @@ SUMMARY = "cryptsetup is used to conveniently setup dm-crypt managed block devic
 DESCRIPTION = "While LUKS is a standard on-disk format, there is also a reference implementation. LUKS for dm-crypt is implemented in an enhanced version of cryptsetup."
 HOMEPAGE="http://code.google.com/p/cryptsetup/"
 LICENSE="GPLv2"
-SRC_URI = "http://cryptsetup.googlecode.com/files/cryptsetup-1.6.2.tar.bz2"
+SRC_URI = "http://mirror2.openwrt.org/sources/${PN}-${PV}.tar.bz2"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
