@@ -39,7 +39,7 @@ do_configure_system_watchdog() {
 }
 
 S6RC_ONESHOT_SERVICES += "hostname"
-RECIPE_FLAGS += "hostname_s6rc_timeout_up"
+RECIPE_FLAGS += "hostname_s6rc_dependencies hostname_s6rc_timeout_up"
 SRC_URI += "file://hostname.up"
 
 S6RC_LONGRUN_SERVICES += "devd devd-log"
