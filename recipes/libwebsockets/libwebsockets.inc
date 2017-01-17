@@ -5,7 +5,7 @@ HOMEPAGE = "https://libwebsockets.org/"
 COMPATIBLE_HOST_ARCHS = ".*linux"
 RECIPE_TYPES = "machine"
 
-SRC_URI = "git://git.libwebsockets.org/libwebsockets.git;protocol=git;tag=v${PV}"
+SRC_URI = "git://github.com/warmcat/libwebsockets;tag=v${PV}"
 S = "${SRCDIR}/${PN}"
 
 inherit cmake library auto-package-utils
