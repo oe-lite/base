@@ -106,11 +106,13 @@ do_install() {
 }
 
 BOOST_LIBS = "\
+	atomic context coroutine \
 	chrono date_time filesystem graph iostreams math \
 	program_options random regex serialization signals system \
 	thread test wave"
 
 AUTO_PACKAGE_LIBS = "\
+	boost_atomic boost_context boost_coroutine \
 	boost_chrono boost_date_time boost_filesystem boost_graph \
 	boost_iostreams boost_math_c99f boost_math_c99l boost_math_c99 \
 	boost_math_tr1f boost_math_tr1l boost_math_tr1 boost_prg_exec_monitor \
