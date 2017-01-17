@@ -41,6 +41,8 @@ BJAM_OPTIONS += "'-sGCC_INCLUDE_DIRECTORY=${TARGET_SYSROOT}${target_includedir}'
 BJAM_OPTIONS += "'-sGCC_STDLIB_DIRECTORY=${TARGET_SYSROOT}${target_libdir}'"
 BJAM_OPTIONS += "'-sBUILD=release <optimization>space <inlining>on <debug-symbols>off'"
 BJAM_OPTIONS += "'--layout=system'"
+BJAM_OPTIONS:>TARGET_CPU_arm += " abi=aapcs "
+BJAM_OPTIONS:>TARGET_CPU_aarch64 += " abi=aapcs "
 
 # Generate boost jam compiler options
 do_configure[prefuncs] += "boost_flags"
