@@ -542,6 +542,14 @@ BUSYBOX_SIMPLE_USE_FLAGS += "feature_verbose_usage"
 # USE flag: enable chpasswd
 BUSYBOX_SIMPLE_USE_FLAGS += "chpasswd:util/"
 
+# USE flag: default password encryption method
+RECIPE_FLAGS += "busybox_feature_default_passwd_algo"
+DEFAULT_USE_busybox_feature_default_passwd_algo = "des"
+DO_CONFIGURE_PREFUNCS:>USE_busybox_feature_default_passwd_algo = " do_configure_busybox_default_passwd_algo"
+do_configure_busybox_default_passwd_algo () {
+	sed -i -e 's/\(CONFIG_FEATURE_DEFAULT_PASSWD_ALGO\)=.*/\1="${USE_busybox_feature_default_passwd_algo}"/' .config
+}
+
 # USE flag: enable acpid
 BUSYBOX_SIMPLE_USE_FLAGS += "acpid:util/"
 
