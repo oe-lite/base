@@ -8,15 +8,13 @@ LICENSE = "LGPL-2.1+ & GPL-2.0"
 
 inherit autotools pkgconfig c++
 
-DEPENDS = "libpopt libbfd librt libz kernel-dev"
+DEPENDS = "libpopt libbfd librt libz kernel-dev libiberty libdl"
 
 COMPATIBLE_MACHINES = ".*"
 
 FILES_${PN} = "${bindir} ${libdir}/${PN}/lib*${SOLIBS} ${datadir}/${PN}"
 FILES_${PN}-dev += "${libdir}/${PN}/lib*${SOLIBSDEV} ${libdir}/${PN}/lib*.la"
 FILES_${PN}-staticdev += "${libdir}/${PN}/lib*.a"
-
-SRC_URI += "file://opstart.patch"
 
 EXTRA_OECONF = "--with-kernel=${HOST_SYSROOT}${kernelsrcdir} --without-x"
 
