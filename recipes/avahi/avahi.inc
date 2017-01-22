@@ -20,15 +20,10 @@ DEPENDS_LIBC = "libpthread librt"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
 
 #Patches copied from yocto
-SRC_URI = "http://avahi.org/download/avahi-${PV}.tar.gz \
+SRC_URI = "https://github.com/lathiat/${PN}/releases/download/v${PV}/${P}.tar.gz \
           file://00avahi-autoipd \
           file://99avahi-autoipd \
           file://initscript.patch \
-          file://avahi_fix_install_issue.patch \
-          file://fix_for_automake_1.12.x.patch \
-          file://out-of-tree.patch \
-          file://0001-avahi-fix-avahi-status-command-error-prompt.patch \
-          file://reuseport-check.patch \
           file://daemon-passwd file://daemon-group \
           file://autoipd-passwd file://autoipd-group \
           file://autoipd-init \
