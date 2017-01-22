@@ -38,7 +38,7 @@ DEPENDS_${PN}-${PN}-passwd += "libcrypto"
 RDEPENDS_${PN}-${PN}-passwd += "libcrypto"
 
 AUTO_PACKAGE_LIBS = "${PN} ${PN}pp"
-AUTO_PACKAGE_LIBS_DEPENDS = "libpthread librt libz libm openssl"
+AUTO_PACKAGE_LIBS_DEPENDS = "libpthread librt libz libm libssl"
 AUTO_PACKAGE_LIBS_RDEPENDS = "libc libcrypto libpthread librt libssl"
 
 AUTO_PACKAGE_LIBS_RDEPENDS:>USE_mosquitto_uuid = " libuuid"
