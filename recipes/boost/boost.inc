@@ -108,13 +108,13 @@ do_install() {
 }
 
 BOOST_LIBS = "\
-	atomic context coroutine \
+	atomic context coroutine timer \
 	chrono date_time filesystem graph iostreams math \
 	program_options random regex serialization signals system \
 	thread test wave"
 
 AUTO_PACKAGE_LIBS = "\
-	boost_atomic boost_context boost_coroutine \
+	boost_atomic boost_context boost_coroutine boost_timer \
 	boost_chrono boost_date_time boost_filesystem boost_graph \
 	boost_iostreams boost_math_c99f boost_math_c99l boost_math_c99 \
 	boost_math_tr1f boost_math_tr1l boost_math_tr1 boost_prg_exec_monitor \
@@ -154,6 +154,14 @@ RDEPENDS_${PN}-libboost-prg-exec-monitor += "libboost-system libboost-timer"
 
 DEPENDS_${PN}-libboost-unit-test-framework += "libboost-system libboost-timer"
 RDEPENDS_${PN}-libboost-unit-test-framework += "libboost-system libboost-timer"
+DEPENDS_${PN}-libboost-random += "libboost-system"
+RDEPENDS_${PN}-libboost-random += "libboost-system"
+DEPENDS_${PN}-libboost-timer += "libboost-chrono libboost-system"
+RDEPENDS_${PN}-libboost-timer += "libboost-chrono libboost-system"
+
+PROVIDES_${PN}-libboost-timer += "libtimer"
+PROVIDES_${PN}-libboost-timer-dev += "libtimer-dev"
+PROVIDES_${PN}-libboost-timer[qa] += "allow-missing-soname:libtimer"
 
 BOOTSTRAP_OPTIONS += "--with-libraries=${@','.join('${BOOST_LIBS}'.split())}"
 
