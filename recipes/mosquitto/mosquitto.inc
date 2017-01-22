@@ -13,13 +13,15 @@ S = "${SRCDIR}/mosquitto-${PV}"
 
 inherit c++ make auto-package-libs auto-package-utils
 
-RECIPE_FLAGS = "mosquitto_uuid mosquitto_websockets"
+RECIPE_FLAGS = "mosquitto_uuid mosquitto_websockets mosquitto_ssl"
 DEFAULT_USE_mosquitto_uuid = True
 DEFAULT_USE_mosquitto_websockets = False
+DEFAULT_USE_mosquitto_ssl = True
 
-DEPENDS = "librt libssl"
+DEPENDS = "librt libdl"
 DEPENDS:>USE_mosquitto_uuid = " libuuid"
 DEPENDS:>USE_mosquitto_websockets = " libwebsockets"
+DEPENDS:>USE_mosquitto_ssl = " libssl"
 
 AUTO_PACKAGE_UTILS = "\
   ${PN} \
@@ -38,9 +40,11 @@ DEPENDS_${PN}-${PN}-passwd += "libcrypto"
 RDEPENDS_${PN}-${PN}-passwd += "libcrypto"
 
 AUTO_PACKAGE_LIBS = "${PN} ${PN}pp"
-AUTO_PACKAGE_LIBS_DEPENDS = "libpthread librt libz libm libssl"
-AUTO_PACKAGE_LIBS_RDEPENDS = "libc libcrypto libpthread librt libssl"
+AUTO_PACKAGE_LIBS_DEPENDS = "libpthread librt libz libm"
+AUTO_PACKAGE_LIBS_RDEPENDS = "libc libcrypto libpthread librt"
 
+AUTO_PACKAGE_LIBS_DEPENDS:>USE_mosquitto_ssl = " libssl"
+AUTO_PACKAGE_LIBS_RDEPENDS:>USE_mosquitto_ssl = " libssl"
 AUTO_PACKAGE_LIBS_RDEPENDS:>USE_mosquitto_uuid = " libuuid"
 AUTO_PACKAGE_LIBS_RDEPENDS:>USE_mosquitto_websockets = " libwebsockets"
 
@@ -53,9 +57,13 @@ EXTRA_OEMAKE_UUID:USE_mosquitto_uuid = "WITH_UUID=yes"
 EXTRA_OEMAKE_WEBSOCKETS = "WITH_WEBSOCKETS=no"
 EXTRA_OEMAKE_WEBSOCKETS:USE_mosquitto_websockets = "WITH_WEBSOCKETS=yes"
 
+EXTRA_OEMAKE_TLS = "WITH_TLS=no"
+EXTRA_OEMAKE_TLS:USE_mosquitto_ssl = "WITH_TLS=yes"
+
 EXTRA_OEMAKE = "\
   ${EXTRA_OEMAKE_UUID} \
   ${EXTRA_OEMAKE_WEBSOCKETS} \
+  ${EXTRA_OEMAKE_TLS} \
   WITH_SRV=no \
   WITH_DOCS=no \
   prefix=${prefix} \
