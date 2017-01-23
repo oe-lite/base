@@ -1,0 +1,44 @@
+diff --git a/base64/Makefile b/base64/Makefile
+index 30a2c5c..cbb7798 100644
+--- a/base64/Makefile
++++ b/base64/Makefile
+@@ -19,7 +19,7 @@ SOURCES = base64.cc
+ 
+ TARGETS = $(BINARIES)
+ 
+-LINK.o = g++
++LINK.o = $(CXX)
+ 
+ CFLAGS += -Werror -pedantic
+ CFLAGS += -DBUFFERSIZE=$(BUFFERSIZE)
+@@ -37,7 +37,7 @@ all: $(TARGETS) #strip
+ base64: libb64.a
+ 
+ strip:
+-	strip $(BINARIES) *.exe
++	$(STRIP) $(BINARIES) *.exe
+ 
+ clean: clean_VisualStudioProject
+ 	rm -f *.exe* *.o $(TARGETS) *.bak *~
+diff --git a/src/Makefile b/src/Makefile
+index 28b2382..bc0d901 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -13,7 +13,7 @@ SOURCES = cdecode.c  cencode.c
+ 
+ TARGETS = $(LIBRARIES)
+ 
+-LINK.o = gcc
++LINK.o = $(CC)
+ 
+ CFLAGS += -Werror -pedantic
+ CFLAGS += -I../include
+@@ -28,7 +28,7 @@ libb64.a: cencode.o cdecode.o
+ 	$(AR) $(ARFLAGS) $@ $^
+ 
+ strip:
+-	strip $(BINARIES) *.exe
++	$(STRIP) $(BINARIES) *.exe
+ 
+ clean:
+ 	rm -f *.exe* *.o $(TARGETS) *.bak *~
