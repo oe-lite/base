@@ -13,27 +13,13 @@ FILES_${PN}-libbz2-dev = "${includedir} ${libdir}/pkgconfig/bzip2.pc"
 
 AUTO_PACKAGE_UTILS = "bzip2 bzdiff bzgrep bzip2recover bzmore"
 
-FILES_${PN}-bzip2 = "${bindir}/bunzip2 ${bindir}/bzcat"
-FILES_${PN}-bzdiff = "${bindir}/bzcmp"
-FILES_${PN}-bzgrep = "${bindir}/bzegrep ${bindir}/bzfgrep"
-FILES_${PN}-bzmore = "${bindir}/bzless"
+AUTO_PACKAGE_UTILS_SYMLINKS_bzip2 = "bunzip2 bzcat"
+AUTO_PACKAGE_UTILS_SYMLINKS_bzdiff = "bzcmp"
+AUTO_PACKAGE_UTILS_SYMLINKS_bzgrep = "bzegrep bzfgrep"
+AUTO_PACKAGE_UTILS_SYMLINKS_bzmore = "bzless"
 
-FILES_${PN}-bzip2-doc = "${mandir}/man1/bunzip2.1 ${mandir}/man1/bzcat.1"
-FILES_${PN}-bzdiff-doc = "${mandir}/man1/bzcmp.1"
-FILES_${PN}-bzgrep-doc = "${mandir}/man1/bzegrep.1 ${mandir}/man1/bzfgrep.1"
-FILES_${PN}-bzmore-doc = "${mandir}/man1/bzless.1"
-
-PROVIDES_${PN}-bzip2 = "util/bunzip2 util/bzcat"
-PROVIDES_${PN}-bzdiff = "util/bzcmp"
-PROVIDES_${PN}-bzgrep = "util/bzegrep util/bzfgrep"
-PROVIDES_${PN}-bzmore = "util/bzless"
-
-RDEPENDS_${PN} = "${PN}-bzip2 ${PN}-bzdiff ${PN}-bzgrep ${PN}-bzip2recover ${PN}-bzmore"
-RDEPENDS_${PN}-bzip2 = "${PN}-libbz2"
-RDEPENDS_${PN}-bzdiff = "${PN}-libbz2"
-RDEPENDS_${PN}-bzgrep = "${PN}-libbz2"
-RDEPENDS_${PN}-bzip2recover = "${PN}-libbz2"
-RDEPENDS_${PN}-bzmore = "${PN}-libbz2"
+AUTO_PACKAGE_UTILS_RDEPENDS = "libbz2"
+RDEPENDS_${PN} = "${AUTO_PACKAGE_UTILS_PACKAGES}"
 
 do_autoreconf[prefuncs] += "do_autoreconf_prep"
 do_autoreconf_prep() {
