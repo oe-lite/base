@@ -1,0 +1,32 @@
+SUMMARY = "library of ANSI C routines for fast encoding/decoding data into and \
+from a base64-encoded format"
+HOMEPAGE = "https://github.com/libb64/libb64"
+LICENSE = "Unlicense"
+
+inherit c c++ make
+
+SRC_URI = "git://github.com/libb64/libb64.git;commit=04a1ee7590ebb8a81bbd3854ec141c2d4c2bead9"
+S = "${SRCDIR}/libb64"
+
+SRC_URI += "file://cross-compile.patch"
+
+PARALLEL_MAKE = ""
+EXTRA_OEMAKE_COMPILE = "all_src all_base64"
+
+do_install() {
+	mkdir -p ${D}${bindir}
+	install -m 755 ${S}/base64/base64 ${D}${bindir}/
+	mkdir -p ${D}${includedir}/b64
+	install -m 644 ${S}/include/b64/*.h ${D}${includedir}/b64
+	mkdir -p ${D}${libdir}
+	install -m 644 ${S}/src/libb64.a ${D}${libdir}/
+}
+
+inherit auto-package-utils
+AUTO_PACKAGE_UTILS = "base64"
+DEPENDS_${PN}-base64 = "libc libgcc libm libstdc++"
+RDEPENDS_${PN}-base64 = "libc libgcc libm libstdc++"
+
+inherit library
+DEPENDS_${PN} = "libc libgcc libm libstdc++"
+PROVIDES_${PN}[qa] = "allow-missing-soname"
