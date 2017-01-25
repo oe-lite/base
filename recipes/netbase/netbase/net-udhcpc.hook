@@ -5,6 +5,6 @@ backtick -n hooksdir { dirname $0 }
 import -u hooksdir
 define basename udhcpc@
 define templatedir ${hooksdir}/${basename}.d
-forbacktickx iface { dhcp-interfaces }
+forbacktickx -C -n iface { dhcp-interfaces }
 import -u iface
 cp -r ${templatedir}/ ${1}/${basename}${iface}/
