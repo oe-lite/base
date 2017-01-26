@@ -75,6 +75,11 @@ do_compile_binfmt_flat_fixup() {
 
 require busybox-install.inc
 
+inherit s6rc
+SRC_URI:>USE_s6rc = " file://rtc.up file://rtc.down"
+S6RC_ONESHOT_SERVICES:>USE_busybox_hwclock = " rtc"
+RECIPE_FLAGS += "rtc_s6rc_dependencies"
+
 PACKAGES:<USE_busybox_udhcpd = "${PN}-udhcpd-config "
 PROVIDES_${PN}-udhcpd-config = " udhcpd-config"
 FILES_${PN}-udhcpd-config = "${sysconfdir}/udhcpd.conf "
