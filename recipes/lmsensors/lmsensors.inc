@@ -49,6 +49,10 @@ RDEPENDS_${PN}-isadump = "libc libsensors"
 RDEPENDS_${PN}-sensors-conf-convert += "perl"
 RDEPENDS_${PN}-sensors-detect += "perl"
 
+PACKAGES =+ "${PN}-config"
+FILES_${PN}-config = "${sysconfdir}"
+RDEPENDS_${PN}-sensors += "${PN}-config"
+
 AUTO_PACKAGE_LIBS = "sensors"
 DEPENDS_${PN}-libsensors += "libc libm"
 RDEPENDS_${PN}-libsensors += "libc libm"
