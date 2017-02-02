@@ -10,9 +10,6 @@ LICENSE_${PN}-libsensors = "LGPL-2.1+"
 
 DEPENDS = "kernel-dev native:flex native:bison libm"
 
-DEPENDS_${PN} += "libc libm"
-RDEPENDS_${PN} += "libc libm"
-
 SRC_URI = "http://dl.lm-sensors.org/lm-sensors/releases/lm_sensors-${PV}.tar.bz2"
 S = "${SRCDIR}/lm_sensors-${PV}"
 
@@ -43,13 +40,22 @@ AUTO_PACKAGE_UTILS = "\
 	fancontrol isadump isaset pwmconfig sensors-detect \
 	sensors sensors-conf-convert"
 RDEPENDS_${PN} += "${AUTO_PACKAGE_UTILS_PACKAGES}"
+DEPENDS_${PN}-sensors = "libc libsensors"
+RDEPENDS_${PN}-sensors = "libc libsensors"
+DEPENDS_${PN}-isaset = "libc libsensors"
+RDEPENDS_${PN}-isaset = "libc libsensors"
+DEPENDS_${PN}-isadump = "libc libsensors"
+RDEPENDS_${PN}-isadump = "libc libsensors"
+RDEPENDS_${PN}-sensors-conf-convert += "perl"
+RDEPENDS_${PN}-sensors-detect += "perl"
+
+PACKAGES =+ "${PN}-config"
+FILES_${PN}-config = "${sysconfdir}"
+RDEPENDS_${PN}-sensors += "${PN}-config"
 
 AUTO_PACKAGE_LIBS = "sensors"
 DEPENDS_${PN}-libsensors += "libc libm"
 RDEPENDS_${PN}-libsensors += "libc libm"
-
-DEPENDS_${PN}-sensors += "libc libsensors"
-RDEPENDS_${PN}-sensors += "libc libsensors"
 
 FILES_${PN}-dev += "${libdir}/libsensors.so"
 FILES_${PN} += "${sysconfdir}"
