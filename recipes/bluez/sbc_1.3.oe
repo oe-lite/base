@@ -1,0 +1,28 @@
+SUMMARY = "SBC Library"
+LICENSE = "GPL-2.0"
+
+inherit autotools-autoreconf pkgconfig c auto-package-libs auto-package-utils
+
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
+require conf/fetch/kernelorg.conf
+SRC_URI = "${KERNELORG_MIRROR}/linux/bluetooth/sbc-${PV}.tar.xz"
+
+DEPENDS = "libsndfile libm"
+
+AUTO_PACKAGE_LIBS = " \
+	sbc \
+"
+
+AUTO_PACKAGE_UTILS = " \
+	sbcdec \
+	sbcenc \
+	sbcinfo \
+"
+
+AUTO_PACKAGE_LIBS_DEPENDS = "libc"
+AUTO_PACKAGE_LIBS_RDEPENDS = "libc"
+AUTO_PACKAGE_UTILS_DEPENDS = "libc"
+AUTO_PACKAGE_UTILS_RDEPENDS = "libc"
+
+LIBRARY_VERSION = "1"

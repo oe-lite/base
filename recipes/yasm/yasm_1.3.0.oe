@@ -1,0 +1,11 @@
+SUMMARY = "x86 (SSE) assembler supporting NASM and GAS-syntaxes"
+LICENSE = "BSD-3-Clause"
+HOMEPAGE = "http://www.tortall.net/projects/yasm/"
+
+inherit autotools gettext
+
+RECIPE_TYPES = "machine native sdk"
+
+SRC_URI = "http://www.tortall.net/projects/yasm/releases/yasm-${PV}.tar.gz"
+DEPENDS_${PN} += "libc"
+RDEPENDS_${PN} += "libc"

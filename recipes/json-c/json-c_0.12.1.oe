@@ -4,18 +4,10 @@ SRC_URI = "https://s3.amazonaws.com/json-c_releases/releases/${PN}-${PV}.tar.gz 
 	   file://pragma.patch"
 LICENSE = "MIT"
 
-inherit autotools
+inherit autotools library
 AUTOTOOLS_DISTCLEAN = "0"
 
 PARALLEL_MAKE = ""
 
-inherit auto-package-libs
-AUTO_PACKAGE_LIBS = "json json-c"
-AUTO_PACKAGE_LIBS_RDEPENDS = "libc libgcc"
-AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev"
-
-DEPENDS_${PN}-libjson-c += "libc"
-DEPENDS_${PN}-libjson += "libc libjson-c"
-RDEPENDS_${PN}-libjson += "libjson-c"
-
-
+DEPENDS_${PN} += "libc"
+LIBRARY_VERSION = "2"
