@@ -30,5 +30,10 @@ AUTO_PACKAGE_UTILS = "ddcmon decode-dimms decode-edid decode-vaio \
 AUTO_PACKAGE_UTILS_DEPENDS += "libc"
 AUTO_PACKAGE_UTILS_RDEPENDS += "libc"
 
+RDEPENDS_${PN}-ddcmon = "perl"
+RDEPENDS_${PN}-decode-dimms = "perl"
+RDEPENDS_${PN}-decode-edid = "perl"
+RDEPENDS_${PN}-decode-vaoi = "perl"
+
 # The i2c-tools package is used to pull in all provided util features
 RDEPENDS_${PN} = "${AUTO_PACKAGE_UTILS_PROVIDES}"
