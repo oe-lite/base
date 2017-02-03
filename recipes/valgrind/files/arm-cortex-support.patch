@@ -1,0 +1,29 @@
+Valgrind's configure script checks for ${host_cpu} starting with
+armv7, but we call it just arm. Since Cortex A chips are (at least)
+ARMv7, make the configure script recognize arm-cortexa*.
+
+Origin: OE-lite (first introduced in 5b66593c)
+Upstream-status: Not attempted
+
+--- valgrind-3.12.0/configure.ac.orig	2017-01-11 08:28:48.965259010 +0000
++++ valgrind-3.12.0/configure.ac	2017-01-11 08:37:18.151478924 +0000
+@@ -239,6 +239,19 @@
+ 	ARCH_MAX="arm"
+ 	;;
+ 
++     arm)
++	case "${host_vendor}" in
++	    cortexa*)
++		AC_MSG_RESULT([ok (${host_cpu}-${host_vendor})])
++		ARCH_MAX="arm"
++		;;
++	    *)
++		AC_MSG_RESULT([no (${host_cpu}-${host_vendor})])
++		AC_MSG_ERROR([Unsupported host architecture. Sorry])
++		;;
++	esac
++	;;
++
+      aarch64*)
+        AC_MSG_RESULT([ok (${host_cpu})])
+        ARCH_MAX="arm64"
