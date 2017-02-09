@@ -79,6 +79,8 @@ inherit s6rc
 SRC_URI:>USE_s6rc = " file://rtc.up file://rtc.down"
 S6RC_ONESHOT_SERVICES:>USE_busybox_hwclock = " rtc"
 RECIPE_FLAGS += "rtc_s6rc_dependencies"
+# default configuration relies on /dev/rtc symlink created by init-devtmpfs
+DEFAULT_USE_rtc_s6rc_dependencies = "init-devtmpfs"
 
 PACKAGES:<USE_busybox_udhcpd = "${PN}-udhcpd-config "
 PROVIDES_${PN}-udhcpd-config = " udhcpd-config"
