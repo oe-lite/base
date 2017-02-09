@@ -1,3 +1,0 @@
-require sqlite3.inc
-
-LIBRARY_VERSION = "0"
