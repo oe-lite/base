@@ -13,7 +13,7 @@ def sqlite3_file_version_mangle(d):
     pv_mangled = "%d%02d%02d%02d"%tuple(pv)
     d.set("PV_MANGLED", pv_mangled)
 
-SRC_URI = "http://www.sqlite.org/2016/sqlite-autoconf-${PV_MANGLED}.tar.gz"
+SRC_URI = "http://www.sqlite.org/2017/sqlite-autoconf-${PV_MANGLED}.tar.gz"
 S = "${SRCDIR}/sqlite-autoconf-${PV_MANGLED}"
 
 inherit autotools pkgconfig
