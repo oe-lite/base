@@ -20,15 +20,10 @@ DEPENDS_LIBC = "libpthread librt"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
 
 #Patches copied from yocto
-SRC_URI = "http://avahi.org/download/avahi-${PV}.tar.gz \
+SRC_URI = "https://github.com/lathiat/${PN}/releases/download/v${PV}/${P}.tar.gz \
           file://00avahi-autoipd \
           file://99avahi-autoipd \
           file://initscript.patch \
-          file://avahi_fix_install_issue.patch \
-          file://fix_for_automake_1.12.x.patch \
-          file://out-of-tree.patch \
-          file://0001-avahi-fix-avahi-status-command-error-prompt.patch \
-          file://reuseport-check.patch \
           file://daemon-passwd file://daemon-group \
           file://autoipd-passwd file://autoipd-group \
           file://autoipd-init \
@@ -38,6 +33,15 @@ inherit autotools-autoreconf pkgconfig gettext c++ c sysvinit passwd
 PASSWD_FILES = "${SRCDIR}/autoipd-passwd ${SRCDIR}/daemon-passwd"
 GROUP_FILES = "${SRCDIR}/autoipd-group ${SRCDIR}/daemon-group"
 DEPENDS += "native:glib-utils"
+
+RECIPE_FLAGS += "avahi-compat-libdns-sd"
+LIBDNSSD = "--disable-compat-libdbs_sd"
+LIBDNSSD:USE_avahi-compat-libdns-sd = "--enable-compat-libdns_sd"
+
+# libdns-sd is also provided by mdnssd
+PRIORITY:USE_avahi-compat-libdns-sd = "9"
+LIBDNSSD_INSTALL = ""
+LIBDNSSD_INSTALL:USE_avahi-compat-libdns-sd = "do_install_dns_sd"
 
 EXTRA_OECONF = "--disable-introspection \
              --with-avahi-priv-access-group=adm \
@@ -50,6 +54,7 @@ EXTRA_OECONF = "--disable-introspection \
              --disable-python \
              --disable-doxygen-doc \
              --with-distro=debian \
+             ${LIBDNSSD} \
              ${AVAHI_GTK} \
            "
 
@@ -68,15 +73,20 @@ DEFAULT_USE_avahi-autoipd_sysvinit_stop = "27"
 RECIPE_FLAGS += "avahi-autoipd_network_interface"
 DEFAULT_USE_avahi-autoipd_network_interface = "eth0"
 
-do_install[postfuncs] =+ "do_install_extra_files"
+do_install[postfuncs] =+ "do_install_extra_files ${LIBDNSSD_INSTALL}"
 do_install_extra_files() {
     sed -e 's%^INTERFACE=".*%INTERFACE="${USE_avahi-autoipd_network_interface}"%' -i ${SRCDIR}/autoipd-init
         sysvinit_install_script ${SRCDIR}/avahi-${PV}/initscript/debian/avahi-daemon avahi-daemon
         sysvinit_install_script ${SRCDIR}/autoipd-init avahi-autoipd
 }
 
+do_install_dns_sd() {
+    ln -s avahi-compat-libdns_sd/dns_sd.h ${D}${includedir}/dns_sd.h
+}
+
 inherit auto-package-libs
-AUTO_PACKAGE_LIBS = "avahi-common avahi-core avahi-client avahi-glib avahi-gobject"
+AUTO_PACKAGE_LIBS += "avahi-common avahi-core avahi-client avahi-glib avahi-gobject"
+AUTO_PACKAGE_LIBS:>USE_avahi-compat-libdns-sd += " dns_sd"
 
 inherit auto-package-utils
 
@@ -141,3 +151,8 @@ DEPENDS_${PN}-${PN}-utils += "libavahi-client libavahi-common libc libdbus libdl
 RDEPENDS_${PN}-${PN}-utils += "libavahi-client libavahi-common libc libdbus libdl libpthread"
 
 FILES_${PN}-daemon-config = "${sysconfdir}/avahi/avahi-daemon.conf"
+
+FILES_${PN}-libdns-sd += "${libdir}/libdns_sd.so*"
+DEPENDS_${PN}-libdns-sd += "libavahi-client libavahi-common libc libdbus libdl ${PN}-dev"
+RDEPENDS_${PN}-libdns-sd += "libavahi-client libavahi-common libc libdbus libdl"
+PROVIDES_${PN}-libdns-sd = "libdns-sd-1"

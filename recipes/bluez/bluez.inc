@@ -3,6 +3,7 @@ HOMEPAGE = "http://www.bluez.org/"
 LICENSE = "GPL-2.0"
 
 RECIPE_TYPES = "machine"
+RECIPE_FLAGS += "bluez-client"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
@@ -11,8 +12,12 @@ inherit c make autotools auto-package-libs auto-package-utils pkgconfig
 require conf/fetch/kernelorg.conf
 SRC_URI = "${KERNELORG_MIRROR}/linux/bluetooth/${P}.tar.xz"
 
+BLUEZ_CLIENT = "--disable-client"
+BLUEZ_CLIENT:USE_bluez-client = "--enable-client"
+BLUEZ_CLIENT_DEP = ""
+BLUEZ_CLIENT_DEP:USE_bluez-client = "libreadline"
+
 EXTRA_OECONF += "--disable-obex "
-EXTRA_OECONF += "--disable-client"
 EXTRA_OECONF += "--disable-systemd"
 EXTRA_OECONF += "--disable-cups"
 EXTRA_OECONF += "--enable-library"
@@ -25,10 +30,11 @@ EXTRA_OECONF += "--disable-test"
 EXTRA_OECONF += "--disable-debug"
 EXTRA_OECONF += "--disable-udev"
 EXTRA_OECONF += "--disable-threads"
+EXTRA_OECONF += "${BLUEZ_CLIENT}"
 
-DEPENDS="libc libdbus-1 libdl libglib-2.0 librt"
+DEPENDS="libc libdbus-1 libdl libglib-2.0 librt ${BLUEZ_CLIENT_DEP}"
 DEPENDS_${PN}="libc libdbus-1 libdl libglib-2.0 librt"
-RDEPENDS_${PN}="libc libdbus-1 libdl libglib-2.0 librt"
+RDEPENDS_${PN}="libc libdbus-1 libdl libglib-2.0 librt ${BLUEZ_CLIENT_DEP}"
 
 AUTO_PACKAGE_UTILS=" \
 l2ping \
@@ -47,7 +53,9 @@ hciconfig \
 hcidump \
 ciptool \
 bluetoothd \
+obexd \
 "
+AUTO_PACKAGE_UTILS:>USE_bluez-client += " bluetoothctl"
 
 DEPENDS_${PN}-l2ping = "libc"
 RDEPENDS_${PN}-l2ping = "libc"
@@ -81,6 +89,10 @@ DEPENDS_${PN}-ciptool = "libc"
 RDEPENDS_${PN}-ciptool = "libc"
 DEPENDS_${PN}-bluetoothd = "libc"
 RDEPENDS_${PN}-bluetoothd = "libc"
+FILES_${PN}-obexd += "${libexecdir}/bluetooth/obexd"
+FILES_${PN}-bluetoothd += "${libexecdir}/bluetooth/bluetoothd"
+DEPENDS_${PN}-bluetoothctl += "libglib-2.0 libdbus-1 libreadline libc"
+RDEPENDS_${PN}-bluetoothctl += "libglib-2.0 libdbus-1 libreadline libc"
 
 FILES_bluez[qa] += "allow-bin-rel-rpath"
 FILES_bluez[qa] += "allow-bin-abs-rpath"

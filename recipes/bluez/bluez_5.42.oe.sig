@@ -1,1 +1,0 @@
-d81ca7683d2bf72c3a539307301e68d383d1c2ea  bluez-5.42.tar.xz
