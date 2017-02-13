@@ -1,0 +1,12 @@
+DESCRIPTION = "Provides build infrastructure and utilities shared among GNOME C++ binding \
+libraries"
+RECIPE_TYPES = "native machine"
+
+require conf/fetch/gnome.conf
+
+SRC_URI_SUBDIR = "${@'.'.join(d.getVar('PV', True).split('.')[:2])}"
+SRC_URI="${GNOME_MIRROR}/mm-common/${SRC_URI_SUBDIR}/mm-common-${PV}.tar.xz"
+
+inherit autotools-autoreconf pkgconfig auto-package-utils
+
+AUTO_PACKAGE_UTILS = "mm-common-prepare"
