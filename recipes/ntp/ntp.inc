@@ -77,7 +77,7 @@ DEFAULT_USE_ntpd_sysvinit_stop	= "25"
 
 inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "ntpd ntpdate ntp-wait ntp-keygen sntp ntpq ntpdc \
-    ntptime ntptrace tickadj"
+    ntptime ntpsweep ntptrace tickadj calc_tickadj update-leap"
 
 # NOTE: you don't need ntpdate if you have ntpd ("ntpdc -q -g -x")
 
