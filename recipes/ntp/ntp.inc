@@ -30,6 +30,8 @@ EXTRA_OECONF_CRYPTO = "--without-crypto"
 EXTRA_OECONF_CRYPTO:USE_crypto = "--with-crypto"
 DEPENDS:>USE_crypto = " libcrypto"
 
+EXTRA_OECONF += "--disable-debugging"
+
 CFLAGS += " -DPTYS_ARE_GETPT -DPTYS_ARE_SEARCHED"
 
 do_autoreconf[prefuncs] =+ "do_autoreconf_pre"
