@@ -32,6 +32,10 @@ DEPENDS:>USE_crypto = " libcrypto"
 
 EXTRA_OECONF += "--disable-debugging"
 
+RECIPE_FLAGS += "ntp_clocks"
+EXTRA_OECONF += "--disable-all-clocks --disable-parse-clocks"
+EXTRA_OECONF:>USE_ntp_clocks = " ${USE_ntp_clocks}"
+
 CFLAGS += " -DPTYS_ARE_GETPT -DPTYS_ARE_SEARCHED"
 
 do_autoreconf[prefuncs] =+ "do_autoreconf_pre"
