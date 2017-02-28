@@ -30,6 +30,15 @@ EXTRA_OECONF_CRYPTO = "--without-crypto"
 EXTRA_OECONF_CRYPTO:USE_crypto = "--with-crypto"
 DEPENDS:>USE_crypto = " libcrypto"
 
+RECIPE_FLAGS += "ntp_debug"
+EXTRA_OECONF_DEBUG = "--disable-debugging"
+EXTRA_OECONF_DEBUG:USE_ntp_debug = "--enable-debugging"
+EXTRA_OECONF += "${EXTRA_OECONF_DEBUG}"
+
+RECIPE_FLAGS += "ntp_clocks"
+EXTRA_OECONF += "--disable-all-clocks --disable-parse-clocks"
+EXTRA_OECONF:>USE_ntp_clocks = " ${USE_ntp_clocks}"
+
 CFLAGS += " -DPTYS_ARE_GETPT -DPTYS_ARE_SEARCHED"
 
 do_autoreconf[prefuncs] =+ "do_autoreconf_pre"
@@ -71,7 +80,7 @@ DEFAULT_USE_ntpd_sysvinit_stop	= "25"
 
 inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "ntpd ntpdate ntp-wait ntp-keygen sntp ntpq ntpdc \
-    ntptime ntptrace tickadj"
+    ntptime ntpsweep ntptrace tickadj calc_tickadj update-leap"
 
 # NOTE: you don't need ntpdate if you have ntpd ("ntpdc -q -g -x")
 
