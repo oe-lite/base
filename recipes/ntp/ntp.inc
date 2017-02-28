@@ -30,7 +30,10 @@ EXTRA_OECONF_CRYPTO = "--without-crypto"
 EXTRA_OECONF_CRYPTO:USE_crypto = "--with-crypto"
 DEPENDS:>USE_crypto = " libcrypto"
 
-EXTRA_OECONF += "--disable-debugging"
+RECIPE_FLAGS += "ntp_debug"
+EXTRA_OECONF_DEBUG = "--disable-debugging"
+EXTRA_OECONF_DEBUG:USE_ntp_debug = "--enable-debugging"
+EXTRA_OECONF += "${EXTRA_OECONF_DEBUG}"
 
 RECIPE_FLAGS += "ntp_clocks"
 EXTRA_OECONF += "--disable-all-clocks --disable-parse-clocks"
