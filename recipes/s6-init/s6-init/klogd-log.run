@@ -4,4 +4,4 @@ if { if -t -n { test -e /var/log/kernel }
   install -d -m 755 -o nobody -g nogroup /var/log/kernel }
 s6-setuidgid nobody
 exec -c
-s6-log t s1000000 n20 /var/log/kernel
+s6-log t s1000000 n20 -^kern.debug /var/log/kernel
