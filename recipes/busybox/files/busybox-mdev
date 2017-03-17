@@ -36,8 +36,12 @@ fi
 
 #mdev_dash_s SECTION_START
 # Create tmpfs for /dev
-echo "Creating tmpfs at /dev"
-mount -t tmpfs tmpfs /dev -o size=64k,mode=0755
+if mount | grep -q 'devtmpfs on /dev type devtmpfs'; then
+  echo "Using existing devtmpfs for /dev"
+else
+  echo "Creating tmpfs at /dev"
+  mount -t tmpfs tmpfs /dev -o size=64k,mode=0755
+fi;
 #mdev_dash_s SECTION_END
 
 # Register mdev as hotplug event helper
