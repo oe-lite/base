@@ -78,6 +78,10 @@ DEFAULT_USE_init_sysctl_s6rc_dependencies = "mount-proc"
 RECIPE_FLAGS += "init_sysctl_s6rc_timeout_up"
 SRC_URI += "file://init-sysctl.up"
 
+# Flag to use the real sysctl command for init-sysctl service
+RECIPE_FLAGS += "s6_init_real_sysctl"
+RDEPENDS_${PN}:>USE_s6_init_real_sysctl = " util/sysctl"
+
 S6RC_ONESHOT_SERVICES += "init-urandom"
 RECIPE_FLAGS += "init_urandom_s6rc_dependencies"
 RECIPE_FLAGS += "init_urandom_s6rc_timeout_up"

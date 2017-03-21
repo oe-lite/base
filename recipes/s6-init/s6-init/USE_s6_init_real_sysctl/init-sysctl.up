@@ -1,0 +1,2 @@
+if -t { test -f /etc/sysctl.conf }
+sysctl -q -p /etc/sysctl.conf
