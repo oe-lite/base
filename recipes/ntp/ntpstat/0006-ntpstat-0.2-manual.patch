@@ -1,0 +1,41 @@
+diff -up ntp-4.2.6p5/ntpstat-0.2/ntpstat.1.manual ntp-4.2.6p5/ntpstat-0.2/ntpstat.1
+--- ntp-4.2.6p5/ntpstat-0.2/ntpstat.1.manual	2002-06-10 08:02:12.000000000 +0200
++++ ntp-4.2.6p5/ntpstat-0.2/ntpstat.1	2015-12-04 17:28:23.379793604 +0100
+@@ -1,4 +1,4 @@
+-.TH ntpstat 1 "$Date: 2001/06/22 03:27:10 $"
++.TH ntpstat 1
+ .UC 4
+ .SH NAME
+ ntpstat \- show network time synchronisation status
+@@ -6,12 +6,18 @@ ntpstat \- show network time synchronisa
+ .B ntpstat
+ .SH DESCRIPTION
+ .I ntpstat
+-will report the synchronisation state of the NTP daemon
++will report the synchronisation state of the NTP daemon (ntpd)
+ running on the local machine.  If the local system is found to be 
+ synchronised to a reference time source,  
+ .I ntpstat
+ will report the approximate time accuracy.
+ 
++When the synchronised state is reported, it means the system clock was updated
++at some point.  There is no timeout for this state.  It will stay there even
++when the source becomes unreachable and there are no other sources available.
++However, the reported accuracy will be slowly increasing, in the default ntpd
++configuration by 15 microseconds per second.
++
+ .SH RETURNS
+ .I ntpstat
+ returns 0 if clock is synchronised.
+@@ -22,7 +28,10 @@ returns 2 if clock state is indeterminan
+ if ntpd is not contactable.
+ 
+ .SH SEE ALSO
+-ntpdc, ntpdq
++.BR ntp_misc (5),
++.BR ntpd (8),
++.BR ntpq (8),
++.BR ntpdc (8)
+ 
+ .SH AUTHOR
+ G. Richard Keech (rkeech@redhat.com)

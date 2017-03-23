@@ -1,0 +1,32 @@
+LICENSE = "GPL-2.0"
+SRC_URI = "http://pkgs.fedoraproject.org/repo/pkgs/ntp/${PN}-${PV}.tgz/6b2bedefe2e7c63ea52609b222022121/${PN}-${PV}.tgz"
+
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
+# Patches from Fedora, before they replaced ntpstat with a bash script.
+# git://pkgs.fedoraproject.org/ntp;commit=ddd025f
+SRC_URI += "\
+file://0001-ntpstat-0.2-clksrc.patch;striplevel=2 \
+file://0002-ntpstat-0.2-multipacket.patch;striplevel=2 \
+file://0003-ntpstat-0.2-sysvars.patch;striplevel=2 \
+file://0004-ntpstat-0.2-maxerror.patch;striplevel=2 \
+file://0005-ntpstat-0.2-errorbit.patch;striplevel=2 \
+file://0006-ntpstat-0.2-manual.patch;striplevel=2 \
+"
+
+inherit make
+do_unpack_fix_perm() {
+    chmod u+w ${S}/ntpstat.1
+}
+do_unpack[postfuncs] += "do_unpack_fix_perm"
+
+do_compile() {
+    oe_runmake CC='${CC}' CFLAGS='${CFLAGS}' "$@"
+}
+do_install() {
+    install -d ${D}${bindir}
+    install -m 0755 ntpstat ${D}${bindir}
+    install -d ${D}${mandir}/man1
+    install -m 0644 ntpstat.1 ${D}${mandir}/man1
+}
+PROVIDES_${PN} += "util/ntpstat"
