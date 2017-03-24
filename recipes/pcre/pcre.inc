@@ -49,9 +49,12 @@ DEPENDS_${PN}-pcretest += "libc libpcre libpcreposix"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "pcrecpp pcreposix pcre"
-AUTO_PACKAGE_LIBS_RDEPENDS += "libc"
 AUTO_PACKAGE_LIBS_PCPREFIX = "lib"
 AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev_${PV}"
+AUTO_PACKAGE_LIBS_DEV_RDEPENDS = "${PN}-dev_${PV}"
+FILES_${PN}-libpcrecpp-dev = "${includedir}/pcrecpp*.h"
+FILES_${PN}-libpcreposix-dev = "${includedir}/pcreposix*.h"
+FILES_${PN}-libpcre-dev = "${includedir}/*.h"
 DEPENDS_${PN}-libpcreposix = "libpcre libc"
 DEPENDS_${PN}-libpcrecpp = "libpcre libc libm libgcc libstdc++"
 DEPENDS_${PN}-libpcre = "libc"
