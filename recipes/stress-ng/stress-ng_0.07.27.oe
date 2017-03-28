@@ -1,0 +1,11 @@
+require ${PN}.inc
+
+# On ARM, using binutils <= 2.25, the assembler complains that it's
+# not able to honour aligned(65536). These patches fix the problem by
+# checking whether the entire toolchain understands that, instead of
+# just checking for a new enough gcc. They are taken from upstream, so
+# will be unnecessary in the next version.
+
+SRC_URI += "file://0002-Add-autodetection-for-64-byte-alignment-of-functions.patch"
+SRC_URI += "file://0003-Makefile-add-missing-.PHONY-and-correct-spelling-of-.patch"
+SRC_URI += "file://0004-Fix-test-for-64K-alignment-instead-of-64-byte.patch"

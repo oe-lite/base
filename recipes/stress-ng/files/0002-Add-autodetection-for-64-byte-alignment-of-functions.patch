@@ -1,0 +1,191 @@
+From 9c7d1c449945538d35874cffe713e8d259e75beb Mon Sep 17 00:00:00 2001
+From: Colin Ian King <colin.king@canonical.com>
+Date: Tue, 28 Mar 2017 23:19:59 +0100
+Subject: [PATCH 2/4] Add autodetection for 64 byte alignment of functions (LP:
+ #1676834)
+
+Rather than trying to poorly guess of 64 byte alignment is available
+we should autodetect this at config build time. Add a helper to test
+build with forced 64 byte alignment and define DHAVE_ALIGNED_64 if
+it is available.
+
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ Makefile          | 28 ++++++++++++++++++++++++++--
+ stress-icache.c   | 13 ++++---------
+ stress-ng.h       |  2 +-
+ test-aligned-64.c | 41 +++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 72 insertions(+), 12 deletions(-)
+ create mode 100644 test-aligned-64.c
+
+diff --git a/Makefile b/Makefile
+index db668d4..cb05dea 100644
+--- a/Makefile
++++ b/Makefile
+@@ -262,7 +262,8 @@ LIB_SCTP = -lsctp
+ HAVE_NOT=HAVE_APPARMOR=0 HAVE_KEYUTILS_H=0 HAVE_XATTR_H=0 HAVE_LIB_BSD=0 \
+ 	 HAVE_LIB_Z=0 HAVE_LIB_CRYPT=0 HAVE_LIB_RT=0 HAVE_LIB_PTHREAD=0 \
+ 	 HAVE_FLOAT_DECIMAL=0 HAVE_SECCOMP_H=0 HAVE_LIB_AIO=0 HAVE_SYS_CAP_H=0 \
+-	 HAVE_VECMATH=0 HAVE_ATOMIC=0 HAVE_LIB_SCTP=0 HAVE_ASM_NOP=0
++	 HAVE_VECMATH=0 HAVE_ATOMIC=0 HAVE_LIB_SCTP=0 HAVE_ASM_NOP=0 \
++	 HAVE_ALIGNED_64=0
+ 
+ #
+ #  Load in current config; use 'make clean' to clear this
+@@ -432,6 +433,14 @@ $(info autoconfig: using nop assembler instruction)
+ endif
+ endif
+ 
++ifndef $(HAVE_ALIGNED_64)
++HAVE_ALIGNED_64 = $(shell $(MAKE) --no-print-directory $(HAVE_NOT) have_aligned_64)
++ifeq ($(HAVE_ALIGNED_64),1)
++	CONFIG_CFLAGS += -DHAVE_ALIGNED_64
++$(info autoconfig: using 64 byte alignment attribute)
++endif
++endif
++
+ endif
+ endif
+ 
+@@ -692,6 +701,20 @@ have_atomic: stress-atomic.c
+ 	@rm -rf stress-atomic-test
+ 
+ #
++#  check if we can build functions aligned to 64 byte boundaries
++#
++.PHONEY: have_aligned_64
++have_aligned_64: test-aligned-64.c
++	@$(CC) $(CPPFLAGS) test-aligned-64.c -o test-aligned-64 2> /dev/null || true
++	@if [ -f test-aligned-64 ]; then \
++		echo 1 ;\
++	else \
++		echo 0 ;\
++	fi
++	@rm -rf test-aligned-64
++
++
++#
+ #  extract the PER_* personality enums
+ #
+ personality.h:
+@@ -738,7 +761,8 @@ dist:
+ 		test-apparmor.c test-libbsd.c test-libz.c \
+ 		test-libcrypt.c test-librt.c test-libpthread.c \
+ 		test-libaio.c test-cap.c test-libsctp.c \
+-		test-asm-nop.c usr.bin.pulseaudio.eg perf-event.c \
++		test-asm-nop.c test-aligned-64.c \
++		usr.bin.pulseaudio.eg perf-event.c \
+ 		snapcraft smatchify.sh config TODO stress-ng-$(VERSION)
+ 	tar -zcf stress-ng-$(VERSION).tar.gz stress-ng-$(VERSION)
+ 	rm -rf stress-ng-$(VERSION)
+diff --git a/stress-icache.c b/stress-icache.c
+index 7ce02e1..599a381 100644
+--- a/stress-icache.c
++++ b/stress-icache.c
+@@ -38,11 +38,6 @@
+ #define ALIGNED(a) __attribute__((aligned(a)))
+ #endif
+ 
+-/* older ARMEL GCC does not support 64K alignment */
+-#if (defined(__GNUC__) && NEED_GNUC(5,4,0)) || !defined(__ARMEL__)
+-#define ALIGNED_64K_SUPPORTED
+-#endif
+-
+ /*
+  *  STRESS_ICACHE_FUNC()
+  *	generates a simple function that is page aligned in its own
+@@ -159,13 +154,13 @@ static inline int icache_madvise(const args_t *args, void *addr, size_t size)
+ 	return 0;
+ }
+ 
+-#if defined(ALIGNED_64K_SUPPORTED)
++#if defined(HAVE_ALIGNED_64)
+ STRESS_ICACHE_FUNC(stress_icache_func_64K, SIZE_64K)
+ #endif
+ STRESS_ICACHE_FUNC(stress_icache_func_16K, SIZE_16K)
+ STRESS_ICACHE_FUNC(stress_icache_func_4K, SIZE_4K)
+ 
+-#if defined(ALIGNED_64K_SUPPORTED)
++#if defined(HAVE_ALIGNED_64)
+ STRESS_ICACHE(stress_icache_64K, SIZE_64K, stress_icache_func_64K)
+ #endif
+ STRESS_ICACHE(stress_icache_16K, SIZE_16K, stress_icache_func_16K)
+@@ -189,13 +184,13 @@ int stress_icache(const args_t *args)
+ 	case SIZE_16K:
+ 		ret = stress_icache_16K(args);
+ 		break;
+-#if defined(ALIGNED_64K_SUPPORTED)
++#if defined(HAVE_ALIGNED_64)
+ 	case SIZE_64K:
+ 		ret = stress_icache_64K(args);
+ 		break;
+ #endif
+ 	default:
+-#if defined(ALIGNED_64K_SUPPORTED)
++#if defined(HAVE_ALIGNED_64)
+ 		pr_inf("%s: page size %zu is not %u or %u or %u, cannot test\n",
+ 			args->name, args->page_size,
+ 			SIZE_4K, SIZE_16K, SIZE_64K);
+diff --git a/stress-ng.h b/stress-ng.h
+index 7b8ee7a..8b85581 100644
+--- a/stress-ng.h
++++ b/stress-ng.h
+@@ -343,7 +343,7 @@ typedef struct {
+ #endif
+ 
+ /* Force aligment to nearest cache line */
+-#if defined(__GNUC__) &&  NEED_GNUC(3,3,0)
++#if defined(HAVE_ALIGNED_64)
+ #define ALIGN64		__attribute__ ((aligned(64)))
+ #else
+ #define ALIGN64
+diff --git a/test-aligned-64.c b/test-aligned-64.c
+new file mode 100644
+index 0000000..4738e76
+--- /dev/null
++++ b/test-aligned-64.c
+@@ -0,0 +1,41 @@
++/*
++ * Copyright (C) 2017 Canonical, Ltd.
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version 2
++ * of the License, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
++ *
++ * This code is a complete clean re-write of the stress tool by
++ * Colin Ian King <colin.king@canonical.com> and attempts to be
++ * backwardly compatible with the stress tool by Amos Waterland
++ * <apw@rossby.metr.ou.edu> but has more stress tests and more
++ * functionality.
++ *
++ */
++#include <stddef.h>
++
++int __attribute__ ((aligned(64))) test_align64(void);
++
++int main(void)
++{
++	const ptrdiff_t addr = (ptrdiff_t)test_align64;
++
++	(void)test_align64();
++
++	return addr & 63;
++}
++
++int __attribute__ ((aligned(64))) test_align64(void)
++{
++	return 0;
++}
+-- 
+2.7.4
+
