@@ -1,0 +1,5 @@
+require ${PN}.inc
+
+# No official release tarballs or git tags, but this commit (currently
+# the latest) changed the version line in poll.c to 1.0.2.
+SRC_REV="commit=b6767cd8b6927394135f9f786d85611183291dec"
