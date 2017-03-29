@@ -39,3 +39,14 @@ RDEPENDS_${PN} += "${AUTO_PACKAGE_UTILS_PACKAGES}"
 
 DEPENDS_${PN}-chronyc += "${DEP_READLINE}"
 RDEPENDS_${PN}-chronyc += "${DEP_READLINE}"
+
+SRC_URI += "file://chrony.conf"
+PACKAGES =+ "${PN}-conf"
+FILES_${PN}-conf = "${sysconfdir}"
+do_install_conf() {
+    install -d ${D}${sysconfdir}
+    install -m 0644 ${SRCDIR}/chrony.conf ${D}${sysconfdir}
+    sed -i -e 's!@localstatedir@!${localstatedir}!' ${D}${sysconfdir}/chrony.conf
+}
+do_install[postfuncs] += "do_install_conf"
+RDEPENDS_${PN}-chronyd += "${PN}-conf"
