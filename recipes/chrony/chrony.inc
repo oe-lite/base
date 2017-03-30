@@ -9,6 +9,7 @@ SRC_URI = "https://download.tuxfamily.org/chrony/chrony-${PV}.tar.gz"
 
 inherit make
 inherit auto-package-utils
+inherit sysvinit
 
 DEPENDS += "libc libm"
 
@@ -50,3 +51,15 @@ do_install_conf() {
 }
 do_install[postfuncs] += "do_install_conf"
 RDEPENDS_${PN}-chronyd += "${PN}-conf"
+
+SRC_URI += "file://init"
+RECIPE_FLAGS += "chronyd_sysvinit_start chronyd_sysvinit_stop"
+DEFAULT_USE_chronyd_sysvinit_start	= "25"
+DEFAULT_USE_chronyd_sysvinit_stop	= "25"
+PACKAGES =+ "${PN}-init"
+FILES_${PN}-init = ""
+FILES_${PN}-init = "${sysconfdir}/init.d/ ${sysconfdir}/rc?.d/"
+do_install_init() {
+    sysvinit_install_script ${SRCDIR}/init chronyd
+}
+do_install[postfuncs] =+ "do_install_init"
