@@ -1,0 +1,231 @@
+From 2c03776f1b20007ecc94d9d6c21658ac27dd905d Mon Sep 17 00:00:00 2001
+From: Colin Ian King <colin.king@canonical.com>
+Date: Wed, 29 Mar 2017 00:18:59 +0100
+Subject: [PATCH 4/4] Fix test for 64K alignment (instead of 64 byte)
+
+The test should be for 64K alignment and not 64 byte alignment,
+so fix this.
+
+This is what happens when one fixes a bug late at night on little
+sleep.
+
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+---
+ Makefile           | 26 +++++++++++++-------------
+ stress-icache.c    |  8 ++++----
+ stress-ng.h        |  2 +-
+ test-aligned-64.c  | 41 -----------------------------------------
+ test-aligned-64K.c | 41 +++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 59 insertions(+), 59 deletions(-)
+ delete mode 100644 test-aligned-64.c
+ create mode 100644 test-aligned-64K.c
+
+diff --git a/Makefile b/Makefile
+index 84d8a83..3e3fbbd 100644
+--- a/Makefile
++++ b/Makefile
+@@ -263,7 +263,7 @@ HAVE_NOT=HAVE_APPARMOR=0 HAVE_KEYUTILS_H=0 HAVE_XATTR_H=0 HAVE_LIB_BSD=0 \
+ 	 HAVE_LIB_Z=0 HAVE_LIB_CRYPT=0 HAVE_LIB_RT=0 HAVE_LIB_PTHREAD=0 \
+ 	 HAVE_FLOAT_DECIMAL=0 HAVE_SECCOMP_H=0 HAVE_LIB_AIO=0 HAVE_SYS_CAP_H=0 \
+ 	 HAVE_VECMATH=0 HAVE_ATOMIC=0 HAVE_LIB_SCTP=0 HAVE_ASM_NOP=0 \
+-	 HAVE_ALIGNED_64=0
++	 HAVE_ALIGNED_64K=0
+ 
+ #
+ #  Load in current config; use 'make clean' to clear this
+@@ -433,11 +433,11 @@ $(info autoconfig: using nop assembler instruction)
+ endif
+ endif
+ 
+-ifndef $(HAVE_ALIGNED_64)
+-HAVE_ALIGNED_64 = $(shell $(MAKE) --no-print-directory $(HAVE_NOT) have_aligned_64)
+-ifeq ($(HAVE_ALIGNED_64),1)
+-	CONFIG_CFLAGS += -DHAVE_ALIGNED_64
+-$(info autoconfig: using 64 byte alignment attribute)
++ifndef $(HAVE_ALIGNED_64K)
++HAVE_ALIGNED_64K = $(shell $(MAKE) --no-print-directory $(HAVE_NOT) have_aligned_64K)
++ifeq ($(HAVE_ALIGNED_64K),1)
++	CONFIG_CFLAGS += -DHAVE_ALIGNED_64K
++$(info autoconfig: using 64K byte alignment attribute)
+ endif
+ endif
+ 
+@@ -704,17 +704,17 @@ have_atomic: stress-atomic.c
+ 	@rm -rf stress-atomic-test
+ 
+ #
+-#  check if we can build functions aligned to 64 byte boundaries
++#  check if we can build functions aligned to 64K byte boundaries
+ #
+-.PHONY: have_aligned_64
+-have_aligned_64: test-aligned-64.c
+-	@$(CC) $(CPPFLAGS) test-aligned-64.c -o test-aligned-64 2> /dev/null || true
+-	@if [ -f test-aligned-64 ]; then \
++.PHONY: have_aligned_64K
++have_aligned_64K: test-aligned-64K.c
++	@$(CC) $(CPPFLAGS) test-aligned-64K.c -o test-aligned-64K 2> /dev/null || true
++	@if [ -f test-aligned-64K ]; then \
+ 		echo 1 ;\
+ 	else \
+ 		echo 0 ;\
+ 	fi
+-	@rm -rf test-aligned-64
++	@rm -rf test-aligned-64K
+ 
+ 
+ #
+@@ -764,7 +764,7 @@ dist:
+ 		test-apparmor.c test-libbsd.c test-libz.c \
+ 		test-libcrypt.c test-librt.c test-libpthread.c \
+ 		test-libaio.c test-cap.c test-libsctp.c \
+-		test-asm-nop.c test-aligned-64.c \
++		test-asm-nop.c test-aligned-64K.c \
+ 		usr.bin.pulseaudio.eg perf-event.c \
+ 		snapcraft smatchify.sh config TODO stress-ng-$(VERSION)
+ 	tar -zcf stress-ng-$(VERSION).tar.gz stress-ng-$(VERSION)
+diff --git a/stress-icache.c b/stress-icache.c
+index 599a381..28713b2 100644
+--- a/stress-icache.c
++++ b/stress-icache.c
+@@ -154,13 +154,13 @@ static inline int icache_madvise(const args_t *args, void *addr, size_t size)
+ 	return 0;
+ }
+ 
+-#if defined(HAVE_ALIGNED_64)
++#if defined(HAVE_ALIGNED_64K)
+ STRESS_ICACHE_FUNC(stress_icache_func_64K, SIZE_64K)
+ #endif
+ STRESS_ICACHE_FUNC(stress_icache_func_16K, SIZE_16K)
+ STRESS_ICACHE_FUNC(stress_icache_func_4K, SIZE_4K)
+ 
+-#if defined(HAVE_ALIGNED_64)
++#if defined(HAVE_ALIGNED_64K)
+ STRESS_ICACHE(stress_icache_64K, SIZE_64K, stress_icache_func_64K)
+ #endif
+ STRESS_ICACHE(stress_icache_16K, SIZE_16K, stress_icache_func_16K)
+@@ -184,13 +184,13 @@ int stress_icache(const args_t *args)
+ 	case SIZE_16K:
+ 		ret = stress_icache_16K(args);
+ 		break;
+-#if defined(HAVE_ALIGNED_64)
++#if defined(HAVE_ALIGNED_64K)
+ 	case SIZE_64K:
+ 		ret = stress_icache_64K(args);
+ 		break;
+ #endif
+ 	default:
+-#if defined(HAVE_ALIGNED_64)
++#if defined(HAVE_ALIGNED_64K)
+ 		pr_inf("%s: page size %zu is not %u or %u or %u, cannot test\n",
+ 			args->name, args->page_size,
+ 			SIZE_4K, SIZE_16K, SIZE_64K);
+diff --git a/stress-ng.h b/stress-ng.h
+index 8b85581..c5e43f6 100644
+--- a/stress-ng.h
++++ b/stress-ng.h
+@@ -343,7 +343,7 @@ typedef struct {
+ #endif
+ 
+ /* Force aligment to nearest cache line */
+-#if defined(HAVE_ALIGNED_64)
++#if defined(HAVE_ALIGNED_64K)
+ #define ALIGN64		__attribute__ ((aligned(64)))
+ #else
+ #define ALIGN64
+diff --git a/test-aligned-64.c b/test-aligned-64.c
+deleted file mode 100644
+index 4738e76..0000000
+--- a/test-aligned-64.c
++++ /dev/null
+@@ -1,41 +0,0 @@
+-/*
+- * Copyright (C) 2017 Canonical, Ltd.
+- *
+- * This program is free software; you can redistribute it and/or
+- * modify it under the terms of the GNU General Public License
+- * as published by the Free Software Foundation; either version 2
+- * of the License, or (at your option) any later version.
+- *
+- * This program is distributed in the hope that it will be useful,
+- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+- * GNU General Public License for more details.
+- *
+- * You should have received a copy of the GNU General Public License
+- * along with this program; if not, write to the Free Software
+- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+- *
+- * This code is a complete clean re-write of the stress tool by
+- * Colin Ian King <colin.king@canonical.com> and attempts to be
+- * backwardly compatible with the stress tool by Amos Waterland
+- * <apw@rossby.metr.ou.edu> but has more stress tests and more
+- * functionality.
+- *
+- */
+-#include <stddef.h>
+-
+-int __attribute__ ((aligned(64))) test_align64(void);
+-
+-int main(void)
+-{
+-	const ptrdiff_t addr = (ptrdiff_t)test_align64;
+-
+-	(void)test_align64();
+-
+-	return addr & 63;
+-}
+-
+-int __attribute__ ((aligned(64))) test_align64(void)
+-{
+-	return 0;
+-}
+diff --git a/test-aligned-64K.c b/test-aligned-64K.c
+new file mode 100644
+index 0000000..2b87e7e
+--- /dev/null
++++ b/test-aligned-64K.c
+@@ -0,0 +1,41 @@
++/*
++ * Copyright (C) 2017 Canonical, Ltd.
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version 2
++ * of the License, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
++ *
++ * This code is a complete clean re-write of the stress tool by
++ * Colin Ian King <colin.king@canonical.com> and attempts to be
++ * backwardly compatible with the stress tool by Amos Waterland
++ * <apw@rossby.metr.ou.edu> but has more stress tests and more
++ * functionality.
++ *
++ */
++#include <stddef.h>
++
++int __attribute__ ((aligned(65536))) test_align64K(void);
++
++int main(void)
++{
++	const ptrdiff_t addr = (ptrdiff_t)test_align64K;
++
++	(void)test_align64K();
++
++	return addr & 65535;
++}
++
++int __attribute__ ((aligned(65536))) test_align64K(void)
++{
++	return 0;
++}
+-- 
+2.7.4
+
