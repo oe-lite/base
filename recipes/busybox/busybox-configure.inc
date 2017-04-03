@@ -577,6 +577,11 @@ BUSYBOX_SIMPLE_USE_FLAGS += "traceroute:util/"
 # USE flag: enable cttyhack utility
 BUSYBOX_SIMPLE_USE_FLAGS += "cttyhack:util/"
 
+# USE flag: enable getopt utility
+BUSYBOX_SIMPLE_USE_FLAGS += "getopt:util/:\
+CONFIG_GETOPT,\
+CONFIG_FEATURE_GETOPT_LONG"
+
 # USE flag: enable gzip utility
 BUSYBOX_SIMPLE_USE_FLAGS += "gzip=1:util/:\
 CONFIG_GZIP,\
