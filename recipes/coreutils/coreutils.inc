@@ -21,7 +21,7 @@ EXTRA_OECONF_SINGLEBIN:USE_coreutils_singlebin = "--enable-single-binary"
 EXTRA_OECONF:>native += " --without-gmp"
 EXTRA_OECONF:>sdk += " --enable-install-program=arch"
 
-DEPENDS += "gettext libpthread libgmp libcap"
+DEPENDS += "libpthread libgmp libcap"
 
 RECIPE_FLAGS += "ssl"
 EXTRA_OECONF += "${EXTRA_OECONF_SSL}"
