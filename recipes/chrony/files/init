@@ -1,0 +1,58 @@
+#!/bin/sh
+
+NAME=chronyd
+DAEMON=/usr/sbin/$NAME
+PIDFILE=/var/run/$NAME.pid
+ARGS=
+
+if [ -f /etc/default/$NAME ] ; then
+    . /etc/default/$NAME
+fi
+
+set -e
+
+do_start() {
+    start-stop-daemon -S --pidfile $PIDFILE --exec $DAEMON -- $ARGS
+}
+
+do_stop() {
+    start-stop-daemon -K --pidfile $PIDFILE --exec $DAEMON
+}
+
+do_status() {
+    if start-stop-daemon -K --pidfile $PIDFILE --exec $DAEMON --test ; then
+	echo "$NAME is running (pid " `cat $PIDFILE` ")"
+	if which chronyc > /dev/null ; then
+	    chronyc -m 'activity' 'sources' 'sourcestats'
+	fi
+    else
+	echo "$NAME is not running"
+	exit 1
+    fi
+}
+
+case "$1" in
+    start)
+	echo "Starting $NAME"
+	do_start
+	;;
+    stop)
+	echo "Stopping $NAME"
+	do_stop
+	;;
+    restart|force-reload)
+	echo "Restarting $NAME"
+	do_stop
+	sleep 1
+	do_start
+	;;
+    status)
+	do_status
+	;;
+    *)
+	echo "Usage: $0 {start|stop|restart|force-reload|status}" >&2
+	exit 1
+	;;
+esac
+
+exit 0
