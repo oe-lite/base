@@ -13,10 +13,10 @@ require conf/fetch/gnu.conf
 
 SRC_URI = "${GNU_MIRROR}/${PN}/${PN}-${PV}.tar.xz"
 
-RECIPE_FLAGS += "singlebin"
+RECIPE_FLAGS += "coreutils_singlebin"
 EXTRA_OECONF:>machine += " --libexecdir=${libdir} --enable-install-program=arch ${EXTRA_OECONF_SINGLEBIN}"
 EXTRA_OECONF_SINGLEBIN = ""
-EXTRA_OECONF_SINGLEBIN:USE_singlebin = "--enable-single-binary"
+EXTRA_OECONF_SINGLEBIN:USE_coreutils_singlebin = "--enable-single-binary"
 
 EXTRA_OECONF:>native += " --without-gmp"
 EXTRA_OECONF:>sdk += " --enable-install-program=arch"
@@ -41,10 +41,10 @@ AUTO_PACKAGE_UTILS = "chown dd expr install mkfifo od readlink sha384sum stty tr
 		 chgrp cut env hostid md5sum nproc ptx sha224sum stat timeout uniq \
 		 chmod date expand id mkdir numfmt pwd sha256sum stdbuf touch unlink"
 
-AUTO_PACKAGE_UTILS_RDEPENDS:>USE_singlebin += "${PN}"
+AUTO_PACKAGE_UTILS_RDEPENDS:>USE_coreutils_singlebin += "${PN}"
 
 RDEPENDS_SINGLEBIN = "${AUTO_PACKAGE_UTILS_PACKAGES}"
-RDEPENDS_SINGLEBIN:USE_singlebin = ""
+RDEPENDS_SINGLEBIN:USE_coreutils_singlebin = ""
 DEPENDS_${PN} += " libc libcap libgmp libiconv"
 RDEPENDS_${PN} += "${RDEPENDS_SINGLEBIN} libc libcap libgmp libiconv"
 
