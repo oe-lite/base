@@ -49,3 +49,4 @@ DEPENDS_${PN} += " libc libcap libgmp libiconv"
 RDEPENDS_${PN} += "${RDEPENDS_SINGLEBIN} libc libcap libgmp libiconv"
 
 FILES_${PN}-test += "${bindir}/["
+FILES_${PN}-stdbuf += "${libdir}/${PN}/libstdbuf*"
