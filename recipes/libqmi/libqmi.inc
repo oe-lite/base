@@ -31,5 +31,11 @@ RDEPENDS_${PN}-libqmi-glib += "libc libdl libffi libgio-2.0 libglib-2.0 libgmodu
 
 PROVIDES_${PN}-libqmi-glib += "libqmi-glib-5"
 
-FILES_${PN}-doc += "${datadir}/gtk-doc/html/libqmi-glib/*" 
-FILES_${PN}-bash-completion += "${datadir}/bash-completion/completions/*" 
+FILES_${PN}-doc += "${datadir}/gtk-doc/html/libqmi-glib/*"
+FILES_${PN}-bash-completion += "${datadir}/bash-completion/completions/*"
+
+RECIPE_FLAGS += "libqmi_disable_udev"
+EXTRA_OECONF_LIBQMI_DISABLE_UDEV = ""
+EXTRA_OECONF_LIBQMI_DISABLE_UDEV:USE_libqmi_disable_udev = "--without-udev"
+EXTRA_OECONF += "${EXTRA_OECONF_LIBQMI_DISABLE_UDEV}"
+DEFAULT_USE_libqmi_disable_udev = True
