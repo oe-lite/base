@@ -1,0 +1,8 @@
+# -*- mode:python; -*-
+require ${PN}.inc
+
+LICENSE = "BSD"
+
+SRC_URI += "file://0001-Use-pkg-config-for-pcre-dependency-instead-of-config.patch"
+
+inherit autotools-autoreconf
