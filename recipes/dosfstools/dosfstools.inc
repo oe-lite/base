@@ -16,20 +16,23 @@ inherit c autotools pkgconfig
 #
 CFLAGS += '-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64'
 
-PACKAGES =+ "${PN}-mkfs ${PN}-fsck ${PN}-fslabel"
+EXTRA_OECONF += "--enable-compat-symlinks"
 
-FILES_${PN}-mkfs = "${sbindir}/mkdosfs ${sbindir}/mkfs.*"
-FILES_${PN}-fsck = "${sbindir}/dosfsck ${sbindir}/fsck.*"
-FILES_${PN}-fslabel = "${sbindir}/dosfslabel"
+inherit auto-package-utils
 
-PROVIDES_${PN}-mkfs = "util/mkfs.msdos util/mkfs.vfat util/mkdosfs"
-PROVIDES_${PN}-fsck = "util/fsck.msdos util/fsck.vfat util/dosfsck"
-PROVIDES_${PN}-fslabel = "util/dosfslabel"
+AUTO_PACKAGE_UTILS = "fatlabel fsck-fat:fsck.fat mkfs-fat:mkfs.fat"
+AUTO_PACKAGE_UTILS_DEPENDS += "libc libgcc"
+AUTO_PACKAGE_UTILS_RDEPENDS += "libc libgcc"
 
-DEPENDS_${PN}-mkfs = "libc libgcc"
-RDEPENDS_${PN}-mkfs = "libc libgcc"
-DEPENDS_${PN}-fsck = "libc libgcc"
-RDEPENDS_${PN}-fsck = "libc libgcc"
+AUTO_PACKAGE_UTILS_SYMLINKS_fatlabel = "dosfslabel"
+AUTO_PACKAGE_UTILS_SYMLINKS_fsck-fat = "dosfsck fsck-msdos:fsck.msdos fsck-vfat:fsck.vfat"
+AUTO_PACKAGE_UTILS_SYMLINKS_mkfs-fat = "mkdosfs mkfs-msdos:mkfs.msdos mkfs-vfat:mkfs.vfat"
 
-RDEPENDS_${PN} = "libgcc libc ${PN}-mkfs ${PN}-fsck ${PN}-fslabel"
-DEPENDS_${PN} = "libgcc libc ${PN}-mkfs ${PN}-fsck ${PN}-fslabel"
+# auto-package-utils.oeclass currently translates . to - in the
+# PROVIDES, but we need util/mkfs.vfat etc. for backward
+# compatibility. So add these extra provides by hand.
+PROVIDES_${PN}-fsck-fat += "util/fsck.fat util/fsck.msdos util/fsck.vfat"
+PROVIDES_${PN}-mkfs-fat += "util/mkfs.fat util/mkfs.msdos util/mkfs.vfat"
+
+RDEPENDS_${PN} = "${AUTO_PACKAGE_UTILS_PACKAGES}"
+DEPENDS_${PN} = "${AUTO_PACKAGE_UTILS_PACKAGES}"
