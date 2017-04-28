@@ -15,7 +15,7 @@ RECIPE_TYPES = "machine native sdk"
 
 inherit autotools pkgconfig binconfig library auto-package-utils largefile
 
-EXTRA_OECONF = "--disable-rtsp --disable-telnet --disable-pop3 --disable-imap --disable-smtp --disable-gopher --disable-sspi --disable-tls-srp --disable-dict"
+EXTRA_OECONF = "--disable-rtsp --disable-telnet --disable-pop3 --disable-imap --disable-gopher --disable-sspi --disable-tls-srp --disable-dict"
 
 RECIPE_FLAGS += "curl_ipv6"
 EXTRA_OECONF += "${EXTRA_OECONF_IPV6}"
@@ -40,6 +40,11 @@ RDEPENDS_${PN}:>USE_curl_idn = " libidn"
 EXTRA_OECONF += "${EXTRA_OECONF_IDN}"
 EXTRA_OECONF_IDN = "--disable-idn"
 EXTRA_OECONF_IDN:USE_curl_idn = "--enable-idn"
+
+RECIPE_FLAGS += "curl_smtp"
+EXTRA_OECONF += "${EXTRA_OECONF_SMTP}"
+EXTRA_OECONF_SMTP = "--disable-smtp"
+EXTRA_OECONF_SMTP:USE_curl_smtp = "--enable-smtp"
 
 RECIPE_FLAGS += "curl_ssh"
 DEPENDS:>USE_curl_ssh = " libssh2"
