@@ -13,15 +13,15 @@ require conf/fetch/gnu.conf
 
 SRC_URI = "${GNU_MIRROR}/${PN}/${PN}-${PV}.tar.xz"
 
-RECIPE_FLAGS += "singlebin"
+RECIPE_FLAGS += "coreutils_singlebin"
 EXTRA_OECONF:>machine += " --libexecdir=${libdir} --enable-install-program=arch ${EXTRA_OECONF_SINGLEBIN}"
 EXTRA_OECONF_SINGLEBIN = ""
-EXTRA_OECONF_SINGLEBIN:USE_singlebin = "--enable-single-binary"
+EXTRA_OECONF_SINGLEBIN:USE_coreutils_singlebin = "--enable-single-binary"
 
 EXTRA_OECONF:>native += " --without-gmp"
 EXTRA_OECONF:>sdk += " --enable-install-program=arch"
 
-DEPENDS += "gettext libpthread libgmp libcap"
+DEPENDS += "libpthread libgmp libcap"
 
 RECIPE_FLAGS += "ssl"
 EXTRA_OECONF += "${EXTRA_OECONF_SSL}"
@@ -41,11 +41,42 @@ AUTO_PACKAGE_UTILS = "chown dd expr install mkfifo od readlink sha384sum stty tr
 		 chgrp cut env hostid md5sum nproc ptx sha224sum stat timeout uniq \
 		 chmod date expand id mkdir numfmt pwd sha256sum stdbuf touch unlink"
 
-AUTO_PACKAGE_UTILS_RDEPENDS:>USE_singlebin += "${PN}"
+# If someone pulls in coreutils give them everything.
+RDEPENDS_${PN} += "${AUTO_PACKAGE_UTILS_PACKAGES}"
 
-RDEPENDS_SINGLEBIN = "${AUTO_PACKAGE_UTILS_PACKAGES}"
-RDEPENDS_SINGLEBIN:USE_singlebin = ""
-DEPENDS_${PN} += " libc libcap libgmp libiconv"
-RDEPENDS_${PN} += "${RDEPENDS_SINGLEBIN} libc libcap libgmp libiconv"
+# When we create a single binary, put that in a separate (non-auto)
+# package, and make all the individual utilities rdepend on that
+PACKAGES:<USE_coreutils_singlebin = "${PN}-singlebin "
+FILES_${PN}-singlebin = "${bindir}/${PN}"
+AUTO_PACKAGE_UTILS_RDEPENDS:>USE_coreutils_singlebin = " ${PN}-singlebin"
+
+# The singlebin package's dependencies are the union of all the
+# utilities' dependencies (these settings are irrelevant when the
+# package is not created, so no need to guard them with the USE flag).
+DEPENDS_${PN}-singlebin += " libc libcap libgmp libpthread"
+RDEPENDS_${PN}-singlebin += " libc libcap libgmp libpthread"
+
+AUTO_PACKAGE_UTILS_DEPENDS += "libc"
+AUTO_PACKAGE_UTILS_RDEPENDS += "libc"
+
+DEPENDS_${PN}-expr += "libgmp"
+RDEPENDS_${PN}-expr += "libgmp"
+DEPENDS_${PN}-factor += "libgmp"
+RDEPENDS_${PN}-factor += "libgmp"
+
+DEPENDS_${PN}-dir += "libcap"
+RDEPENDS_${PN}-dir += "libcap"
+DEPENDS_${PN}-vdir += "libcap"
+RDEPENDS_${PN}-vdir += "libcap"
+DEPENDS_${PN}-ls += "libcap"
+RDEPENDS_${PN}-ls += "libcap"
+
+DEPENDS_${PN}-sort += "libpthread"
+RDEPENDS_${PN}-sort += "libpthread"
+DEPENDS_${PN}-timeout += "libpthread"
+RDEPENDS_${PN}-timeout += "libpthread"
+
+
 
 FILES_${PN}-test += "${bindir}/["
+FILES_${PN}-stdbuf += "${libdir}/${PN}/libstdbuf*"
