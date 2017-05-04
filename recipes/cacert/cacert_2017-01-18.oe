@@ -1,0 +1,13 @@
+DESCRIPTION = "CA certificates extracted from Mozilla"
+HOMEPAGE = "https://curl.haxx.se/docs/caextract.html"
+
+SRC_URI = "https://curl.haxx.se/ca/cacert-${PV}.pem"
+
+do_install() {
+	mkdir -p ${D}${sysconfdir}/ssl
+	install -m 644 ${SRCDIR}/cacert-${PV}.pem \
+		${D}${sysconfdir}/ssl/cacert.pem
+}
+
+PACKAGES = "${PN}"
+FILES_${PN} = "${sysconfdir}/ssl/cacert.pem"

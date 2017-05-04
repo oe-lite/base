@@ -24,8 +24,17 @@ EXTRA_OECONF_IPV6:USE_curl_ipv6 = "--enable-ipv6"
 
 RECIPE_FLAGS += "curl_ssl"
 DEPENDS:>USE_curl_ssl = " libssl libcrypto"
-RDEPENDS_${PN}:>USE_curl_ssl = " libssl libcrypto"
+RDEPENDS_${PN}:>USE_curl_ssl = " libssl libcrypto cacert"
 EXTRA_OECONF:>USE_curl_ssl = " --with-ssl"
+EXTRA_OECONF:>USE_curl_ssl += "--with-ca-bundle=${sysconfdir}/ssl/cacert.pem"
+EXTRA_OECONF:>USE_curl_ssl += "--enable-tls-srp"
+
+RECIPE_FLAGS += "curl_zlib"
+DEPENDS:>USE_curl_zlib = " libz"
+RDEPENDS_${PN}:>USE_curl_zlib = " libz"
+EXTRA_OECONF += "${EXTRA_OECONF_ZLIB}"
+EXTRA_OECONF_ZLIB = "--without-zlib"
+EXTRA_OECONF_ZLIB:USE_curl_zlib = "--with-zlib"
 
 RECIPE_FLAGS += "curl_ldap"
 DEPENDS:>USE_curl_ldap = " libldap"
