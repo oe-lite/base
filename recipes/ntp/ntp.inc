@@ -66,6 +66,7 @@ DEFAULT_USE_ntp_ntpd_start_args = "-g"
 do_configure[postfuncs] =+ "do_configure_ntpd_init"
 do_configure_ntpd_init() {
     sed -e "s#NTPD_START_ARGS_PLACEHOLDER#${USE_ntp_ntpd_start_args}#" -i ${SRCDIR}/ntpd
+    sed -e "s#NTPD_START_ARGS_PLACEHOLDER#${USE_ntp_ntpd_start_args}#" -i ${SRCDIR}/ntpd.run
 }
 
 RECIPE_FLAGS += "ntpdate_ifup"
@@ -105,3 +106,10 @@ FILES_${PN}-ntpdate = "${sysconfdir}/network/if-up.d/ntpdate"
 # ntp originally includes tickadj. It's split off for inclusion in
 # small firmware images on platforms with wonky clocks (e.g. OpenSlug)
 RDEPENDS_${PN}-ntpd = "${PN}-tickadj ${PN}-config ${PN}-init"
+
+inherit s6rc
+S6RC_LONGRUN_SERVICES = "ntpd ntpd-log"
+SRC_URI += "file://ntpd.run file://ntpd-log.run"
+RECIPE_FLAGS += "ntpd_s6rc_dependencies"
+DEFAULT_USE_ntpd_s6rc_dependencies = "ntpd-log net"
+FILES_${PN}-ntpd += "${s6rcsrcdir}"
