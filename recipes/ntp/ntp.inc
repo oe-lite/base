@@ -39,6 +39,12 @@ RECIPE_FLAGS += "ntp_clocks"
 EXTRA_OECONF += "--disable-all-clocks --disable-parse-clocks"
 EXTRA_OECONF:>USE_ntp_clocks = " ${USE_ntp_clocks}"
 
+RECIPE_FLAGS += "ntp_caps"
+EXTRA_OECONF += "${EXTRA_OECONF_CAPS}"
+EXTRA_OECONF_CAPS = ""
+EXTRA_OECONF_CAPS:USE_ntp_caps = "--enable-linuxcaps"
+DEPENDS:>USE_ntp_caps = " libcap"
+
 CFLAGS += " -DPTYS_ARE_GETPT -DPTYS_ARE_SEARCHED"
 
 do_autoreconf[prefuncs] =+ "do_autoreconf_pre"
@@ -85,6 +91,7 @@ AUTO_PACKAGE_UTILS = "ntpd ntpdate ntp-wait ntp-keygen sntp ntpq ntpdc \
 # NOTE: you don't need ntpdate if you have ntpd ("ntpdc -q -g -x")
 
 RDEPENDS_${PN}-ntpd = "libm"
+RDEPENDS_${PN}-ntpd:>USE_ntp_caps = " libcap"
 RDEPENDS_${PN}-sntp = "libm"
 
 PACKAGES =+ "${PN}-config ${PN}-init"
