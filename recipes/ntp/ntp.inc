@@ -95,17 +95,18 @@ RDEPENDS_${PN}-ntpd = "libm"
 RDEPENDS_${PN}-ntpd:>USE_ntp_caps = " libcap"
 RDEPENDS_${PN}-sntp = "libm"
 
-PACKAGES =+ "${PN}-config ${PN}-init"
+PACKAGES =+ "${PN}-config ${PN}-sysvinit"
 
 FILES_${PN}-config = "${sysconfdir}/ntp.conf"
 
-FILES_${PN}-init = "${sysconfdir}/init.d/ntpd ${sysconfdir}/rc?.d/???ntpd"
+FILES_${PN}-sysvinit = "${sysconfdir}/init.d/ntpd ${sysconfdir}/rc?.d/???ntpd"
 
 FILES_${PN}-ntpdate = "${sysconfdir}/network/if-up.d/ntpdate"
 
 # ntp originally includes tickadj. It's split off for inclusion in
 # small firmware images on platforms with wonky clocks (e.g. OpenSlug)
-RDEPENDS_${PN}-ntpd = "${PN}-tickadj ${PN}-config ${PN}-init"
+RDEPENDS_${PN}-ntpd = "${PN}-tickadj ${PN}-config"
+RDEPENDS_${PN}-ntpd:>USE_sysvinit = " ${PN}-sysvinit"
 
 inherit s6rc
 S6RC_LONGRUN_SERVICES = "ntpd ntpd-log"
