@@ -102,3 +102,9 @@ EXTRA_OECONF += "${EXTRA_OECONF_OPENSSL}"
 EXTRA_OECONF_OPENSSL += ""
 EXTRA_OECONF_OPENSSL:USE_bind_openssl = 'LIBS="-lssl -lcrypto"'
 DEPENDS:>USE_bind_openssl = " ${CRYPTO_DEPENDS}"
+
+inherit s6rc
+S6RC_LONGRUN_SERVICES = "dhcpd dhcpd-log"
+SRC_URI += "file://dhcpd.run file://dhcpd-log.run"
+DEFAULT_USE_ntpd_s6rc_dependencies = "dhcpd-log net"
+FILES_${PN}-server += "${s6rcsrcdir}"
