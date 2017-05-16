@@ -1,0 +1,4 @@
+#!/bin/execlineb -P
+redirfd -w 1 /run/ntpd-log.fifo
+fdmove -c 2 1
+/usr/sbin/ntpd -n NTPD_START_ARGS_PLACEHOLDER

@@ -39,6 +39,12 @@ RECIPE_FLAGS += "ntp_clocks"
 EXTRA_OECONF += "--disable-all-clocks --disable-parse-clocks"
 EXTRA_OECONF:>USE_ntp_clocks = " ${USE_ntp_clocks}"
 
+RECIPE_FLAGS += "ntp_caps"
+EXTRA_OECONF += "${EXTRA_OECONF_CAPS}"
+EXTRA_OECONF_CAPS = ""
+EXTRA_OECONF_CAPS:USE_ntp_caps = "--enable-linuxcaps"
+DEPENDS:>USE_ntp_caps = " libcap"
+
 CFLAGS += " -DPTYS_ARE_GETPT -DPTYS_ARE_SEARCHED"
 
 do_autoreconf[prefuncs] =+ "do_autoreconf_pre"
@@ -60,6 +66,7 @@ DEFAULT_USE_ntp_ntpd_start_args = "-g"
 do_configure[postfuncs] =+ "do_configure_ntpd_init"
 do_configure_ntpd_init() {
     sed -e "s#NTPD_START_ARGS_PLACEHOLDER#${USE_ntp_ntpd_start_args}#" -i ${SRCDIR}/ntpd
+    sed -e "s#NTPD_START_ARGS_PLACEHOLDER#${USE_ntp_ntpd_start_args}#" -i ${SRCDIR}/ntpd.run
 }
 
 RECIPE_FLAGS += "ntpdate_ifup"
@@ -85,16 +92,25 @@ AUTO_PACKAGE_UTILS = "ntpd ntpdate ntp-wait ntp-keygen sntp ntpq ntpdc \
 # NOTE: you don't need ntpdate if you have ntpd ("ntpdc -q -g -x")
 
 RDEPENDS_${PN}-ntpd = "libm"
+RDEPENDS_${PN}-ntpd:>USE_ntp_caps = " libcap"
 RDEPENDS_${PN}-sntp = "libm"
 
-PACKAGES =+ "${PN}-config ${PN}-init"
+PACKAGES =+ "${PN}-config ${PN}-sysvinit"
 
 FILES_${PN}-config = "${sysconfdir}/ntp.conf"
 
-FILES_${PN}-init = "${sysconfdir}/init.d/ntpd ${sysconfdir}/rc?.d/???ntpd"
+FILES_${PN}-sysvinit = "${sysconfdir}/init.d/ntpd ${sysconfdir}/rc?.d/???ntpd"
 
 FILES_${PN}-ntpdate = "${sysconfdir}/network/if-up.d/ntpdate"
 
 # ntp originally includes tickadj. It's split off for inclusion in
 # small firmware images on platforms with wonky clocks (e.g. OpenSlug)
-RDEPENDS_${PN}-ntpd = "${PN}-tickadj ${PN}-config ${PN}-init"
+RDEPENDS_${PN}-ntpd = "${PN}-tickadj ${PN}-config"
+RDEPENDS_${PN}-ntpd:>USE_sysvinit = " ${PN}-sysvinit"
+
+inherit s6rc
+S6RC_LONGRUN_SERVICES = "ntpd ntpd-log"
+SRC_URI += "file://ntpd.run file://ntpd-log.run"
+RECIPE_FLAGS += "ntpd_s6rc_dependencies"
+DEFAULT_USE_ntpd_s6rc_dependencies = "ntpd-log net"
+FILES_${PN}-ntpd += "${s6rcsrcdir}"
