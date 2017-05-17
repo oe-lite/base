@@ -93,6 +93,15 @@ PACKAGES =+ "${PN}-init"
 RDEPENDS_${PN}:>USE_sysvinit += "${PN}-init"
 FILES_${PN}-init = "${sysconfdir}/init.d ${sysconfdir}/rc?.d"
 
+inherit s6rc
+S6RC_LONGRUN_SERVICES = "vsftpd vsftpd-log"
+SRC_URI += "file://vsftpd.run file://vsftpd-log.run"
+RECIPE_FLAGS += "vsftpd_s6rc_dependencies"
+DEFAULT_USE_vsftpd_s6rc_dependencies = "vsftpd-log net"
+PACKAGES += "${PN}-s6"
+FILES_${PN}-s6 += "${s6rcsrcdir}"
+RDEPENDS_${PN}:>USE_s6rc += " ${PN}-s6"
+
 # FIXME: do something else!
 #pkg_postinst() {
 #    if [ "x$D" != "x" ]; then
