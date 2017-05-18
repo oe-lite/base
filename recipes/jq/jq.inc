@@ -21,3 +21,5 @@ AUTO_PACKAGE_LIBS = "jq"
 AUTO_PACKAGE_LIBS_DEPENDS = "${DEPS}"
 AUTO_PACKAGE_LIBS_RDEPENDS = "${DEPS}"
 FILES_jq-libjq-dev += "${includedir}"
+
+EXTRA_OECONF += "--disable-maintainer-mode"
