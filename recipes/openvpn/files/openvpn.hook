@@ -1,0 +1,13 @@
+#!/bin/execlineb
+
+elgetpositionals
+backtick -n hooksdir { dirname $0 }
+import -u hooksdir
+define basename openvpn@
+define templatedir ${hooksdir}/${basename}.d
+elglob -s -0 confs /etc/openvpn/*.conf
+forx conffile { $confs }
+import -u conffile
+backtick -n name { basename ${conffile} .conf }
+import -u name
+cp -r ${templatedir}/ ${1}/${basename}${name}/

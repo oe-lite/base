@@ -26,3 +26,30 @@ RDEPENDS_${PN} = "libc libgcc ${DEPENDS}"
 
 FILES_${PN}-dev += "${libdir}/openvpn/plugins/*.la"
 FILES_${PN}-dbg += "${libdir}/openvpn/plugins/.debug"
+
+inherit s6rc
+SRC_URI += "\
+  file://${PN}.hook \
+  file://${PN}.run \
+  file://${PN}-log.run \
+"
+
+S6RC_LONGRUN_SERVICES += "openvpn-log"
+RECIPE_FLAGS += "openvpn_s6rc_dependencies"
+DEFAULT_USE_openvpn_s6rc_dependencies = "openvpn-log net"
+do_install_s6[expand] = 3
+do_install_s6() {
+    mkdir -p "${D}${sysconfdir}/rc.hooks/${PN}@.d"
+    install -m 0755 "${SRCDIR}/${PN}.hook" \
+	    "${D}${sysconfdir}/rc.hooks/${PN}"
+    install -m 0755 "${SRCDIR}/${PN}.run" \
+	    "${D}${sysconfdir}/rc.hooks/${PN}@.d/run"
+    echo longrun > "${D}${sysconfdir}/rc.hooks/${PN}@.d/type"
+    for dep in ${USE_openvpn_s6rc_dependencies} ; do
+        echo "$dep" >> "${D}${sysconfdir}/rc.hooks/${PN}@.d/dependencies"
+    done
+}
+do_install[postfuncs] += "do_install_s6"
+PACKAGES =+ "${PN}-s6"
+FILES_${PN}-s6 = "${sysconfdir}/rc.hooks ${s6rcsrcdir}"
+RDEPENDS_${PN}:>USE_s6rc += " ${PN}-s6"
