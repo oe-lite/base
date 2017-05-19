@@ -3,6 +3,8 @@ require dhcp4.inc
 SRC_URI += "file://dhclient-script-drop-resolv.conf.dhclient.patch \
             file://replace-ifconfig-route.patch \
 "
+RECIPE_FLAGS += "dhcp_disable_syslog"
+SRC_URI:>USE_dhcp_disable_syslog = " file://disable-syslog.patch"
 
 DEPENDS += "bind-dev"
 EXTRA_OECONF += "--with-libbind=${TARGET_SYSROOT}${target_libdir}/../ --with-randomdev=/dev/random"
