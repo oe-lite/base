@@ -18,7 +18,7 @@ for file in $OVERLAY_FILES ; do
     if test -e "$overlay_file" ; then
 	if test ! -h "$link_file" -o \
 	"`readlink "$link_file"`" != "$overlay_file" ; then
-	    ln -sf "$overlay_file" "$link_file"
+	    ln -sfnT "$overlay_file" "$link_file"
 	fi
     fi
 done
