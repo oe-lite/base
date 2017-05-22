@@ -1,3 +1,4 @@
 if { if -t { test ! -e /var/run/utmp } touch /var/run/utmp }
-if { if -t { test ! -e /var/log/wtmp } touch /var/log/wtmp }
-if -t { test ! -e /var/log/btmp } touch /var/log/btmp
+if { ifelse { test -e /var/log/wtmp } { true wtmptrim /var/log/wtmp } touch /var/log/wtmp }
+if { ifelse { test -e /var/log/btmp } { true wtmptrim /var/log/btmp } umask 0077 touch /var/log/btmp }
+exit 0

@@ -71,6 +71,14 @@ RECIPE_FLAGS += "init_utmp_s6rc_dependencies"
 DEFAULT_USE_init_utmp_s6rc_dependencies = "init-runtmpfs"
 RECIPE_FLAGS += "init_utmp_s6rc_timeout_up"
 SRC_URI += "file://init-utmp.up"
+RECIPE_FLAGS += "wtmptrim"
+INIT_UTMP_WTMPTRIM = ""
+INIT_UTMP_WTMPTRIM:USE_wtmptrim = "do_patch_wtmptrim"
+do_patch[postfuncs] += "${INIT_UTMP_WTMPTRIM}"
+do_patch_wtmptrim() {
+  sed -i -e 's/true wtmptrim/wtmptrim/' ${SRCDIR}/init-utmp.up
+}
+RDEPENDS_${PN}:>USE_wtmptrim = " util/wtmptrim"
 
 S6RC_ONESHOT_SERVICES += "init-sysctl"
 RECIPE_FLAGS += "init_sysctl_s6rc_dependencies"

@@ -1,0 +1,20 @@
+SUMMARY = "Utility for keeping the tail of wtmp/btmp files"
+LICENSE = "GPL-2.0+"
+SRC_URI = "file://wtmptrim.c"
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
+inherit c
+
+CFLAGS += "-Wall -Wextra -Werror -g"
+S = "${SRCDIR}"
+do_compile() {
+    ${CC} ${CFLAGS} -o wtmptrim wtmptrim.c
+}
+do_install() {
+    install -d ${D}${bindir}
+    install -m 0755 wtmptrim ${D}${bindir}
+}
+
+DEPENDS_${PN} += "libc"
+RDEPENDS_${PN} += "libc"
+PROVIDES_${PN} += "util/${PN}"
