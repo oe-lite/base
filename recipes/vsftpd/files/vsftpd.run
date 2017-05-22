@@ -1,0 +1,9 @@
+#!/bin/execlineb -P
+redirfd -w 1 /run/vsftpd-log.fifo
+fdmove -c 2 1
+/usr/sbin/vsftpd
+  -obackground=NO -olisten=YES
+  -ovsftpd_log_file=/run/vsftpd-log.fifo
+  -oxferlog_file=/run/vsftpd-log.fifo
+  -oxferlog_enable=YES
+  -oxferlog_std_format=NO
