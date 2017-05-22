@@ -1,0 +1,233 @@
+Disable syslog the hard way: Put #if 0 around all calls of syslog and
+other functions declared in syslog.h.
+
+Also #if 0 out #includes of syslog.h itself, so that future additions
+of syslog calls hopefully make the build fail due to missing function
+or macro declarations.
+
+Exempt stables.c from this, to allow existing configuration files with
+a log-facility stanza to still parse.
+
+Origin: OE-lite
+Upstream-status: inappropriate (OE-lite specific)
+
+diff -u -r dhcp-4.3.5.orig/client/dhclient.c dhcp-4.3.5/client/dhclient.c
+--- dhcp-4.3.5.orig/client/dhclient.c	2017-05-19 10:19:42.101680565 +0200
++++ dhcp-4.3.5/client/dhclient.c	2017-05-19 10:40:55.408444413 +0200
+@@ -31,7 +31,9 @@
+  */
+ 
+ #include "dhcpd.h"
++#if 0 /* disable syslog */
+ #include <syslog.h>
++#endif /* disable syslog */
+ #include <signal.h>
+ #include <errno.h>
+ #include <sys/time.h>
+@@ -230,11 +232,13 @@
+ 	else if (fd != -1)
+ 		close(fd);
+ 
++#if 0 /* disable syslog */
+ 	openlog(isc_file_basename(progname), DHCP_LOG_OPTIONS, LOG_DAEMON);
+ 
+ #if !(defined(DEBUG) || defined(__CYGWIN32__))
+ 	setlogmask(LOG_UPTO(LOG_INFO));
+ #endif
++#endif /* disable syslog */
+ 
+ 	/* Set up the isc and dns library managers */
+ 	status = dhcp_context_create(DHCP_CONTEXT_PRE_DB | DHCP_CONTEXT_POST_DB,
+diff -u -r dhcp-4.3.5.orig/common/parse.c dhcp-4.3.5/common/parse.c
+--- dhcp-4.3.5.orig/common/parse.c	2017-05-19 10:19:42.237680889 +0200
++++ dhcp-4.3.5/common/parse.c	2017-05-19 10:23:19.542775302 +0200
+@@ -27,7 +27,9 @@
+  */
+ 
+ #include "dhcpd.h"
++#if 0
+ #include <syslog.h>
++#endif
+ 
+ /* Enumerations can be specified in option formats, and are used for
+    parsing, so we define the routines that manage them here. */
+@@ -5590,11 +5592,13 @@
+ 	lexbuf [lix] = 0;
+ 
+ #ifndef DEBUG
++#if 0
+ 	syslog (LOG_ERR, "%s", mbuf);
+ 	syslog (LOG_ERR, "%s", cfile -> token_line);
+ 	if (cfile -> lexchar < 81)
+ 		syslog (LOG_ERR, "%s^", lexbuf);
+ #endif
++#endif
+ 
+ 	if (log_perror) {
+ 		IGNORE_RET (write (STDERR_FILENO, mbuf, strlen (mbuf)));
+diff -u -r dhcp-4.3.5.orig/dhcpctl/omshell.c dhcp-4.3.5/dhcpctl/omshell.c
+--- dhcp-4.3.5.orig/dhcpctl/omshell.c	2017-05-19 10:19:42.241680898 +0200
++++ dhcp-4.3.5/dhcpctl/omshell.c	2017-05-19 10:36:36.167537732 +0200
+@@ -36,7 +36,9 @@
+ #include <stdarg.h>
+ #include <string.h>
+ //#include "result.h"
++#if 0 /* disable syslog */
+ #include <syslog.h>
++#endif /* disable syslog */
+ #include "dhcpctl.h"
+ #include "dhcpd.h"
+ #include <isc/file.h>
+@@ -108,8 +110,10 @@
+ 	}
+ 
+ 	/* Initially, log errors to stderr as well as to syslogd. */
++#if 0 /* disable syslog */
+ 	openlog (isc_file_basename(progname),
+ 		 DHCP_LOG_OPTIONS, DHCPD_LOG_FACILITY);
++#endif /* disable syslog */
+ 	status = dhcpctl_initialize ();
+ 	if (status != ISC_R_SUCCESS) {
+ 		fprintf (stderr, "dhcpctl_initialize: %s\n",
+diff -u -r dhcp-4.3.5.orig/includes/omapip/isclib.h dhcp-4.3.5/includes/omapip/isclib.h
+--- dhcp-4.3.5.orig/includes/omapip/isclib.h	2017-05-19 10:19:42.245680908 +0200
++++ dhcp-4.3.5/includes/omapip/isclib.h	2017-05-19 10:41:58.088593125 +0200
+@@ -30,7 +30,9 @@
+ 
+ #include "config.h"
+ 
++#if 0 /* disable syslog */
+ #include <syslog.h>
++#endif /* disable syslog */
+ 
+ #define MAXWIRE 256
+ 
+diff -u -r dhcp-4.3.5.orig/omapip/errwarn.c dhcp-4.3.5/omapip/errwarn.c
+--- dhcp-4.3.5.orig/omapip/errwarn.c	2017-05-19 10:19:42.245680908 +0200
++++ dhcp-4.3.5/omapip/errwarn.c	2017-05-19 10:39:41.444270214 +0200
+@@ -36,7 +36,9 @@
+ 
+ #include <omapip/omapip_p.h>
+ #include <errno.h>
++#if 0 /* disable syslog */
+ #include <syslog.h>
++#endif /* disable syslog */
+ 
+ #ifdef DEBUG
+ int log_perror = -1;
+@@ -65,7 +67,9 @@
+   va_end (list);
+ 
+ #ifndef DEBUG
++#if 0 /* disable syslog */
+   syslog (LOG_ERR, "%s", mbuf);
++#endif /* disable syslog */
+ #endif
+ 
+   /* Also log it to stderr? */
+@@ -104,7 +108,9 @@
+   va_end (list);
+ 
+ #ifndef DEBUG
++#if 0 /* disable syslog */
+   syslog (LOG_ERR, "%s", mbuf);
++#endif /* disable syslog */
+ #endif
+ 
+   if (log_perror) {
+@@ -131,7 +137,9 @@
+   va_end (list);
+ 
+ #ifndef DEBUG
++#if 0 /* disable syslog */
+   syslog (LOG_INFO, "%s", mbuf);
++#endif /* disable syslog */
+ #endif
+ 
+   if (log_perror) {
+@@ -158,7 +166,9 @@
+   va_end (list);
+ 
+ #ifndef DEBUG
++#if 0 /* disable syslog */
+   syslog (LOG_DEBUG, "%s", mbuf);
++#endif /* disable syslog */
+ #endif
+ 
+   if (log_perror) {
+diff -u -r dhcp-4.3.5.orig/relay/dhcrelay.c dhcp-4.3.5/relay/dhcrelay.c
+--- dhcp-4.3.5.orig/relay/dhcrelay.c	2017-05-19 10:19:42.245680908 +0200
++++ dhcp-4.3.5/relay/dhcrelay.c	2017-05-19 10:31:28.485744922 +0200
+@@ -27,7 +27,9 @@
+  */
+ 
+ #include "dhcpd.h"
++#if 0 /* disable syslog */
+ #include <syslog.h>
++#endif /* disable syslog */
+ #include <signal.h>
+ #include <sys/time.h>
+ #include <isc/file.h>
+@@ -250,11 +252,13 @@
+ 	else if (fd != -1)
+ 		close(fd);
+ 
++#if 0 /* disable syslog */
+ 	openlog(isc_file_basename(progname), DHCP_LOG_OPTIONS, LOG_DAEMON);
+ 
+ #if !defined(DEBUG)
+ 	setlogmask(LOG_UPTO(LOG_INFO));
+ #endif	
++#endif /* disable syslog */
+ 
+ 	/* Set up the isc and dns library managers */
+ 	status = dhcp_context_create(DHCP_CONTEXT_PRE_DB | DHCP_CONTEXT_POST_DB,
+diff -u -r dhcp-4.3.5.orig/server/dhcpd.c dhcp-4.3.5/server/dhcpd.c
+--- dhcp-4.3.5.orig/server/dhcpd.c	2017-05-19 10:19:42.249680917 +0200
++++ dhcp-4.3.5/server/dhcpd.c	2017-05-19 10:35:42.999231871 +0200
+@@ -35,7 +35,9 @@
+ 
+ #include "dhcpd.h"
+ #include <omapip/omapip_p.h>
++#if 0 /* disable syslog */
+ #include <syslog.h>
++#endif /* disable syslog */
+ #include <signal.h>
+ #include <errno.h>
+ #include <limits.h>
+@@ -292,8 +294,10 @@
+ 	dhcp_common_objects_setup ();
+ 
+ 	/* Initially, log errors to stderr as well as to syslogd. */
++#if 0 /* disable syslog */
+ 	openlog (isc_file_basename(progname),
+ 		 DHCP_LOG_OPTIONS, DHCPD_LOG_FACILITY);
++#endif /* disable syslog */
+ 
+ 	for (i = 1; i < argc; i++) {
+ 		if (!strcmp (argv [i], "-p")) {
+@@ -1164,9 +1168,11 @@
+ 		if (evaluate_option_cache(&db, NULL, NULL, NULL, options, NULL,
+ 					  &global_scope, oc, MDL)) {
+ 			if (db.len == 1) {
++#if 0 /* disable syslog */
+ 				closelog ();
+ 				openlog(isc_file_basename(progname),
+ 					DHCP_LOG_OPTIONS, db.data[0]);
++#endif /* disable syslog */
+ 				/* Log the startup banner into the new
+ 				   log file. */
+ 				/* Don't log to stderr twice. */
+diff -u -r dhcp-4.3.5.orig/server/stables.c dhcp-4.3.5/server/stables.c
+--- dhcp-4.3.5.orig/server/stables.c	2017-05-19 10:19:42.249680917 +0200
++++ dhcp-4.3.5/server/stables.c	2017-05-19 10:58:04.518855144 +0200
+@@ -27,7 +27,9 @@
+  */
+ 
+ #include "dhcpd.h"
++#if 1 /* don't disable syslog.h inclusion in this file! */
+ #include <syslog.h>
++#endif
+ 
+ #if defined (FAILOVER_PROTOCOL)
+ 
