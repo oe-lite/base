@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# Usage:
+#
+# ntp_is_synced <threshold-in-ms>
+# ntp_is_synced
+#
+# The latter uses a default of 1000 ms.
+#
+# Never produces output. The return code is:
+#
+# 0: ntpd reports being synced to a remote, with accuracy < threshold
+# 1: ntpd reports being synced to a remote, with accuracy >= threshold
+# 2: some other error (e.g. ntpstat giving an error or unexpected output)
+
+threshold=1000
+if [ $# -gt 0 ] ; then
+    threshold=$1
+    shift
+fi
+
+tmp=$(mktemp)
+trap "rm -f '${tmp}'" EXIT
+if ! ntpstat > "${tmp}" 2> /dev/null || \
+   ! grep -q 'synchronised to NTP server' "${tmp}" ; then
+    exit 2
+fi
+
+acc="$(grep -E "time correct to within [0-9]+ ms" "${tmp}" | head -n1 | sed -e 's/^ *time correct to within \([0-9]*\).*/\1/' )"
+if [ -z "${acc}" ] ; then
+    exit 2
+fi
+if [ "${acc}" -lt "${threshold}" ] ; then
+    exit 0
+else
+    exit 1
+fi
