@@ -10,11 +10,11 @@ EOF
     }
 
 start() {
-    s6-rc -u change $*
+    s6-rc -u -t 10000 change $*
 }
 
 stop() {
-    s6-rc -d change $*
+    s6-rc -d -t 10000 change $*
 }
 
 if test -t 1 ; then
