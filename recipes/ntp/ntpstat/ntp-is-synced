@@ -2,8 +2,8 @@
 
 # Usage:
 #
-# ntp_is_synced <threshold-in-ms>
-# ntp_is_synced
+# ntp-is-synced <threshold-in-ms>
+# ntp-is-synced
 #
 # The latter uses a default of 1000 ms.
 #

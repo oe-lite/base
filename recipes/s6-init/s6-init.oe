@@ -49,6 +49,13 @@ SRC_URI += "file://devd.run file://devd.pipeline-name \
 	file://devd.producer-for file://devd-log.run \
 	file://devd-log.consumer-for"
 
+SRC_URI += " file://rtc.up file://rtc.down"
+S6RC_ONESHOT_SERVICES += "rtc"
+RECIPE_FLAGS += "rtc_s6rc_dependencies"
+# default configuration relies on /dev/rtc symlink created by init-devtmpfs
+DEFAULT_USE_rtc_s6rc_dependencies = "init-devtmpfs"
+RDEPENDS_${PN} += "util/hwclock"
+
 S6RC_ONESHOT_SERVICES += "init-coldplug"
 RECIPE_FLAGS += "init_coldplug_s6rc_dependencies"
 DEFAULT_USE_init_coldplug_s6rc_dependencies = "init-devtmpfs mount-sys devd"

@@ -1,0 +1,18 @@
+#!/bin/execlineb -P
+s6-envdir -I /etc/hwclock
+import -D 1 UTC
+backtick -n -i utc_arg {
+  ifelse { test ${UTC} = 1 }
+  { s6-echo -- "-u" }
+  s6-echo -- "-l"
+}
+import utc_arg
+import -D "" ADJFILE
+backtick -n -i adjfile_arg {
+  ifelse { test -n "${ADJFILE}" }
+  { s6-echo -- "--adjfile ${ADJFILE}" }
+  s6-echo -- ""
+}
+import -s adjfile_arg
+import -D /dev/rtc DEVICE
+hwclock -w ${utc_arg} -f ${DEVICE} ${adjfile_arg}
