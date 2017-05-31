@@ -9,6 +9,7 @@ require util-linux.inc
 DEPENDS += " libm"
 
 SRC_URI += "file://configure-install-dirs.patch"
+SRC_URI += "file://hwclock-localtime.patch"
 EXTRA_OECONF += "usrbin_execdir=${bindir} usrsbin_execdir=${sbindir}"
 
 EXTRA_OECONF += "--without-python"

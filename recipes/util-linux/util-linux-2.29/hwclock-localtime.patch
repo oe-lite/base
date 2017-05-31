@@ -1,0 +1,73 @@
+This allows the short version -l as an alias for --localtime, for
+compatibility with a busybox that has not been compiled with long
+option support.
+
+Origin: OE-lite
+Upstream-status: Pending
+
+--- util-linux-2.29/sys-utils/hwclock.c.orig	2017-05-31 08:24:25.571236824 +0200
++++ util-linux-2.29/sys-utils/hwclock.c	2017-05-31 08:30:24.048583055 +0200
+@@ -1579,7 +1579,7 @@
+ 
+ 	fputs(USAGE_OPTIONS, usageto);
+ 	fputs(_(" -u, --utc            the hardware clock is kept in UTC\n"
+-		"     --localtime      the hardware clock is kept in local time\n"), usageto);
++		" -l, --localtime      the hardware clock is kept in local time\n"), usageto);
+ #ifdef __linux__
+ 	fputs(_(" -f, --rtc <file>     special /dev/... file to use instead of default\n"), usageto);
+ #endif
+@@ -1651,7 +1651,6 @@
+ 		OPT_EPOCH,
+ 		OPT_GET,
+ 		OPT_GETEPOCH,
+-		OPT_LOCALTIME,
+ 		OPT_NOADJFILE,
+ 		OPT_PREDICT_HC,
+ 		OPT_SET,
+@@ -1686,7 +1685,7 @@
+ 		{"setepoch",	0, 0, OPT_SETEPOCH},
+ #endif
+ 		{"noadjfile",	0, 0, OPT_NOADJFILE},
+-		{"localtime",	0, 0, OPT_LOCALTIME},
++		{"localtime",	0, 0, 'l'},
+ 		{"badyear",	0, 0, OPT_BADYEAR},
+ 		{"directisa",	0, 0, OPT_DIRECTISA},
+ 		{"test",	0, 0, OPT_TEST},
+@@ -1707,7 +1706,7 @@
+ 		{ 'a','r','s','w',
+ 		  OPT_GET, OPT_GETEPOCH, OPT_PREDICT_HC,
+ 		  OPT_SET, OPT_SETEPOCH, OPT_SYSTZ },
+-		{ 'u', OPT_LOCALTIME},
++		{ 'l', 'u'},
+ 		{ OPT_ADJFILE, OPT_NOADJFILE },
+ 		{ OPT_NOADJFILE, OPT_UPDATE },
+ 		{ 0 }
+@@ -1752,7 +1751,7 @@
+ 	date_opt = NULL;
+ 
+ 	while ((c = getopt_long(argc, argv,
+-				"?hvVDacrsuwAJSFf:", longopts, NULL)) != -1) {
++				"?hvVDacrsulwAJSFf:", longopts, NULL)) != -1) {
+ 
+ 		err_exclusive_options(c, longopts, excl, excl_st);
+ 
+@@ -1806,7 +1805,7 @@
+ 		case OPT_NOADJFILE:
+ 			noadjfile = TRUE;
+ 			break;
+-		case OPT_LOCALTIME:
++		case 'l':
+ 			local_opt = TRUE;	/* --localtime */
+ 			break;
+ 		case OPT_BADYEAR:
+--- util-linux-2.29/sys-utils/hwclock.8.in.orig	2017-05-31 08:37:55.010271604 +0200
++++ util-linux-2.29/sys-utils/hwclock.8.in	2017-05-31 08:38:13.058339073 +0200
+@@ -359,7 +359,7 @@
+ .in
+ .
+ .TP
+-.B \-\-localtime
++.BR \-l , \ \-\-localtime
+ .TQ
+ .BR \-u ", " \-\-utc
+ Indicate which timescale the Hardware Clock is set to.
