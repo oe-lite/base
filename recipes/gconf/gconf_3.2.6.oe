@@ -18,7 +18,7 @@ EXTRA_OECONF = "--disable-gtk-doc --disable-orbit --disable-introspectio --witho
 
 do_patch[postfuncs] += "do_patch_m4symlinks"
 do_patch_m4symlinks () {
-  mkdir ${S}/m4
+  mkdir -p ${S}/m4
   ln -sf ${STAGE_DIR}/native/share/aclocal/introspection.m4 \
 	${S}/m4/introspection.m4
 }
