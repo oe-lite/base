@@ -7,5 +7,12 @@ backtick -n -i utc_arg {
   s6-echo -- "-l"
 }
 import utc_arg
+import -D "" ADJFILE
+backtick -n -i adjfile_arg {
+  ifelse { test -n "${ADJFILE}" }
+  { s6-echo -- "--adjfile ${ADJFILE}" }
+  s6-echo -- ""
+}
+import -s adjfile_arg
 import -D /dev/rtc DEVICE
-hwclock -w ${utc_arg} -f ${DEVICE}
+hwclock -w ${utc_arg} -f ${DEVICE} ${adjfile_arg}
