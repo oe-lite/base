@@ -1,0 +1,17 @@
+SUMMARY = "vdsotest is a utility for testing and benchmarking a Linux VDSO"
+HOMEPAGE = "https://github.com/nlynch-mentor/vdsotest"
+LICENSE = "GPL-2.0"
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
+SRC_URI = "git://github.com/nlynch-mentor/vdsotest.git;${SRC_REV}"
+SRC_REV ?= "commit=821e4eda62b148fa2fe28fa0666845df380f3a7e"
+
+S = "${SRCDIR}/${PN}"
+inherit autotools-autoreconf
+
+DEPENDS += "libdl librt"
+DEPENDS_${PN} += "libdl librt"
+RDEPENDS_${PN} += "libdl librt"
+
+PROVIDES_${PN} += "util/vdsotest util/vdsotest-all"
+PACKAGES = "${PN}-dbg ${PN}"
