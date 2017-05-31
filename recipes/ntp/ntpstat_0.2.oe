@@ -14,7 +14,7 @@ file://0005-ntpstat-0.2-errorbit.patch;striplevel=2 \
 file://0006-ntpstat-0.2-manual.patch;striplevel=2 \
 "
 
-SRC_URI += "file://ntp_is_synced"
+SRC_URI += "file://ntp-is-synced"
 
 inherit make
 do_unpack_fix_perm() {
@@ -28,9 +28,9 @@ do_compile() {
 do_install() {
     install -d ${D}${bindir}
     install -m 0755 ntpstat ${D}${bindir}
-    install -m 0755 ${SRCDIR}/ntp_is_synced ${D}${bindir}
+    install -m 0755 ${SRCDIR}/ntp-is-synced ${D}${bindir}
     install -d ${D}${mandir}/man1
     install -m 0644 ntpstat.1 ${D}${mandir}/man1
 }
 PROVIDES_${PN} += "util/ntpstat"
-PROVIDES_${PN} += "util/ntp_is_synced"
+PROVIDES_${PN} += "util/ntp-is-synced"
