@@ -3,7 +3,7 @@ compatibility with a busybox that has not been compiled with long
 option support.
 
 Origin: OE-lite
-Upstream-status: Pending
+Upstream-status: Merged [4d670b2, https://github.com/karelzak/util-linux/pull/449]
 
 --- util-linux-2.29/sys-utils/hwclock.c.orig	2017-05-31 08:24:25.571236824 +0200
 +++ util-linux-2.29/sys-utils/hwclock.c	2017-05-31 08:30:24.048583055 +0200
