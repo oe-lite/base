@@ -10,6 +10,7 @@ DEPENDS += " libm"
 
 SRC_URI += "file://configure-install-dirs.patch"
 SRC_URI += "file://hwclock-localtime.patch"
+SRC_URI += "file://hwclock-tweak-delay.patch"
 EXTRA_OECONF += "usrbin_execdir=${bindir} usrsbin_execdir=${sbindir}"
 
 EXTRA_OECONF += "--without-python"

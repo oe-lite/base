@@ -1,0 +1,100 @@
+hwclock: allow tweaking hard-coded .5s in --systohc algorithm
+
+The algorithm hwclock uses for setting the RTC from the system clock
+uses "knowledge" about the hardware, which unfortunately only applies
+to some hardware (x86-like platforms, in particular). On other
+platforms where the fractional part of the RTC is cleared when the RTC
+is set, this algorithm causes a consistent .5 second loss when doing
+hwclock --systohc.
+
+So allow overriding those hard-coded .5. To figure out how a specific
+platform behaves, and thus whether one should use '--delay 0.0', one
+can do something like
+
+# Make sure ntpd/chronyd/ are down.
+# Set system clock once.
+ntpdate 0.pool.ntp.org 1.pool.ntp.org
+# Write the system time to the RTC, read it back, compare to NTP time.
+hwclock --utc --systohc --noadjfile
+hwclock --utc --hctosys --noadjfile
+ntpdate -q 0.pool.ntp.org 1.pool.ntp.org
+# Repeat these three steps a few times. If the discrepancy increases
+# consistently with ~0.5s, try to start over but pass --delay 0.0 to
+# the --systohc command and see if the situation improves.
+
+Origin: OE-lite
+Upstream-status: Inappropriate (in this form - significant changes have happened since 2.29).
+
+--- util-linux-2.29/sys-utils/hwclock.c.orig
++++ util-linux-2.29/sys-utils/hwclock.c
+@@ -531,6 +531,8 @@ set_hardware_clock(const time_t newtime,
+  * This function ought to be able to accept set times as fractional times.
+  * Idea for future enhancement.
+  */
++static double RTC_SET_DELAY_SECS = 0.5;	    /* 500 ms */
++
+ static void
+ set_hardware_clock_exact(const time_t sethwtime,
+ 			 const struct timeval refsystime,
+@@ -584,8 +586,7 @@ set_hardware_clock_exact(const time_t sethwtime,
+ 	time_t newhwtime = sethwtime;
+ 	double target_time_tolerance_secs = 0.001;  /* initial value */
+ 	double tolerance_incr_secs = 0.001;	    /* initial value */
+-	const double RTC_SET_DELAY_SECS = 0.5;	    /* 500 ms */
+-	const struct timeval RTC_SET_DELAY_TV = { 0, RTC_SET_DELAY_SECS * 1E6 };
++	struct timeval RTC_SET_DELAY_TV = { 0, RTC_SET_DELAY_SECS * 1E6 };
+ 
+ 	struct timeval targetsystime;
+ 	struct timeval nowsystime;
+@@ -1639,6 +1640,7 @@ int main(int argc, char **argv)
+ 	    predict, compare, get;
+ 	bool utc, testing, local_opt, update, noadjfile, directisa;
+ 	char *date_opt;
++	char *delay_opt;
+ #ifdef __alpha__
+ 	bool ARCconsole, Jensen, SRM, funky_toy;
+ #endif
+@@ -1647,6 +1649,7 @@ int main(int argc, char **argv)
+ 		OPT_ADJFILE = CHAR_MAX + 1,
+ 		OPT_BADYEAR,
+ 		OPT_DATE,
++		OPT_DELAY,
+ 		OPT_DIRECTISA,
+ 		OPT_EPOCH,
+ 		OPT_GET,
+@@ -1690,6 +1693,7 @@ int main(int argc, char **argv)
+ 		{"directisa",	0, 0, OPT_DIRECTISA},
+ 		{"test",	0, 0, OPT_TEST},
+ 		{"date",	1, 0, OPT_DATE},
++		{"delay",       1, 0, OPT_DELAY},
+ 		{"epoch",	1, 0, OPT_EPOCH},
+ #ifdef __linux__
+ 		{"rtc",		1, 0, 'f'},
+@@ -1749,6 +1753,7 @@ int main(int argc, char **argv)
+ 	ARCconsole = Jensen = SRM = funky_toy = badyear = FALSE;
+ #endif
+ 	date_opt = NULL;
++	delay_opt = NULL;
+ 
+ 	while ((c = getopt_long(argc, argv,
+ 				"?hvVDacrsulwAJSFf:", longopts, NULL)) != -1) {
+@@ -1820,6 +1825,9 @@ int main(int argc, char **argv)
+ 		case OPT_DATE:
+ 			date_opt = optarg;	/* --date */
+ 			break;
++		case OPT_DELAY:
++			delay_opt = optarg;	/* --delay */
++			break;
+ 		case OPT_EPOCH:
+ 			epoch_option =		/* --epoch */
+ 			    strtoul_or_err(optarg, _("invalid epoch argument"));
+@@ -1890,6 +1898,9 @@ int main(int argc, char **argv)
+ 	set_cmos_access(Jensen, funky_toy);
+ #endif
+ 
++	if (delay_opt)
++		RTC_SET_DELAY_SECS = strtod_or_err(delay_opt, "invalid --delay argument");
++
+ 	if (set || predict) {
+ 		rc = interpret_date_string(date_opt, &set_time);
+ 		/* (time-consuming) */
