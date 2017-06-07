@@ -14,5 +14,12 @@ backtick -n -i adjfile_arg {
   s6-echo -- ""
 }
 import -s adjfile_arg
+import -D "" DELAY
+backtick -n -i delay_arg {
+  ifelse { test -n "${DELAY}" }
+  { s6-echo -- "--delay ${DELAY}" }
+  s6-echo -- ""
+}
+import -s delay_arg
 import -D /dev/rtc DEVICE
-hwclock -w ${utc_arg} -f ${DEVICE} ${adjfile_arg}
+hwclock -w ${utc_arg} -f ${DEVICE} ${adjfile_arg} ${delay_arg}
