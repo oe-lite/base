@@ -5,9 +5,14 @@ backtick -n hooksdir { dirname $0 }
 import -u hooksdir
 define basename openvpn@
 define templatedir ${hooksdir}/${basename}.d
+define allbundledir ${1}/openvpn
+if { mkdir ${allbundledir} }
+if { redirfd -w 1 ${allbundledir}/type s6-echo "bundle" }
+if { redirfd -w 1 ${allbundledir}/contents exit 0 }
 elglob -s -0 confs /etc/openvpn/*.conf
 forx conffile { $confs }
 import -u conffile
 backtick -n name { basename ${conffile} .conf }
 import -u name
-cp -r ${templatedir}/ ${1}/${basename}${name}/
+if { cp -r ${templatedir}/ ${1}/${basename}${name}/ }
+redirfd -a 1 ${allbundledir}/contents s6-echo ${basename}${name}
