@@ -550,6 +550,15 @@ do_configure_busybox_default_passwd_algo () {
 	sed -i -e 's/\(CONFIG_FEATURE_DEFAULT_PASSWD_ALGO\)=.*/\1="${USE_busybox_feature_default_passwd_algo}"/' .config
 }
 
+# USE flag: enable uudecode
+BUSYBOX_SIMPLE_USE_FLAGS += "uudecode:util/"
+
+# USE flag: enable uuencode
+BUSYBOX_SIMPLE_USE_FLAGS += "uuencode:util/"
+
+# USE flag: enable base64
+BUSYBOX_SIMPLE_USE_FLAGS += "base64:util/"
+
 # USE flag: enable acpid
 BUSYBOX_SIMPLE_USE_FLAGS += "acpid:util/"
 
