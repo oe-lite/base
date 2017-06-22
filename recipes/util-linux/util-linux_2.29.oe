@@ -111,3 +111,12 @@ RDEPENDS_${PN}-lsns += "libc libsmartcols"
 #lastb symlinks to last, uname26 symlinks to setarch
 RDEPENDS_${PN}-lastb += "${PN}-last"
 RDEPENDS_${PN}-uname26 += "${PN}-setarch"
+
+RECIPE_FLAGS += "hwclock_delay"
+hwclock_default_delay = "0.5"
+hwclock_default_delay:USE_hwclock_delay = "${USE_hwclock_delay}"
+do_patch_set_default_delay() {
+    sed -i 's/^\(static double RTC_SET_DELAY_SECS = \)0.5/\1${hwclock_default_delay}/' \
+      ${S}/sys-utils/hwclock.c
+}
+do_patch[postfuncs] += "do_patch_set_default_delay"
