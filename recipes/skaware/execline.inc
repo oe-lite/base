@@ -5,6 +5,7 @@ LICENSE = "ISC"
 require compatible-archs.inc
 
 SRC_URI = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
+RECIPE_TYPES = "machine native"
 
 inherit c make
 
