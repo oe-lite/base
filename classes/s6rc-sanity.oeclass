@@ -1,0 +1,31 @@
+CLASS_FLAGS += "s6rc_sanity"
+IMAGE_PREPROCESS_FUNCS:>USE_s6rc_sanity = " image_preprocess_s6rc_sanity"
+CLASS_DEPENDS:>USE_s6rc_sanity = " native:s6-rc"
+
+image_preprocess_s6rc_sanity() {
+	test -d ./etc/rc || return 0
+	local ret=0
+	tmpd=$(mktemp -d)
+	cp -r ./etc/rc $tmpd/static
+
+	# We assume that each executable file in etc/rc.hooks creates
+	# a service or bundle by the same name. Some of the statically
+	# defined services in etc/rc may depend on some of these, so
+	# create empty bundles which cannot contribute to a dependency
+	# cycle.
+	mkdir -p $tmpd/dynamic
+	if [ -d ./etc/rc.hooks ] ; then
+		for f in $(find ./etc/rc.hooks -maxdepth 1 -type f -executable) ; do
+			b=$(basename $f)
+			d=$tmpd/dynamic/$b
+			mkdir -p $d
+			echo bundle > $d/type
+			touch $d/contents
+		done
+	fi
+
+	s6-rc-compile -v 2 $tmpd/compiled $tmpd/static $tmpd/dynamic && \
+	s6-rc-db -c $tmpd/compiled check || ret=1
+	rm -rf $tmpd
+	return $ret
+}
