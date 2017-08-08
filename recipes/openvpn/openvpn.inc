@@ -32,6 +32,7 @@ SRC_URI += "\
   file://${PN}.hook \
   file://${PN}.run \
   file://${PN}-log.run \
+  file://${PN}-log.notification-fd \
 "
 
 S6RC_LONGRUN_SERVICES += "openvpn-log"

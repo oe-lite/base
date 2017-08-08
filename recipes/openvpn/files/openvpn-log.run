@@ -1,9 +1,11 @@
 #!/bin/execlineb -P
 if { if -t -n { test -e /var/log/openvpn }
   install -d -o nobody -g nogroup -m 755 /var/log/openvpn }
-if { if -t -n { test -e /run/openvpn-log.fifo }
+if { if -t -n { test -p /run/openvpn-log.fifo }
   mkfifo /run/openvpn-log.fifo }
 redirfd -rnb 0 /run/openvpn-log.fifo
 s6-setuidgid nobody
+if { fdmove 1 6 s6-echo ok }
+fdclose 6
 exec -c
 s6-log -b -- s131072 t /var/log/openvpn
