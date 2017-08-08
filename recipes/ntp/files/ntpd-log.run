@@ -1,9 +1,11 @@
 #!/bin/execlineb -P
 if { if -t -n { test -e /var/log/ntpd }
   install -d -o nobody -g nogroup -m 755 /var/log/ntpd }
-if { if -t -n { test -e /run/ntpd-log.fifo }
+if { if -t -n { test -p /run/ntpd-log.fifo }
   mkfifo /run/ntpd-log.fifo }
 redirfd -rnb 0 /run/ntpd-log.fifo
 s6-setuidgid nobody
+if { fdmove 1 6 s6-echo ok }
+fdclose 6
 exec -c
 s6-log -b -- s131072 t /var/log/ntpd
