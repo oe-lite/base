@@ -65,7 +65,7 @@ RECIPE_FLAGS += "net_s6rc_bundle"
 DEFAULT_USE_net_s6rc_bundle = "net-auto net-hotplug"
 
 S6RC_LONGRUN_SERVICES += "network-log"
-SRC_URI += "file://network-log.run"
+SRC_URI += "file://network-log.run file://network-log.notification-fd"
 RECIPE_FLAGS += "network_log_s6rc_dependencies"
 
 # Service for doing "ifup -a" and "ifdown -a"

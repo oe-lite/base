@@ -1,5 +1,5 @@
 #!/bin/execlineb -P
-redirfd -w 1 /run/network-log.fifo
+redirfd -c 1 /run/network-log.fifo
 fdmove -c 2 1
 s6-envdir -I ./env
 import -s ARGS
