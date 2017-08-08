@@ -105,6 +105,6 @@ DEPENDS:>USE_bind_openssl = " ${CRYPTO_DEPENDS}"
 
 inherit s6rc
 S6RC_LONGRUN_SERVICES = "dhcpd dhcpd-log"
-SRC_URI += "file://dhcpd.run file://dhcpd-log.run"
+SRC_URI += "file://dhcpd.run file://dhcpd-log.run file://dhcpd-log.notification-fd"
 DEFAULT_USE_ntpd_s6rc_dependencies = "dhcpd-log net"
 FILES_${PN}-server += "${s6rcsrcdir}"
