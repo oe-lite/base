@@ -9,6 +9,8 @@ SRC_URI = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
 inherit c make
 
 endianness = "${@['big', 'little'][d.get('HOST_ENDIAN') == 'l']}"
+librt_flag = ""
+librt_flag:native = "-lrt"
 
 # All supported archs need to have a sysdeps and sysdeps.h file.  These are
 # not provided by upstream, so we have to create them them ourselves when
@@ -18,7 +20,7 @@ do_configure[prefuncs] += "do_configure_sysdeps"
 do_configure_sysdeps() {
 	rm -rf ${B}/sysdeps
 	mkdir -p ${B}/sysdeps
-	echo "" > ${B}/sysdeps/rt.lib
+	echo "${librt_flag}" > ${B}/sysdeps/rt.lib
 	echo "" > ${B}/sysdeps/socket.lib
 	echo "" > ${B}/sysdeps/sysclock.lib
 	echo "" > ${B}/sysdeps/tainnow.lib
