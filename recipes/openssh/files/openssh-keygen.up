@@ -1,4 +1,4 @@
-redirfd -w 1 /run/openssh-log.fifo
+redirfd -c 1 /run/openssh-log.fifo
 fdmove -c 2 1
 redirfd -r 0 /etc/ssh/host_key_types
 forstdin -o 0 keytype

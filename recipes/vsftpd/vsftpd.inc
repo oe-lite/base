@@ -95,7 +95,7 @@ FILES_${PN}-init = "${sysconfdir}/init.d ${sysconfdir}/rc?.d"
 
 inherit s6rc
 S6RC_LONGRUN_SERVICES = "vsftpd vsftpd-log"
-SRC_URI += "file://vsftpd.run file://vsftpd-log.run"
+SRC_URI += "file://vsftpd.run file://vsftpd-log.run file://vsftpd-log.notification-fd"
 RECIPE_FLAGS += "vsftpd_s6rc_dependencies"
 DEFAULT_USE_vsftpd_s6rc_dependencies = "vsftpd-log net"
 PACKAGES += "${PN}-s6"

@@ -126,7 +126,7 @@ DEFAULT_USE_sshd_sysvinit_stop = "0"
 inherit s6rc
 S6RC_LONGRUN_SERVICES = "openssh openssh-log"
 S6RC_ONESHOT_SERVICES = "openssh-keygen"
-SRC_URI += "file://openssh.run file://openssh-keygen.up file://openssh-log.run"
+SRC_URI += "file://openssh.run file://openssh-keygen.up file://openssh-log.run file://openssh-log.notification-fd"
 RECIPE_FLAGS += "openssh_s6rc_dependencies openssh_keygen_s6rc_dependencies"
 DEFAULT_USE_openssh_s6rc_dependencies = "init-utmp init-sysctl init-coldplug openssh-keygen openssh-log"
 DEFAULT_USE_openssh_keygen_s6rc_dependencies = "hostname init-urandom openssh-log"

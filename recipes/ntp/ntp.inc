@@ -110,7 +110,7 @@ RDEPENDS_${PN}-ntpd:>USE_sysvinit = " ${PN}-sysvinit"
 
 inherit s6rc
 S6RC_LONGRUN_SERVICES = "ntpd ntpd-log"
-SRC_URI += "file://ntpd.run file://ntpd-log.run"
+SRC_URI += "file://ntpd.run file://ntpd-log.run file://ntpd-log.notification-fd"
 RECIPE_FLAGS += "ntpd_s6rc_dependencies"
 DEFAULT_USE_ntpd_s6rc_dependencies = "ntpd-log net"
 FILES_${PN}-ntpd += "${s6rcsrcdir}"

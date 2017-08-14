@@ -65,7 +65,7 @@ RECIPE_FLAGS += "net_s6rc_bundle"
 DEFAULT_USE_net_s6rc_bundle = "net-auto net-hotplug"
 
 S6RC_LONGRUN_SERVICES += "network-log"
-SRC_URI += "file://network-log.run"
+SRC_URI += "file://network-log.run file://network-log.notification-fd"
 RECIPE_FLAGS += "network_log_s6rc_dependencies"
 
 # Service for doing "ifup -a" and "ifdown -a"
@@ -117,7 +117,7 @@ do_install_hotplug() {
 SRC_URI_S6RC += "file://net-udhcpc.hook file://udhcpc.run \
 	file://dhcp-interfaces"
 RECIPE_FLAGS += "udhcpc_s6rc_dependencies"
-DEFAULT_USE_dhcpc_s6rc_dependencies = "network-log net-rename"
+DEFAULT_USE_udhcpc_s6rc_dependencies = "network-log net-rename"
 # re-use the busybox flag for better backwards compatibility
 RECIPE_FLAGS += "busybox_udhcpc_ifupdown_cmd_options"
 do_configure_netbase_s6rc:USE_s6rc += "do_configure_udhcpc"
