@@ -66,7 +66,7 @@ PACKAGES += "${PN}-server ${PN}-client ${PN}-relay ${PN}-omshell ${PN}-server-co
 
 COMMON_DEPENDS = "libc libdl ${CRYPTO_DEPENDS}"
 CRYPTO_DEPENDS = ""
-CRYPTO_DEPENDS:>USE_bind_openssl = " libcrypto libssl"
+CRYPTO_DEPENDS:>USE_bind_openssl = " libcrypto openssl"
 
 FILES_${PN} = ""
 FILES_${PN}-server = "${sbindir}/dhcpd ${sysconfdir}/init.d/dhcp-server \

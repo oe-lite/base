@@ -1,4 +1,20 @@
 #!/bin/execlineb -P
 redirfd -c 1 /run/dhcpd-log.fifo
 fdmove -c 2 1
-/usr/sbin/dhcpd --no-pid -f -d
+
+s6-envdir -I /etc/dhcp/dhcpd.env
+import -s INTERFACES
+import -D /var/lib/dhcp/dhcpd.leases LEASE_FILE
+import -D /etc/dhcp/dhcpd.conf CONFIG_FILE
+
+if {
+  backtick -i -n lease_dir { dirname ${LEASE_FILE} }
+  import lease_dir
+  mkdir -p ${lease_dir}
+}
+if {
+  if -t -n { test -e ${LEASE_FILE} }
+    touch ${LEASE_FILE}
+}
+
+/usr/sbin/dhcpd -lf ${LEASE_FILE} -cf ${CONFIG_FILE} --no-pid -f -d ${INTERFACES}
