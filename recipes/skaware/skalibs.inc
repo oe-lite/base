@@ -53,7 +53,7 @@ do_configure() {
 		--with-sysdeps=${B}/sysdeps \
 		--enable-clock \
 		--enable-monotonic \
-		--with-default-path="${sbindir}:${bindir}:${base_sbindir}:${base_bindir}" \
+		--with-default-path="${base_sbindir}:${sbindir}:${base_bindir}:${bindir}" \
 		${HOST_ARCH}
 }
 
