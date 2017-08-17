@@ -1,7 +1,7 @@
 #!/bin/execlineb
 
 # Make sure path and cwd is right
-/bin/export PATH /usr/bin:/bin:/usr/sbin:/sbin
+/bin/export PATH /sbin:/usr/sbin:/bin:/usr/bin
 cd /
 
 # Create background process group
