@@ -6,5 +6,7 @@ SRC_URI += "file://dhclient-script-drop-resolv.conf.dhclient.patch \
 RECIPE_FLAGS += "dhcp_disable_syslog"
 SRC_URI:>USE_dhcp_disable_syslog = " file://disable-syslog.patch"
 
+SRC_URI += "file://0001-site.h-enable-gentle-shutdown.patch"
+
 DEPENDS += "bind-dev"
 EXTRA_OECONF += "--with-libbind=${TARGET_SYSROOT}${target_libdir}/../ --with-randomdev=/dev/random"
