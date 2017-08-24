@@ -2,6 +2,7 @@ DESCRIPTION = "A library for applications dealing with netlink sockets"
 HOMEPAGE = "http://www.infradead.org/~tgr/libnl/"
 
 COMPATIBLE_HOST_ARCHS = ".*linux"
+RECIPE_TYPES = "machine native"
 
 SRC_URI = "git://github.com/thom311/libnl.git;commit=${RELEASE_COMMIT}"
 
