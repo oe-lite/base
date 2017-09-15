@@ -1,0 +1,17 @@
+SUMMARY = "Simple CLI wrapper for bswap(3) functions"
+HOMEPAGE = "https://github.com/esben/bswap-cli"
+LICENSE = "GPL-3.0+"
+
+RECIPE_TYPES = "machine native sdk"
+COMPATIBLE_HOST_ARCHS = ".*linux"
+
+inherit c autotools-autoreconf
+
+SRC_URI = "git://github.com/esben/bswap-cli.git;protocol=http;${SRC_REV}"
+S = "${SRCDIR}/bswap-cli"
+
+SRC_REV = "commit=b5aa16aa51686c89149d6a119b1ad815f7715e0b"
+
+FILES_${PN} += "${bindir}/.bswap"
+
+PROVIDES_${PN} = "util/bswap-16 util/bswap-32 util/bswap-64"
