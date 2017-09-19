@@ -81,7 +81,7 @@ DEFAULT_USE_net_auto_s6rc_timeout_up = "30000"
 SRC_URI_S6RC += "file://net-hotplug.hook file://ifplugd.run \
 	file://hotplug-interfaces"
 RECIPE_FLAGS += "ifplugd_s6rc_dependencies"
-DEFAULT_USE_ifplugd_s6rc_dependencies = "network-log"
+DEFAULT_USE_ifplugd_s6rc_dependencies = "init-sysctl network-log"
 # re-use the busybox flag for better backwards compatibility
 RECIPE_FLAGS += "busybox_ifplugd_config_args"
 do_configure_netbase_s6rc:USE_s6rc += "do_configure_hotplug"
