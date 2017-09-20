@@ -117,7 +117,7 @@ do_install_hotplug() {
 SRC_URI_S6RC += "file://net-udhcpc.hook file://udhcpc.run \
 	file://dhcp-interfaces"
 RECIPE_FLAGS += "udhcpc_s6rc_dependencies"
-DEFAULT_USE_udhcpc_s6rc_dependencies = "network-log net-rename"
+DEFAULT_USE_udhcpc_s6rc_dependencies = "network-log"
 # re-use the busybox flag for better backwards compatibility
 RECIPE_FLAGS += "busybox_udhcpc_ifupdown_cmd_options"
 do_configure_netbase_s6rc:USE_s6rc += "do_configure_udhcpc"
