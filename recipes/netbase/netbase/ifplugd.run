@@ -8,4 +8,4 @@ backtick -n iface {
   sed -e "s/ifplugd@//"
 }
 import -u iface
-ifplugd -i $iface -n $ARGS -r /etc/ifplugd/ifplugd.action
+ifplugd -i $iface -n -s $ARGS -r /etc/ifplugd/ifplugd.action
