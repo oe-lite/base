@@ -1,0 +1,25 @@
+require ${PN}.inc
+
+do_configure_sysdeps_libs() {
+	echo "" > ${B}/sysdeps/socket.lib
+	echo "" > ${B}/sysdeps/spawn.lib
+	echo "" > ${B}/sysdeps/sysclock.lib
+	echo "" > ${B}/sysdeps/tainnow.lib
+	echo "-lrt" > ${B}/sysdeps/timer.lib
+	echo "" > ${B}/sysdeps/util.lib
+}
+do_configure[prefuncs] += "do_configure_sysdeps_libs"
+
+# skalibs uses timer_create, which with glibc requires -lrt (unlike
+# e.g. clock_gettime, where that is not needed with new enough glibc)
+DEPENDS += "librt"
+DEPENDS_${PN} += "librt"
+RDEPENDS_${PN} += "librt"
+
+# Previous versions of the configure script used the environment
+# variable CROSS_COMPILE. Now it checks whether $build == $target and
+# if not, sets cross=${target}-. Since we do pass --target, we also
+# have to pass --build, since otherwise the native version will think
+# we're cross-compiling, and fail to find a
+# x86_64-build_unknown-linux-gnu-gcc.
+EXTRA_OECONF += "--build=${BUILD_ARCH}"
