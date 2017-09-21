@@ -52,8 +52,8 @@ do_configure() {
 		--with-sysdeps=${B}/sysdeps \
 		--enable-clock \
 		--with-default-path="${base_sbindir}:${sbindir}:${base_bindir}:${bindir}" \
-		${EXTRA_OECONF} \
-		${HOST_ARCH}
+		--host=${HOST_ARCH} \
+		${EXTRA_OECONF}
 }
 
 PACKAGES = "${PN}-dbg ${PN}-dev ${PN}"
