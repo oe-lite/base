@@ -26,7 +26,8 @@ do_configure() {
 		--with-dynlib=${STAGE_DIR}/${HOST_TYPE}${sharedlibdir} \
 		--enable-shared --disable-allstatic \
 		--livedir=/run/rc \
-		${HOST_ARCH}
+		--host=${HOST_ARCH} \
+		--build=${BUILD_ARCH}
 }
 
 PACKAGES = "${PN}-dbg ${PN}"
