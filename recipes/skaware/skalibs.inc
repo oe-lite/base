@@ -30,7 +30,7 @@ do_configure_sysdeps() {
 	    -i ${B}/sysdeps/sysdeps.h
 }
 
-RECIPE_FLAGS = "skalibs_ipv6"
+RECIPE_FLAGS += "skalibs_ipv6"
 EXTRA_OECONF += "${EXTRA_OECONF_IPV6}"
 EXTRA_OECONF_IPV6 = "--disable-ipv6"
 EXTRA_OECONF_IPV6:USE_skalibs_ipv6 = "--enable-ipv6"
@@ -47,6 +47,7 @@ do_configure() {
 		--enable-clock \
 		--enable-monotonic \
 		--with-default-path="${base_sbindir}:${sbindir}:${base_bindir}:${bindir}" \
+		${EXTRA_OECONF} \
 		${HOST_ARCH}
 }
 
