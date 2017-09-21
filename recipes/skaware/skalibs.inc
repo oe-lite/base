@@ -10,8 +10,6 @@ RECIPE_TYPES = "machine native"
 inherit c make
 
 endianness = "${@['big', 'little'][d.get('HOST_ENDIAN') == 'l']}"
-librt_flag = ""
-librt_flag:native = "-lrt"
 
 # All supported archs need to have a sysdeps and sysdeps.h file.  These are
 # not provided by upstream, so we have to create them them ourselves when
@@ -21,11 +19,6 @@ do_configure[prefuncs] += "do_configure_sysdeps"
 do_configure_sysdeps() {
 	rm -rf ${B}/sysdeps
 	mkdir -p ${B}/sysdeps
-	echo "${librt_flag}" > ${B}/sysdeps/rt.lib
-	echo "" > ${B}/sysdeps/socket.lib
-	echo "" > ${B}/sysdeps/sysclock.lib
-	echo "" > ${B}/sysdeps/tainnow.lib
-	echo "" > ${B}/sysdeps/util.lib
 	echo "${HOST_ARCH}" > ${B}/sysdeps/target
 	cp ${SRCDIR}/sysdeps ${SRCDIR}/sysdeps.h ${B}/sysdeps/
 
