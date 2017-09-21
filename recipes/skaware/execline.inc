@@ -25,7 +25,8 @@ do_configure() {
 		--with-lib=${STAGE_DIR}/${HOST_TYPE}${libdir} \
 		--with-dynlib=${STAGE_DIR}/${HOST_TYPE}${sharedlibdir} \
 		--enable-shared --disable-allstatic \
-		${HOST_ARCH}
+		--host=${HOST_ARCH} \
+		--build=${BUILD_ARCH}
 }
 
 PACKAGES = "${PN}-dbg ${PN}"
