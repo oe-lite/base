@@ -142,4 +142,6 @@ do_install_HOST_KEYTYPES = ""
 do_install_HOST_KEYTYPES:USE_s6rc = "do_install_host_keytypes"
 do_install[postfuncs] += "${do_install_HOST_KEYTYPES}"
 
+RDEPENDS_${PN}-sshd:>USE_s6rc = " util/tr"
+
 PACKAGEQA_TARGET_BINDIRS += "${target_libexecdir}"
