@@ -4,7 +4,14 @@ and runit, as well as various operations on processes and daemons."
 
 require skaware.inc
 
-SRC_URI = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
+SRC_URI_base = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
+
+RECIPE_FLAGS += "s6_srcrev"
+SRC_URI_base:USE_s6_srcrev = "git://github.com/skarnet/s6.git;${USE_s6_srcrev}"
+S:USE_s6_srcrev = "${SRCDIR}/${PN}"
+
+SRC_URI = "${SRC_URI_base}"
+
 RECIPE_TYPES = "machine native"
 
 DEPENDS += "libskarnet libexecline"
