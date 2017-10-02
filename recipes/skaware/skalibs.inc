@@ -3,7 +3,14 @@ open source C development files used for building all software at skarnet.org"
 
 require skaware.inc
 
-SRC_URI = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
+SRC_URI_base = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
+
+RECIPE_FLAGS += "skalibs_srcrev"
+SRC_URI_base:USE_skalibs_srcrev = "git://github.com/skarnet/skalibs.git;${USE_skalibs_srcrev}"
+S:USE_skalibs_srcrev = "${SRCDIR}/${PN}"
+
+SRC_URI = "${SRC_URI_base}"
+
 RECIPE_TYPES = "machine native"
 
 endianness = "${@['big', 'little'][d.get('HOST_ENDIAN') == 'l']}"
