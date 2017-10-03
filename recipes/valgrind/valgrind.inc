@@ -16,6 +16,7 @@ DEPENDS_${PN} += "libc libpthread"
 
 SRC_URI = "http://www.valgrind.org/downloads/valgrind-${PV}.tar.bz2"
 SRC_URI:>TARGET_CPU_arm += " file://arm-cortex-support.patch"
+SRC_URI:>TARGET_CPU_arm += "file://0001-wire-up-sys_splice-for-arm.patch"
 
 EXTRA_OECONF = "--enable-tls"
 
