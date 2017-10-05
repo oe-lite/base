@@ -1,0 +1,26 @@
+From 68b0ac565bc09f5a9a95b94ab0ba3eb878a16203 Mon Sep 17 00:00:00 2001
+From: Rasmus Villemoes <rasmus.villemoes@prevas.dk>
+Date: Tue, 26 Sep 2017 08:51:47 +0200
+Subject: [PATCH] wire up sys_splice for arm
+
+Signed-off-by: Rasmus Villemoes <rasmus.villemoes@prevas.dk>
+---
+ coregrind/m_syswrap/syswrap-arm-linux.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/coregrind/m_syswrap/syswrap-arm-linux.c b/coregrind/m_syswrap/syswrap-arm-linux.c
+index 4ae4e89..8f2d054 100644
+--- a/coregrind/m_syswrap/syswrap-arm-linux.c
++++ b/coregrind/m_syswrap/syswrap-arm-linux.c
+@@ -983,6 +983,8 @@ static SyscallTableEntry syscall_main_table[] = {
+    LINXY(__NR_pselect6,          sys_pselect6),         // 335
+    LINXY(__NR_ppoll,             sys_ppoll),            // 336
+ 
++   LINX_(__NR_splice,            sys_splice),           // 340
++
+    LINXY(__NR_epoll_pwait,       sys_epoll_pwait),      // 346
+ 
+    LINX_(__NR_fallocate,         sys_fallocate),        // 352
+-- 
+2.7.4
+
