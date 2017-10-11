@@ -35,6 +35,12 @@ EXTRA_OECONF += "${EXTRA_OECONF_IPV6}"
 EXTRA_OECONF_IPV6 = "--disable-ipv6"
 EXTRA_OECONF_IPV6:USE_skalibs_ipv6 = "--enable-ipv6"
 
+RECIPE_FLAGS += "skalibs_monotonic"
+EXTRA_OECONF += "${EXTRA_OECONF_MONOTONIC}"
+EXTRA_OECONF_MONOTONIC = "--disable-monotonic"
+EXTRA_OECONF_MONOTONIC:USE_skalibs_monotonic = "--enable-monotonic"
+DEFAULT_USE_skalibs_monotonic = True
+
 do_configure() {
 	./configure \
 		--prefix=${prefix} \
@@ -45,7 +51,6 @@ do_configure() {
 		--sysdepdir=${libdir}/skalibs/sysdeps \
 		--with-sysdeps=${B}/sysdeps \
 		--enable-clock \
-		--enable-monotonic \
 		--with-default-path="${base_sbindir}:${sbindir}:${base_bindir}:${bindir}" \
 		${EXTRA_OECONF} \
 		${HOST_ARCH}
