@@ -2,7 +2,7 @@ DESCRIPTION = "execline is a (non-interactive) scripting language, like sh ; \
 but its syntax is quite different from a traditional shell syntax."
 LICENSE = "ISC"
 
-require compatible-archs.inc
+require skaware.inc
 
 SRC_URI = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
 RECIPE_TYPES = "machine native"
