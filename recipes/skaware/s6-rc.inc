@@ -1,12 +1,9 @@
 DESCRIPTION = "a dependency-based init script management system"
-LICENSE = "ISC"
 
 require skaware.inc
 
 SRC_URI = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
 RECIPE_TYPES = "machine native"
-
-inherit c make
 
 DEPENDS += "libskarnet libs6"
 

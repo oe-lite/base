@@ -1,13 +1,10 @@
 DESCRIPTION = "skalibs is a package centralizing the free software / \
 open source C development files used for building all software at skarnet.org"
-LICENSE = "ISC"
 
 require skaware.inc
 
 SRC_URI = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
 RECIPE_TYPES = "machine native"
-
-inherit c make
 
 endianness = "${@['big', 'little'][d.get('HOST_ENDIAN') == 'l']}"
 
