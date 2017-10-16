@@ -1,13 +1,10 @@
 DESCRIPTION = "execline is a (non-interactive) scripting language, like sh ; \
 but its syntax is quite different from a traditional shell syntax."
-LICENSE = "ISC"
 
-require compatible-archs.inc
+require skaware.inc
 
 SRC_URI = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
 RECIPE_TYPES = "machine native"
-
-inherit c make
 
 DEPENDS += "libskarnet"
 
@@ -25,7 +22,8 @@ do_configure() {
 		--with-lib=${STAGE_DIR}/${HOST_TYPE}${libdir} \
 		--with-dynlib=${STAGE_DIR}/${HOST_TYPE}${sharedlibdir} \
 		--enable-shared --disable-allstatic \
-		${HOST_ARCH}
+		--host=${HOST_ARCH} \
+		--build=${BUILD_ARCH}
 }
 
 PACKAGES = "${PN}-dbg ${PN}"

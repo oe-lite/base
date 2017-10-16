@@ -1,5 +1,0 @@
-require ${PN}.inc
-
-# Workaround for bugs in skalibs, assuming 'char' is 'signed char'.
-# This should/could be dropped when skalibs has fixed these issues.
-CFLAGS += "-fsigned-char"

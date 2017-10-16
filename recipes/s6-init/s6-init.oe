@@ -4,7 +4,7 @@ inherit s6rc
 COMPATIBLE_IF_FLAGS = "s6rc"
 
 SRC_URI = "file://init.stage1 file://init.stage2 file://init.stage2_finish \
-	file://init.stage3"
+	file://init.stage2-fallback file://init.stage3"
 
 RDEPENDS_${PN} += "s6"
 
@@ -25,6 +25,7 @@ DEFAULT_USE_system_console_s6rc_dependencies = "\
 	hostname init-coldplug init-utmp init-sysctl init-urandom \
 	mount-proc mount-tmp mount-cgroups mount-all \
 	syslogd klogd"
+RDEPENDS_${PN} += "util/flock"
 
 S6RC_LONGRUN_SERVICES += "system-watchdog"
 SRC_URI += "file://system-watchdog.run"
@@ -170,6 +171,7 @@ do_install() {
 
 	install -m 0755 ${SRCDIR}/init.stage1 ${D}${base_sbindir}/init
 	install -m 0755 ${SRCDIR}/init.stage2 ${D}${sysconfdir}/rc.init
+	install -m 0755 ${SRCDIR}/init.stage2-fallback ${D}${sysconfdir}/rc.init-fallback
 	install -m 0755 ${SRCDIR}/init.stage2_finish ${D}${sysconfdir}/rc.tini
 	install -m 0755 ${SRCDIR}/init.stage3 ${D}${sysconfdir}/rc.shutdown
 	install -m 755 ${SRCDIR}/s6-init-update ${D}${base_sbindir}/
@@ -199,9 +201,10 @@ MAKEDEVS_FILES = "${SRCDIR}/devtable.txt"
 FILES_${PN} = "${base_sbindir} ${sysconfdir} ${localstatedir} /run"
 RDEPENDS_${PN} += "execline s6 s6-rc s6-portable-utils s6-linux-utils"
 
-PACKAGES = "${PN}-stage1 ${PN}-stage2 ${PN}-stage2-finish ${PN}-stage3 ${PN}"
-RDEPENDS_${PN} += "${PN}-stage1 ${PN}-stage2 ${PN}-stage2-finish ${PN}-stage3"
+PACKAGES = "${PN}-stage1 ${PN}-stage2 ${PN}-stage2-fallback ${PN}-stage2-finish ${PN}-stage3 ${PN}"
+RDEPENDS_${PN} += "${PN}-stage1 ${PN}-stage2 ${PN}-stage2-fallback ${PN}-stage2-finish ${PN}-stage3"
 FILES_${PN}-stage1 = "${base_sbindir}/init"
 FILES_${PN}-stage2 = "${sysconfdir}/rc.init"
+FILES_${PN}-stage2-fallback = "${sysconfdir}/rc.init-fallback"
 FILES_${PN}-stage2-finish = "${sysconfdir}/rc.tini"
 FILES_${PN}-stage3 = "${sysconfdir}/rc.shutdown"

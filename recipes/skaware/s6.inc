@@ -1,14 +1,18 @@
 DESCRIPTION = "s6 is a small suite of programs for UNIX, designed to allow \
 process supervision (a.k.a service supervision), in the line of daemontools \
 and runit, as well as various operations on processes and daemons."
-LICENSE = "ISC"
 
-require compatible-archs.inc
+require skaware.inc
 
-SRC_URI = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
+SRC_URI_base = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
+
+RECIPE_FLAGS += "s6_srcrev"
+SRC_URI_base:USE_s6_srcrev = "git://github.com/skarnet/s6.git;${USE_s6_srcrev}"
+S:USE_s6_srcrev = "${SRCDIR}/${PN}"
+
+SRC_URI = "${SRC_URI_base}"
+
 RECIPE_TYPES = "machine native"
-
-inherit c make
 
 DEPENDS += "libskarnet libexecline"
 
@@ -26,7 +30,8 @@ do_configure() {
 		--with-lib=${STAGE_DIR}/${HOST_TYPE}${libdir} \
 		--with-dynlib=${STAGE_DIR}/${HOST_TYPE}${sharedlibdir} \
 		--enable-shared --disable-allstatic \
-		${HOST_ARCH}
+		--host=${HOST_ARCH} \
+		--build=${BUILD_ARCH}
 }
 
 PACKAGES = "${PN}-dbg ${PN}"

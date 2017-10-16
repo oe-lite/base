@@ -1,17 +1,19 @@
 DESCRIPTION = "skalibs is a package centralizing the free software / \
 open source C development files used for building all software at skarnet.org"
-LICENSE = "ISC"
 
-require compatible-archs.inc
+require skaware.inc
 
-SRC_URI = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
+SRC_URI_base = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
+
+RECIPE_FLAGS += "skalibs_srcrev"
+SRC_URI_base:USE_skalibs_srcrev = "git://github.com/skarnet/skalibs.git;${USE_skalibs_srcrev}"
+S:USE_skalibs_srcrev = "${SRCDIR}/${PN}"
+
+SRC_URI = "${SRC_URI_base}"
+
 RECIPE_TYPES = "machine native"
 
-inherit c make
-
 endianness = "${@['big', 'little'][d.get('HOST_ENDIAN') == 'l']}"
-librt_flag = ""
-librt_flag:native = "-lrt"
 
 # All supported archs need to have a sysdeps and sysdeps.h file.  These are
 # not provided by upstream, so we have to create them them ourselves when
@@ -21,11 +23,6 @@ do_configure[prefuncs] += "do_configure_sysdeps"
 do_configure_sysdeps() {
 	rm -rf ${B}/sysdeps
 	mkdir -p ${B}/sysdeps
-	echo "${librt_flag}" > ${B}/sysdeps/rt.lib
-	echo "" > ${B}/sysdeps/socket.lib
-	echo "" > ${B}/sysdeps/sysclock.lib
-	echo "" > ${B}/sysdeps/tainnow.lib
-	echo "" > ${B}/sysdeps/util.lib
 	echo "${HOST_ARCH}" > ${B}/sysdeps/target
 	cp ${SRCDIR}/sysdeps ${SRCDIR}/sysdeps.h ${B}/sysdeps/
 
@@ -37,10 +34,16 @@ do_configure_sysdeps() {
 	    -i ${B}/sysdeps/sysdeps.h
 }
 
-RECIPE_FLAGS = "skalibs_ipv6"
+RECIPE_FLAGS += "skalibs_ipv6"
 EXTRA_OECONF += "${EXTRA_OECONF_IPV6}"
 EXTRA_OECONF_IPV6 = "--disable-ipv6"
 EXTRA_OECONF_IPV6:USE_skalibs_ipv6 = "--enable-ipv6"
+
+RECIPE_FLAGS += "skalibs_monotonic"
+EXTRA_OECONF += "${EXTRA_OECONF_MONOTONIC}"
+EXTRA_OECONF_MONOTONIC = "--disable-monotonic"
+EXTRA_OECONF_MONOTONIC:USE_skalibs_monotonic = "--enable-monotonic"
+DEFAULT_USE_skalibs_monotonic = True
 
 do_configure() {
 	./configure \
@@ -52,9 +55,9 @@ do_configure() {
 		--sysdepdir=${libdir}/skalibs/sysdeps \
 		--with-sysdeps=${B}/sysdeps \
 		--enable-clock \
-		--enable-monotonic \
 		--with-default-path="${base_sbindir}:${sbindir}:${base_bindir}:${bindir}" \
-		${HOST_ARCH}
+		--host=${HOST_ARCH} \
+		${EXTRA_OECONF}
 }
 
 PACKAGES = "${PN}-dbg ${PN}-dev ${PN}"

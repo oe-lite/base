@@ -1,0 +1,8 @@
+#!/bin/execlineb
+redirfd -w 1 /dev/console
+fdmove -c 2 1
+foreground {
+  s6-echo "Falling back to getty"
+}
+loopwhilex
+  flock --close /dev/console /sbin/getty 115200 /dev/console

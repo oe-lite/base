@@ -41,7 +41,17 @@ background
   fdmove -c 2 1
 
   # Exec into stage2 script
-  /etc/rc.init $SERVICE
+  #/etc/rc.init $SERVICE
+  foreground {
+    /etc/rc.init $SERVICE
+  }
+  importas status ?
+  if -t { test $status -ne 0 }
+  redirfd -w 1 /dev/console
+  foreground {
+    s6-echo "/etc/rc.init exited $status"
+  }
+  /etc/rc.init-fallback
 }
 unexport !
 

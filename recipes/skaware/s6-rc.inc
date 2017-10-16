@@ -1,12 +1,16 @@
 DESCRIPTION = "a dependency-based init script management system"
-LICENSE = "ISC"
 
-require compatible-archs.inc
+require skaware.inc
 
-SRC_URI = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
+SRC_URI_base = "http://skarnet.org/software/${PN}/${PN}-${PV}.tar.gz"
+
+RECIPE_FLAGS += "s6_rc_srcrev"
+SRC_URI_base:USE_s6_rc_srcrev = "git://github.com/skarnet/s6-rc.git;${USE_s6_rc_srcrev}"
+S:USE_s6_rc_srcrev = "${SRCDIR}/${PN}"
+
+SRC_URI = "${SRC_URI_base}"
+
 RECIPE_TYPES = "machine native"
-
-inherit c make
 
 DEPENDS += "libskarnet libs6"
 
@@ -26,7 +30,8 @@ do_configure() {
 		--with-dynlib=${STAGE_DIR}/${HOST_TYPE}${sharedlibdir} \
 		--enable-shared --disable-allstatic \
 		--livedir=/run/rc \
-		${HOST_ARCH}
+		--host=${HOST_ARCH} \
+		--build=${BUILD_ARCH}
 }
 
 PACKAGES = "${PN}-dbg ${PN}"
