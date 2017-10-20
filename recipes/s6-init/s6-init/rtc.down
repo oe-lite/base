@@ -1,25 +1,25 @@
 #!/bin/execlineb -P
 s6-envdir -I /etc/hwclock
-import -D 1 UTC
+importas -D 1 UTC UTC
 backtick -n -i utc_arg {
   ifelse { test ${UTC} = 1 }
   { s6-echo -- "-u" }
   s6-echo -- "-l"
 }
-import utc_arg
-import -D "" ADJFILE
+importas utc_arg utc_arg
+importas -D "" ADJFILE ADJFILE
 backtick -n -i adjfile_arg {
   ifelse { test -n "${ADJFILE}" }
   { s6-echo -- "--adjfile ${ADJFILE}" }
   s6-echo -- ""
 }
-import -s adjfile_arg
-import -D "" DELAY
+importas -s adjfile_arg adjfile_arg
+importas -D "" DELAY DELAY
 backtick -n -i delay_arg {
   ifelse { test -n "${DELAY}" }
   { s6-echo -- "--delay ${DELAY}" }
   s6-echo -- ""
 }
-import -s delay_arg
-import -D /dev/rtc DEVICE
+importas -s delay_arg delay_arg
+importas -D /dev/rtc DEVICE DEVICE
 hwclock -w ${utc_arg} -f ${DEVICE} ${adjfile_arg} ${delay_arg}

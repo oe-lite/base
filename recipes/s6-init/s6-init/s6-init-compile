@@ -12,7 +12,7 @@ if { mkdir -p ${hookdst}.tmp }
 if {
   elglob -s -0 hooks /etc/rc.hooks/*
   forx hook { $hooks }
-  import -u hook
+  importas -u hook hook
   if { test -f $hook -a -x $hook }
   foreground { if { test $VERBOSITY -ge 2 }
     s6-echo "Executing ${hook}" }
