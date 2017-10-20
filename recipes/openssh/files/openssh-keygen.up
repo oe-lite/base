@@ -2,7 +2,7 @@ redirfd -c 1 /run/openssh-log.fifo
 fdmove -c 2 1
 redirfd -r 0 /etc/ssh/host_key_types
 forstdin -o 0 keytype
-import -u keytype
+importas -u keytype keytype
 ifelse { test ${keytype} = all }
 { ssh-keygen -A }
 define keyfile ssh_host_${keytype}_key

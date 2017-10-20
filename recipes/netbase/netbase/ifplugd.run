@@ -2,10 +2,10 @@
 redirfd -c 1 /run/network-log.fifo
 fdmove -c 2 1
 s6-envdir -I ./env
-import -s ARGS
+importas -s ARGS ARGS
 backtick -n iface {
-  pipeline { getcwd cwd import cwd basename $cwd }
+  pipeline { getcwd cwd importas cwd cwd basename $cwd }
   sed -e "s/ifplugd@//"
 }
-import -u iface
+importas -u iface iface
 ifplugd -i $iface -n -s $ARGS -r /etc/ifplugd/ifplugd.action
