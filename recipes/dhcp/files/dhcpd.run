@@ -3,13 +3,13 @@ redirfd -c 1 /run/dhcpd-log.fifo
 fdmove -c 2 1
 
 s6-envdir -I /etc/dhcp/dhcpd.env
-import -s INTERFACES
-import -D /var/lib/dhcp/dhcpd.leases LEASE_FILE
-import -D /etc/dhcp/dhcpd.conf CONFIG_FILE
+importas -s INTERFACES INTERFACES
+importas -D /var/lib/dhcp/dhcpd.leases LEASE_FILE LEASE_FILE
+importas -D /etc/dhcp/dhcpd.conf CONFIG_FILE CONFIG_FILE
 
 if {
   backtick -i -n lease_dir { dirname ${LEASE_FILE} }
-  import lease_dir
+  importas lease_dir lease_dir
   mkdir -p ${lease_dir}
 }
 if {
