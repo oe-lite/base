@@ -2,9 +2,9 @@
 
 elgetpositionals
 backtick -n hooksdir { dirname $0 }
-import -u hooksdir
+importas -u hooksdir hooksdir
 define basename udhcpc@
 define templatedir ${hooksdir}/${basename}.d
 forbacktickx -C -n iface { dhcp-interfaces }
-import -u iface
+importas -u iface iface
 cp -r ${templatedir}/ ${1}/${basename}${iface}/
