@@ -2,8 +2,8 @@
 redirfd -c 1 /run/openvpn-log.fifo
 fdmove -c 2 1
 backtick -n name {
-  pipeline { getcwd cwd import cwd basename $cwd }
+  pipeline { getcwd cwd importas cwd cwd basename $cwd }
   sed -e "s/openvpn@//"
 }
-import -u name
+importas -u name name
 openvpn --echo "Starting openvpn@${name}" --config /etc/openvpn/${name}.conf
