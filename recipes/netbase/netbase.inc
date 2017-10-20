@@ -50,10 +50,17 @@ do_install_sysvinit_script() {
 
 PACKAGES = "${PN}-init ${PN}-hosts ${PN}-resolv-conf ${PN}-interfaces ${PN}"
 RDEPENDS_${PN} = "${PN}-init ${PN}-hosts ${PN}-resolv-conf ${PN}-interfaces"
-FILES_${PN}-init = "${sysconfdir}/init.d ${sysconfdir}/rc?.d"
+FILES_${PN}-init = "${sysconfdir}/init.d ${sysconfdir}/rc* \
+	${sysconfdir}/network/*.d ${sbindir}"
 FILES_${PN}-hosts = "${sysconfdir}/hosts"
 FILES_${PN}-resolv-conf = "${sysconfdir}/resolv.conf"
 FILES_${PN}-interfaces = "${sysconfdir}/network/interfaces"
+
+PACKAGES =+ "${PN}-protocols ${PN}-services ${PN}-rpc"
+FILES_${PN}-protocols = "${sysconfdir}/protocols"
+FILES_${PN}-services = "${sysconfdir}/services"
+FILES_${PN}-rpc = "${sysconfdir}/rpc"
+RDEPENDS_${PN} += "${PN}-protocols ${PN}-services ${PN}-rpc"
 
 inherit s6rc
 SRC_URI:>USE_s6rc = " ${SRC_URI_S6RC}"
