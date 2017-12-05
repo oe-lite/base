@@ -2,4 +2,4 @@ require ${PN}.inc
 
 COMPATIBLE_HOST_ARCHS = "i.86-.*-.*linux- x86_64-.*-.*linux- powerpc-.*-.*linux- powerpc64-.*-.*linux- arm-.*-.*linux-"
 
-LIBRARY_VERSION = "2"
+LIBRARY_VERSION = "6"

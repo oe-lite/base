@@ -36,8 +36,5 @@ RDEPENDS_${PN} += "libgmodule-2.0 libpopt ${DEPENDS_LIBUUID} libpcre libpthread 
 	        libbabeltrace-ctf-text \
 		libbabeltrace-dummy"
 DEPENDS_${PN}-libbabeltrace-ctf += "libbabeltrace ${DEPENDS_LIBUUID}"
-RDEPENDS_${PN}-libbabeltrace-ctf += "libbabeltrace ${DEPENDS_LIBUUID}"
 DEPENDS_${PN}-libbabeltrace-ctf-text += "libbabeltrace libbabeltrace-ctf ${DEPENDS_LIBUUID}"
-RDEPENDS_${PN}-libbabeltrace-ctf-text += "libbabeltrace libbabeltrace-ctf ${DEPENDS_LIBUUID}"
 DEPENDS_${PN}-libbabeltrace-dummy += "libbabeltrace"
-RDEPENDS_${PN}-libbabeltrace-dummy += "libbabeltrace"

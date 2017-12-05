@@ -1,9 +1,11 @@
 require ${PN}.inc
-LICENSE = "LGPLv2.1+ & BSD"
 
 COMPATIBLE_HOST_ARCHS = "i.86-.*-.*linux- x86_64-.*-.*linux- powerpc-.*-.*linux- powerpc64-.*-.*linux- arm-.*-.*linux-"
 
-DEPENDS_LIBURCU = "liburcu-cds-2 liburcu-bp-2"
-
 LIBRARY_VERSION = "0"
-LIBRARY_VERSION_${PN}-liblttng-ust-ctl = "2"
+
+AUTO_PACKAGE_UTILS += "lttng-crash"
+
+DEPENDS += "libxml2"
+AUTO_PACKAGE_UTILS_DEPENDS += "libxml2"
+DEPENDS_${PN}-liblttng-ctl += "libdl libm liburcu-cds libxml2"
