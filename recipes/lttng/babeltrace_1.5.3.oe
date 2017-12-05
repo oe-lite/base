@@ -1,0 +1,15 @@
+# -*- mode:python; -*-
+require ${PN}.inc
+
+EXTRA_OECONF += "--disable-debug-info"
+
+LIBRARY_VERSION = "1"
+
+AUTO_PACKAGE_LIBS += "babeltrace-ctf-metadata babeltrace-lttng-live"
+
+DEPENDS_${PN}-libbabeltrace += "${DEPENDS_LIBUUID}"
+DEPENDS_${PN}-libbabeltrace-ctf-metadata = "libbabeltrace"
+DEPENDS_${PN}-libbabeltrace-lttng-live = "libbabeltrace-ctf"
+
+DEPENDS_${PN} += "libbabeltrace-ctf-metadata libbabeltrace-lttng-live"
+RDEPENDS_${PN} += "libbabeltrace-ctf-metadata libbabeltrace-lttng-live"
