@@ -35,3 +35,5 @@ RDEPENDS_${PN}-lttng-relayd = "${DEPENDS_${PN}-lttng-relayd}"
 
 # lttng-sessiond relies on lttng-consumerd from special libexec dir
 FILES_${PN}-lttng-sessiond = "${libdir}/lttng/libexec"
+
+RDEPENDS_${PN} = "${AUTO_PACKAGE_UTILS_PACKAGES}"
