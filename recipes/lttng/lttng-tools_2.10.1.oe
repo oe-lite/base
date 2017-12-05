@@ -4,5 +4,8 @@ COMPATIBLE_HOST_ARCHS = "i.86-.*-.*linux- x86_64-.*-.*linux- powerpc-.*-.*linux-
 
 LIBRARY_VERSION = "0"
 
-DEPENDS_${PN}-lttng-consumerd += "libpopt"
-DEPENDS_${PN}-lttng-sessiond += "libdl"
+AUTO_PACKAGE_UTILS += "lttng-crash"
+
+DEPENDS += "libxml2"
+AUTO_PACKAGE_UTILS_DEPENDS += "libxml2"
+DEPENDS_${PN}-liblttng-ctl += "libdl libm liburcu-cds libxml2"
