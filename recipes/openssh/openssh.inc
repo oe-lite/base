@@ -42,6 +42,10 @@ EXTRA_OECONF = "--disable-suid-ssh --with-ssl \
 
 EXTRA_OEMAKE = "'STRIP_OPT='"
 
+RECIPE_FLAGS += "openssh_default_path openssh_superuser_path"
+EXTRA_OECONF:>USE_openssh_default_path = " --with-default-path=${USE_openssh_default_path}"
+EXTRA_OECONF:>USE_openssh_superuser_path = " --with-superuser-path=${USE_openssh_superuser_path}"
+
 do_patch[postfuncs] += "do_patch_aclocal_mangle"
 do_patch_aclocal_mangle () {
 	if [ ! -e acinclude.m4 -a -e aclocal.m4 ]; then
