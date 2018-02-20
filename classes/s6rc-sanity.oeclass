@@ -11,16 +11,34 @@ image_preprocess_s6rc_sanity() {
 	# We assume that each executable file in etc/rc.hooks creates
 	# a service or bundle by the same name. Some of the statically
 	# defined services in etc/rc may depend on some of these, so
-	# create empty bundles which cannot contribute to a dependency
-	# cycle.
+	# create a dummy longrun service to satisfy such services.
 	mkdir -p $tmpd/dynamic
 	if [ -d ./etc/rc.hooks ] ; then
 		for f in $(find ./etc/rc.hooks -maxdepth 1 -type f -executable) ; do
 			b=$(basename $f)
 			d=$tmpd/dynamic/$b
 			mkdir -p $d
-			echo bundle > $d/type
-			touch $d/contents
+			echo longrun > $d/type
+			touch $d/run
+			chmod +x $d/run
+
+			# Also need to handle cases where a statically defined
+			# service is declared as a producer or consumer for a
+			# dynamically created service
+			for pf in $tmpd/static/*/producer-for ; do
+				test -f $pf || continue
+				if grep -q "^$b$" $pf ; then
+					producer=$(basename $(dirname $pf))
+					echo "$producer" >> $d/consumer-for
+				fi
+			done
+			for cf in $tmpd/static/*/consumer-for ; do
+				test -f $cf || continue
+				if grep -q "^$b$" $cf ; then
+					consumer=$(basename $(dirname $cf))
+					echo "$consumer" >> $d/producer-for
+				fi
+			done
 		done
 	fi
 
