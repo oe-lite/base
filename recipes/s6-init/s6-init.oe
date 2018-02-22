@@ -31,11 +31,13 @@ S6RC_LONGRUN_SERVICES += "system-watchdog"
 SRC_URI += "file://system-watchdog.run"
 RECIPE_FLAGS += "system_watchdog_s6rc_dependencies"
 DEFAULT_USE_system_watchdog_s6rc_dependencies = "system-console"
-RECIPE_FLAGS += "system_watchdog_device"
+RECIPE_FLAGS += "system_watchdog_device system_watchdog_options"
 DEFAULT_USE_system_watchdog_device = "/dev/watchdog"
+DEFAULT_USE_system_watchdog_options = "-t 1 -F"
 do_configure[postfuncs] += "do_configure_system_watchdog"
 do_configure_system_watchdog() {
-	sed -e 's|-F [^ \t]*|-F ${USE_system_watchdog_device}|' \
+	sed -e 's|DEVICE|${USE_system_watchdog_device}|' \
+	    -e 's|OPTIONS|${USE_system_watchdog_options}|' \
 	    -i ${SRCDIR}/system-watchdog.run
 }
 
