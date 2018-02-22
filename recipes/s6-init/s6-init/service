@@ -2,19 +2,21 @@
 
 usage() {
     cat <<EOF
-usage: $0 start <service>...
-       $0 stop <service>...
-       $0 restart <service>...
-       $0 status [<service>]
+usage: $0 [-b] start <service>...
+       $0 [-b] stop <service>...
+       $0 [-b] restart <service>...
+       $0 [-b] status [<service>]
 EOF
-    }
+}
+
+blocking=
 
 start() {
-    s6-rc -u -t 10000 change $*
+    s6-rc $blocking -u -t 10000 change $*
 }
 
 stop() {
-    s6-rc -d -t 10000 change $*
+    s6-rc $blocking -d -t 10000 change $*
 }
 
 if test -t 1 ; then
@@ -39,7 +41,7 @@ status_all() {
     t=`mktemp`
     up=""
     down=""
-    for srv in `s6-rc -a list` ; do
+    for srv in `s6-rc $blocking -a list` ; do
 	test "$srv" = "s6rc-oneshot-runner" && continue
 	test "$srv" = "s6rc-fdholder" && continue
 	if [ ${#srv} -gt $srvmaxlen ] ; then
@@ -47,7 +49,7 @@ status_all() {
 	fi
 	up="$up $srv"
     done
-    for srv in `s6-rc -da list` ; do
+    for srv in `s6-rc $blocking -da list` ; do
 	test "$srv" = "s6rc-oneshot-runner" && continue
 	test "$srv" = "s6rc-fdholder" && continue
 	if [ ${#srv} -gt $srvmaxlen ] ; then
@@ -66,13 +68,13 @@ status_all() {
 }
 
 status_one() {
-    for srv in `s6-rc -a list` ; do
+    for srv in `s6-rc $blocking -a list` ; do
 	if [ "$srv" = "$1" ] ; then
 	    echo "$1 is up"
 	    return 0
 	fi
     done
-    for srv in `s6-rc -da list` ; do
+    for srv in `s6-rc $blocking -da list` ; do
 	if [ "$srv" = "$1" ] ; then
 	    echo "$1 is down"
 	    return 1
@@ -81,6 +83,11 @@ status_one() {
     echo "$1 is unknown"
     return 3
 }
+
+if [ "$1" = "-b" ] ; then
+    blocking="-b"
+    shift
+fi
 
 if [ $# -lt 1 ] ; then
     usage
