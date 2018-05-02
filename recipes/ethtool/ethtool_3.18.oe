@@ -1,5 +1,0 @@
-require ethtool.inc
-
-DEPENDS += "libm"
-DEPENDS_${PN} += "libm libc"
-RDEPENDS_${PN} += "libm libc"
