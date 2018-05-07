@@ -23,6 +23,7 @@ AUTO_PACKAGE_LIBS = "lttng-ust lttng-ust-ctl lttng-ust-tracepoint \
 AUTO_PACKAGE_LIBS_DEPENDS = "libc ${DEPENDS_LIBURCU}"
 AUTO_PACKAGE_LIBS_RDEPENDS = "${AUTO_PACKAGE_LIBS_DEPENDS}"
 AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${AUTO_PACKAGE_LIBS_DEPENDS} ${PN}-dev_${PV}"
+AUTO_PACKAGE_LIBS_DEV_RDEPENDS = "${PN}-dev_${PV}"
 
 DEPENDS_${PN}-liblttng-ust = "libdl librt liblttng-ust-tracepoint"
 DEPENDS_${PN}-liblttng-ust-ctl = "libdl librt"
