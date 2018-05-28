@@ -7,7 +7,7 @@ LICENSE = "openssl"
 RECIPE_TYPES = "machine native sdk"
 
 #Remove last letter from openssl minor version
-FILESPATHPKG = "${PN}-${@'${PV}'[:-1]}:openssl"
+FILESPATHPKG = "${PN}-${PV}:${PN}-${@'${PV}'[:-1]}:openssl"
 
 inherit c make pkgconfig
 
