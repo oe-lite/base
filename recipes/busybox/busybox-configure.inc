@@ -1217,3 +1217,6 @@ CONFIG_FEATURE_DC_LIBM"
 
 # USE flag: rx (xmodem) command
 BUSYBOX_SIMPLE_USE_FLAGS += "rx:util/"
+
+# USE flag: setserial command
+BUSYBOX_SIMPLE_USE_FLAGS += "setserial:util/"
