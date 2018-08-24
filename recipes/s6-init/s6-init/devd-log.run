@@ -4,4 +4,4 @@ if { if -t -n { test -e /var/log/devd }
   install -d -m 755 -o nobody -g nogroup /var/log/devd }
 s6-setuidgid nobody
 exec -c
-s6-log t s1000000 n20 /var/log/devd
+s6-log __args__ t /var/log/devd

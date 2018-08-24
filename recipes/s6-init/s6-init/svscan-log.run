@@ -6,4 +6,4 @@ redirfd -w 2 /dev/console
 redirfd -w 1 /dev/null
 redirfd -rnb 0 fifo
 s6-applyuidgid -u 65534 -g 65534 --
-s6-log -bp -- t /var/log/svscan
+s6-log -bp -- __args__ t /var/log/svscan
