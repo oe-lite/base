@@ -146,6 +146,15 @@ do_install_HOST_KEYTYPES = ""
 do_install_HOST_KEYTYPES:USE_s6rc = "do_install_host_keytypes"
 do_install[postfuncs] += "${do_install_HOST_KEYTYPES}"
 
+RECIPE_FLAGS += "openssh_log_args"
+DEFAULT_USE_openssh_log_args = "s131072"
+do_configure_s6_log() {
+    sed -i \
+	-e "s|__args__|${USE_openssh_log_args}|" \
+	${SRCDIR}/openssh-log.run
+}
+do_configure[postfuncs] += "do_configure_s6_log"
+
 RDEPENDS_${PN}-sshd:>USE_s6rc = " util/tr"
 
 PACKAGEQA_TARGET_BINDIRS += "${target_libexecdir}"
