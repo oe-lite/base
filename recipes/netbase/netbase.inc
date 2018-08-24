@@ -75,6 +75,13 @@ S6RC_LONGRUN_SERVICES += "network-log"
 SRC_URI += "file://network-log.run file://network-log.notification-fd"
 RECIPE_FLAGS += "network_log_s6rc_dependencies"
 
+RECIPE_FLAGS += "network_log_args"
+DEFAULT_USE_network_log_args = "s131072"
+do_configure_s6_log() {
+    sed -i -e "s|__args__|${USE_network_log_args}|" ${SRCDIR}/network-log.run
+}
+do_configure[postfuncs] += "do_configure_s6_log"
+
 # Service for doing "ifup -a" and "ifdown -a"
 S6RC_ONESHOT_SERVICES += "net-auto"
 SRC_URI_S6RC += "file://net-auto.up file://net-auto.down"
