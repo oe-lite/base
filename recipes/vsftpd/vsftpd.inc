@@ -102,6 +102,13 @@ PACKAGES += "${PN}-s6"
 FILES_${PN}-s6 += "${s6rcsrcdir}"
 RDEPENDS_${PN}:>USE_s6rc += " ${PN}-s6"
 
+RECIPE_FLAGS += "vsftpd_log_args"
+DEFAULT_USE_vsftpd_log_args = "s131072"
+do_configure_s6_log() {
+    sed -i -e "s|__args__|${USE_vsftpd_log_args}|" ${SRCDIR}/vsftpd-log.run
+}
+do_configure[postfuncs] += "do_configure_s6_log"
+
 # FIXME: do something else!
 #pkg_postinst() {
 #    if [ "x$D" != "x" ]; then

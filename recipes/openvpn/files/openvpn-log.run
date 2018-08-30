@@ -8,4 +8,4 @@ s6-setuidgid nobody
 if { fdmove 1 6 s6-echo ok }
 fdclose 6
 exec -c
-s6-log -b -- s131072 t /var/log/openvpn
+s6-log -b -- __args__ t /var/log/openvpn

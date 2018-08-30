@@ -54,3 +54,10 @@ do_install[postfuncs] += "do_install_s6"
 PACKAGES =+ "${PN}-s6"
 FILES_${PN}-s6 = "${sysconfdir}/rc.hooks ${s6rcsrcdir}"
 RDEPENDS_${PN}:>USE_s6rc += " ${PN}-s6"
+
+RECIPE_FLAGS += "openvpn_log_args"
+DEFAULT_USE_openvpn_log_args = "s131072"
+do_configure_s6_log() {
+    sed -i -e "s|__args__|${USE_openvpn_log_args}|" ${SRCDIR}/openvpn-log.run
+}
+do_configure[postfuncs] += "do_configure_s6_log"

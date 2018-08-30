@@ -196,6 +196,20 @@ do_install() {
 	done
 }
 
+# Allow USE flag configuration of s6-log arguments
+RECIPE_FLAGS += "devd_log_args klogd_log_args svscan_log_args syslogd_log_args"
+DEFAULT_USE_devd_log_args = "s1000000 n20"
+DEFAULT_USE_klogd_log_args = "s1000000 n20"
+DEFAULT_USE_svscan_log_args = " "
+DEFAULT_USE_syslogd_log_args = "s1000000 n20"
+do_configure_s6_log() {
+    sed -i -e "s|__args__|${USE_devd_log_args}|" ${SRCDIR}/devd-log.run
+    sed -i -e "s|__args__|${USE_klogd_log_args}|" ${SRCDIR}/klogd-log.run
+    sed -i -e "s|__args__|${USE_svscan_log_args}|" ${SRCDIR}/svscan-log.run
+    sed -i -e "s|__args__|${USE_syslogd_log_args}|" ${SRCDIR}/syslogd-log.run
+}
+do_configure[postfuncs] += "do_configure_s6_log"
+
 SRC_URI += "file://devtable.txt"
 inherit makedevs
 MAKEDEVS_FILES = "${SRCDIR}/devtable.txt"

@@ -114,3 +114,10 @@ SRC_URI += "file://ntpd.run file://ntpd-log.run file://ntpd-log.notification-fd"
 RECIPE_FLAGS += "ntpd_s6rc_dependencies"
 DEFAULT_USE_ntpd_s6rc_dependencies = "ntpd-log net"
 FILES_${PN}-ntpd += "${s6rcsrcdir}"
+
+RECIPE_FLAGS += "ntpd_log_args"
+DEFAULT_USE_ntpd_log_args = "s131072"
+do_configure_s6_log() {
+    sed -i -e "s|__args__|${USE_ntpd_log_args}|" ${SRCDIR}/ntpd-log.run
+}
+do_configure[postfuncs] += "do_configure_s6_log"

@@ -109,3 +109,10 @@ SRC_URI += "file://dhcpd.run file://dhcpd-log.run file://dhcpd-log.notification-
 DEFAULT_USE_dhcpd_s6rc_dependencies = "dhcpd-log net"
 RECIPE_FLAGS += "dhcpd_s6rc_dependencies"
 FILES_${PN}-server += "${s6rcsrcdir}"
+
+RECIPE_FLAGS += "dhcpd_log_args"
+DEFAULT_USE_dhcpd_log_args = "s131072"
+do_configure_s6_log() {
+    sed -i -e "s|__args__|${USE_dhcpd_log_args}|" ${SRCDIR}/dhcpd-log.run
+}
+do_configure[postfuncs] += "do_configure_s6_log"
