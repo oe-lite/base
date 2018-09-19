@@ -125,7 +125,9 @@ SRC_URI += "file://no-librpath-rpath.patch"
 
 inherit auto-package-libs
 AUTO_PACKAGE_LIBS = "crypto ssl"
+AUTO_PACKAGE_LIBS_PCPREFIX = "lib"
 AUTO_PACKAGE_LIBS_DEV_DEPENDS = "${PN}-dev_${PV}"
+AUTO_PACKAGE_LIBS_DEV_RDEPENDS = "${PN}-dev_${PV}"
 inherit auto-package-utils
 AUTO_PACKAGE_UTILS = "openssl c_rehash"
 DEPENDS_${PN}-openssl += "libc libdl libcrypto libssl"
