@@ -1,0 +1,11 @@
+require ${PN}.inc
+
+COMPATIBLE_HOST_ARCHS = "i.86-.*-.*linux- x86_64-.*-.*linux- powerpc-.*-.*linux- powerpc64-.*-.*linux- arm-.*-.*linux-"
+
+LIBRARY_VERSION = "0"
+
+AUTO_PACKAGE_UTILS += "lttng-crash"
+
+DEPENDS += "libxml2"
+AUTO_PACKAGE_UTILS_DEPENDS += "libxml2"
+DEPENDS_${PN}-liblttng-ctl += "libdl libm liburcu-cds libxml2"
