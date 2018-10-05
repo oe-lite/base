@@ -1,3 +1,0 @@
-require ${PN}.inc
-# Not needed for 2.10.6+ nor 2.11+.
-SRC_URI += "file://0001-Fix-update-timer-instrumentation-on-4.16-and-4.14-rt.patch"
