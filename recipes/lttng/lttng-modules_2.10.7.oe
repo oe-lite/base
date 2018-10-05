@@ -1,0 +1,2 @@
+require ${PN}.inc
+SRC_URI += "file://b656f50743f5-fix-migrate-disable-warning.patch"
