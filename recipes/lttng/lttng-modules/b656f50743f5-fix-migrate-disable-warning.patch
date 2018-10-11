@@ -1,0 +1,55 @@
+commit b656f50743f54bbe0719523a71e3b2cee7c68b7e
+Author: Jonathan Rajotte <jonathan.rajotte-julien@efficios.com>
+Date:   Wed Sep 19 17:48:49 2018 -0400
+
+    Fix: access migrate_disable field directly
+    
+    For stable real time kernel > 4.9, the __migrate_disabled utility symbol
+    is not always exported. This can result in linking problem at build time
+    and runtime, preventing the loading of the tracer.
+    
+    The problem was reported to the RT community. [1] [2]
+    
+    A solution is to access the field directly instead of using the
+    utility wrapper.
+    
+    It is important to note that the field is now available for other
+    configurations than CONFIG_PREEMPT_RT_FULL. For now, we choose to
+    expose the migratable context only for configurations where
+    CONFIG_PREEMPT_RT_FULL is set.
+    
+    Based on the configuration dependency of the kernels, selecting
+    CONFIG_PREEMPT_RT_FULL ensures the presence of the migrate_disable
+    field.
+    
+    Initial bug report [3].
+    
+    [1] https://marc.info/?l=linux-rt-users&m=153730414126984&w=2
+    [2] https://marc.info/?l=linux-rt-users&m=153729444223779&w=2
+    [3] https://lists.lttng.org/pipermail/lttng-dev/2018-September/028216.html
+    
+    Signed-off-by: Jonathan Rajotte <jonathan.rajotte-julien@efficios.com>
+    Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+
+diff --git a/lttng-context-migratable.c b/lttng-context-migratable.c
+index 4aefce61d431..c88619594f16 100644
+--- a/lttng-context-migratable.c
++++ b/lttng-context-migratable.c
+@@ -44,7 +44,7 @@ void migratable_record(struct lttng_ctx_field *field,
+ 		struct lib_ring_buffer_ctx *ctx,
+ 		struct lttng_channel *chan)
+ {
+-	uint8_t migratable = !__migrate_disabled(current);
++	uint8_t migratable = !current->migrate_disable;
+ 
+ 	lib_ring_buffer_align_ctx(ctx, lttng_alignof(migratable));
+ 	chan->ops->event_write(ctx, &migratable, sizeof(migratable));
+@@ -55,7 +55,7 @@ void migratable_get_value(struct lttng_ctx_field *field,
+ 		struct lttng_probe_ctx *lttng_probe_ctx,
+ 		union lttng_ctx_value *value)
+ {
+-	value->s64 = !__migrate_disabled(current);
++	value->s64 = !current->migrate_disable;
+ }
+ 
+ int lttng_add_migratable_to_ctx(struct lttng_ctx **ctx)
