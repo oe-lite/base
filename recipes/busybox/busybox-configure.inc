@@ -351,6 +351,8 @@ do_configure_busybox_udhcpd_relay () {
         .config
 }
 
+BUSYBOX_SIMPLE_USE_FLAGS += "zcip:util/"
+
 BUSYBOX_SIMPLE_USE_FLAGS += "inetd:inetd"
 
 RECIPE_FLAGS += "busybox_inetd_sysvinit_start busybox_inetd_sysvinit_stop"
