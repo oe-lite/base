@@ -9,3 +9,4 @@ S= "${SRCDIR}/fcgi-${PV}"
 
 AUTO_PACKAGE_UTILS = "cgi-fcgi"
 AUTO_PACKAGE_LIBS = "fcgi"
+FILES_${PN}-libfcgi-dev = "${includedir}"
