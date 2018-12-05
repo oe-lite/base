@@ -54,6 +54,7 @@ FILES_${PN}-config = "${sysconfdir}"
 RDEPENDS_${PN}-sensors += "${PN}-config"
 
 AUTO_PACKAGE_LIBS = "sensors"
+FILES_${PN}-libsensors-dev = "${includedir}"
 DEPENDS_${PN}-libsensors += "libc libm"
 RDEPENDS_${PN}-libsensors += "libc libm"
 
