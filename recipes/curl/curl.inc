@@ -24,6 +24,7 @@ EXTRA_OECONF_IPV6:USE_curl_ipv6 = "--enable-ipv6"
 
 RECIPE_FLAGS += "curl_ssl"
 DEPENDS:>USE_curl_ssl = " libssl libcrypto"
+DEPENDS_${PN}:>USE_curl_ssl = " libssl libcrypto"
 RDEPENDS_${PN}:>USE_curl_ssl = " libssl libcrypto cacert"
 EXTRA_OECONF:>USE_curl_ssl = " --with-ssl"
 EXTRA_OECONF:>USE_curl_ssl += "--with-ca-bundle=${sysconfdir}/ssl/cacert.pem"
@@ -68,9 +69,3 @@ RDEPENDS_${PN} += "libc libgcc"
 DEPENDS_${PN}-curl = "libc libcurl"
 RDEPENDS_${PN}-curl = "libc libcurl"
 
-RECIPE_FLAGS += "curl_ssl"
-DEPENDS:>USE_curl_ssl = " libssl libcrypto"
-DEPENDS_${PN}:>USE_curl_ssl = " libssl libcrypto"
-RDEPENDS_${PN}:>USE_curl_ssl = " libssl libcrypto"
-
-EXTRA_OECONF:>USE_curl_ssl += " --with-ssl"
