@@ -20,7 +20,7 @@ SRC_URI = "${LFTP_MIRROR}/lftp-${PV}.tar.bz2"
 SRC_URI += "file://config.site"
 SRC_HOST_SITEFILES = "${SRCDIR}/config.site"
 
-MIRRORS = """
+MIRRORS += """
 ${LFTP_MIRROR} ${LFTP_MIRROR}/old
 ${LFTP_MIRROR} http://lftp.cybermirror.org
 ${LFTP_MIRROR} http://lftp.cybermirror.org/old
