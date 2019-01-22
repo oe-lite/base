@@ -10,7 +10,18 @@ SRC_URI = "http://fontconfig.org/release/${PN}-${PV}.tar.gz"
 
 S = "${SRCDIR}/${PN}-${PV}"
 
-EXTRA_OECONF = "--disable-docs --with-arch=${HOST_ARCH} --with-cache-dir=${localstatedir}/lib/${PN}"
+EXTRA_OECONF = "--disable-docs --with-arch=${HOST_ARCH}"
+
+RECIPE_FLAGS += "fontconfig_cache_dir"
+DEFAULT_USE_fontconfig_cache_dir = "${localstatedir}/lib/${PN}"
+EXTRA_OECONF_cache_dir = ""
+EXTRA_OECONF_cache_dir:USE_fontconfig_dir_cache = "--with-cache-dir=${USE_fontconfig_dir_cache}"
+EXTRA_OECONF += "${EXTRA_OECONF_cache_dir}"
+
+RECIPE_FLAGS += "fontconfig_fonts_dir"
+EXTRA_OECONF_fonts_dir = ""
+EXTRA_OECONF_fonts_dir:USE_fontconfig_fonts_dir = "--with-default-fonts=${USE_fontconfig_fonts_dir}"
+EXTRA_OECONF += "${EXTRA_OECONF_fonts_dir}"
 
 do_configure_extra_MAKEFILES = "fc-case/Makefile fc-glyphname/Makefile \
 	fc-lang/Makefile fc-arch/Makefile"

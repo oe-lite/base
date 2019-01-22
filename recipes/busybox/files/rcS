@@ -10,6 +10,10 @@ mount -t proc proc /proc
 mount -t sysfs sysfs /sys
 
 # Mount filesystems in fstab
+grep -v noauto /etc/fstab | grep -v '^#' | while read t d rest ; do
+    [ "${d#/}" != "$d" ] || continue
+    [ -d $d ] || mkdir -p $d
+done
 mount -a
 
 # Fire startup scripts

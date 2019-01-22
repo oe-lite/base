@@ -25,20 +25,20 @@ if [ ! -e /proc/sys/kernel/hotplug ]; then
   exit 1
 fi
 
-# We need to unmount /dev/pts/ and remount it later over the tmpfs
-if mountpoint -q /dev/pts/; then
-  umount -l /dev/pts/
-fi
-
-if mountpoint -q /dev/shm/; then
-  umount -l /dev/shm/
-fi
-
 #mdev_dash_s SECTION_START
 # Create tmpfs for /dev
 if mount | grep -q 'devtmpfs on /dev type devtmpfs'; then
   echo "Using existing devtmpfs for /dev"
 else
+  # We need to unmount /dev/pts/ and remount it later over the tmpfs
+  if mountpoint -q /dev/pts/; then
+    umount -l /dev/pts/
+  fi
+
+  if mountpoint -q /dev/shm/; then
+    umount -l /dev/shm/
+  fi
+
   echo "Creating tmpfs at /dev"
   mount -t tmpfs tmpfs /dev -o size=64k,mode=0755
 fi;
@@ -56,18 +56,22 @@ $MDEV -s
 # Touch .udev to inform scripts that /dev needs no further setup
 touch /dev/.udev
 
-# Mount devpts
-TTYGRP=5
-TTYMODE=620
-mkdir -m 755 -p /dev/pts
-if [ ! -e /dev/ptmx ]; then
-    mknod -m 666 /dev/ptmx c 5 2
+if ! mountpoint -q /dev/pts/ ; then
+  # Mount devpts
+  TTYGRP=5
+  TTYMODE=620
+  mkdir -m 755 -p /dev/pts
+  if [ ! -e /dev/ptmx ]; then
+      mknod -m 666 /dev/ptmx c 5 2
+  fi
+  mount -t devpts devpts /dev/pts -onoexec,nosuid,gid=$TTYGRP,mode=$TTYMODE
 fi
-mount -t devpts devpts /dev/pts -onoexec,nosuid,gid=$TTYGRP,mode=$TTYMODE
 
-# Make shm directory
-mkdir -m 755 -p /dev/shm
-mount -t tmpfs tmpfs /dev/shm -omode=0777
+if ! mountpoint -q /dev/shm/ ; then
+  # Make shm directory
+  mkdir -m 755 -p /dev/shm
+  mount -t tmpfs tmpfs /dev/shm -omode=0777
+fi
 
 # Make extraneous links
 ln -sf /proc/self/fd /dev/
