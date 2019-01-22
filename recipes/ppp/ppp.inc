@@ -20,6 +20,7 @@ SRC_URI = "https://download.samba.org/pub/ppp/ppp-${PV}.tar.gz \
            file://0001-ppp-Fix-compilation-errors-in-Makefile.patch \
            file://fix-CVE-2015-3310.patch \
            file://0001-Fix-build-with-musl.patch \
+           file://in-h-header-sync.patch \
            "
 COMPATIBLE_HOST_ARCHS = ".*linux"
 
