@@ -10,6 +10,7 @@ RDEPENDS_RUNIT:USE_busybox_runit = ""
 inherit c make sysvinit runit crontab
 
 DEFAULT_PREFERENCE = "1"
+FILE_PRIORITY = "-5"
 
 SRC_URI = "http://www.busybox.net/downloads/busybox-${PV}.tar.bz2"
 SRC_URI_FIXES = "http://busybox.net/downloads/fixes-${PV}/"
