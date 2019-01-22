@@ -7,7 +7,7 @@ DEPENDS_LIBC = "librt"
 DEPENDS_LIBC:HOST_LIBC_mingw = ""
 DEPENDS = "${DEPENDS_LIBC} native:flex"
 
-inherit autotools gettext
+inherit autotools gettext pkgconfig
 
 #Only used for Aarch64
 AUTOCONFDIRS = "/build-aux"
