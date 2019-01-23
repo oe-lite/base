@@ -1,1 +1,2 @@
 require iw.inc
+SRC_URI += "file://fix_version.patch"
