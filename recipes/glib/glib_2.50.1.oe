@@ -8,7 +8,7 @@ inherit autotools-autoreconf
 SRC_URI:>HOST_LIBC_mingw = " file://libtool-bindir.patch"
 export sharedlibdir
 
-CFLAGS:>HOST_LIBC_mingw += '-DMINGW_HAS_SECURE_API=1'
+CFLAGS:>HOST_LIBC_mingw += ' -DMINGW_HAS_SECURE_API=1'
 
 DEPENDS += " ${DEP_LIBMOUNT}"
 
