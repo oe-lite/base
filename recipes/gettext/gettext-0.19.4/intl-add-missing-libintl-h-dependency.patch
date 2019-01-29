@@ -1,0 +1,42 @@
+commit cb29e273b0f86b6e54fd6844ebfae2028bd39ac2
+Author: Václav Slavík <vaclav@slavik.io>
+Date:   Sun Jan 4 08:39:29 2015 +0900
+
+    intl: Add missing libintl.h dependency from pluralx.$lo
+    
+    plural(x).c depends on libintl.h if ENABLE_NLS, but the makefile
+    didn't have corresponding dependency for pluralx.c, because
+    d2d04ba forgot to add it.  Fix by using $(PLURAL_OBJECT) for the
+    dependency rule too.
+    * Makefile.in ($(PLURAL_OBJECT)): Depend on libintl.h.
+
+diff --git a/gettext-runtime/intl/ChangeLog b/gettext-runtime/intl/ChangeLog
+index 3c30810bbea6..d5a14179bf04 100644
+--- a/gettext-runtime/intl/ChangeLog
++++ b/gettext-runtime/intl/ChangeLog
+@@ -1,3 +1,12 @@
++2015-01-04  Václav Slavík  <vaclav@slavik.io>  (tiny change)
++
++	intl: Add missing libintl.h dependency from pluralx.$lo
++	plural(x).c depends on libintl.h if ENABLE_NLS, but the makefile
++	didn't have corresponding dependency for pluralx.c, because
++	d2d04ba forgot to add it.  Fix by using $(PLURAL_OBJECT) for the
++	dependency rule too.
++	* Makefile.in ($(PLURAL_OBJECT)): Depend on libintl.h.
++
+ 2014-12-24  Daiki Ueno  <ueno@gnu.org>
+ 
+ 	* gettext 0.19.4 released.
+diff --git a/gettext-runtime/intl/Makefile.in b/gettext-runtime/intl/Makefile.in
+index 2acfb2e59054..d6694171d1cf 100644
+--- a/gettext-runtime/intl/Makefile.in
++++ b/gettext-runtime/intl/Makefile.in
+@@ -605,7 +605,7 @@ printf.$lo: $(srcdir)/printf-args.h $(srcdir)/printf-args.c $(srcdir)/printf-par
+ # A bison-2.1 generated plural.c includes <libintl.h> if ENABLE_NLS.
+ PLURAL_DEPS_yes = libintl.h
+ PLURAL_DEPS_no =
+-plural.$lo: $(PLURAL_DEPS_@USE_INCLUDED_LIBINTL@)
++$(PLURAL_OBJECT): $(PLURAL_DEPS_@USE_INCLUDED_LIBINTL@)
+ 
+ tags: TAGS
+ 
